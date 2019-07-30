@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="spointModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ciudad">
+          <Key>
+            <PropertyRef Name="idciudad" />
+          </Key>
+          <Property Name="idciudad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Name="idCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="25" />
+          <Property Name="telefono" Type="varchar" MaxLength="30" />
+          <Property Name="telefono2" Type="varchar" MaxLength="30" />
+          <Property Name="idciudad" Type="int" />
+          <Property Name="creditoaprobado" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="cedula" Type="varchar" MaxLength="50" />
+          <Property Name="direccion" Type="varchar(max)" />
+          <Property Name="email" Type="varchar" MaxLength="60" />
+          <Property Name="fechanacimiento" Type="date" />
+          <Property Name="NCF" Type="int" />
+          <Property Name="Observaciones" Type="varchar(max)" />
+          <Property Name="LimiteTiempo" Type="int" />
+        </EntityType>
+        <EntityType Name="productos">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigobarra" Type="varchar(max)" />
+          <Property Name="Descripcion" Type="varchar(max)" />
+          <Property Name="idtipo" Type="int" />
+          <Property Name="Precio" Type="varchar(max)" />
+          <Property Name="itbis" Type="money" />
+          <Property Name="costo" Type="money" />
+          <Property Name="nota" Type="varchar(max)" />
+          <Property Name="descuento" Type="money" />
+        </EntityType>
+        <EntityType Name="suplidores">
+          <Key>
+            <PropertyRef Name="idSuplidor" />
+          </Key>
+          <Property Name="idSuplidor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="40" />
+          <Property Name="telefono" Type="varchar" MaxLength="30" />
+          <Property Name="direccion" Type="varchar" MaxLength="25" />
+          <Property Name="idciudad" Type="int" />
+          <Property Name="correo" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="tiposproductos">
+          <Key>
+            <PropertyRef Name="idtipoproducto" />
+          </Key>
+          <Property Name="idtipoproducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="fk_ciudad">
+          <End Role="ciudad" Type="Self.ciudad" Multiplicity="0..1" />
+          <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ciudad">
+              <PropertyRef Name="idciudad" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="idciudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ciudad1">
+          <End Role="ciudad" Type="Self.ciudad" Multiplicity="0..1" />
+          <End Role="suplidores" Type="Self.suplidores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ciudad">
+              <PropertyRef Name="idciudad" />
+            </Principal>
+            <Dependent Role="suplidores">
+              <PropertyRef Name="idciudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tipoproducto">
+          <End Role="tiposproductos" Type="Self.tiposproductos" Multiplicity="0..1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiposproductos">
+              <PropertyRef Name="idtipoproducto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="idtipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="spointModelStoreContainer">
+          <EntitySet Name="ciudad" EntityType="Self.ciudad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="clientes" EntityType="Self.clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="productos" EntityType="Self.productos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="suplidores" EntityType="Self.suplidores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tiposproductos" EntityType="Self.tiposproductos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_ciudad" Association="Self.fk_ciudad">
+            <End Role="ciudad" EntitySet="ciudad" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ciudad1" Association="Self.fk_ciudad1">
+            <End Role="ciudad" EntitySet="ciudad" />
+            <End Role="suplidores" EntitySet="suplidores" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tipoproducto" Association="Self.fk_tipoproducto">
+            <End Role="tiposproductos" EntitySet="tiposproductos" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="spointModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ciudad">
+          <Key>
+            <PropertyRef Name="idciudad" />
+          </Key>
+          <Property Name="idciudad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="clientes" Relationship="Self.fk_ciudad" FromRole="ciudad" ToRole="clientes" />
+          <NavigationProperty Name="suplidores" Relationship="spointModel.fk_ciudad1" FromRole="ciudad" ToRole="suplidores" />
+        </EntityType>
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Name="idCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="telefono2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="idciudad" Type="Int32" />
+          <Property Name="creditoaprobado" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="fechanacimiento" Type="DateTime" Precision="0" />
+          <Property Name="NCF" Type="Int32" />
+          <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LimiteTiempo" Type="Int32" />
+          <NavigationProperty Name="ciudad" Relationship="Self.fk_ciudad" FromRole="clientes" ToRole="ciudad" />
+        </EntityType>
+        <Association Name="fk_ciudad">
+          <End Role="ciudad" Type="Self.ciudad" Multiplicity="0..1" />
+          <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ciudad">
+              <PropertyRef Name="idciudad" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="idciudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="spointEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ciudad" EntityType="Self.ciudad" />
+          <EntitySet Name="clientes" EntityType="Self.clientes" />
+          <AssociationSet Name="fk_ciudad" Association="Self.fk_ciudad">
+            <End Role="ciudad" EntitySet="ciudad" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
+          <EntitySet Name="productos" EntityType="spointModel.productos" />
+          <EntitySet Name="suplidores" EntityType="spointModel.suplidores" />
+          <EntitySet Name="tiposproductos" EntityType="spointModel.tiposproductos" />
+          <AssociationSet Name="fk_ciudad1" Association="spointModel.fk_ciudad1">
+            <End Role="ciudad" EntitySet="ciudad" />
+            <End Role="suplidores" EntitySet="suplidores" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tipoproducto" Association="spointModel.fk_tipoproducto">
+            <End Role="tiposproductos" EntitySet="tiposproductos" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="productos">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigobarra" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="idtipo" Type="Int32" />
+          <Property Name="Precio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="itbis" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="costo" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="nota" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="descuento" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="tiposproductos" Relationship="spointModel.fk_tipoproducto" FromRole="productos" ToRole="tiposproductos" />
+        </EntityType>
+        <EntityType Name="suplidores">
+          <Key>
+            <PropertyRef Name="idSuplidor" />
+          </Key>
+          <Property Name="idSuplidor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="idciudad" Type="Int32" />
+          <Property Name="correo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ciudad" Relationship="spointModel.fk_ciudad1" FromRole="suplidores" ToRole="ciudad" />
+        </EntityType>
+        <EntityType Name="tiposproductos">
+          <Key>
+            <PropertyRef Name="idtipoproducto" />
+          </Key>
+          <Property Name="idtipoproducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="productos" Relationship="spointModel.fk_tipoproducto" FromRole="tiposproductos" ToRole="productos" />
+        </EntityType>
+        <Association Name="fk_ciudad1">
+          <End Type="spointModel.ciudad" Role="ciudad" Multiplicity="0..1" />
+          <End Type="spointModel.suplidores" Role="suplidores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ciudad">
+              <PropertyRef Name="idciudad" />
+            </Principal>
+            <Dependent Role="suplidores">
+              <PropertyRef Name="idciudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tipoproducto">
+          <End Type="spointModel.tiposproductos" Role="tiposproductos" Multiplicity="0..1" />
+          <End Type="spointModel.productos" Role="productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiposproductos">
+              <PropertyRef Name="idtipoproducto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="idtipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="spointModelStoreContainer" CdmEntityContainer="spointEntities">
+          <EntitySetMapping Name="ciudad">
+            <EntityTypeMapping TypeName="spointModel.ciudad">
+              <MappingFragment StoreEntitySet="ciudad">
+                <ScalarProperty Name="idciudad" ColumnName="idciudad" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clientes">
+            <EntityTypeMapping TypeName="spointModel.clientes">
+              <MappingFragment StoreEntitySet="clientes">
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="telefono2" ColumnName="telefono2" />
+                <ScalarProperty Name="idciudad" ColumnName="idciudad" />
+                <ScalarProperty Name="creditoaprobado" ColumnName="creditoaprobado" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="fechanacimiento" ColumnName="fechanacimiento" />
+                <ScalarProperty Name="NCF" ColumnName="NCF" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="LimiteTiempo" ColumnName="LimiteTiempo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos">
+            <EntityTypeMapping TypeName="spointModel.productos">
+              <MappingFragment StoreEntitySet="productos">
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="nota" ColumnName="nota" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+                <ScalarProperty Name="itbis" ColumnName="itbis" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="idtipo" ColumnName="idtipo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="codigobarra" ColumnName="codigobarra" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="suplidores">
+            <EntityTypeMapping TypeName="spointModel.suplidores">
+              <MappingFragment StoreEntitySet="suplidores">
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="idciudad" ColumnName="idciudad" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idSuplidor" ColumnName="idSuplidor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tiposproductos">
+            <EntityTypeMapping TypeName="spointModel.tiposproductos">
+              <MappingFragment StoreEntitySet="tiposproductos">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idtipoproducto" ColumnName="idtipoproducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

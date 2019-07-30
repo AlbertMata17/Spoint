@@ -1,0 +1,210 @@
+﻿@model SpointLiteVersion.Models.clientes
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-7 modal-content contedor" style="width:88%; margin-left:4%; margin-top:2%;">
+            <center><i class="fas fa-user iconousuario"></i></center>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @class = "form-control nombre" } })
+                            @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group col-md-4" style="width:35%;">
+
+                            @Html.LabelFor(model => model.direccion, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.EditorFor(model => model.direccion, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.direccion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            @Html.LabelFor(model => model.telefono, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control", @placeholder = "(999) 999-9999" } })
+                            @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
+
+
+                        </div>
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(model => model.telefono2, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.EditorFor(model => model.telefono2, new { htmlAttributes = new { @class = "form-control", @placeholder = "(999) 999-9999" } })
+                            @Html.ValidationMessageFor(model => model.telefono2, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(model => model.cedula, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.EditorFor(model => model.cedula, new { htmlAttributes = new { @class = "form-control", @placeholder = "000-0000000-0" } })
+                            @Html.ValidationMessageFor(model => model.cedula, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="form-group col-md-2 form1">
+                            @Html.LabelFor(model => model.idciudad, "idciudad", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.DropDownList("idciudad", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.idciudad, "", new { @class = "text-danger" })
+
+
+                        </div>
+                        <div class="col-md-1 boton">
+                            <a href="#" class="btn btn-outline-primary Datoscomprobante " data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus-circle icono"></i></a>
+
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.fechanacimiento, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            <input type="date" name="fechanacimiento" value="" class="form-control" />
+                            @Html.ValidationMessageFor(model => model.fechanacimiento, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(model => model.creditoaprobado, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.EditorFor(model => model.creditoaprobado, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.creditoaprobado, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+
+
+                        <div class="form-group col-md-4" style="width:27%;">
+                            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-5">
+                            @Html.LabelFor(model => model.NCF, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.EditorFor(model => model.NCF, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NCF, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+
+                        <div class="form-group col-md-5">
+                            @Html.LabelFor(model => model.LimiteTiempo, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.EditorFor(model => model.LimiteTiempo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LimiteTiempo, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ciudad</h5>
+                            <button type="button" id="cerrar1" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <div class="comprobante">
+
+
+                            </div>
+
+                        </div>
+                        @*<div class="modal-footer">
+                                <button class="mybtn" id="mybtn">Cerrar</button>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="~/Scripts/inputmask/inputmask.js"></script>
+<script src="~/Scripts/inputmask/inputmask.extensions.js"></script>
+<script src="~/Scripts/inputmask/jquery.inputmask.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+
+
+
+        $("#mybtn").click(function () {
+            $("#exampleModal").modal("hide");
+        });
+        $("#exampleModal").on('hidden.bs.modal', function () {
+            $(document).ready(function () {
+
+                $.post("Getciudad", {}, function (data) {
+
+
+                    $("#idciudad").empty();
+                    $.each(data, function (create, row) {
+                        $("#idciudad").append("<option value= '" + row.idciudad + "'>" + row.Nombre + "</option>")
+                    });
+                });
+            })
+
+        });
+
+    });
+</script>
+<script>
+    $(":input").inputmask();
+
+    $("#telefono").inputmask({ "mask": "(999) 999-9999" });
+    $("#telefono2").inputmask({ "mask": "(999) 999-9999" });
+
+</script>
+<script>
+    $(document).ready(function () {
+
+        $(".Datoscomprobante").click(function () {
+            $(".comprobante").load("/ciudads1/Create")
+        });
+    });
+</script>
