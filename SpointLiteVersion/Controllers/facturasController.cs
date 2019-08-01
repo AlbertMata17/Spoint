@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SpointLiteVersion.Models;
+using Rotativa;
 
 namespace SpointLiteVersion.Controllers
 {
@@ -19,7 +20,21 @@ namespace SpointLiteVersion.Controllers
         {
             return View(db.facturas.ToList());
         }
+        public ActionResult VistaPdf(string idproducto, string cantidad)
+        {
+            ViewBag.producto = idproducto;
+            ViewBag.cantidad = cantidad;
 
+            return View();
+        }
+        public ActionResult PDf(List<string> ListadoDetalle)
+        {
+            Console.Write(ListadoDetalle);
+            ViewBag.producto = ListadoDetalle;
+            ViewBag.cantidad = "hola";
+          
+            return new ViewAsPdf("VistaPdf",new { ViewBag.producto, ViewBag.cantidad });
+        }
         // GET: facturas/Details/5
         public ActionResult Details(int? id)
         {

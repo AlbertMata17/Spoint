@@ -7,7 +7,9 @@
     <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
     @Styles.Render("~/Css")
     <link href="~/Content/all.css" rel="stylesheet" />
-    <link href="~/Content/Style.css" rel="stylesheet" />
+    <link href="~/Content/Style.css" rel="stylesheet" media="all"/>
+    <link href="~/Content/estilosimprimir.css" rel="stylesheet"  media="print"/>
+
     <link rel="stylesheet" href="~/Content/bower_components/font-awesome/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="~/Content/bower_components/Ionicons/css/ionicons.min.css">
@@ -185,6 +187,8 @@
             $('.sidebar-menu').tree()
         })
     </script>
+    <script src="~/Scripts/printThis.js"></script>
+
 </body>
 
 </html>

@@ -5,7 +5,58 @@
     margin-left: -15px;
     padding-right:0px !important;
 }
+.imagencarrito{
+    width:30px;
+    height:40px;
 
+}
+.padre{
+    display:none;
+}
+.principal{
+    display:none;
+}
+@media print {
+    .principal {
+        display: block;
+    }
+    .padre{
+        display:flex;
+        margin-left:5%;
+        margin-top:10%;
+    }
+    .firmas{
+        margin-left:5%;
+    }
+    .nombrefirma {
+        margin-left: 35%;
+    }
+    .fimas1 {
+        margin-left: 40px;
+    }
+    #detalle {
+        margin-top: 20px;
+    }
+    .firma{
+        display: flex;
+        flex-direction:column;
+    }
+    .imagencarrito {
+        width: 110px;
+        height:110px;
+        margin-top:50px;
+    }
+    .botoneliminar{
+        display: none;
+    }
+    .datosclientes{
+        border: 1px solid #111;
+    }
+    .datosclientes h2{
+        font-size: 18px;
+        padding-left:20px;
+    }
+}
 .contedor{
     margin-top:3% !important;
 }

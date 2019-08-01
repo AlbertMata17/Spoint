@@ -60,6 +60,9 @@
     <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -6482,6 +6485,9 @@
     <Content Include="Content\dist\img\avatar2.png" />
     <Content Include="Content\dist\img\avatar3.png" />
     <Content Include="Content\dist\img\avatar5.png" />
+    <Content Include="Content\dist\img\carrito.png" />
+    <Content Include="Content\dist\img\carrito2.png" />
+    <Content Include="Content\dist\img\carrito3.png" />
     <Content Include="Content\dist\img\credit\american-express.png" />
     <Content Include="Content\dist\img\credit\cirrus.png" />
     <Content Include="Content\dist\img\credit\mastercard.png" />
@@ -6508,6 +6514,7 @@
     <Content Include="Content\dist\js\demo.js" />
     <Content Include="Content\dist\js\pages\dashboard.js" />
     <Content Include="Content\dist\js\pages\dashboard2.js" />
+    <Content Include="Content\estilosimprimir.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Content\plugins\bootstrap-slider\slider.css" />
@@ -7281,6 +7288,10 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\inputmask\bindings\inputmask.binding.js" />
     <Content Include="Scripts\inputmask\dependencyLibs\inputmask.dependencyLib.jqlite.js" />
     <Content Include="Scripts\inputmask\dependencyLibs\inputmask.dependencyLib.jquery.js" />
@@ -7334,6 +7345,7 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\productos\Create.cshtml" />
@@ -7388,6 +7400,7 @@
     <Content Include="Views\facturas\Details.cshtml" />
     <Content Include="Views\facturas\Edit.cshtml" />
     <Content Include="Views\facturas\Index.cshtml" />
+    <Content Include="Views\facturas\VistaPdf.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Content\bower_components\fullcalendar\dist\fullcalendar.d.ts" />
