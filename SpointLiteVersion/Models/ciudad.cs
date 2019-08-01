@@ -11,24 +11,19 @@ namespace SpointLiteVersion.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class ciudad
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ciudad()
         {
             this.clientes = new HashSet<clientes>();
-            this.suplidores = new HashSet<suplidores>();
         }
     
         public int idciudad { get; set; }
-        [Required(ErrorMessage ="Ingresa Un Nombre")]
         public string Nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<clientes> clientes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<suplidores> suplidores { get; set; }
     }
 }

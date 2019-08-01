@@ -10,107 +10,118 @@ using SpointLiteVersion.Models;
 
 namespace SpointLiteVersion.Controllers
 {
-    public class suplidoresController : Controller
+    public class facturasController : Controller
     {
         private spointEntities db = new spointEntities();
 
-        // GET: suplidores
+        // GET: facturas
         public ActionResult Index()
         {
-            return View(db.suplidores.ToList());
+            return View(db.facturas.ToList());
         }
 
-        // GET: suplidores/Details/5
+        // GET: facturas/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            suplidores suplidores = db.suplidores.Find(id);
-            if (suplidores == null)
+            facturas facturas = db.facturas.Find(id);
+            if (facturas == null)
             {
                 return HttpNotFound();
             }
-            return View(suplidores);
+            return View(facturas);
         }
 
-        // GET: suplidores/Create
+        // GET: facturas/Create
         public ActionResult Create()
         {
+            ViewBag.cliente = new SelectList(db.clientes, "nombre", "nombre");
+            ViewBag.vendedor = new SelectList(db.vendedores, "nombre", "nombre");
+            ViewBag.producto = new SelectList(db.productos, "idProducto", "Descripcion");
             return View();
         }
+        public JsonResult Getproducto(int idproducto)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<productos> productos = db.productos.Where(m => m.idProducto == idproducto).ToList();
 
-        // POST: suplidores/Create
+            //ViewBag.FK_Vehiculo = new SelectList(db.Vehiculo.Where(a => a.Clase == Clase && a.Estatus == "Disponible"), "VehiculoId", "Marca");
+            return Json(productos, JsonRequestBehavior.AllowGet);
+        }
+
+        // POST: facturas/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idSuplidor,nombre,telefono,direccion,correo,cedula")] suplidores suplidores)
+        public ActionResult Create([Bind(Include = "idfactura,fecha,observacion,cliente,vendedor,producto,descripcion,precio,credito")] facturas facturas)
         {
             if (ModelState.IsValid)
             {
-                db.suplidores.Add(suplidores);
+                db.facturas.Add(facturas);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(suplidores);
+            return View(facturas);
         }
 
-        // GET: suplidores/Edit/5
+        // GET: facturas/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            suplidores suplidores = db.suplidores.Find(id);
-            if (suplidores == null)
+            facturas facturas = db.facturas.Find(id);
+            if (facturas == null)
             {
                 return HttpNotFound();
             }
-            return View(suplidores);
+            return View(facturas);
         }
 
-        // POST: suplidores/Edit/5
+        // POST: facturas/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idSuplidor,nombre,telefono,direccion,correo,cedula")] suplidores suplidores)
+        public ActionResult Edit([Bind(Include = "idfactura,fecha,observacion,cliente,vendedor,producto,descripcion,precio,credito")] facturas facturas)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(suplidores).State = EntityState.Modified;
+                db.Entry(facturas).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(suplidores);
+            return View(facturas);
         }
 
-        // GET: suplidores/Delete/5
+        // GET: facturas/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            suplidores suplidores = db.suplidores.Find(id);
-            if (suplidores == null)
+            facturas facturas = db.facturas.Find(id);
+            if (facturas == null)
             {
                 return HttpNotFound();
             }
-            return View(suplidores);
+            return View(facturas);
         }
 
-        // POST: suplidores/Delete/5
+        // POST: facturas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            suplidores suplidores = db.suplidores.Find(id);
-            db.suplidores.Remove(suplidores);
+            facturas facturas = db.facturas.Find(id);
+            db.facturas.Remove(facturas);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

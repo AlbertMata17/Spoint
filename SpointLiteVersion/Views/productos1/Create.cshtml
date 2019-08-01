@@ -1,0 +1,195 @@
+﻿@model SpointLiteVersion.Models.productos
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-7 modal-content contedor" style="width:88%; margin-left:4%; margin-top:2%;">
+            <center><i class="fas fa-user iconousuario"></i></center>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.codigobarra, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.EditorFor(model => model.codigobarra, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.codigobarra, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group col-md-4 form1" style="width:35%;">
+
+                            @Html.LabelFor(model => model.idtipo, "idtipo", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.DropDownList("idtipo", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.idtipo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-1 boton">
+                        <a href="#" class="btn btn-outline-primary Datoscomprobante " data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus-circle icono"></i></a>
+
+                    </div>
+
+
+
+                    <div class="form-group" style="width:87%;">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-1" })
+
+                            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group col-md-2">
+
+                            @Html.LabelFor(model => model.itbis, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.EditorFor(model => model.itbis, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.itbis, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-md-3">
+
+                            @Html.LabelFor(model => model.costo, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.EditorFor(model => model.costo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.costo, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(model => model.Inventario, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <select class="form-control" name="inventario" id="inventario">
+                                <option value="no" selected>No</option>
+                                <option value="si">Si</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.Inventario, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+                    <div class="form-group" style="width:87%;">
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.nota, htmlAttributes: new { @class = "control-label col-md-1" })
+
+
+
+                            @Html.EditorFor(model => model.nota, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.nota, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.descuento, htmlAttributes: new { @class = "control-label col-md-1" })
+
+                            @Html.EditorFor(model => model.descuento, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.descuento, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ciudad</h5>
+                            <button type="button" id="cerrar1" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <div class="comprobante">
+
+
+                            </div>
+
+                        </div>
+                        @*<div class="modal-footer">
+                                <button class="mybtn" id="mybtn">Cerrar</button>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="~/Scripts/inputmask/inputmask.js"></script>
+<script src="~/Scripts/inputmask/inputmask.extensions.js"></script>
+<script src="~/Scripts/inputmask/jquery.inputmask.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+
+
+        $("#mybtn").click(function () {
+            $("#exampleModal").modal("hide");
+        });
+        $("#exampleModal").on('hidden.bs.modal', function () {
+           
+            $(document).ready(function () {
+
+                $.post("Getproducto", {}, function (data) {
+
+
+                    $("#idtipo").empty();
+                    $.each(data, function (create, row) {
+                        $("#idtipo").append("<option value= '" + row.idtipoproducto + "'>" + row.nombre + "</option>")
+                    });
+                });
+            })
+
+        });
+
+    });
+</script>
+@*<script>
+    $(":input").inputmask();
+
+    $("#telefono").inputmask({ "mask": "(999) 999-9999" });
+    $("#telefono2").inputmask({ "mask": "(999) 999-9999" });
+
+</script>*@
+<script>
+    $(document).ready(function () {
+
+        $(".Datoscomprobante").click(function () {
+            $(".comprobante").load("/tiposproductos/Create")
+        });
+    });
+</script>

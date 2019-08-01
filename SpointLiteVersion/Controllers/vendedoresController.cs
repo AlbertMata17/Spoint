@@ -10,107 +10,107 @@ using SpointLiteVersion.Models;
 
 namespace SpointLiteVersion.Controllers
 {
-    public class suplidoresController : Controller
+    public class vendedoresController : Controller
     {
         private spointEntities db = new spointEntities();
 
-        // GET: suplidores
+        // GET: vendedores
         public ActionResult Index()
         {
-            return View(db.suplidores.ToList());
+            return View(db.vendedores.ToList());
         }
 
-        // GET: suplidores/Details/5
+        // GET: vendedores/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            suplidores suplidores = db.suplidores.Find(id);
-            if (suplidores == null)
+            vendedores vendedores = db.vendedores.Find(id);
+            if (vendedores == null)
             {
                 return HttpNotFound();
             }
-            return View(suplidores);
+            return View(vendedores);
         }
 
-        // GET: suplidores/Create
+        // GET: vendedores/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: suplidores/Create
+        // POST: vendedores/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idSuplidor,nombre,telefono,direccion,correo,cedula")] suplidores suplidores)
+        public ActionResult Create([Bind(Include = "idvendedor,nombre,direccion,telefono,cedula,cumpleaños,correo")] vendedores vendedores)
         {
             if (ModelState.IsValid)
             {
-                db.suplidores.Add(suplidores);
+                db.vendedores.Add(vendedores);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(suplidores);
+            return View(vendedores);
         }
 
-        // GET: suplidores/Edit/5
+        // GET: vendedores/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            suplidores suplidores = db.suplidores.Find(id);
-            if (suplidores == null)
+            vendedores vendedores = db.vendedores.Find(id);
+            if (vendedores == null)
             {
                 return HttpNotFound();
             }
-            return View(suplidores);
+            return View(vendedores);
         }
 
-        // POST: suplidores/Edit/5
+        // POST: vendedores/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idSuplidor,nombre,telefono,direccion,correo,cedula")] suplidores suplidores)
+        public ActionResult Edit([Bind(Include = "idvendedor,nombre,direccion,telefono,cedula,cumpleaños,correo")] vendedores vendedores)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(suplidores).State = EntityState.Modified;
+                db.Entry(vendedores).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(suplidores);
+            return View(vendedores);
         }
 
-        // GET: suplidores/Delete/5
+        // GET: vendedores/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            suplidores suplidores = db.suplidores.Find(id);
-            if (suplidores == null)
+            vendedores vendedores = db.vendedores.Find(id);
+            if (vendedores == null)
             {
                 return HttpNotFound();
             }
-            return View(suplidores);
+            return View(vendedores);
         }
 
-        // POST: suplidores/Delete/5
+        // POST: vendedores/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            suplidores suplidores = db.suplidores.Find(id);
-            db.suplidores.Remove(suplidores);
+            vendedores vendedores = db.vendedores.Find(id);
+            db.vendedores.Remove(vendedores);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

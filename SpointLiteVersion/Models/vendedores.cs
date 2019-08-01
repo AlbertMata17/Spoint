@@ -12,13 +12,14 @@ namespace SpointLiteVersion.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class suplidores
+    public partial class vendedores
     {
-        public int idSuplidor { get; set; }
+        public int idvendedor { get; set; }
         public string nombre { get; set; }
-        public string telefono { get; set; }
         public string direccion { get; set; }
-        public string correo { get; set; }
+        public string telefono { get; set; }
         public string cedula { get; set; }
+        public Nullable<System.DateTime> cumpleaños { get; set; }
+        public string correo { get; set; }
     }
 }

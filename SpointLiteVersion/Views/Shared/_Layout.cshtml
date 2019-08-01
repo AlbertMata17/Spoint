@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="~/Content/bower_components/font-awesome/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="~/Content/bower_components/Ionicons/css/ionicons.min.css">
+    <link href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css" rel="stylesheet" />
+
     <!-- Ionicons -->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -108,8 +110,8 @@
 
                     </li>
 
-                    <li>
-                        <a class="collapse-item emp" href="@Url.Action("Index","productos")">Producto</a>
+                    <li class="">
+                        <a class="collapse-item emp" href="@Url.Action("Index","productos1")"><i class="fas fa-shopping-basket"></i> <span>Producto</span></a>
 
 
                     </li>
@@ -117,24 +119,32 @@
 
 
 
-                    <li>
-                        <a class="collapse-item emp" href="@Url.Action("Index","clientes1")">Cliente</a>
+                    <li class="">
+                        <a class="collapse-item emp" href="@Url.Action("Index","clientes1")"><i class="fas fa-users"></i> <span>Clientes</span></a>
+                    </li>
+
+                    <li class="">
+                        <a class="collapse-item emp" href="@Url.Action("Index","suplidores")"><i class="fas fa-store-alt"></i> <span>Suplidores</span></a>
+
                     </li>
 
                     <li>
-                        <a class="collapse-item emp" href="@Url.Action("Index","clientes")">Suplidores</a>
+                        <a class="collapse-item emp" href="@Url.Action("Index","Empleado")">
+                            <i class="fas fa-cart-plus"></i>
+                            <span>Compras</span>
+                        </a>
 
                     </li>
                     <li>
-                        <a class="collapse-item emp" href="@Url.Action("Index","Empleado")">Facturas</a>
+                        <a class="collapse-item emp" href="@Url.Action("Index","vendedores")"><i class="fas fa-id-badge"></i> <span>Vendedores</span></a>
 
                     </li>
                     <li>
-                        <a class="collapse-item emp" href="@Url.Action("Index","ciudads")">ciudad</a>
+                        <a class="collapse-item emp" href="@Url.Action("Index","Empleado")"><i class="fas fa-clipboard"></i> <span>Inventario</span></a>
 
                     </li>
-                    <li>
-                        <a class="collapse-item emp" href="@Url.Action("Index","Empleado")">Inventario</a>
+                    <li class="">
+                        <a class="collapse-item emp" href="@Url.Action("Index","facturas")"><i class="fas fa-shopping-cart"></i> <span>Facturas</span></a>
 
                     </li>
                 </ul>
@@ -168,6 +178,8 @@
 
 
     @Scripts.Render("~/Js")
+    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+
     <script>
         $(document).ready(function () {
             $('.sidebar-menu').tree()

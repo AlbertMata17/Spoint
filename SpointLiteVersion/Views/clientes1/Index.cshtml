@@ -1,99 +1,103 @@
 ﻿@model IEnumerable<SpointLiteVersion.Models.clientes>
 
 @{
-    ViewBag.Title = "Index";
+                /**/
+
+                ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.telefono)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.telefono2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.creditoaprobado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cedula)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.direccion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fechanacimiento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NCF)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Observaciones)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LimiteTiempo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ciudad.Nombre)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.telefono)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.telefono2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.creditoaprobado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cedula)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.direccion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fechanacimiento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NCF)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Observaciones)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LimiteTiempo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ciudad.Nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.idCliente }) |
-            @Html.ActionLink("Details", "Details", new { id=item.idCliente }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idCliente })
-        </td>
-    </tr>
-}
 
-</table>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 modal-content contedor" style="width:90%; margin-left:4%; margin-top:2%;">
+            <h2 style="margin-left:30px; margin-bottom:35px;">Clientes</h2>
+            <p>
+                <Button onclick="location.href='@Url.Action("Create","clientes1")'" class="btn btn-success crear"><i class="fas fa-plus iconocrear"></i><span class="nuevo">Nuevo</span></Button>
+
+            </p>
+            <div class="form-row divbuscar">
+                <div class="form-group col-md-4">
+
+                    <input type="text" name="valor" value="" class="form-control" placeholder="Buscar Cliente" required />
+
+
+                </div>
+                <div class="form-group">
+
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="modal-content" style="width:88%; margin-left:4%; margin-top:2%;">
+                    <table class="table  table-hover t tabla">
+                        <thead>
+
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.nombre)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.telefono)
+                                </th>
+
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.cedula)
+                                </th>
+
+
+
+
+
+                                <th>
+                                    @Html.DisplayName("Ciudad")
+                                </th>
+                                <th>@Html.DisplayName("Acciones")</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.telefono)
+                            </td>
+
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.cedula)
+                            </td>
+
+
+
+
+
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ciudad.Nombre)
+                            </td>
+                          
+
+                            <td>
+                                <a href="@Url.Action("Edit","clientes1",new { id=item.idCliente})"><i class="fas fa-edit eliminar"></i></a> |
+                                <a href="@Url.Action("Details","clientes1",new { id=item.idCliente})"><i class="fas fa-info-circle eliminar "></i></a> |
+                                <a href="@Url.Action("Delete","clientes1",new { id=item.idCliente})"><i class="fas fa-trash-alt eliminar eli"></i></a>
+
+                             
+                            </td>
+                        </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>

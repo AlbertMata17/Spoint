@@ -19,10 +19,11 @@ namespace SpointLiteVersion.Models
         public string Descripcion { get; set; }
         public Nullable<int> idtipo { get; set; }
         public string Precio { get; set; }
-        public Nullable<decimal> itbis { get; set; }
+        public string itbis { get; set; }
         public Nullable<decimal> costo { get; set; }
         public string nota { get; set; }
         public Nullable<decimal> descuento { get; set; }
+        public string Inventario { get; set; }
     
         public virtual tiposproductos tiposproductos { get; set; }
     }

@@ -10,107 +10,106 @@ using SpointLiteVersion.Models;
 
 namespace SpointLiteVersion.Controllers
 {
-    public class suplidoresController : Controller
+    public class tiposproductosController : Controller
     {
         private spointEntities db = new spointEntities();
 
-        // GET: suplidores
+        // GET: tiposproductos
         public ActionResult Index()
         {
-            return View(db.suplidores.ToList());
+            return View(db.tiposproductos.ToList());
         }
 
-        // GET: suplidores/Details/5
+        // GET: tiposproductos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            suplidores suplidores = db.suplidores.Find(id);
-            if (suplidores == null)
+            tiposproductos tiposproductos = db.tiposproductos.Find(id);
+            if (tiposproductos == null)
             {
                 return HttpNotFound();
             }
-            return View(suplidores);
+            return View(tiposproductos);
         }
 
-        // GET: suplidores/Create
+        // GET: tiposproductos/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: suplidores/Create
+        // POST: tiposproductos/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idSuplidor,nombre,telefono,direccion,correo,cedula")] suplidores suplidores)
+        public ActionResult Create([Bind(Include = "idtipoproducto,nombre")] tiposproductos tiposproductos)
         {
             if (ModelState.IsValid)
             {
-                db.suplidores.Add(suplidores);
+                db.tiposproductos.Add(tiposproductos);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
 
-            return View(suplidores);
+            return new ContentResult() { Content = "Recepción satisfactoria" };
         }
 
-        // GET: suplidores/Edit/5
+        // GET: tiposproductos/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            suplidores suplidores = db.suplidores.Find(id);
-            if (suplidores == null)
+            tiposproductos tiposproductos = db.tiposproductos.Find(id);
+            if (tiposproductos == null)
             {
                 return HttpNotFound();
             }
-            return View(suplidores);
+            return View(tiposproductos);
         }
 
-        // POST: suplidores/Edit/5
+        // POST: tiposproductos/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idSuplidor,nombre,telefono,direccion,correo,cedula")] suplidores suplidores)
+        public ActionResult Edit([Bind(Include = "idtipoproducto,nombre")] tiposproductos tiposproductos)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(suplidores).State = EntityState.Modified;
+                db.Entry(tiposproductos).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(suplidores);
+            return View(tiposproductos);
         }
 
-        // GET: suplidores/Delete/5
+        // GET: tiposproductos/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            suplidores suplidores = db.suplidores.Find(id);
-            if (suplidores == null)
+            tiposproductos tiposproductos = db.tiposproductos.Find(id);
+            if (tiposproductos == null)
             {
                 return HttpNotFound();
             }
-            return View(suplidores);
+            return View(tiposproductos);
         }
 
-        // POST: suplidores/Delete/5
+        // POST: tiposproductos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            suplidores suplidores = db.suplidores.Find(id);
-            db.suplidores.Remove(suplidores);
+            tiposproductos tiposproductos = db.tiposproductos.Find(id);
+            db.tiposproductos.Remove(tiposproductos);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

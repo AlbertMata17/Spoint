@@ -1,4 +1,4 @@
-﻿@model SpointLiteVersion.Models.suplidores
+﻿@model SpointLiteVersion.Models.vendedores
 
 @{
     ViewBag.Title = "Details";
@@ -7,7 +7,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>suplidores</h4>
+    <h4>vendedores</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -19,14 +19,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.telefono)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.telefono)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.direccion)
         </dt>
 
@@ -35,11 +27,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.correo)
+            @Html.DisplayNameFor(model => model.telefono)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.correo)
+            @Html.DisplayFor(model => model.telefono)
         </dd>
 
         <dt>
@@ -50,9 +42,25 @@
             @Html.DisplayFor(model => model.cedula)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.cumpleaños)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cumpleaños)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.correo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.correo)
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.idSuplidor }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idvendedor }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

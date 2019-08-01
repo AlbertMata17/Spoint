@@ -1,17 +1,15 @@
-﻿@model IEnumerable<SpointLiteVersion.Models.suplidores>
+﻿@model IEnumerable<SpointLiteVersion.Models.vendedores>
 
 @{
     ViewBag.Title = "Index";
 }
-
-
 
 <div class="container">
     <div class="row">
         <div class="col-md-9 modal-content contedor" style="width:90%; margin-left:4%; margin-top:2%;">
             <h2 style="margin-left:30px; margin-bottom:35px;">Suplidores</h2>
             <p>
-                <Button onclick="location.href='@Url.Action("Create","clientes1")'" class="btn btn-success crear"><i class="fas fa-plus iconocrear"></i><span class="nuevo">Nuevo</span></Button>
+                <Button onclick="location.href='@Url.Action("Create","vendedores")'" class="btn btn-success crear"><i class="fas fa-plus iconocrear"></i><span class="nuevo">Nuevo</span></Button>
 
             </p>
             <div class="form-row divbuscar">
@@ -72,13 +70,13 @@
 
 
 
-                           
+
 
 
                                 <td>
-                                    <a href="@Url.Action("Edit","suplidores",new { id=item.idSuplidor})"><i class="fas fa-edit eliminar"></i></a> |
-                                    <a href="@Url.Action("Details","suplidores",new { id=item.idSuplidor})"><i class="fas fa-info-circle eliminar "></i></a> |
-                                    <a href="@Url.Action("Delete","suplidores",new { id=item.idSuplidor})"><i class="fas fa-trash-alt eliminar eli"></i></a>
+                                    <a href="@Url.Action("Edit","vendedores",new { id=item.idvendedor})"><i class="fas fa-edit eliminar"></i></a> |
+                                    <a href="@Url.Action("Details","vendedores",new { id=item.idvendedor})"><i class="fas fa-info-circle eliminar "></i></a> |
+                                    <a href="@Url.Action("Delete","vendedores",new { id=item.idvendedor})"><i class="fas fa-trash-alt eliminar eli"></i></a>
 
 
                                 </td>

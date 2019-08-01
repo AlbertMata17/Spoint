@@ -138,9 +138,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ciudads1Controller.cs" />
     <Compile Include="Controllers\clientes1Controller.cs" />
+    <Compile Include="Controllers\facturasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\productos1Controller.cs" />
     <Compile Include="Controllers\productosController.cs" />
     <Compile Include="Controllers\suplidoresController.cs" />
+    <Compile Include="Controllers\tiposproductosController.cs" />
+    <Compile Include="Controllers\vendedoresController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -148,6 +152,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\clientes.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\facturas.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model1.Context.cs">
@@ -173,6 +180,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tiposproductos.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\vendedores.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -7293,6 +7303,7 @@
     <Content Include="Scripts\inputmask\min\jquery.inputmask.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\printThis.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -7357,6 +7368,26 @@
     <Content Include="webfonts\fa-solid-900.ttf" />
     <Content Include="webfonts\fa-solid-900.woff" />
     <Content Include="webfonts\fa-solid-900.woff2" />
+    <Content Include="Views\productos1\Create.cshtml" />
+    <Content Include="Views\productos1\Delete.cshtml" />
+    <Content Include="Views\productos1\Details.cshtml" />
+    <Content Include="Views\productos1\Edit.cshtml" />
+    <Content Include="Views\productos1\Index.cshtml" />
+    <Content Include="Views\tiposproductos\Create.cshtml" />
+    <Content Include="Views\tiposproductos\Delete.cshtml" />
+    <Content Include="Views\tiposproductos\Details.cshtml" />
+    <Content Include="Views\tiposproductos\Edit.cshtml" />
+    <Content Include="Views\tiposproductos\Index.cshtml" />
+    <Content Include="Views\vendedores\Create.cshtml" />
+    <Content Include="Views\vendedores\Delete.cshtml" />
+    <Content Include="Views\vendedores\Details.cshtml" />
+    <Content Include="Views\vendedores\Edit.cshtml" />
+    <Content Include="Views\vendedores\Index.cshtml" />
+    <Content Include="Views\facturas\Create.cshtml" />
+    <Content Include="Views\facturas\Delete.cshtml" />
+    <Content Include="Views\facturas\Details.cshtml" />
+    <Content Include="Views\facturas\Edit.cshtml" />
+    <Content Include="Views\facturas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Content\bower_components\fullcalendar\dist\fullcalendar.d.ts" />
