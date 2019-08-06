@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -18,6 +19,12 @@ namespace SpointLiteVersion.Controllers
         public ActionResult Index()
         {
             var productos = db.productos.Include(p => p.tiposproductos);
+            return View(productos.ToList());
+        }
+
+        public ActionResult Inventario()
+        {
+            var productos = db.productos.Include(p => p.tiposproductos).Where(m => m.Inventario == "si");
             return View(productos.ToList());
         }
         public JsonResult Getproducto()
@@ -44,9 +51,36 @@ namespace SpointLiteVersion.Controllers
         }
 
         // GET: productos1/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.idtipo = new SelectList(db.tiposproductos, "idtipoproducto", "nombre");
+            if (id == null)
+            {
+                var m = 1;
+                var l = (from r in db.productos select r.idProducto).ToList();
+                foreach(var g in l)
+                {
+                    do { m++; } while (m!=g);
+                }
+                
+                ViewBag.idtipo = new SelectList(db.tiposproductos, "idtipoproducto", "nombre");
+                ViewBag.itbis = new SelectList(db.itbis, "valor", "valor");
+                ViewBag.codigo = m;
+                return View();
+            }
+            productos productos = db.productos.Find(id);
+            if (productos == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (id != null)
+            {
+                ViewBag.idtipo = new SelectList(db.tiposproductos, "idtipoproducto", "nombre");
+                ViewBag.itbis = new SelectList(db.itbis, "valor", "valor");
+                ViewBag.id = "algo";
+                return View(productos);
+            }
+            
             return View();
         }
 
@@ -55,16 +89,39 @@ namespace SpointLiteVersion.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idProducto,codigobarra,Descripcion,idtipo,Precio,itbis,costo,nota,descuento,Inventario")] productos productos)
+        public ActionResult Create([Bind(Include = "idProducto,codigobarra,Descripcion,idtipo,Precio,itbis,costo,nota,Inventario")] productos productos)
         {
-            if (ModelState.IsValid)
-            {
-                db.productos.Add(productos);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
+            var t = (from s in db.productos where s.idProducto==productos.idProducto select s.idProducto).Count();
+            if (t != 0)
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(productos).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+
+                if (ModelState.IsValid)
+                {
+                    if (productos.Descripcion != null)
+                    {
+                        productos.Descripcion = productos.Descripcion.ToUpper();
+                    }
+                    if (productos.nota != null)
+                    {
+                        productos.nota = productos.nota.ToUpper();
+                    }
+                    db.productos.Add(productos);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
             ViewBag.idtipo = new SelectList(db.tiposproductos, "idtipoproducto", "nombre", productos.idtipo);
+            ViewBag.itbis = new SelectList(db.itbis, "valor", "valor", productos.itbis);
             return View(productos);
         }
 
@@ -89,7 +146,7 @@ namespace SpointLiteVersion.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idProducto,codigobarra,Descripcion,idtipo,Precio,itbis,costo,nota,descuento,Inventario")] productos productos)
+        public ActionResult Edit([Bind(Include = "idProducto,codigobarra,Descripcion,idtipo,Precio,itbis,costo,nota,Inventario")] productos productos)
         {
             if (ModelState.IsValid)
             {

@@ -23,5 +23,6 @@ namespace SpointLiteVersion.Models
         public string descripcion { get; set; }
         public Nullable<decimal> precio { get; set; }
         public string credito { get; set; }
+        public Nullable<decimal> descuento { get; set; }
     }
 }

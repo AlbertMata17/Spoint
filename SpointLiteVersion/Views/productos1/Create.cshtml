@@ -12,13 +12,26 @@
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
-
+              
                 <div class="form-horizontal">
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <h2>@ViewBag.codigo</h2>
+                    <div class="form-group" style="width:87%;">
+                        <div class="col-md-12">
+                           @if(@ViewBag.id!=null){
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.idProducto)
+                            }
+                            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-1" })
+
+                            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            @Html.LabelFor(model => model.codigobarra, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="form-group col-md-3">
+                            @Html.Label("Código de barras", new { @class = "control-label", @style = "margin-left:1px !important;" })
                             @Html.EditorFor(model => model.codigobarra, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.codigobarra, "", new { @class = "text-danger" })
 
@@ -26,10 +39,15 @@
 
                         <div class="form-group col-md-4 form1" style="width:35%;">
 
-                            @Html.LabelFor(model => model.idtipo, "idtipo", htmlAttributes: new { @class = "control-label col-md-2" })
-
+                            @Html.Label("Tipo", new { @class = "control-label col-md-2" })
                             @Html.DropDownList("idtipo", null, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.idtipo, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-md-2" style="margin-left:2%; margin-right:0px;">
+                            @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
+
                         </div>
                     </div>
                     <div class="col-md-1 boton">
@@ -39,29 +57,17 @@
 
 
 
-                    <div class="form-group" style="width:87%;">
-                        <div class="col-md-12">
-                            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-1" })
 
-                            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+
 
 
                     <div class="form-row">
                         <div class="form-group col-md-2">
-                            @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "control-label col-md-2" })
-                            @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
-
-                        </div>
-
-                        <div class="form-group col-md-2">
 
                             @Html.LabelFor(model => model.itbis, htmlAttributes: new { @class = "control-label col-md-2" })
 
-                            @Html.EditorFor(model => model.itbis, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.DropDownList("itbis", null, htmlAttributes: new { @class = "form-control" })
+
                             @Html.ValidationMessageFor(model => model.itbis, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group col-md-3">
@@ -80,12 +86,9 @@
                             </select>
                             @Html.ValidationMessageFor(model => model.Inventario, "", new { @class = "text-danger" })
                         </div>
+
+
                     </div>
-
-
-
-
-
 
 
 
@@ -100,19 +103,12 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            @Html.LabelFor(model => model.descuento, htmlAttributes: new { @class = "control-label col-md-1" })
 
-                            @Html.EditorFor(model => model.descuento, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.descuento, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
 
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Create" class="btn btn-default" />
+                            <input type="submit" value="Create" id="crear" class="btn btn-default" />
                         </div>
                     </div>
                 </div>
@@ -136,8 +132,8 @@
 
                         </div>
                         @*<div class="modal-footer">
-                                <button class="mybtn" id="mybtn">Cerrar</button>
-                            </div>*@
+                        <button class="mybtn" id="mybtn">Cerrar</button>
+                    </div>*@
                     </div>
                 </div>
             </div>
@@ -151,6 +147,9 @@
 <script src="~/Scripts/inputmask/inputmask.js"></script>
 <script src="~/Scripts/inputmask/inputmask.extensions.js"></script>
 <script src="~/Scripts/inputmask/jquery.inputmask.js"></script>
+<script src="~/Scripts/jquery.numeric.js"></script>
+<script src="~/Scripts/autoNumeric/autoNumeric-min.js"></script>
+<script src="~/Scripts/autoNumeric/autoNumeric.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -191,5 +190,61 @@
         $(".Datoscomprobante").click(function () {
             $(".comprobante").load("/tiposproductos/Create")
         });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#Descripcion").focus();
+    });
+    $(function () {
+     
+
+        $("#costo").autoNumeric('init', { aSign: "$ " });
+        $("#Precio").autoNumeric('init', { aSign: "$ " });
+        //$("#costo").numeric(",");
+    });
+    //$("#itbis").numeric(",");
+    
+
+</script>
+
+<script>
+    $(function () {
+        $("#crear").on("click", function (event) {
+            var value = $("#Precio").val();
+            if (value.indexOf(',') != -1) {
+                $("#Precio").val(value.replace(/,/g, ''));
+            }
+            if (value.indexOf('$') != -1) {
+                $("#Precio").val(value.replace(/\$/g, ""));
+            }
+
+            var value = $("#costo").val();
+            if (value.indexOf(',') != -1) {
+                $("#costo").val(value.replace(/,/g, ''));
+            }
+            if (value.indexOf('$') != -1) {
+                $("#costo").val(value.replace(/\$/g, ""));
+            }
+        })
+    });
+    $(function () {
+        $("#crear").on("click", function (event) {
+            var value = $("#Precio").val();
+            if (value.indexOf(',') != -1) {
+                $("#Precio").val(value.replace(/,/g, ''));
+            }
+            if (value.indexOf('$') != -1) {
+                $("#Precio").val(value.replace(/\$/g, ""));
+            }
+
+            var value = $("#costo").val();
+            if (value.indexOf(',') != -1) {
+                $("#costo").val(value.replace(/,/g, ''));
+            }
+            if (value.indexOf('$') != -1) {
+                $("#costo").val(value.replace(/\$/g, ""));
+            }
+        })
     });
 </script>

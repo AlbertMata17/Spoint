@@ -6,70 +6,94 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.fecha)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.observacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cliente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.vendedor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.producto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.precio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.credito)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.observacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.vendedor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.producto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.precio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.credito)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.idfactura }) |
-            @Html.ActionLink("Details", "Details", new { id=item.idfactura }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.idfactura })
-        </td>
-    </tr>
-}
 
-</table>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 modal-content contedor" style="width:90%; margin-left:4%; margin-top:2%;">
+            <h2 style="margin-left:30px; margin-bottom:35px;">Facturas</h2>
+            <p>
+                <Button onclick="location.href='@Url.Action("Create","facturas")'" class="btn btn-success crear"><i class="fas fa-plus iconocrear"></i><span class="nuevo">Nuevo</span></Button>
+
+            </p>
+            <div class="form-row divbuscar">
+                <div class="form-group col-md-4">
+
+
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="modal-content" style="width:88%; margin-left:4%; margin-top:2%;">
+                    <table class="table  table-hover t tabla" id="tabla">
+                        <thead>
+
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.idfactura)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.descripcion)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.cliente)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.vendedor)
+                                </th>
+
+
+
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.idfactura)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.descripcion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.cliente)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.vendedor)
+                                </td>
+
+
+
+
+
+                                <td>
+                                    <a href="@Url.Action("Edit","productos1",new { id=item.idfactura})"><i class="fas fa-edit eliminar"></i></a> |
+                                    <a href="@Url.Action("Details","productos1",new { id=item.idfactura})"><i class="fas fa-info-circle eliminar "></i></a> |
+                                    <a href="@Url.Action("Delete","productos1",new { id=item.idfactura})"><i class="fas fa-trash-alt eliminar eli"></i></a>
+
+
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#tabla').DataTable({
+            "pagingType": "full_numbers" // "simple" option for 'Previous' and 'Next' buttons only
+        });
+        $('.dataTables_length').addClass('bs-select');
+    });
+</script>
+
+

@@ -10,20 +10,70 @@
     height:40px;
 
 }
-.padre{
+.sub1{
     display:none;
+}
+.padre {
+    display: none;
 }
 .principal{
     display:none;
+}
+.subtotalcolumn, .descuentocolumn{
+    display: none;
+}
+.tabledatospago{
+    width:30%;
+    margin-left:62%;
+}
+.tab input{
+    margin-left:10px;
 }
 @media print {
     .principal {
         display: block;
     }
-    .padre{
-        display:flex;
-        margin-left:5%;
-        margin-top:10%;
+    .tabledatospago {
+        width: 30%;
+        margin-left: 70%;
+        margin-top:30px;
+    }
+    .table > caption + thead > tr:first-child > td, .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > td, .table > thead:first-child > tr:first-child > th {
+        border-top: 0;
+        border-right: 1px solid #464646;
+    }
+    .table > thead > tr > th {
+        /* border-bottom: 2px solid #f4f4f4; */
+        border-top: 1px solid #464646;
+        border-bottom: 1px solid #464646;
+        font-size:16px;
+    }
+
+  
+    .lista thead {
+        border: 1px solid #111;
+    }   
+    .tab input {
+       width:40px;
+       border:none;
+
+    }
+    .tab{
+        display:block;
+    }
+   .tab{
+       border:none;
+   }
+    .subtotalcolumn, .descuentocolumn {
+        display: block;
+    }
+    .tabledatospago{
+        border:1px solid #111;
+    }
+    .padre {
+        display: flex;
+        margin-left: 5%;
+        margin-top: 10%;
     }
     .firmas{
         margin-left:5%;
@@ -46,7 +96,7 @@
         height:110px;
         margin-top:50px;
     }
-    .botoneliminar{
+    .botoneliminar, .idprod, .itb, .sub1 {
         display: none;
     }
     .datosclientes{
@@ -145,4 +195,13 @@ th {
     color: #555;
     background-color: #fff;
     background-image: none;
+    text-transform: uppercase;
+}
+
+#Precio, #itbis,#costo{
+    text-align:right;
+
+}
+#Descripcion{
+    text-transform:uppercase;
 }

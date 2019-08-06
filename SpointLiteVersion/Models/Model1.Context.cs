@@ -29,8 +29,9 @@ namespace SpointLiteVersion.Models
         public virtual DbSet<clientes> clientes { get; set; }
         public virtual DbSet<tiposproductos> tiposproductos { get; set; }
         public virtual DbSet<suplidores> suplidores { get; set; }
-        public virtual DbSet<productos> productos { get; set; }
         public virtual DbSet<vendedores> vendedores { get; set; }
+        public virtual DbSet<productos> productos { get; set; }
         public virtual DbSet<facturas> facturas { get; set; }
+        public virtual DbSet<itbis> itbis { get; set; }
     }
 }
