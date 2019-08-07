@@ -23,6 +23,7 @@ namespace SpointLiteVersion.Models
         public Nullable<decimal> costo { get; set; }
         public string nota { get; set; }
         public string Inventario { get; set; }
+        public string CodProducto { get; set; }
     
         public virtual tiposproductos tiposproductos { get; set; }
     }

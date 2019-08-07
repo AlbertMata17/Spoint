@@ -35,6 +35,15 @@ namespace SpointLiteVersion.Controllers
             //ViewBag.FK_Vehiculo = new SelectList(db.Vehiculo.Where(a => a.Clase == Clase && a.Estatus == "Disponible"), "VehiculoId", "Marca");
             return Json(producto, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult Getdatos(string CodProducto)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<productos> producto = db.productos.Where(m => m.CodProducto == CodProducto).ToList();
+
+            //ViewBag.FK_Vehiculo = new SelectList(db.Vehiculo.Where(a => a.Clase == Clase && a.Estatus == "Disponible"), "VehiculoId", "Marca");
+            return Json(producto, JsonRequestBehavior.AllowGet);
+        }
         // GET: productos1/Details/5
         public ActionResult Details(int? id)
         {
@@ -56,15 +65,27 @@ namespace SpointLiteVersion.Controllers
             if (id == null)
             {
                 var m = 1;
-                var l = (from r in db.productos select r.idProducto).ToList();
-                foreach(var g in l)
-                {
-                    do { m++; } while (m!=g);
-                }
+                var l = (from r in db.productos select r.idProducto).Count();
+
+
+                while (m <= l) {
+                        m++;
+                    };
+                
                 
                 ViewBag.idtipo = new SelectList(db.tiposproductos, "idtipoproducto", "nombre");
                 ViewBag.itbis = new SelectList(db.itbis, "valor", "valor");
-                ViewBag.codigo = m;
+                var codigo= "PROD000" + m;
+                var o = (from n in db.productos where n.CodProducto == codigo select n).Count();
+                if (o != 0)
+                {
+                   m= m + 1;
+                    ViewBag.codigo = "PROD000"+m;
+                }
+                else
+                {
+                    ViewBag.codigo = codigo;
+                }
                 return View();
             }
             productos productos = db.productos.Find(id);
@@ -75,8 +96,10 @@ namespace SpointLiteVersion.Controllers
 
             if (id != null)
             {
-                ViewBag.idtipo = new SelectList(db.tiposproductos, "idtipoproducto", "nombre");
-                ViewBag.itbis = new SelectList(db.itbis, "valor", "valor");
+                ViewBag.idtipo = new SelectList(db.tiposproductos, "idtipoproducto", "nombre",productos.idtipo);
+                ViewBag.itbis = new SelectList(db.itbis, "valor", "valor",productos.itbis);
+               
+
                 ViewBag.id = "algo";
                 return View(productos);
             }
@@ -89,7 +112,7 @@ namespace SpointLiteVersion.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idProducto,codigobarra,Descripcion,idtipo,Precio,itbis,costo,nota,Inventario")] productos productos)
+        public ActionResult Create([Bind(Include = "idProducto,codigobarra,Descripcion,idtipo,Precio,itbis,costo,nota,Inventario,CodProducto")] productos productos)
         {
 
             var t = (from s in db.productos where s.idProducto==productos.idProducto select s.idProducto).Count();
@@ -97,12 +120,13 @@ namespace SpointLiteVersion.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    
                     db.Entry(productos).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
             }
-            else
+            else if(productos.idProducto<=0)
             {
 
                 if (ModelState.IsValid)
@@ -114,6 +138,14 @@ namespace SpointLiteVersion.Controllers
                     if (productos.nota != null)
                     {
                         productos.nota = productos.nota.ToUpper();
+                    }
+                    if (productos.Precio == null)
+                    {
+                        productos.Precio = "0.00";
+                    }
+                    if (productos.costo == null)
+                    {
+                        productos.costo = Decimal.Parse("0.00");
                     }
                     db.productos.Add(productos);
                     db.SaveChanges();

@@ -9,6 +9,7 @@
     <div class="row">
         <div class="col-md-7 modal-content contedor" style="width:88%; margin-left:4%; margin-top:2%;">
             <center><i class="fas fa-user iconousuario"></i></center>
+            <div class="formulario" >
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
@@ -16,83 +17,143 @@
                 <div class="form-horizontal">
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <h2>@ViewBag.codigo</h2>
-                    <div class="form-group" style="width:87%;">
+                    @if (@ViewBag.codigo != null)
+                    {
+                        <div class="form-row">
+
+                            <div class="form-group col-md-2" style="margin-right:-4px;">
+                                @Html.Label("Codigo Producto", new { @class = "control-label", @style = "margin-left:1px !important;" })
+
+                                <input type="text" name="CodProducto" id="CodProducto" class="form-control text-box single-line" value="@ViewBag.codigo" />
+
+                                @Html.ValidationMessageFor(model => model.CodProducto, "", new { @class = "text-danger" })
+
+                            </div>
+                            <div class="col-md-1 check">
+                                <input type="checkbox" id="checkbox" name="validar" class="checkbox validar" value="" checked />
+
+                            </div>
+                        </div>
+                    }
+                    @if (@ViewBag.codigo == null)
+                    {
+                        <div class="form-row">
+
+                            <div class="form-group col-md-2" style="margin-right:-4px;">
+                                @Html.Label("Codigo Producto", new { @class = "control-label", @style = "margin-left:1px !important;" })
+
+                                @Html.EditorFor(model => model.CodProducto, new { htmlAttributes = new { @class = "form-control" } })
+
+                                @Html.ValidationMessageFor(model => model.CodProducto, "", new { @class = "text-danger" })
+
+                            </div>
+                            <div class="col-md-1 check">
+                                <input type="checkbox" id="checkbox" name="validar" class="checkbox validar" value="" checked />
+
+                            </div>
+                        </div>
+                    }                    <div class="form-group" style="width:100%;">
                         <div class="col-md-12">
-                           @if(@ViewBag.id!=null){
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            @Html.HiddenFor(model => model.idProducto)
+                            @if (@ViewBag.id != null)
+                            {
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.idProducto)
                             }
-                            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-1" })
+                            <div class="id" hidden>
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.idProducto)
+                            </div>
+
+                        </div>
+                        <div class="col-md-9">
+                            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
 
                             @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
                         </div>
+                        <div class="form-group col-md-2 form1">
+
+                            @Html.Label("Tipo", new { @class = "control-label col-md-2" })
+                            @Html.DropDownList("idtipo", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.idtipo, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-1 boton">
+                            <a href="#" class="btn btn-outline-primary Datoscomprobante " data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus-circle icono"></i></a>
+
+                        </div>
                     </div>
+
                     <div class="form-row">
-                        <div class="form-group col-md-3">
+
+
+                        <div class="form-group col-md-2">
                             @Html.Label("Código de barras", new { @class = "control-label", @style = "margin-left:1px !important;" })
                             @Html.EditorFor(model => model.codigobarra, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.codigobarra, "", new { @class = "text-danger" })
 
                         </div>
 
-                        <div class="form-group col-md-4 form1" style="width:35%;">
 
-                            @Html.Label("Tipo", new { @class = "control-label col-md-2" })
-                            @Html.DropDownList("idtipo", null, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.idtipo, "", new { @class = "text-danger" })
+                        <div class="form-group col-md-2">
+
+                            @Html.LabelFor(model => model.costo, htmlAttributes: new { @class = "control-label col-md-1" })
+
+                            @Html.EditorFor(model => model.costo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.costo, "", new { @class = "text-danger" })
+
+
                         </div>
-                        <div class="form-group col-md-2" style="margin-left:2%; margin-right:0px;">
+                        <div class="form-group col-md-2" style="margin-right:2%; width:20%;">
                             @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "control-label col-md-2" })
                             @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
 
                         </div>
-                    </div>
-                    <div class="col-md-1 boton">
-                        <a href="#" class="btn btn-outline-primary Datoscomprobante " data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus-circle icono"></i></a>
 
-                    </div>
-
-
-
-
-
-
-
-                    <div class="form-row">
-                        <div class="form-group col-md-2">
-
+                        <div class="form-group col-md-1" ;">
                             @Html.LabelFor(model => model.itbis, htmlAttributes: new { @class = "control-label col-md-2" })
 
                             @Html.DropDownList("itbis", null, htmlAttributes: new { @class = "form-control" })
 
                             @Html.ValidationMessageFor(model => model.itbis, "", new { @class = "text-danger" })
                         </div>
-                        <div class="form-group col-md-3">
+                        <input type="checkbox" id="inventari" name="inventari" class="inventari" value="" style="margin-top:5%" /> <label for="cbox2">Inventario</label>
 
-                            @Html.LabelFor(model => model.costo, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                            @Html.EditorFor(model => model.costo, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.costo, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="form-group col-md-3">
-                            @Html.LabelFor(model => model.Inventario, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <select class="form-control" name="inventario" id="inventario">
-                                <option value="no" selected>No</option>
-                                <option value="si">Si</option>
-                            </select>
-                            @Html.ValidationMessageFor(model => model.Inventario, "", new { @class = "text-danger" })
-                        </div>
 
 
                     </div>
 
 
 
+
+
+
+
+
+
+
+
+
                     <div class="form-group" style="width:87%;">
+                        <div class="col-md-12">
+                            <div class="form-row">
+
+                                <div class="form-group col-md-4" hidden>
+                                    @Html.LabelFor(model => model.Inventario, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <select class="form-control" name="inventario" id="inventario">
+                                        <option value="no" selected>No</option>
+                                        <option value="si">Si</option>
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.Inventario, "", new { @class = "text-danger" })
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" style="width:87%; margin-top:-10px;">
                         <div class="col-md-12">
                             @Html.LabelFor(model => model.nota, htmlAttributes: new { @class = "control-label col-md-1" })
 
@@ -105,14 +166,31 @@
 
 
 
+                    <div class="form-row">
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Create" id="crear" class="btn btn-default" />
+                        <div class="form-group col-md-10" >
+
+                            @if (ViewBag.id != null)
+                            {
+
+                                <a class="btn btn-danger btnelimina" href="@Url.Action("Delete","productos1",new { id=Model.idProducto})">Eliminar</a>
+                            }
+
+                        </div>
+                        <div class="form-group col-md-1">
+                            <button type="submit" class="btn btn-info" id="crear"><i class="fas fa-arrow-circle-left"></i></button>
+
                         </div>
                     </div>
+
+
+                  
+
+
+
                 </div>
             }
+                </div>
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -140,9 +218,9 @@
         </div>
     </div>
 </div>
-<div>
+@*<div>
     @Html.ActionLink("Back to List", "Index")
-</div>
+</div>*@
 <script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="~/Scripts/inputmask/inputmask.js"></script>
 <script src="~/Scripts/inputmask/inputmask.extensions.js"></script>
@@ -154,8 +232,7 @@
 <script>
     $(document).ready(function () {
 
-
-
+        document.getElementById("idProducto").name = 1;
         $("#mybtn").click(function () {
             $("#exampleModal").modal("hide");
         });
@@ -193,6 +270,41 @@
     });
 </script>
 <script>
+    
+        $(document).ready(function() {
+
+            $('form').keypress(function (e) {
+                if (e == 13) {
+                    return false;
+                }
+            });
+
+        $('input').keypress(function(e){
+    if(e.which == 13){
+      return false;
+      }
+    });
+
+  });
+
+</script>
+<script>
+
+    
+
+        $(document).bind('keypress', function (e) {
+            if (e.which == 27) {
+                $("#crear").trigger("click");
+               
+                console.log("Has pulsado la tecla ESC");
+            };
+        });
+
+   
+
+</script>
+
+<script>
     $(document).ready(function () {
         $("#Descripcion").focus();
     });
@@ -228,6 +340,8 @@
             }
         })
     });
+
+   
     $(function () {
         $("#crear").on("click", function (event) {
             var value = $("#Precio").val();
@@ -246,5 +360,68 @@
                 $("#costo").val(value.replace(/\$/g, ""));
             }
         })
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#inventari").change(function () {
+            var $input1 = $(this);
+            if ($('.inventari').is(":checked")) {
+              
+                document.getElementById("inventario").value = "si";
+            } else {
+                document.getElementById("inventario").value = "no";
+            }
+
+        }).change();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $(".validar").change(function () {
+            var $input = $(this);
+            if ($('.validar').is(":checked")) {
+                document.getElementById("CodProducto").readOnly = true;
+            } else {
+                document.getElementById("CodProducto").readOnly = false;
+
+            }
+
+        }).change();
+
+     
+        //fin del activar input codigoproducto
+
+        $(document).ready(function () {
+            $("#CodProducto").focusout(function () {
+                $.post("Getdatos", { CodProducto: $("#CodProducto").val() }, function (data) {
+                    document.getElementById("Descripcion").value = "";
+                    document.getElementById("codigobarra").value = "";
+                    document.getElementById("Precio").value = "";
+                    $("#inventario").val("no");
+                    $("#itbis").val("0%");
+                    $("#idtipo").val(1);
+                    document.getElementById("costo").value = "";
+                    document.getElementById("nota").value = "";
+                    document.getElementById("idProducto").value = "";
+                    document.getElementById("idProducto").name = "";
+
+                    $.each(data, function (create, row) {
+
+                        document.getElementById("Descripcion").value = row.Descripcion;
+                        document.getElementById("codigobarra").value = row.codigobarra;
+                        document.getElementById("idtipo").value = row.idtipo;
+                        document.getElementById("Precio").value = row.Precio;
+                        document.getElementById("itbis").value = row.itbis;
+                        document.getElementById("costo").value = row.costo;
+                        document.getElementById("inventario").value = row.Inventario;
+                        document.getElementById("nota").value = row.nota;
+                        document.getElementById("idProducto").value = row.idProducto;
+                        document.getElementById("idProducto").name = "idProducto";
+                    });
+                });
+            })
+        });
+
     });
 </script>

@@ -65,6 +65,7 @@
           <Property Name="costo" Type="money" />
           <Property Name="nota" Type="varchar(max)" />
           <Property Name="Inventario" Type="varchar" MaxLength="3" />
+          <Property Name="CodProducto" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="suplidores">
           <Key>
@@ -191,13 +192,13 @@
           <EntitySet Name="tiposproductos" EntityType="spointModel.tiposproductos" />
           <EntitySet Name="suplidores" EntityType="spointModel.suplidores" />
           <EntitySet Name="vendedores" EntityType="spointModel.vendedores" />
+          <EntitySet Name="facturas" EntityType="spointModel.facturas" />
+          <EntitySet Name="itbis" EntityType="spointModel.itbis" />
           <EntitySet Name="productos" EntityType="spointModel.productos" />
           <AssociationSet Name="fk_tipoproducto" Association="spointModel.fk_tipoproducto">
             <End Role="tiposproductos" EntitySet="tiposproductos" />
             <End Role="productos" EntitySet="productos" />
           </AssociationSet>
-          <EntitySet Name="facturas" EntityType="spointModel.facturas" />
-          <EntitySet Name="itbis" EntityType="spointModel.itbis" />
         </EntityContainer>
         <EntityType Name="tiposproductos">
           <Key>
@@ -230,33 +231,6 @@
           <Property Name="cumpleaños" Type="DateTime" Precision="0" />
           <Property Name="correo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="productos">
-          <Key>
-            <PropertyRef Name="idProducto" />
-          </Key>
-          <Property Name="idProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="codigobarra" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="idtipo" Type="Int32" />
-          <Property Name="Precio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="itbis" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="costo" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="nota" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Inventario" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tiposproductos" Relationship="spointModel.fk_tipoproducto" FromRole="productos" ToRole="tiposproductos" />
-        </EntityType>
-        <Association Name="fk_tipoproducto">
-          <End Type="spointModel.tiposproductos" Role="tiposproductos" Multiplicity="0..1" />
-          <End Type="spointModel.productos" Role="productos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tiposproductos">
-              <PropertyRef Name="idtipoproducto" />
-            </Principal>
-            <Dependent Role="productos">
-              <PropertyRef Name="idtipo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="facturas">
           <Key>
             <PropertyRef Name="idfactura" />
@@ -279,6 +253,34 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="valor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="productos">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigobarra" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="idtipo" Type="Int32" />
+          <Property Name="Precio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="itbis" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="costo" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="nota" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Inventario" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="CodProducto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tiposproductos" Relationship="spointModel.fk_tipoproducto" FromRole="productos" ToRole="tiposproductos" />
+        </EntityType>
+        <Association Name="fk_tipoproducto">
+          <End Type="spointModel.tiposproductos" Role="tiposproductos" Multiplicity="0..1" />
+          <End Type="spointModel.productos" Role="productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiposproductos">
+              <PropertyRef Name="idtipoproducto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="idtipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -345,21 +347,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="productos">
-            <EntityTypeMapping TypeName="spointModel.productos">
-              <MappingFragment StoreEntitySet="productos">
-                <ScalarProperty Name="Inventario" ColumnName="Inventario" />
-                <ScalarProperty Name="nota" ColumnName="nota" />
-                <ScalarProperty Name="costo" ColumnName="costo" />
-                <ScalarProperty Name="itbis" ColumnName="itbis" />
-                <ScalarProperty Name="Precio" ColumnName="Precio" />
-                <ScalarProperty Name="idtipo" ColumnName="idtipo" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="codigobarra" ColumnName="codigobarra" />
-                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="facturas">
             <EntityTypeMapping TypeName="spointModel.facturas">
               <MappingFragment StoreEntitySet="facturas">
@@ -381,6 +368,22 @@
               <MappingFragment StoreEntitySet="itbis">
                 <ScalarProperty Name="valor" ColumnName="valor" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos">
+            <EntityTypeMapping TypeName="spointModel.productos">
+              <MappingFragment StoreEntitySet="productos">
+                <ScalarProperty Name="CodProducto" ColumnName="CodProducto" />
+                <ScalarProperty Name="Inventario" ColumnName="Inventario" />
+                <ScalarProperty Name="nota" ColumnName="nota" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+                <ScalarProperty Name="itbis" ColumnName="itbis" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="idtipo" ColumnName="idtipo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="codigobarra" ColumnName="codigobarra" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
