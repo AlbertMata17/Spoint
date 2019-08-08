@@ -196,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\all.css" />
+    <Content Include="Content\bolsa.jpg" />
     <Content Include="Content\bower_components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.css" />
     <Content Include="Content\bower_components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.min.css" />
     <Content Include="Content\bower_components\bootstrap-colorpicker\dist\img\bootstrap-colorpicker\alpha-horizontal.png" />

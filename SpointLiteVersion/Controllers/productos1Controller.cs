@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -18,7 +19,7 @@ namespace SpointLiteVersion.Controllers
         // GET: productos1
         public ActionResult Index()
         {
-            var productos = db.productos.Include(p => p.tiposproductos);
+            var productos = db.productos.Include(p => p.tiposproductos).Where(m=>m.Status=="1");
             return View(productos.ToList());
         }
 
@@ -98,7 +99,7 @@ namespace SpointLiteVersion.Controllers
             {
                 ViewBag.idtipo = new SelectList(db.tiposproductos, "idtipoproducto", "nombre",productos.idtipo);
                 ViewBag.itbis = new SelectList(db.itbis, "valor", "valor",productos.itbis);
-               
+                ViewBag.foto = productos.Foto;
 
                 ViewBag.id = "algo";
                 return View(productos);
@@ -112,7 +113,7 @@ namespace SpointLiteVersion.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idProducto,codigobarra,Descripcion,idtipo,Precio,itbis,costo,nota,Inventario,CodProducto")] productos productos)
+        public ActionResult Create([Bind(Include = "idProducto,codigobarra,Descripcion,idtipo,Precio,itbis,costo,nota,Inventario,CodProducto,Foto")] productos productos)
         {
 
             var t = (from s in db.productos where s.idProducto==productos.idProducto select s.idProducto).Count();
@@ -141,12 +142,13 @@ namespace SpointLiteVersion.Controllers
                     }
                     if (productos.Precio == null)
                     {
-                        productos.Precio = "0.00";
+                        productos.Precio = Decimal.Parse("0.00");
                     }
                     if (productos.costo == null)
                     {
                         productos.costo = Decimal.Parse("0.00");
                     }
+                    productos.Status = "1";
                     db.productos.Add(productos);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -211,7 +213,7 @@ namespace SpointLiteVersion.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             productos productos = db.productos.Find(id);
-            db.productos.Remove(productos);
+            productos.Status ="0";
             db.SaveChanges();
             return RedirectToAction("Index");
         }

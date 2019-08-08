@@ -13,7 +13,7 @@
         <EntityTypeShape EntityType="spointModel.vendedores" Width="1.5" PointX="3.375" PointY="5.75" />
         <EntityTypeShape EntityType="spointModel.facturas" Width="1.5" PointX="5.375" PointY="4.75" />
         <EntityTypeShape EntityType="spointModel.itbis" Width="1.5" PointX="7.375" PointY="4.75" />
-        <EntityTypeShape EntityType="spointModel.productos" Width="1.5" PointX="7.625" PointY="0.875" />
+        <EntityTypeShape EntityType="spointModel.productos" Width="1.5" PointX="7.625" PointY="7.75" />
         <AssociationConnector Association="spointModel.fk_tipoproducto" />
       </Diagram>
     </edmx:Diagrams>

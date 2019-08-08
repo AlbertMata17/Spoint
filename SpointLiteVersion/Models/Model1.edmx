@@ -60,12 +60,14 @@
           <Property Name="codigobarra" Type="varchar(max)" />
           <Property Name="Descripcion" Type="varchar(max)" />
           <Property Name="idtipo" Type="int" />
-          <Property Name="Precio" Type="varchar(max)" />
+          <Property Name="Precio" Type="money" />
           <Property Name="itbis" Type="varchar" MaxLength="30" />
           <Property Name="costo" Type="money" />
           <Property Name="nota" Type="varchar(max)" />
           <Property Name="Inventario" Type="varchar" MaxLength="3" />
           <Property Name="CodProducto" Type="varchar(max)" />
+          <Property Name="Foto" Type="varchar(max)" />
+          <Property Name="Status" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="suplidores">
           <Key>
@@ -261,12 +263,14 @@
           <Property Name="codigobarra" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="idtipo" Type="Int32" />
-          <Property Name="Precio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Precio" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="itbis" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="costo" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="nota" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Inventario" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="CodProducto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="tiposproductos" Relationship="spointModel.fk_tipoproducto" FromRole="productos" ToRole="tiposproductos" />
         </EntityType>
         <Association Name="fk_tipoproducto">
@@ -374,6 +378,8 @@
           <EntitySetMapping Name="productos">
             <EntityTypeMapping TypeName="spointModel.productos">
               <MappingFragment StoreEntitySet="productos">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
                 <ScalarProperty Name="CodProducto" ColumnName="CodProducto" />
                 <ScalarProperty Name="Inventario" ColumnName="Inventario" />
                 <ScalarProperty Name="nota" ColumnName="nota" />

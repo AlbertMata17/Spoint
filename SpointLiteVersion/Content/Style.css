@@ -188,8 +188,15 @@ th {
 
     font-size:21px;
 }
-#tabla tr:hover{
+
+#fotosubir{
+    display:none;
+}
+#fotoejemplo{
     cursor:pointer;
+}
+#tabla tr:hover {
+    cursor: pointer;
 }
 .form-horizontal {
     margin-left: 79px !important;

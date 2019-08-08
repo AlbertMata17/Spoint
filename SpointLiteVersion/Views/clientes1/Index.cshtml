@@ -26,25 +26,25 @@
 
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.nombre)
+                                    @Html.DisplayName("NOMBRE")
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.telefono)
+                                    @Html.DisplayName("TELEFONO")
                                 </th>
-
-
-                                <th>
-                                    @Html.DisplayNameFor(model => model.cedula)
-                                </th>
-
-
-
 
 
                                 <th>
-                                    @Html.DisplayName("Ciudad")
+                                    @Html.DisplayName("CÉDULA")
                                 </th>
-                                <th>@Html.DisplayName("Acciones")</th>
+
+
+
+
+
+                                <th>
+                                    @Html.DisplayName("CIUDAD")
+                                </th>
+                                <th>@Html.DisplayName("ACCIONES")</th>
                             </tr>
                         </thead>
                         @foreach (var item in Model)
@@ -92,7 +92,27 @@
 <script>
     $(document).ready(function () {
         $('#tabla').DataTable({
-            "pagingType": "full_numbers" // "simple" option for 'Previous' and 'Next' buttons only
+            "pagingType": "full_numbers", // "simple" option for 'Previous' and 'Next' buttons only
+            "language": {
+                "decimal": "",
+                "emptyTable": "NO HAY INFORMACION",
+                "info": "MOSTRANDO _START_ A _END_ de _TOTAL_ ENTRADAS",
+                "infoEmpty": "MOSTRANDO 0 to 0 of 0 ENTRADAS",
+                "infoFiltered": "(FILTRADO DE _MAX_ TOTAL ENTRADAS)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "MOSTRAR _MENU_ ENTRADAS",
+                "loadingRecords": "CARGANDO...",
+                "processing": "PROCESANDO...",
+                "search": "BUSCAR:",
+                "zeroRecords": "SIN RESULTADOS ENCONTRADOS",
+                "paginate": {
+                    "first": "PRIMERO",
+                    "last": "ULTIMO",
+                    "next": "SIGUIENTE",
+                    "previous": "ANTERIOR"
+                }
+            }
         });
         $('.dataTables_length').addClass('bs-select');
     });

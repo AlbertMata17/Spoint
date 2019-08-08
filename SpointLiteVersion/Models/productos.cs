@@ -18,12 +18,14 @@ namespace SpointLiteVersion.Models
         public string codigobarra { get; set; }
         public string Descripcion { get; set; }
         public Nullable<int> idtipo { get; set; }
-        public string Precio { get; set; }
+        public Nullable<decimal> Precio { get; set; }
         public string itbis { get; set; }
         public Nullable<decimal> costo { get; set; }
         public string nota { get; set; }
         public string Inventario { get; set; }
         public string CodProducto { get; set; }
+        public string Foto { get; set; }
+        public string Status { get; set; }
     
         public virtual tiposproductos tiposproductos { get; set; }
     }
