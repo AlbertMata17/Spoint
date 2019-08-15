@@ -17,7 +17,7 @@ namespace SpointLiteVersion.Controllers
         // GET: suplidores
         public ActionResult Index()
         {
-            return View(db.suplidores.ToList());
+            return View(db.suplidores.ToList().Where(m=>m.Status=="1"));
         }
 
         // GET: suplidores/Details/5
@@ -36,8 +36,26 @@ namespace SpointLiteVersion.Controllers
         }
 
         // GET: suplidores/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+            if (id == null)
+            {
+                return View();
+
+            }
+            suplidores suplidores = db.suplidores.Find(id);
+            if (suplidores == null)
+            {
+                return HttpNotFound();
+            }
+            if (id != null)
+            {
+                ViewBag.id = "algo";
+                ViewBag.foto = suplidores.Foto;
+
+                return View(suplidores);
+            }
+
             return View();
         }
 
@@ -46,15 +64,55 @@ namespace SpointLiteVersion.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idSuplidor,nombre,telefono,direccion,correo,cedula")] suplidores suplidores)
+        public ActionResult Create([Bind(Include = "idSuplidor,nombre,telefono,direccion,correo,cedula,Foto")] suplidores suplidores)
         {
-            if (ModelState.IsValid)
+            var t = (from s in db.suplidores where s.idSuplidor == suplidores.idSuplidor select s.idSuplidor).Count();
+            if (t != 0)
             {
-                db.suplidores.Add(suplidores);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    if (suplidores.nombre != null)
+                    {
+                        suplidores.nombre = suplidores.nombre.ToUpper();
+                    }
+                    if (suplidores.direccion != null)
+                    {
+                        suplidores.direccion = suplidores.direccion.ToUpper();
+                    }
+                    if (suplidores.correo != null)
+                    {
+                        suplidores.correo = suplidores.correo.ToUpper();
+                    }
+                    suplidores.Status = "1";
 
+                    db.Entry(suplidores).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            else if (suplidores.idSuplidor <= 0)
+            {
+                if (ModelState.IsValid)
+                {
+                    if (suplidores.nombre != null)
+                    {
+                        suplidores.nombre = suplidores.nombre.ToUpper();
+                    }
+                    if (suplidores.direccion != null)
+                    {
+                        suplidores.direccion = suplidores.direccion.ToUpper();
+                    }
+                    if (suplidores.correo != null)
+                    {
+                        suplidores.correo = suplidores.correo.ToUpper();
+                    }
+                    suplidores.Status = "1";
+
+                    db.suplidores.Add(suplidores);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
             return View(suplidores);
         }
 
@@ -110,6 +168,8 @@ namespace SpointLiteVersion.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             suplidores suplidores = db.suplidores.Find(id);
+            suplidores.Status = "0";
+
             db.suplidores.Remove(suplidores);
             db.SaveChanges();
             return RedirectToAction("Index");

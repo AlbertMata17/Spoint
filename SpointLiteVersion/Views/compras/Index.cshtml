@@ -1,20 +1,18 @@
-﻿@model IEnumerable<SpointLiteVersion.Models.suplidores>
+﻿@model IEnumerable<SpointLiteVersion.Models.compras>
 
 @{
     ViewBag.Title = "Index";
 }
 
-
-
 <div class="container">
     <div class="row">
         <div class="col-md-9 modal-content contedor" style="width:90%; margin-left:4%; margin-top:2%;">
-            <h2 style="margin-left:30px; margin-bottom:35px;">Suplidores</h2>
+            <h2 style="margin-left:30px; margin-bottom:35px;">Compras</h2>
+
             <p>
-                <Button onclick="location.href='@Url.Action("Create","suplidores")'" class="btn btn-success crear"><i class="fas fa-plus iconocrear"></i></Button>
+                <Button onclick="location.href='@Url.Action("Create","compras")'" class="btn btn-success crear"><i class="fas fa-plus iconocrear"></i></Button>
 
             </p>
-
             <div class="row">
                 <div class="modal-content" style="width:88%; margin-left:4%; margin-top:2%;">
                     <table class="table  table-hover t tabla" id="tabla">
@@ -22,53 +20,46 @@
 
                             <tr>
                                 <th>
-                                        @Html.DisplayName("NOMBRE")
+                                    @Html.DisplayNameFor(model => model.NoCompra)
                                 </th>
                                 <th>
-                                    @Html.DisplayName("TELÉFONO")
+                                    @Html.DisplayNameFor(model => model.Fecha)
                                 </th>
-
-
                                 <th>
-                                    @Html.DisplayName("CÉDULA")
+                                    @Html.DisplayNameFor(model => model.Observacion)
                                 </th>
-
-
-
-
-
-                                <th>@Html.DisplayName("ACCIONES")</th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Suplidor)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Articulo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Cantidad)
+                                </th>
+                                <th></th>
                             </tr>
                         </thead>
                         @foreach (var item in Model)
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.nombre)
+                                    @Html.DisplayFor(modelItem => item.NoCompra)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.telefono)
+                                    @Html.DisplayFor(modelItem => item.Fecha)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Observacion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Suplidor)
                                 </td>
 
-
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.cedula)
-                                </td>
-
-
-
-
-
-
-
-
-
-                                <td>
-                                    <a hidden href="@Url.Action("Create","suplidores",new { id=item.idSuplidor})" class="edit"><i class="fas fa-edit eliminar"></i></a>
-                                    <a href="@Url.Action("Index","suplidores")" class="facturar" title="Facturar"><i class="fas fa-donate eliminar"></i></a> |
-                                    <a href="@Url.Action("Index","suplidores")" class="facturar" title="Facturar"><i class="fas fa-hand-point-up eliminar"></i></a>
-
-
+                                    <a hidden href="@Url.Action("Create","compras",new { id=item.idcompra})" class="edit"><i class="fas fa-edit eliminar"></i></a>
+                                    <a href="@Url.Action("Index","compras")" class="facturar" title="Facturar"><i class="fas fa-donate eliminar"></i></a> |
+                                    <a href="@Url.Action("Index","compras")" class="facturar" title="Facturar"><i class="fas fa-hand-point-up eliminar"></i></a>
                                 </td>
                             </tr>
                         }
@@ -80,7 +71,12 @@
     </div>
 </div>
 <script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="~/Scripts/jquery.numeric.js"></script>
+
+<script src="~/Scripts/autoNumeric/autoNumeric-min.js"></script>
+<script src="~/Scripts/autoNumeric/autoNumeric.js"></script>
+
+
 <script>
     $(document).ready(function () {
         $('#tabla').DataTable({
@@ -109,6 +105,7 @@
         $('.dataTables_length').addClass('bs-select');
     });
 </script>
+
 <script>
     $(document).ready(function () {
 

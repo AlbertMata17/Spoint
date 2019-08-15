@@ -17,7 +17,7 @@ namespace SpointLiteVersion.Controllers
         // GET: vendedores
         public ActionResult Index()
         {
-            return View(db.vendedores.ToList());
+            return View(db.vendedores.ToList().Where(m=>m.Status=="1"));
         }
 
         // GET: vendedores/Details/5
@@ -36,8 +36,25 @@ namespace SpointLiteVersion.Controllers
         }
 
         // GET: vendedores/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+            if (id == null)
+            {
+                return View();
+
+            }
+            vendedores vendedores = db.vendedores.Find(id);
+            if (vendedores == null)
+            {
+                return HttpNotFound();
+            }
+            if (id != null)
+            {
+                ViewBag.id = "algo";
+
+                return View(vendedores);
+            }
+
             return View();
         }
 
@@ -48,13 +65,33 @@ namespace SpointLiteVersion.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "idvendedor,nombre,direccion,telefono,cedula,cumpleaños,correo")] vendedores vendedores)
         {
-            if (ModelState.IsValid)
+            var t = (from s in db.vendedores where s.idvendedor == vendedores.idvendedor select s.idvendedor).Count();
+            if (t != 0)
             {
-                db.vendedores.Add(vendedores);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    vendedores.nombre = vendedores.nombre.ToUpper();
+                    vendedores.correo = vendedores.correo.ToUpper();
+                    vendedores.direccion = vendedores.direccion.ToUpper();
+                    db.Entry(vendedores).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
+            else if (vendedores.idvendedor <= 0)
+            
+                {
+                    if (ModelState.IsValid)
+                    {
+                    vendedores.nombre = vendedores.nombre.ToUpper();
+                    vendedores.correo = vendedores.correo.ToUpper();
+                    vendedores.direccion = vendedores.direccion.ToUpper();
+                    
+                        db.vendedores.Add(vendedores);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                }
             return View(vendedores);
         }
 
@@ -110,6 +147,8 @@ namespace SpointLiteVersion.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             vendedores vendedores = db.vendedores.Find(id);
+            vendedores.Status = "0";
+
             db.vendedores.Remove(vendedores);
             db.SaveChanges();
             return RedirectToAction("Index");

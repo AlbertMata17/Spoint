@@ -44,9 +44,28 @@ namespace SpointLiteVersion.Controllers
             return Json(ciudad, JsonRequestBehavior.AllowGet);
         }
         // GET: clientes1/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.idciudad = new SelectList(db.ciudad, "idciudad", "Nombre");
+            if (id == null)
+            {
+                ViewBag.idciudad = new SelectList(db.ciudad, "idciudad", "Nombre");
+                return View();
+
+            }
+            clientes clientes = db.clientes.Find(id);
+            if (clientes == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (id != null)
+            {
+                ViewBag.idciudad = new SelectList(db.ciudad, "idciudad", "Nombre", clientes.idciudad);
+                ViewBag.id = "algo";
+                ViewBag.foto = clientes.Foto;
+
+                return View(clientes);
+            }
             return View();
         }
 
@@ -55,15 +74,60 @@ namespace SpointLiteVersion.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idCliente,nombre,telefono,telefono2,idciudad,creditoaprobado,cedula,direccion,email,fechanacimiento,NCF,Observaciones,LimiteTiempo")] clientes clientes)
+        public ActionResult Create([Bind(Include = "idCliente,nombre,telefono,telefono2,idciudad,creditoaprobado,cedula,direccion,email,fechanacimiento,NCF,Observaciones,LimiteTiempo,Foto")] clientes clientes)
         {
-            if (ModelState.IsValid)
+            var t = (from s in db.clientes where s.idCliente == clientes.idCliente select s.idCliente).Count();
+            if (t != 0)
             {
-                db.clientes.Add(clientes);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    if (clientes.direccion != null)
+                    {
+                        clientes.direccion = clientes.direccion.ToUpper();
+                    }
+                    if (clientes.nombre != null)
+                    {
+                        clientes.nombre = clientes.nombre.ToUpper();
+                    }
+                    if (clientes.email != null)
+                    {
+                        clientes.email = clientes.email.ToUpper();
+                    }
+                    if (clientes.Observaciones != null)
+                    {
+                        clientes.Observaciones = clientes.Observaciones.ToUpper();
+                    }
+                    db.Entry(clientes).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
+            else if (clientes.idCliente <= 0)
+            {
+                if (ModelState.IsValid)
+                {
+                    if (clientes.direccion != null)
+                    {
+                        clientes.direccion = clientes.direccion.ToUpper();
+                    }
+                    if (clientes.nombre != null)
+                    {
+                        clientes.nombre = clientes.nombre.ToUpper();
+                    }
+                    if (clientes.email != null)
+                    {
+                        clientes.email = clientes.email.ToUpper();
+                    }
+                    if (clientes.Observaciones != null)
+                    {
+                        clientes.Observaciones = clientes.Observaciones.ToUpper();
+                    }
+                    db.clientes.Add(clientes);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
+            }
             ViewBag.idciudad = new SelectList(db.ciudad, "idciudad", "Nombre", clientes.idciudad);
             return View(clientes);
         }

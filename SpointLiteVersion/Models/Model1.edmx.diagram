@@ -4,17 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6e20c42e85cb4f96870cd0a6db25e409" Name="Diagram1">
+      <Diagram DiagramId="6e20c42e85cb4f96870cd0a6db25e409" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="spointModel.ciudad" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="spointModel.clientes" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="spointModel.fk_ciudad" ManuallyRouted="false" />
         <EntityTypeShape EntityType="spointModel.tiposproductos" Width="1.5" PointX="5.375" PointY="1.625" />
-        <EntityTypeShape EntityType="spointModel.suplidores" Width="1.5" PointX="0.75" PointY="5.75" />
         <EntityTypeShape EntityType="spointModel.vendedores" Width="1.5" PointX="3.375" PointY="5.75" />
-        <EntityTypeShape EntityType="spointModel.facturas" Width="1.5" PointX="5.375" PointY="4.75" />
         <EntityTypeShape EntityType="spointModel.itbis" Width="1.5" PointX="7.375" PointY="4.75" />
         <EntityTypeShape EntityType="spointModel.productos" Width="1.5" PointX="7.625" PointY="7.75" />
         <AssociationConnector Association="spointModel.fk_tipoproducto" />
+        <EntityTypeShape EntityType="spointModel.clientes" Width="1.5" PointX="3" PointY="1" />
+        <AssociationConnector Association="spointModel.fk_ciudad" />
+        <EntityTypeShape EntityType="spointModel.suplidores" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="spointModel.compras" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="spointModel.facturas" Width="1.5" PointX="5.625" PointY="4.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -121,7 +121,24 @@ namespace SpointLiteVersion.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    
+                    if (productos.Descripcion != null)
+                    {
+                        productos.Descripcion = productos.Descripcion.ToUpper();
+                    }
+                    if (productos.nota != null)
+                    {
+                        productos.nota = productos.nota.ToUpper();
+                    }
+                    if (productos.Precio == null)
+                    {
+                        productos.Precio = Decimal.Parse("0.00");
+                    }
+                    if (productos.costo == null)
+                    {
+                        productos.costo = Decimal.Parse("0.00");
+                    }
+                    productos.Status = "1";
+
                     db.Entry(productos).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");

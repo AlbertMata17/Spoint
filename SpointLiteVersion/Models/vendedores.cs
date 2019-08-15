@@ -21,5 +21,7 @@ namespace SpointLiteVersion.Models
         public string cedula { get; set; }
         public Nullable<System.DateTime> cumpleaños { get; set; }
         public string correo { get; set; }
+        public string Foto { get; set; }
+        public string Status { get; set; }
     }
 }

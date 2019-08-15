@@ -27,6 +27,8 @@ namespace SpointLiteVersion.Models
         public Nullable<int> NCF { get; set; }
         public string Observaciones { get; set; }
         public Nullable<int> LimiteTiempo { get; set; }
+        public string Foto { get; set; }
+        public string Status { get; set; }
     
         public virtual ciudad ciudad { get; set; }
     }

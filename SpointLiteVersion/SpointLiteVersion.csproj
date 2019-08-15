@@ -141,6 +141,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ciudads1Controller.cs" />
     <Compile Include="Controllers\clientes1Controller.cs" />
+    <Compile Include="Controllers\comprasController.cs" />
     <Compile Include="Controllers\facturasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\itbisController.cs" />
@@ -156,6 +157,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\clientes.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\compras.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\facturas.cs">
@@ -6666,6 +6670,7 @@
     <Content Include="Content\plugins\timepicker\bootstrap-timepicker.min.css" />
     <Content Include="Content\plugins\timepicker\bootstrap-timepicker.min.js" />
     <Content Include="Content\Style.css" />
+    <Content Include="Content\user.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -7417,6 +7422,11 @@
     <Content Include="Views\itbis\Details.cshtml" />
     <Content Include="Views\itbis\Edit.cshtml" />
     <Content Include="Views\itbis\Index.cshtml" />
+    <Content Include="Views\compras\Create.cshtml" />
+    <Content Include="Views\compras\Delete.cshtml" />
+    <Content Include="Views\compras\Details.cshtml" />
+    <Content Include="Views\compras\Edit.cshtml" />
+    <Content Include="Views\compras\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Content\bower_components\fullcalendar\dist\fullcalendar.d.ts" />

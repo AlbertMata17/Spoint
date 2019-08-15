@@ -1,0 +1,66 @@
+﻿@model SpointLiteVersion.Models.compras
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>compras</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NoCompra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoCompra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Suplidor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Suplidor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Articulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Articulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idcompra }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

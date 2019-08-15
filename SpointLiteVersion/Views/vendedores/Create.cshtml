@@ -16,6 +16,16 @@
             <div class="form-horizontal">
 
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="col-md-12">
+                    @if (@ViewBag.id != null)
+                    {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.idvendedor)
+                    }
+                   
+
+                </div>
+
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -55,11 +65,11 @@
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         @Html.LabelFor(model => model.cumpleaños, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <input type="date" name="cumpleaños" value="" class="form-control" id="cumplea_os"/>
+                        <input type="date" name="cumpleaños" value="" class="form-control" id="cumplea_os" />
                         @Html.ValidationMessageFor(model => model.cumpleaños, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group col-md-6" style="">
-                      
+
 
                         @Html.LabelFor(model => model.correo, htmlAttributes: new { @class = "control-label col-md-2" })
 
@@ -70,9 +80,20 @@
 
 
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
+                <div class="form-row">
+
+                    <div class="form-group col-md-10">
+
+                        @if (ViewBag.id != null)
+                        {
+
+                            <a class="btn btn-danger btnelimina" href="@Url.Action("Delete","vendedores",new { id=Model.idvendedor})">Eliminar</a>
+                        }
+
+                    </div>
+                    <div class="form-group col-md-1">
+                        <button type="submit" class="btn btn-info" id="crear"><i class="fas fa-arrow-circle-left"></i></button>
+
                     </div>
                 </div>
             </div>
@@ -80,9 +101,7 @@
         </div>
     </div>
 </div>
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
 <script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="~/Scripts/inputmask/inputmask.js"></script>
 <script src="~/Scripts/inputmask/inputmask.extensions.js"></script>
@@ -94,4 +113,12 @@
     $("#telefono").inputmask({ "mask": "(999) 999-9999" });
     $("#cedula").inputmask({ "mask": "999-9999999-9" });
 
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#nombre").focus();
+
+
+
+    });
 </script>

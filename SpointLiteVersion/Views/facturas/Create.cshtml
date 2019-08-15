@@ -37,7 +37,15 @@
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             @Html.LabelFor(model => model.cliente, htmlAttributes: new { @class = "control-label col-md-2" })
-                            @Html.DropDownList("cliente", (IEnumerable<SelectListItem>)ViewBag.clientes, "---Selecciona Un Cliente---", new { @class = "form-control" })
+                            <input type="text" list="cliente1" name="cliente" id="cliente" class="form-control" autocomplete="off"/>
+
+                            <datalist id="cliente1">
+                                @foreach (var m in ViewBag.cliente)
+                                {
+                                    <option value="@m.Text" data-id="@m.Value" />
+                                }
+                            </datalist>
+                            @*@Html.DropDownList("cliente", (IEnumerable<SelectListItem>)ViewBag.clientes, "---Selecciona Un Cliente---", new { @class = "form-control" })*@
 
                             @Html.ValidationMessageFor(model => model.cliente, "", new { @class = "text-danger" })
 
@@ -47,7 +55,16 @@
 
                             @Html.LabelFor(model => model.vendedor, htmlAttributes: new { @class = "control-label col-md-2" })
 
-                            @Html.DropDownList("vendedor", (IEnumerable<SelectListItem>)ViewBag.vendedores, "---Selecciona Un vendedor---", new { @class = "form-control" })
+                            <input type="text" list="vendedor1" name="vendedor" id="vendedor" class="form-control" autocomplete="off" />
+
+                            <datalist id="vendedor1">
+                                @foreach (var m in ViewBag.vendedor)
+                                {
+                                    <option value="@m.Text" data-id="@m.Value" />
+                                }
+                            </datalist>
+
+                            @*@Html.DropDownList("vendedor", (IEnumerable<SelectListItem>)ViewBag.vendedores, "---Selecciona Un vendedor---", new { @class = "form-control" })*@
                             @Html.ValidationMessageFor(model => model.vendedor, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -58,14 +75,24 @@
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             @Html.LabelFor(model => model.producto, htmlAttributes: new { @class = "control-label col-md-2" })
-                            @Html.DropDownList("producto", (IEnumerable<SelectListItem>)ViewBag.producto, "---Selecciona Un producto---", new { @class = "form-control" })
+                            @*@Html.EditorFor(model => model.producto);*@
+                            <input type="text" list="colors" name="producto" id="producto" class="form-control" autocomplete="off"/>
+
+                            <datalist id="colors">
+                                @foreach (var m in ViewBag.producto)
+                                {
+                                    <option value="@m.Text" data-id="@m.Value" />
+                                }
+                            </datalist>
+                            @*@Html.DropDownList("producto", (IEnumerable<SelectListItem>)ViewBag.producto, "---Selecciona Un producto---", new { @class = "form-control" })*@
                             @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+
                         </div>
                         <div class="form-group col-md-6" style="">
 
 
-                            @Html.Label("Cantidad", new { @class = "control-label col-md-2" })
-                            <input type="number" name="cantidad" value="" id="cantidad" class="form-control" />
+                            @Html.Label("Precio", new { @class = "control-label col-md-2" })
+                            <input type="number" name="precio" value="" id="precio" class="form-control" readonly />
                             @Html.ValidationMessageFor(model => model.precio, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group col-md-2">
@@ -77,12 +104,12 @@
                             </select>
                             @Html.ValidationMessageFor(model => model.credito, "", new { @class = "text-danger" })
                         </div>
-                        <div class="form-group col-md-2">
+                        @*<div class="form-group col-md-2">
                             @Html.LabelFor(model => model.descuento, htmlAttributes: new { @class = "control-label col-md-2" })
                             @Html.EditorFor(model => model.descuento, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Un descuento general" } })
 
                             @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
-                        </div>
+                        </div>*@
                     </div>
                     <select class="" id="descripcionproducto" hidden>
                         <option value="value">text</option>
@@ -98,6 +125,10 @@
                         <option value="value">text</option>
                     </select>
 
+                    @*<select id="idprod">
+                            <option value="value">text</option>
+                        </select>*@
+
 
 
                     <div class="form-group">
@@ -109,6 +140,7 @@
                         @Html.ActionLink("Back to List", "Index")
                     </div>
                 </div>
+
             </form>
         </div>
     </div>
@@ -121,20 +153,21 @@
                 <div class="principal">
                     <div class="imga"><img src="~/Content/dist/img/carrito3.png" class="imagencarrito" alt="Alternate Text" /></div>
                     <div class="datosclientes">
-                        <h2>Cliente <span id="cliente1"></span></h2>
-                        <h2>Vendedor <span id="vendedor1"></span></h2>
+                        <h2>Cliente <span id="cliente2"></span></h2>
+                        <h2>Vendedor <span id="vendedor2"></span></h2>
 
                     </div>
                 </div>
+                <div class="detallecompra" style="margin-bottom:0px;">
+                    <p style="font-size:15px; margin-top:20px; margin-left:8px;">Detalle de La Compra</p>
 
-                <table id="detalle" class="lista table"  style="margin-top:15px;">
+                </div>
+                <table id="detalle" class="lista table" style="margin-top:-10px;">
                     <thead style="font-size:15px;">
+
                         <tr>
-                            <td>Detalle de la Compra</td>
-                        </tr>
-                        <tr>
-                            <th class="idprod">Id</th>
-                            <th>descripcion</th>
+                            <th class="idprod" style="width:1%;">Id</th>
+                            <th style="width:30%;">descripcion</th>
                             <th>Cantidad</th>
                             <th>Precio</th>
                             <th>Descuento</th>
@@ -167,16 +200,17 @@
                             <td style="font-size:17px;float:right;margin-top: 17px;margin-left: 15px;" class="tot">Total</td>
 
                             <td><input style="margin-top:10px; font-weight:700; " class="form-control" type="text" name="TotalaPagar" id="TotalaPagar" required readonly /></td>
+
                         </tr>
                         @*<tr class="subtotalcolumn">
-                <td style="font-size:17px;float:right;margin-top: 17px;margin-left: 15px;">Subtotal</td>
+                                <td style="font-size:17px;float:right;margin-top: 17px;margin-left: 15px;">Subtotal</td>
 
-            </tr>*@
+                            </tr>*@
                         @*<tr class="descuentocolumn">
-                <td style="font-size:17px;float:right;margin-top: 17px;margin-left: 15px;">Descuento</td>
+                                <td style="font-size:17px;float:right;margin-top: 17px;margin-left: 15px;">Descuento</td>
 
-                <td><input style=" font-weight:700;" class="form-control" type="text" name="descuentodado" id="descuentodado" required readonly /></td>
-            </tr>*@
+                                <td><input style=" font-weight:700;" class="form-control" type="text" name="descuentodado" id="descuentodado" required readonly /></td>
+                            </tr>*@
                     </table>
                 </div>
                 <div class="padre">
@@ -201,157 +235,343 @@
                 </div>
             </div>
 
-            </div>
         </div>
     </div>
+</div>
 
-            <button type="button" class="imprimir btn btn-danger" id="imprimir"> <i class="fas fa-print"></i> PRINT</button>
+@*modal para cambiar el descuento y la cantidad*@
 
-            <script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
-            <script>
-                $(document).ready(function () {
-                    $("#producto").change(function () {
-                        $.post("Getproducto", { idproducto: $("#producto").val() }, function (data) {
+<button type="button" class="imprimir btn btn-danger" id="imprimir"> <i class="fas fa-print"></i> PRINT</button>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">EDIT</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <input type="text" class="input-sm" id="txtfname" />
+                </p>
+                <p>
+                    <input type="text" class="input-sm" id="txtlname" />
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="btnsubmit" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#producto").change(function () {
+            $.post("Getproducto", { idproducto: $("#producto").val() }, function (data) {
 
 
-                            $("#descripcionproducto").empty();
-                            $("#itbisproducto").empty();
-                            $("#precio1").empty();
-                            $("#idproducto").empty();
-                            $.each(data, function (create, row) {
-                                $("#descripcionproducto").append("<option value='" + row.Descripcion + "'>" + row.Descripcion + "</option>")
-                                $("#itbisproducto").append("<option value='" + row.itbis + "'>" + row.itbis + "</option>")
-                                $("#precio1").append("<option value='" + row.Precio + "'>" + row.Precio + "</option>")
-                                $("#idproducto").append("<option value='" + row.idProducto + "'>" + row.idProducto + "</option>")
+                $("#descripcionproducto").empty();
+                $("#itbisproducto").empty();
+                $("#precio1").empty();
+                $("#idproducto").empty();
+                $("#idprod").empty();
+                $.each(data, function (create, row) {
+                    $("#descripcionproducto").append("<option value='" + row.Descripcion + "'>" + row.Descripcion + "</option>")
+                    $("#itbisproducto").append("<option value='" + row.itbis + "'>" + row.itbis + "</option>")
+                    //$("#idprod").append("<option value='" + row.itbis + "'>" + row.itbis + "</option>")
+                    $("#precio1").append("<option value='" + row.Precio + "'>" + row.Precio + "</option>")
+                    $("#idproducto").append("<option value='" + row.idProducto + "'>" + row.idProducto + "</option>")
 
-                            });
-                        });
-                    })
                 });
-            </script>
-            <script>
-                var total = 0;
-                var valor = 0;
-                var subtotal = 0;
-                var subtotal1 = 0;
-                var subtotalpagar = 0;
-                var valor1 = 0;
-                var valor2 = 0;
-                var descuento = 0;
-                var itbis = 0;
-                var descuento1 = 0;
-                function fn_agregar() {
-                    var combo = document.getElementById("cliente");
-                    var selected = combo.options[combo.selectedIndex].text
+            });
+        })
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        agregarmas();
+    });
+    var cantidadmostrar = 1;
+    var descuentomostrar = 0;
+    var total = 0;
+    var valor = 0;
+    var subtotal = 0;
+    var subtotal1 = 0;
+    var subtotalpagar = 0;
+    var valor1 = 0;
+    var valor2 = 0;
+    var descuento = 0;
+    var itbis = 0;
+    var descuento1 = 0;
+    var custom;
+    var encontradoResultado = false;
+    var abierto = false;
+    function fn_agregar() {
+        var combo = document.getElementById("cliente1").value;
+        encontradoResultado = false;
+        var combo1 = document.getElementById("vendedor1").value;
+        //var selected1 = combo1.options[combo1.selectedIndex].text
+        document.getElementById("cliente2").innerText = $("#cliente").val();
+        document.getElementById("vendedor2").innerText = $("#vendedor").val();
+        //obtenemos el valor insertado a buscar
+        buscar = $("#idproducto").prop("value")
 
-                    var combo1 = document.getElementById("vendedor");
-                    var selected1 = combo1.options[combo1.selectedIndex].text
-                    document.getElementById("cliente1").innerText = selected;
-                    document.getElementById("vendedor1").innerText = selected1;
+        //utilizamos esta variable solo de ayuda y mostrar que se encontro
 
-                    cadena = "<tr>"
+        //realizamos el recorrido solo por las celdas que contienen el código, que es la primera
+        $("#detalle tr").find('td:eq(0)').each(function () {
 
-                    cadena = cadena + "<td class='idprod'>" + $("#idproducto").val() + "</td>";
-                    cadena = cadena + "<td>" + $("#descripcionproducto").val() + "</td>";
-                    cadena = cadena + "<td>" + $("#cantidad").val() + "</td>";
-                    cadena = cadena + "<td>" + $("#precio1").val() + "</td>";
-                    cadena = cadena + "<td>" + $("#descuento").val() + "</td>";
-                    cadena = cadena + "<td class='itb'>" + $("#itbisproducto").val() + "</td>";
+            //obtenemos el codigo de la celda
+            codigo = $(this).html();
+
+            //comparamos para ver si el código es igual a la busqueda
+            if (codigo == buscar) {
+
+                //aqui ya que tenemos el td que contiene el codigo utilizaremos parent para obtener el tr.
+                trDelResultado = $(this).parent();
+
+                //ya que tenemos el tr seleccionado ahora podemos navegar a las otras celdas con find
+                $(this).parents("tr").find("td").eq(2).html(parseInt($(this).parents("tr").find("td").eq(2).html()) + 1);
+                encontradoResultado = true;
+
+                //mostramos el resultado en el div
+                //alert("La edad es: " + trDelResultado.find("td").eq(2).html())
+
+            }
+        })
+
+        //si no se encontro resultado mostramos que no existe.
+
+        if (encontradoResultado == false) {
+            cadena = "<tr class='selected' id='fila' onclick='seleccionar(this.id)'>"
+
+            cadena = cadena + "<td class='idprod'>" + $("#idproducto").val() + "</td>";
+            cadena = cadena + "<td>" + $("#descripcionproducto").val() + "</td>";
+            cadena = cadena + "<td class='nr'>" + cantidadmostrar + "</td>";
+            cadena = cadena + "<td>" + $("#precio1").val() + "</td>";
+            cadena = cadena + "<td>" + descuentomostrar + "</td>";
+            var cantidad_itbis = (parseInt("1") * $("#precio1").val());
+            alert(cantidad_itbis);
+
+            itbis = Math.floor(cantidad_itbis * parseInt($("#itbisproducto").val()) / 100);
+            cadena = cadena + "<td class='itb'>" + itbis + "</td>";
+            cadena = cadena + "<td class='itb3' hidden>" + $("#itbisproducto").val() + "</td>";
 
 
-                    var y = 0;
-                    var x = 0;
-                    var des = 0;
+            var y = 0;
+            var x = 0;
+            var des = 0;
 
-                    y = $("#cantidad").val();
-                    x = $("#precio1").val();
-                    des = parseInt($("#descuento").val());
-                    subtotal = (x * y) - des;
-                    subtotal1 = (x * y);
-                    descuento = des;
+            y = cantidadmostrar;
+            x = $("#precio1").val();
+            des = descuentomostrar;
+        
+            subtotal = y * (x - des) + itbis;
+            subtotal1 = (x * y);
 
-                    cadena = cadena + "<td>" + subtotal + "</td>"
-                    cadena = cadena + "<td class='sub1'>" + subtotal1 + "</td>"
+            descuento = des;
 
-                    cadena = cadena + "<td class='botoneliminar'><a class ='elimina'><button class='btn btn-danger' type='button'><span class='fa fa-remove'></span></button></a></td>";
-                    $("#detalle tbody").append(cadena);
-                    sumar();
-                    fn_dar_eliminar();
-                    limpiar();
-                }
+            cadena = cadena + "<td>" + subtotal + "</td>"
+            cadena = cadena + "<td class='sub1'>" + subtotal1 + "</td>"
 
-                function sumar() {
-                    total = total + subtotal;
-                    descuento1 = descuento1 + descuento;
-                    subtotalpagar = subtotalpagar + subtotal1;
-                    console.info(total);
-                    $("#descuentodado").val(descuento1)
+            cadena = cadena + "<td class='botoneliminar'><a class ='elimina'  style='margin-left:-20px;'><button class='btn btn-danger' type='button'><span class='fa fa-remove'></span></button></a></td> ";
 
-                    $("#subtotalpagar").val(subtotalpagar)
-                    $("#TotalaPagar").val(total);
+            cadena = cadena + "<td class='botoneliminar'><a class ='ver' style='margin-left:-20px;'><button class='btn btn-primary' onclick='seleccionar()' type='button'><span class='fas fa-plus'></span></button></a></td>";
+            cadena = cadena + "<td class='botoeliminar'><a class ='disminuir' style='margin-left:-20px;'><button class='btn btn-primary' onclick='aumenta()' type='button'><span class='fas fa-minus'></span></button></a></td>";
 
-                }
-                function fn_dar_eliminar() {
-                    $("a.elimina").click(function () {
-                        valor = $(this).parents("tr").find("td").eq(6).html();
-                        valor1 = $(this).parents("tr").find("td").eq(7).html();
-                        valor2 = $(this).parents("tr").find("td").eq(4).html();
-                        console.info(valor);
-                        $(this).parents("tr").fadeOut("normal", function () {
-                            $(this).remove();
-                            restar();
-                        });
-                    });
-                };
-                function restar() {
-                    total = total - valor;
-                    subtotalpagar = subtotalpagar - valor1;
-                    descuento1 = descuento1 - valor2;
-                    $("#subtotalpagar").val(subtotalpagar);
-                    $("#descuentodado").val(descuento1);
+            cadena = cadena + "</tr>";
+            $("#detalle tbody").append(cadena);
 
-                    $("#TotalaPagar").val(total);
-                }
-                function limpiar() {
-                    $("#fecha").val("");
-                    $("#observacion").val("");
-                    $("#precio").val("");
-                    $("#cliente").val("");
-                    $("#producto").val("");
-                    $("#cantidad").val("");
-                    $("#descuento").val("");
-                }
-            </script>
-            <script>
-                $(document).ready(function () {
-                    $("#imprimir").click(function () {
-                        var option = {
-                            debug: false,               // show the iframe for debugging
-                            importCSS: true,            // import parent page css
-                            importStyle: true,         // import style tags
-                            printContainer: true,       // print outer container/$.selector
-                            loadCSS: "/Content/estilosimprimir.css",                // path to additional css file - use an array [] for multiple
-                            pageTitle: "",              // add title to print page
-                            removeInline: false,        // remove inline styles from print elements
-                            removeInlineSelector: "*",  // custom selectors to filter inline styles. removeInline must be true
-                            printDelay: 333,            // variable print delay
-                            header: null,               // prefix to html
-                            footer: null,               // postfix to html
-                            base: false,                // preserve the BASE tag or accept a string for the URL
-                            formValues: true,           // preserve input/form values
-                            canvas: false,              // copy canvas content
-                            doctypeString: '...',       // enter a different doctype for older markup
-                            removeScripts: false,       // remove script tags from print content
-                            copyTagClasses: false,      // copy classes from the html & body tag
-                            beforePrintEvent: null,     // function for printEvent in iframe
-                            beforePrint: null,          // function called before iframe is filled
-                            afterPrint: null            // function called before iframe is removed
-                        }
-                        $(".clasefactura").printThis(option);
-                    });
-                });
-            </script>
-            <script>
+
+
+
+            sumar();
+            fn_dar_eliminar();
+
+            sun();
+            limpiar();
+        }
+
+
+    }
+
+    function sumar() {
+        //total = total + subtotal;
+        //descuento1 = descuento1 + descuento;
+        //subtotalpagar = subtotalpagar + subtotal1;
+        //console.info(total);
+        //$("#descuentodado").val(descuento1)
+
+        //$("#subtotalpagar").val(subtotalpagar)
+        //$("#TotalaPagar").val(total);
+
+        var filas = document.querySelectorAll("#detalle tbody tr");
+
+        total = 0;
+
+        // recorremos cada una de las filas
+        filas.forEach(function (e) {
+
+            // obtenemos las columnas de cada fila
+            var columnas = e.querySelectorAll("td");
+
+            // obtenemos los valores de la cantidad y importe
+            var importe = parseFloat(columnas[7].textContent);
+
+            // mostramos el total por fila
+
+            total += importe;
+        });
+        $("#TotalaPagar").val(total);
+    }
+    function prueba() {
+
+        $("#sab tr").click(function () {
+            $(this).addClass('selected').siblings().removeClass('selected');
+            var value = $(this).find('td:first').html();
+            alert(value);
+        });
+
+
+    }
+    function agregarmas() {
+        var cantidadaumentar = 0;
+        abierto = true;
+        $("a.agrega").click(function () {
+
+
+            cantidadaumentar = $(this).first().parents("tr").find("td").eq(2).text();
+
+            alert(cantidadaumentar);
+            $(this).parents("tr").find("td").eq(2).html(parseInt(cantidadaumentar) + 1);
+            cantidadaumentar = 0;
+
+
+
+
+
+
+            //cantidadaumentar = $(this).first().parents("tr").first().find("td").eq(2).html();
+
+            //    alert(cantidadaumentar);
+            //$(this).parents("tr").find("td").eq(2).html(parseInt(cantidadaumentar) + 1);
+            //cantidadaumentar = 0;
+            //$(this).parents("tr").find("td").eq(2).fadeOut("normal", function () {
+            //    $(this).
+
+            //});
+        });
+        //$("a.agrega").click(function () {
+        //    var valores = "";
+
+        //    // vamos al elemento padre (<tr>) y buscamos todos los elementos <td>
+        //    // que contenga el elemento padre
+        //    var elementosTD = e.srcElement.parentElement.getElementsByTagName("td");
+
+        //    // recorremos cada uno de los elementos del array de elementos <td>
+        //    for (let i = 0; i < elementosTD.length; i++) {
+
+        //        // obtenemos cada uno de los valores y los ponemos en la variable "valores"
+        //        valores += elementosTD[i].innerHTML + "\n";
+        //    }
+
+        //    alert(valores);
+        //    //$(this).parents("tr").find("td").eq(2).fadeOut("normal", function () {
+        //    //    $(this).
+
+        //    //});
+        //});
+
+
+    };
+    //function dismuniruno() {
+    //    $("a.disminuir").click(function () {
+    //        if (parseInt($(this).parents("tr").find("td").eq(2).html()) > 0) {
+
+    //            $(this).parents("tr").find("td").eq(2).html(parseInt($(this).parents("tr").find("td").eq(2).html()) - 1);
+    //            restar();
+    //        }
+    //        //$(this).parents("tr").find("td").eq(2).fadeOut("normal", function () {
+    //        //    $(this).
+
+    //        //});
+    //    });
+
+
+    //};
+
+    function fn_dar_eliminar() {
+        $("a.elimina").click(function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            valor = $(this).parents("tr").find("td").eq(6).html();
+            valor1 = $(this).parents("tr").find("td").eq(7).html();
+            valor2 = $(this).parents("tr").find("td").eq(4).html();
+            console.info(valor);
+            $(this).parents("tr").fadeOut("normal", function () {
+                $(this).remove();
+                restar();
+            });
+        });
+    };
+    function restar() {
+        total = total - valor;
+        subtotalpagar = subtotalpagar - valor1;
+        descuento1 = descuento1 - valor2;
+        $("#subtotalpagar").val(subtotalpagar);
+        $("#descuentodado").val(descuento1);
+
+        $("#TotalaPagar").val(total);
+    }
+    function limpiar() {
+        $("#fecha").val("");
+        $("#observacion").val("");
+        $("#precio").val("");
+        $("#cliente").val("");
+        $("#producto").val("");
+        $("#cantidad").val("");
+        $("#descuento").val("");
+    }
+</script>
+<script>
+    $(document).ready(function () {
+
+        $("#imprimir").click(function () {
+            var option = {
+                debug: false,               // show the iframe for debugging
+                importCSS: true,            // import parent page css
+                importStyle: true,         // import style tags
+                printContainer: true,       // print outer container/$.selector
+                loadCSS: "/Content/estilosimprimir.css",                // path to additional css file - use an array [] for multiple
+                pageTitle: "",              // add title to print page
+                removeInline: false,        // remove inline styles from print elements
+                removeInlineSelector: "*",  // custom selectors to filter inline styles. removeInline must be true
+                printDelay: 333,            // variable print delay
+                header: null,               // prefix to html
+                footer: null,               // postfix to html
+                base: false,                // preserve the BASE tag or accept a string for the URL
+                formValues: true,           // preserve input/form values
+                canvas: false,              // copy canvas content
+                doctypeString: '...',       // enter a different doctype for older markup
+                removeScripts: false,       // remove script tags from print content
+                copyTagClasses: false,      // copy classes from the html & body tag
+                beforePrintEvent: null,     // function for printEvent in iframe
+                beforePrint: null,          // function called before iframe is filled
+                afterPrint: null            // function called before iframe is removed
+            }
+            $(".clasefactura").printThis(option);
+        });
+    });
+</script>
+<script>
 
     $(document).ready(function () {
 
@@ -409,16 +629,236 @@
         });
 
     });
-            </script>
-            <script language="javascript">
-                function printdiv(printpage) {
-                    var headstr = "<html><head><title></title></head><body>";
-                    var footstr = "</body>";
-                    var newstr = document.all.item(printpage).innerHTML;
-                    var oldstr = document.body.innerHTML;
-                    document.body.innerHTML = headstr + newstr + footstr;
-                    window.print();
-                    document.body.innerHTML = oldstr;
-                    return false;
+</script>
+<script language="javascript">
+    function printdiv(printpage) {
+        var headstr = "<html><head><title></title></head><body>";
+        var footstr = "</body>";
+        var newstr = document.all.item(printpage).innerHTML;
+        var oldstr = document.body.innerHTML;
+        document.body.innerHTML = headstr + newstr + footstr;
+        window.print();
+        document.body.innerHTML = oldstr;
+        return false;
+    }
+</script>
+
+@*<script>
+        $(document).ready(function () {
+            $("#producto").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/facturas/GetDatosProductos",
+                        type: "POST",
+                        dataType: "json",
+                        data: { search: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.Descripcion, value: item.Descripcion };
+                            }))
+
+                        }
+                    })
+                },
+                messages: {
+                    noResults: "", results: ""
                 }
-            </script>
+            });
+        })
+    </script>*@
+
+<script>
+    $(document).ready(function () {
+        $('#btneliminar').click(function () {
+            //fn_agregar();
+            eliminar(id_fila_selected);
+        });
+
+    });
+    var id_fila_selected;
+    function seleccionar(id_fila) {
+        $("a.ver").one("click", function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if ($(this).parents("tr").hasClass('seleccionada')) {
+
+                $(this).parents("tr").removeClass('seleccionada');
+            } else {
+                $(this).parents("tr").addClass('seleccionada');
+            }
+
+            id_fila_selected = $(this).parents("tr");
+
+            id_fila_selected.find("td").eq(2).html(parseInt(id_fila_selected.find("td").eq(2).text()) + 1);
+            //total = total + subtotal;
+            //descuento1 = descuento1 + descuento;
+            //subtotalpagar = subtotalpagar + subtotal1;
+            //alert(total);
+            //$("#descuentodado").val(descuento1)
+
+            //$("#subtotalpagar").val(subtotalpagar)
+            var cant1 = parseInt(id_fila_selected.find("td").eq(2).text());
+            var cant2 = parseInt(id_fila_selected.find("td").eq(3).text());
+            var decuent = parseInt(id_fila_selected.find("td").eq(4).text());
+            var cantidad_itbis = (cant1 * cant2);
+            var itb1 = Math.floor(cantidad_itbis * parseInt(id_fila_selected.find("td").eq(6).text()) / 100);
+            var total2 = 0;
+            //var itb = (cant1 * cant2)+ parseInt($('#idprod').val());
+            totalpagar = (cant1 * (cant2 - decuent)) + itb1;
+            id_fila_selected.find("td").eq(7).html(totalpagar);
+            id_fila_selected.find("td").eq(5).html(itb1);
+            var filas = document.querySelectorAll("#detalle tbody tr");
+
+            var total = 0;
+
+            // recorremos cada una de las filas
+            filas.forEach(function (e) {
+
+                // obtenemos las columnas de cada fila
+                var columnas = e.querySelectorAll("td");
+
+                // obtenemos los valores de la cantidad y importe
+                var importe = parseFloat(columnas[7].textContent);
+
+                // mostramos el total por fila
+
+                total += importe;
+            });
+            $("#TotalaPagar").val(total);
+
+
+        });
+
+        //if ($('#' + id_fila).hasClass('seleccionada')) {
+        //    $('#' + id_fila).removeClass('seleccionada');
+        //} else {
+        //    $('#' + id_fila).addClass('seleccionada');
+        //}
+        //id_fila_selected = id_fila;
+    }
+    var id_fila_selected;
+    function aumenta(id_fila) {
+        $("a.disminuir").one("click", function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if ($(this).parents("tr").hasClass('seleccionada')) {
+
+                $(this).parents("tr").removeClass('seleccionada');
+            } else {
+                $(this).parents("tr").addClass('seleccionada');
+            }
+
+            id_fila_selected = $(this).parents("tr");
+            id_fila_selected.find("td").eq(2).html(parseInt(id_fila_selected.find("td").eq(2).text()) - 1);
+
+            var cant1 = parseInt(id_fila_selected.find("td").eq(2).text());
+            var cant2 = parseInt(id_fila_selected.find("td").eq(3).text());
+            var decuent = parseInt(id_fila_selected.find("td").eq(4).text());
+            var cantidad_itbis = (cant1 * cant2);
+            var itb1 = Math.floor(cantidad_itbis * parseInt(id_fila_selected.find("td").eq(6).text()) / 100);
+            var total2 = 0;
+            //var itb = (cant1 * cant2)+ parseInt($('#idprod').val());
+            totalpagar = (cant1 * (cant2 - decuent)) + itb1;
+            id_fila_selected.find("td").eq(7).html(totalpagar);
+            id_fila_selected.find("td").eq(5).html(itb1);
+            var filas = document.querySelectorAll("#detalle tbody tr");
+
+            var total = 0;
+
+            // recorremos cada una de las filas
+            filas.forEach(function (e) {
+
+                // obtenemos las columnas de cada fila
+                var columnas = e.querySelectorAll("td");
+
+                // obtenemos los valores de la cantidad y importe
+                var importe = parseFloat(columnas[7].textContent);
+
+                // mostramos el total por fila
+
+                total += importe;
+            });
+            $("#TotalaPagar").val(total);
+
+
+        });
+
+        //if ($('#' + id_fila).hasClass('seleccionada')) {
+        //    $('#' + id_fila).removeClass('seleccionada');
+        //} else {
+        //    $('#' + id_fila).addClass('seleccionada');
+        //}
+        //id_fila_selected = id_fila;
+    }
+
+   
+    function eliminar(id_fila_selected) {
+        if ($(id_fila_selected).hasClass('seleccionada')) {
+            alert(id_fila_selected);
+            id_fila_selected.find("td").eq(2).html(parseInt(id_fila_selected.find("td").eq(2).html()) + 1);
+        }
+
+    }
+
+</script>
+
+<script>
+    function sun() {
+        
+            var prefname; // fname textbox
+        var prelname; //lname textbox
+        var filaselec;
+        $('table tbody tr td').on('click', function () {
+                event.preventDefault();
+            prefname = $(this).parents("tr").find("td").eq(2).html();
+            alert(prefname);
+            filaselec = $(this).parents("tr");
+                prelname = $(this).parents("tr").find("td").eq(4).html();
+            document.getElementById("txtfname").value = prefname;
+            document.getElementById("txtlname").value = prelname;
+                //$("#txtfname").val($(prefname).val());
+                //$("#txtlname").val($(prelname).val());
+                $("#myModal").modal("show");
+            });
+            //save change button click evnet
+        $("#btnsubmit").click(function () {
+            
+            prefname = $("#txtfname").val();
+            filaselec.find("td").eq(2).html($("#txtfname").val());
+            alert(prefname);
+            $(prelname).val($("#txtlname").val());
+            filaselec.find("td").eq(4).html($("#txtlname").val());
+            var cant1 = parseInt(filaselec.find("td").eq(2).text());
+            var cant2 = parseInt(filaselec.find("td").eq(3).text());
+            var decuent = parseInt(filaselec.find("td").eq(4).text());
+            var cantidad_itbis = (cant1 * cant2);
+            var itb1 = Math.floor(cantidad_itbis * parseInt(filaselec.find("td").eq(6).text()) / 100);
+            var total2 = 0;
+            //var itb = (cant1 * cant2)+ parseInt($('#idprod').val());
+            totalpagar = (cant1 * (cant2 - decuent)) + itb1;
+            filaselec.find("td").eq(7).html(totalpagar);
+            filaselec.find("td").eq(5).html(itb1);
+            var filas = document.querySelectorAll("#detalle tbody tr");
+
+            var total = 0;
+
+            // recorremos cada una de las filas
+            filas.forEach(function (e) {
+
+                // obtenemos las columnas de cada fila
+                var columnas = e.querySelectorAll("td");
+
+                // obtenemos los valores de la cantidad y importe
+                var importe = parseFloat(columnas[7].textContent);
+
+                // mostramos el total por fila
+
+                total += importe;
+            });
+            $("#TotalaPagar").val(total);
+
+                $("#myModal").modal("hide");
+            })
+        
+    }
+</script>

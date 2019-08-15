@@ -1,0 +1,261 @@
+﻿@model SpointLiteVersion.Models.compras
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-7 modal-content contedor" style="width:88%; margin-left:4%; margin-top:2%;">
+
+            <div class="formulario">
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <center> <h3>compras</h3></center>
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-row" style="margin-top:30px;">
+
+                        <div class="form-group col-md-2">
+                            @Html.LabelFor(model => model.NoCompra, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.EditorFor(model => model.NoCompra, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NoCompra, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-2">
+
+                            @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <input type="date" name="Fecha" id="Fecha" value="" class="form-control" />
+                            @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+
+
+                        </div>
+                        <div class="form-group col-md-6">
+
+                            @Html.LabelFor(model => model.Observacion, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.EditorFor(model => model.Observacion, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Observacion, "", new { @class = "text-danger" })
+
+
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.Suplidor, htmlAttributes: new { @class = "control-label col-md-1" })
+
+                            @Html.EditorFor(model => model.Suplidor, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Suplidor, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.Articulo, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @*@Html.EditorFor(model => model.producto);*@
+                            <input type="text" list="colors" name="producto" id="producto" class="form-control" />
+
+                            <datalist id="colors">
+                                @foreach (var m in ViewBag.producto)
+                                {
+                                    <option value="@m.Text" data-id="@m.Value" />
+                                }
+                            </datalist>
+                            @*@Html.DropDownList("producto", (IEnumerable<SelectListItem>)ViewBag.producto, "---Selecciona Un producto---", new { @class = "form-control" })*@
+                            @Html.ValidationMessageFor(model => model.Articulo, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-2">
+
+                            @Html.LabelFor(model => model.Cantidad, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.EditorFor(model => model.Cantidad, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Cantidad, "", new { @class = "text-danger" })
+
+
+                        </div>
+                        <div class="form-group col-md-2" style="margin-top:30px;">
+
+                            <input type="button" name="name" class="btn btn-primary" onclick="fn_agregar()" id="frm_usu" value="Agregar" />
+                           
+
+
+                        </div>
+
+                    </div>
+
+
+                    <select class="" id="descripcionproducto" hidden >
+                        <option value="value">text</option>
+                    </select>
+                    <select class="" id="idproducto" hidden >
+                        <option value="value">text</option>
+                    </select>
+                    <select class="" id="itbisproducto" hidden>
+                        <option value="value">text</option>
+                    </select>
+
+                    <select class="" id="precio1" hidden>
+                        <option value="value">text</option>
+                    </select>
+
+
+
+
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 modal-content contedor" style="width:88%; margin-left:4%; margin-top:2%;">
+            <div class="clasefactura" id="clase">
+
+
+                <table id="detalle" class="lista table" style="margin-top:15px;">
+                    <thead style="font-size:15px;">
+                        <tr>
+                            <td>Detalle de la Compra</td>
+                        </tr>
+                        <tr>
+                            <th class="idprod">CODPROD</th>
+                            <th>CANT</th>
+                            <th>DESCRIPCIÓN</th>
+                            <th>COSTO</th>
+                            <th class="itb">IMPORTE</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+
+                </table>
+
+
+            </div>
+            <div style="margin-bottom:15px; margin-top:30px;">
+                <center> <input type="submit" name="name" value="Registrar" class="btn btn-success" /> </center>
+            </div>
+            </div>
+    </div>
+</div>
+
+<script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#producto").change(function () {
+            $.post("Getproducto", { idproducto: $("#producto").val() }, function (data) {
+
+
+                $("#descripcionproducto").empty();
+                $("#itbisproducto").empty();
+                $("#precio1").empty();
+                $("#idproducto").empty();
+                $.each(data, function (create, row) {
+                    $("#descripcionproducto").append("<option value='" + row.Descripcion + "'>" + row.Descripcion + "</option>")
+                    $("#itbisproducto").append("<option value='" + row.itbis + "'>" + row.itbis + "</option>")
+                    $("#precio1").append("<option value='" + row.Precio + "'>" + row.Precio + "</option>")
+                    $("#idproducto").append("<option value='" + row.CodProducto + "'>" + row.CodProducto + "</option>")
+
+                });
+            });
+        })
+    });
+</script>
+
+<script>
+    var total = 0;
+    var valor = 0;
+    var subtotal = 0;
+    var subtotal1 = 0;
+    var subtotalpagar = 0;
+    var valor1 = 0;
+    var valor2 = 0;
+    var descuento = 0;
+    var itbis = 0;
+    var descuento1 = 0;
+    function fn_agregar() {
+     
+   
+       
+
+        cadena = "<tr>"
+
+        cadena = cadena + "<td class='idprod'>" + $("#idproducto").val() + "</td>";
+        cadena = cadena + "<td>" + $("#Cantidad").val() + "</td>";
+
+        cadena = cadena + "<td>" + $("#descripcionproducto").val() + "</td>";
+        cadena = cadena + "<td>" + $("#precio1").val() + "</td>";
+
+
+        var y = 0;
+        var x = 0;
+        var des = 0;
+
+        y = $("#Cantidad").val();
+        x = $("#precio1").val();
+        subtotal = (x * y);
+
+        cadena = cadena + "<td>" + subtotal + "</td>"
+
+        cadena = cadena + "<td class='botoneliminar'><a class ='elimina'><button class='btn btn-danger' type='button'><span class='fa fa-remove'></span></button></a></td>";
+        $("#detalle tbody").append(cadena);
+        sumar();
+        fn_dar_eliminar();
+        limpiar();
+    }
+
+    function sumar() {
+        total = total + subtotal;
+        descuento1 = descuento1 + descuento;
+        subtotalpagar = subtotalpagar + subtotal1;
+        console.info(total);
+        $("#descuentodado").val(descuento1)
+
+        $("#subtotalpagar").val(subtotalpagar)
+        $("#TotalaPagar").val(total);
+
+    }
+    function fn_dar_eliminar() {
+        $("a.elimina").click(function () {
+            valor = $(this).parents("tr").find("td").eq(6).html();
+            valor1 = $(this).parents("tr").find("td").eq(7).html();
+            valor2 = $(this).parents("tr").find("td").eq(4).html();
+            console.info(valor);
+            $(this).parents("tr").fadeOut("normal", function () {
+                $(this).remove();
+                restar();
+            });
+        });
+    };
+    function restar() {
+        total = total - valor;
+        subtotalpagar = subtotalpagar - valor1;
+        descuento1 = descuento1 - valor2;
+        $("#subtotalpagar").val(subtotalpagar);
+        $("#descuentodado").val(descuento1);
+
+        $("#TotalaPagar").val(total);
+    }
+    function limpiar() {
+        $("#fecha").val("");
+        $("#observacion").val("");
+        $("#precio").val("");
+        $("#producto").val("");
+        $("#cantidad").val("");
+    }
+</script>

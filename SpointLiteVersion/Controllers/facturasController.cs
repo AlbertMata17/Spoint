@@ -27,6 +27,15 @@ namespace SpointLiteVersion.Controllers
 
             return View();
         }
+        public JsonResult GetDatosProductos(string search)
+        {
+         
+            //Searching records from list using LINQ query  
+            var CityList = (from N in db.productos
+                            where N.Descripcion.StartsWith(search)
+                            select new { N.Descripcion });
+            return Json(CityList, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult PDf(List<string> ListadoDetalle)
         {
             Console.Write(ListadoDetalle);
@@ -55,17 +64,25 @@ namespace SpointLiteVersion.Controllers
         {
             ViewBag.cliente = new SelectList(db.clientes, "nombre", "nombre");
             ViewBag.vendedor = new SelectList(db.vendedores, "nombre", "nombre");
-            ViewBag.producto = new SelectList(db.productos, "idProducto", "Descripcion");
+            ViewBag.producto = new SelectList(db.productos.Where(m => m.Status == "1"), "idProducto", "Descripcion");
             return View();
         }
-        public JsonResult Getproducto(int idproducto)
+        public JsonResult Getproducto(string idproducto)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            List<productos> productos = db.productos.Where(m => m.idProducto == idproducto).ToList();
+            List<productos> productos = db.productos.Where(m => m.Descripcion == idproducto && m.Status=="1").ToList();
 
             //ViewBag.FK_Vehiculo = new SelectList(db.Vehiculo.Where(a => a.Clase == Clase && a.Estatus == "Disponible"), "VehiculoId", "Marca");
             return Json(productos, JsonRequestBehavior.AllowGet);
         }
+        //public JsonResult Getproducto(int idproducto)
+        //{
+        //    db.Configuration.ProxyCreationEnabled = false;
+        //    List<productos> productos = db.productos.Where(m => m.idProducto == idproducto).ToList();
+
+        //    //ViewBag.FK_Vehiculo = new SelectList(db.Vehiculo.Where(a => a.Clase == Clase && a.Estatus == "Disponible"), "VehiculoId", "Marca");
+        //    return Json(productos, JsonRequestBehavior.AllowGet);
+        //}
 
         // POST: facturas/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
