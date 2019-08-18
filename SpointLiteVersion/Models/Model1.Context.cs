@@ -34,5 +34,6 @@ namespace SpointLiteVersion.Models
         public virtual DbSet<suplidores> suplidores { get; set; }
         public virtual DbSet<compras> compras { get; set; }
         public virtual DbSet<facturas> facturas { get; set; }
+        public virtual DbSet<DetalleVenta> DetalleVenta { get; set; }
     }
 }

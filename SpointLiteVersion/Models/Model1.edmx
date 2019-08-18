@@ -45,6 +45,21 @@
           <Property Name="Cantidad" Type="money" />
           <Property Name="Total" Type="money" />
         </EntityType>
+        <EntityType Name="DetalleVenta">
+          <Key>
+            <PropertyRef Name="IdDetalle" />
+          </Key>
+          <Property Name="IdDetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idfactura" Type="int" />
+          <Property Name="idventa" Type="int" />
+          <Property Name="idproducto" Type="int" />
+          <Property Name="descripcion" Type="varchar(max)" />
+          <Property Name="cantidad" Type="int" />
+          <Property Name="precio" Type="money" />
+          <Property Name="descuento" Type="money" />
+          <Property Name="itbis" Type="varchar(max)" />
+          <Property Name="importe" Type="money" />
+        </EntityType>
         <EntityType Name="facturas">
           <Key>
             <PropertyRef Name="idfactura" />
@@ -58,6 +73,7 @@
           <Property Name="descripcion" Type="varchar(max)" />
           <Property Name="precio" Type="money" />
           <Property Name="credito" Type="varchar" MaxLength="10" />
+          <Property Name="Pdf" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="itbis">
           <Key>
@@ -117,6 +133,18 @@
           <Property Name="Foto" Type="varchar(max)" />
           <Property Name="Status" Type="nchar" MaxLength="10" />
         </EntityType>
+        <Association Name="FK__DetalleVe__idfac__05D8E0BE">
+          <End Role="facturas" Type="Self.facturas" Multiplicity="0..1" />
+          <End Role="DetalleVenta" Type="Self.DetalleVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="facturas">
+              <PropertyRef Name="idfactura" />
+            </Principal>
+            <Dependent Role="DetalleVenta">
+              <PropertyRef Name="idfactura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_ciudad">
           <End Role="ciudad" Type="Self.ciudad" Multiplicity="0..1" />
           <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
@@ -145,12 +173,17 @@
           <EntitySet Name="ciudad" EntityType="Self.ciudad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="clientes" EntityType="Self.clientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="compras" EntityType="Self.compras" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetalleVenta" EntityType="Self.DetalleVenta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="facturas" EntityType="Self.facturas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="itbis" EntityType="Self.itbis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="productos" EntityType="Self.productos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="suplidores" EntityType="Self.suplidores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tiposproductos" EntityType="Self.tiposproductos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vendedores" EntityType="Self.vendedores" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__DetalleVe__idfac__05D8E0BE" Association="Self.FK__DetalleVe__idfac__05D8E0BE">
+            <End Role="facturas" EntitySet="facturas" />
+            <End Role="DetalleVenta" EntitySet="DetalleVenta" />
+          </AssociationSet>
           <AssociationSet Name="fk_ciudad" Association="Self.fk_ciudad">
             <End Role="ciudad" EntitySet="ciudad" />
             <End Role="clientes" EntitySet="clientes" />
@@ -190,6 +223,11 @@
           <EntitySet Name="suplidores" EntityType="spointModel.suplidores" />
           <EntitySet Name="compras" EntityType="spointModel.compras" />
           <EntitySet Name="facturas" EntityType="spointModel.facturas" />
+          <EntitySet Name="DetalleVenta" EntityType="spointModel.DetalleVenta" />
+          <AssociationSet Name="FK__DetalleVe__idfac__05D8E0BE" Association="spointModel.FK__DetalleVe__idfac__05D8E0BE">
+            <End Role="facturas" EntitySet="facturas" />
+            <End Role="DetalleVenta" EntitySet="DetalleVenta" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="tiposproductos">
           <Key>
@@ -322,7 +360,37 @@
           <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="precio" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="credito" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Pdf" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="DetalleVenta" Relationship="spointModel.FK__DetalleVe__idfac__05D8E0BE" FromRole="facturas" ToRole="DetalleVenta" />
         </EntityType>
+        <EntityType Name="DetalleVenta">
+          <Key>
+            <PropertyRef Name="IdDetalle" />
+          </Key>
+          <Property Name="IdDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idfactura" Type="Int32" />
+          <Property Name="idventa" Type="Int32" />
+          <Property Name="idproducto" Type="Int32" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="precio" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="descuento" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="itbis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="importe" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="facturas" Relationship="spointModel.FK__DetalleVe__idfac__05D8E0BE" FromRole="DetalleVenta" ToRole="facturas" />
+        </EntityType>
+        <Association Name="FK__DetalleVe__idfac__05D8E0BE">
+          <End Type="spointModel.facturas" Role="facturas" Multiplicity="0..1" />
+          <End Type="spointModel.DetalleVenta" Role="DetalleVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="facturas">
+              <PropertyRef Name="idfactura" />
+            </Principal>
+            <Dependent Role="DetalleVenta">
+              <PropertyRef Name="idfactura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -438,6 +506,7 @@
           <EntitySetMapping Name="facturas">
             <EntityTypeMapping TypeName="spointModel.facturas">
               <MappingFragment StoreEntitySet="facturas">
+                <ScalarProperty Name="Pdf" ColumnName="Pdf" />
                 <ScalarProperty Name="credito" ColumnName="credito" />
                 <ScalarProperty Name="precio" ColumnName="precio" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
@@ -447,6 +516,22 @@
                 <ScalarProperty Name="observacion" ColumnName="observacion" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="idfactura" ColumnName="idfactura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleVenta">
+            <EntityTypeMapping TypeName="spointModel.DetalleVenta">
+              <MappingFragment StoreEntitySet="DetalleVenta">
+                <ScalarProperty Name="importe" ColumnName="importe" />
+                <ScalarProperty Name="itbis" ColumnName="itbis" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="idproducto" ColumnName="idproducto" />
+                <ScalarProperty Name="idventa" ColumnName="idventa" />
+                <ScalarProperty Name="idfactura" ColumnName="idfactura" />
+                <ScalarProperty Name="IdDetalle" ColumnName="IdDetalle" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

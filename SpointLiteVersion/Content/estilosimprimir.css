@@ -5,4 +5,12 @@
     .botoneliminar{
         display: none;
     }
+
+    paper-button:not([raised]).action-button {
+        --paper-button-ink-color: var(--flat-ink-color-action);
+        --paper-ripple-opacity: var(--flat-ripple-opacity-action);
+        background-color: rgb(232, 26, 26) !important;
+        border: none;
+        color: var(--flat-text-color-action);
+    }
 }

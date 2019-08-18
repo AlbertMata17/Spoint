@@ -37,7 +37,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             @Html.LabelFor(model => model.cliente, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <input type="text" list="cliente1" name="cliente" id="cliente" class="form-control" autocomplete="off"/>
+                            <input type="text" list="cliente1" name="cliente" id="cliente" class="form-control" autocomplete="off" />
 
                             <datalist id="cliente1">
                                 @foreach (var m in ViewBag.cliente)
@@ -76,7 +76,7 @@
                         <div class="form-group col-md-3">
                             @Html.LabelFor(model => model.producto, htmlAttributes: new { @class = "control-label col-md-2" })
                             @*@Html.EditorFor(model => model.producto);*@
-                            <input type="text" list="colors" name="producto" id="producto" class="form-control" autocomplete="off"/>
+                            <input type="text" list="colors" name="producto" id="producto" class="form-control" autocomplete="off" />
 
                             <datalist id="colors">
                                 @foreach (var m in ViewBag.producto)
@@ -105,11 +105,11 @@
                             @Html.ValidationMessageFor(model => model.credito, "", new { @class = "text-danger" })
                         </div>
                         @*<div class="form-group col-md-2">
-                            @Html.LabelFor(model => model.descuento, htmlAttributes: new { @class = "control-label col-md-2" })
-                            @Html.EditorFor(model => model.descuento, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Un descuento general" } })
+                                @Html.LabelFor(model => model.descuento, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @Html.EditorFor(model => model.descuento, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Un descuento general" } })
 
-                            @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
-                        </div>*@
+                                @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+                            </div>*@
                     </div>
                     <select class="" id="descripcionproducto" hidden>
                         <option value="value">text</option>
@@ -178,6 +178,43 @@
                     <tbody></tbody>
 
                 </table>
+                <div class="row" style="margin-top:4%;">
+                    <div class="form-group col-md-3">
+                        <p class="col-md-2">Subtotal</p>
+                        <input style="margin-top:10px; margin-left:0px; font-weight:700; " class="form-control" type="text" name="descuentodado" id="subtotal" required readonly />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <p class="col-md-12">Descuentos por Artículo</p>
+
+                        <input style="margin-top:10px; margin-left:0px; font-weight:700;" class="form-control" type="text" name="descuentodado" id="descuentos" required readonly />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <p class="col-md-2">ITBIS</p>
+
+                        <input style="margin-top:10px; margin-left:0px; font-weight:700; " class="form-control" type="text" name="descuentodado" id="itbisdado" required readonly />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <p class="col-md-2">TOTAL</p>
+
+                        <input style="margin-top:10px; margin-left:0px; font-weight:700; " class="form-control" type="text" name="descuentodado" id="TotalaPagar" required readonly />
+                    </div>
+                </div>
+                @*<table class="tab">
+                        <tr>
+                            <td><p style="margin-left:2%;">SubTotal</p></td>
+                            <td><p style="margin-left:13%;">Descuentos por Artículo</p></td>
+                            <td><p style="margin-left:21%;">ITBIS</p></td>
+                            <td style="font-size:17px;float:left;margin-top: 17px;margin-left: 15px;" class="tot">Total</td>
+                        </tr>
+                        <tr>
+
+                            <td style="width:8%;"><input style="margin-top:10px; margin-left:0px; font-weight:700; " class="form-control" type="text" name="descuentodado" id="descuentodado" required readonly /></td>
+                            <td style="width:8%;"><input style="margin-top:10px; margin-left:0px; font-weight:700;" class="form-control" type="text" name="descuentodado" id="descuentodado" required readonly /></td>
+                            <td style="width:8%;"><input style="margin-top:10px; margin-left:49px; font-weight:700;" class="form-control" type="text" name="descuentodado" id="descuentodado" required readonly /></td>
+                            <td style="width:8%;"><input style="margin-top:10px; font-weight:700; margin-left:30%;" class="form-control" type="text" name="TotalaPagar" id="TotalaPagar" required readonly /></td>
+
+                        </tr>
+                    </table>*@
                 <div class="tabledatospago">
 
                     <table class="tab" hidden>
@@ -187,31 +224,24 @@
 
                         </tr>
                     </table>
-                    <table class="tab" hidden>
-                        <tr>
+
+                    @*<table class="tab">
+                                <tr>
+                                    <td style="font-size:17px;float:right;margin-top: 17px;margin-left: 15px;" class="tot">Total</td>
+
+                                    <td><input style="margin-top:10px; font-weight:700; " class="form-control" type="text" name="TotalaPagar" id="TotalaPagar" required readonly /></td>
+
+                                </tr>
+                                @*<tr class="subtotalcolumn">
+                            <td style="font-size:17px;float:right;margin-top: 17px;margin-left: 15px;">Subtotal</td>
+
+                        </tr>*@
+                    @*<tr class="descuentocolumn">
                             <td style="font-size:17px;float:right;margin-top: 17px;margin-left: 15px;">Descuento</td>
 
-                            <td><input style="margin-top:10px; font-weight:700;" class="form-control" type="text" name="descuentodado" id="descuentodado" required readonly /></td>
+                            <td><input style=" font-weight:700;" class="form-control" type="text" name="descuentodado" id="descuentodado" required readonly /></td>
+                        </tr>*@
 
-                        </tr>
-                    </table>
-                    <table class="tab">
-                        <tr>
-                            <td style="font-size:17px;float:right;margin-top: 17px;margin-left: 15px;" class="tot">Total</td>
-
-                            <td><input style="margin-top:10px; font-weight:700; " class="form-control" type="text" name="TotalaPagar" id="TotalaPagar" required readonly /></td>
-
-                        </tr>
-                        @*<tr class="subtotalcolumn">
-                                <td style="font-size:17px;float:right;margin-top: 17px;margin-left: 15px;">Subtotal</td>
-
-                            </tr>*@
-                        @*<tr class="descuentocolumn">
-                                <td style="font-size:17px;float:right;margin-top: 17px;margin-left: 15px;">Descuento</td>
-
-                                <td><input style=" font-weight:700;" class="form-control" type="text" name="descuentodado" id="descuentodado" required readonly /></td>
-                            </tr>*@
-                    </table>
                 </div>
                 <div class="padre">
                     <div class="firma fimas1">
@@ -245,33 +275,40 @@
 
 <div class="modal fade" id="myModal">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">EDIT</h4>
+        <center>
+            <div class="modal-content" style="width:40%; margin-top:30%;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Opciones</h4>
+                </div>
+                <div class="modal-body">
+                    @Html.Label("Cantidad");
+                    <input type="text" class="input-sm form-control" id="txtfname" />
+                    @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
+
+                    @Html.Label("Descuento");
+                    <input type="text" class="input-sm form-control" id="txtlname" />
+                    @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnsubmit" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
-            <div class="modal-body">
-                <p>
-                    <input type="text" class="input-sm" id="txtfname" />
-                </p>
-                <p>
-                    <input type="text" class="input-sm" id="txtlname" />
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" id="btnsubmit" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
+        </center>
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
+<button id="finalizar">Guardar</button>
 <script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
 <script>
     $(document).ready(function () {
         $("#producto").change(function () {
@@ -340,6 +377,7 @@
 
                 //ya que tenemos el tr seleccionado ahora podemos navegar a las otras celdas con find
                 $(this).parents("tr").find("td").eq(2).html(parseInt($(this).parents("tr").find("td").eq(2).html()) + 1);
+
                 encontradoResultado = true;
 
                 //mostramos el resultado en el div
@@ -359,7 +397,6 @@
             cadena = cadena + "<td>" + $("#precio1").val() + "</td>";
             cadena = cadena + "<td>" + descuentomostrar + "</td>";
             var cantidad_itbis = (parseInt("1") * $("#precio1").val());
-            alert(cantidad_itbis);
 
             itbis = Math.floor(cantidad_itbis * parseInt($("#itbisproducto").val()) / 100);
             cadena = cadena + "<td class='itb'>" + itbis + "</td>";
@@ -373,10 +410,9 @@
             y = cantidadmostrar;
             x = $("#precio1").val();
             des = descuentomostrar;
-        
+
             subtotal = y * (x - des) + itbis;
             subtotal1 = (x * y);
-
             descuento = des;
 
             cadena = cadena + "<td>" + subtotal + "</td>"
@@ -393,17 +429,17 @@
 
 
 
-            sumar();
             fn_dar_eliminar();
 
             sun();
             limpiar();
         }
 
-
+        sumar();
     }
 
     function sumar() {
+        alert("Se esta ejecutando");
         //total = total + subtotal;
         //descuento1 = descuento1 + descuento;
         //subtotalpagar = subtotalpagar + subtotal1;
@@ -416,6 +452,9 @@
         var filas = document.querySelectorAll("#detalle tbody tr");
 
         total = 0;
+        var sub1 = 0;
+        var desci = 0;
+        var totalsumaitbis = 0
 
         // recorremos cada una de las filas
         filas.forEach(function (e) {
@@ -425,19 +464,27 @@
 
             // obtenemos los valores de la cantidad y importe
             var importe = parseFloat(columnas[7].textContent);
-
+            var subto = parseFloat(columnas[8].textContent);
+            var desc12 = parseFloat(columnas[4].textContent);
+            var totalsumaitbis1 = parseFloat(columnas[5].textContent);
             // mostramos el total por fila
 
             total += importe;
+            sub1 += subto;
+            desci += desc12;
+            totalsumaitbis += totalsumaitbis1;
         });
         $("#TotalaPagar").val(total);
+        $('#subtotal').val(sub1);
+        $('#descuentos').val(desci);
+        $('#itbisdado').val(totalsumaitbis);
+
     }
     function prueba() {
 
         $("#sab tr").click(function () {
             $(this).addClass('selected').siblings().removeClass('selected');
             var value = $(this).find('td:first').html();
-            alert(value);
         });
 
 
@@ -450,7 +497,6 @@
 
             cantidadaumentar = $(this).first().parents("tr").find("td").eq(2).text();
 
-            alert(cantidadaumentar);
             $(this).parents("tr").find("td").eq(2).html(parseInt(cantidadaumentar) + 1);
             cantidadaumentar = 0;
 
@@ -523,13 +569,7 @@
         });
     };
     function restar() {
-        total = total - valor;
-        subtotalpagar = subtotalpagar - valor1;
-        descuento1 = descuento1 - valor2;
-        $("#subtotalpagar").val(subtotalpagar);
-        $("#descuentodado").val(descuento1);
-
-        $("#TotalaPagar").val(total);
+        sumar();
     }
     function limpiar() {
         $("#fecha").val("");
@@ -565,7 +605,7 @@
                 copyTagClasses: false,      // copy classes from the html & body tag
                 beforePrintEvent: null,     // function for printEvent in iframe
                 beforePrint: null,          // function called before iframe is filled
-                afterPrint: null            // function called before iframe is removed
+                afterPrint: null,            // function called before iframe is removed
             }
             $(".clasefactura").printThis(option);
         });
@@ -591,15 +631,15 @@
             var envio = "{Fecha:'" + $("#id_fecha").val() + "',ModoPago:'" + $("#modoPago").val() + "',IdCliente:'" + $("#codigoCliente").val() + "',IdCabecera:'2',Total:'" + $('#TotalaPagar').val() + "',";
             $("#detalle tbody tr").each(function (index) {
                 if (i == 0) {
-                    envio += "ListadoDetalle:[{IdProducto:'" + $(this).find('td').eq(0).text() +
-                        "',Cantidad:'" + $(this).find('td').eq(2).text() +
-                        "',Descuento:'" + $(this).find('td').eq(4).text() +
-                        "',SubTotal:'" + $(this).find('td').eq(5).text() + "'}";
+                    envio += "ListadoDetalle:[{idproducto:'" + $(this).find('td').eq(0).text() +
+                        "',cantidad:'" + $(this).find('td').eq(2).text() +
+                        "',descuento:'" + $(this).find('td').eq(4).text() +
+                        "',importe:'" + $(this).find('td').eq(5).text() + "'}";
                 } else {
-                    envio += ",{IdProducto:'" + $(this).find('td').eq(0).text() +
-                        "',Cantidad:'" + $(this).find('td').eq(2).text() +
-                        "',Descuento:'" + $(this).find('td').eq(4).text() +
-                        "',SubTotal:'" + $(this).find('td').eq(5).text() + "'}"
+                    envio += ",{idproducto:'" + $(this).find('td').eq(0).text() +
+                        "',cantidad:'" + $(this).find('td').eq(2).text() +
+                        "',descuento:'" + $(this).find('td').eq(4).text() +
+                        "',importe:'" + $(this).find('td').eq(5).text() + "'}"
                 }
                 i = 1;
             });
@@ -613,18 +653,20 @@
 
             $.ajax({
                 url: miUrl,
+                data: JSON.stringify(json),
                 type: "POST",
-                async: true,//this makes the ajax-call blocking
+                async: false,//this makes the ajax-call blocking
+                contentType: 'application/json;charset=UTF-8',
                 dataType: 'json',
                 success: function (response) {
-
+                    //alertify.alert(response);
                     valid = response.valid;
                 },
                 error: function (error) {
+                    //alertify.alert(error);
 
                 }
             });
-            window.location.href = '/facturas/PDf/';
 
         });
 
@@ -706,25 +748,26 @@
             //var itb = (cant1 * cant2)+ parseInt($('#idprod').val());
             totalpagar = (cant1 * (cant2 - decuent)) + itb1;
             id_fila_selected.find("td").eq(7).html(totalpagar);
+            id_fila_selected.find("td").eq(8).html(cant1 * cant2);
             id_fila_selected.find("td").eq(5).html(itb1);
             var filas = document.querySelectorAll("#detalle tbody tr");
+            sumar();
+            //var total = 0;
 
-            var total = 0;
+            //// recorremos cada una de las filas
+            //filas.forEach(function (e) {
 
-            // recorremos cada una de las filas
-            filas.forEach(function (e) {
+            //    // obtenemos las columnas de cada fila
+            //    var columnas = e.querySelectorAll("td");
 
-                // obtenemos las columnas de cada fila
-                var columnas = e.querySelectorAll("td");
+            //    // obtenemos los valores de la cantidad y importe
+            //    var importe = parseFloat(columnas[7].textContent);
 
-                // obtenemos los valores de la cantidad y importe
-                var importe = parseFloat(columnas[7].textContent);
+            //    // mostramos el total por fila
 
-                // mostramos el total por fila
-
-                total += importe;
-            });
-            $("#TotalaPagar").val(total);
+            //    total += importe;
+            //});
+            //$("#TotalaPagar").val(total);
 
 
         });
@@ -760,25 +803,26 @@
             //var itb = (cant1 * cant2)+ parseInt($('#idprod').val());
             totalpagar = (cant1 * (cant2 - decuent)) + itb1;
             id_fila_selected.find("td").eq(7).html(totalpagar);
+            id_fila_selected.find("td").eq(8).html(cant1 * cant2);
             id_fila_selected.find("td").eq(5).html(itb1);
             var filas = document.querySelectorAll("#detalle tbody tr");
+            sumar();
+            //var total = 0;
 
-            var total = 0;
+            //// recorremos cada una de las filas
+            //filas.forEach(function (e) {
 
-            // recorremos cada una de las filas
-            filas.forEach(function (e) {
+            //    // obtenemos las columnas de cada fila
+            //    var columnas = e.querySelectorAll("td");
 
-                // obtenemos las columnas de cada fila
-                var columnas = e.querySelectorAll("td");
+            //    // obtenemos los valores de la cantidad y importe
+            //    var importe = parseFloat(columnas[7].textContent);
 
-                // obtenemos los valores de la cantidad y importe
-                var importe = parseFloat(columnas[7].textContent);
+            //    // mostramos el total por fila
 
-                // mostramos el total por fila
-
-                total += importe;
-            });
-            $("#TotalaPagar").val(total);
+            //    total += importe;
+            //});
+            //$("#TotalaPagar").val(total);
 
 
         });
@@ -791,10 +835,9 @@
         //id_fila_selected = id_fila;
     }
 
-   
+
     function eliminar(id_fila_selected) {
         if ($(id_fila_selected).hasClass('seleccionada')) {
-            alert(id_fila_selected);
             id_fila_selected.find("td").eq(2).html(parseInt(id_fila_selected.find("td").eq(2).html()) + 1);
         }
 
@@ -804,28 +847,27 @@
 
 <script>
     function sun() {
-        
-            var prefname; // fname textbox
+
+        var prefname; // fname textbox
         var prelname; //lname textbox
         var filaselec;
         $('table tbody tr td').on('click', function () {
-                event.preventDefault();
+            event.preventDefault();
             prefname = $(this).parents("tr").find("td").eq(2).html();
             alert(prefname);
             filaselec = $(this).parents("tr");
-                prelname = $(this).parents("tr").find("td").eq(4).html();
+            prelname = $(this).parents("tr").find("td").eq(4).html();
             document.getElementById("txtfname").value = prefname;
             document.getElementById("txtlname").value = prelname;
-                //$("#txtfname").val($(prefname).val());
-                //$("#txtlname").val($(prelname).val());
-                $("#myModal").modal("show");
-            });
-            //save change button click evnet
+            //$("#txtfname").val($(prefname).val());
+            //$("#txtlname").val($(prelname).val());
+            $("#myModal").modal("show");
+        });
+        //save change button click evnet
         $("#btnsubmit").click(function () {
-            
+
             prefname = $("#txtfname").val();
             filaselec.find("td").eq(2).html($("#txtfname").val());
-            alert(prefname);
             $(prelname).val($("#txtlname").val());
             filaselec.find("td").eq(4).html($("#txtlname").val());
             var cant1 = parseInt(filaselec.find("td").eq(2).text());
@@ -857,8 +899,61 @@
             });
             $("#TotalaPagar").val(total);
 
-                $("#myModal").modal("hide");
-            })
-        
+            $("#myModal").modal("hide");
+        })
+
     }
 </script>
+
+<script>
+        //function capt() {
+        //    alert("hola");
+        //    html2canvas(document.body, {
+        //        onrendered(canvas) {
+        //            var link = document.getElementById('download');;
+        //            var image = canvas.toDataURL();
+        //            link.href = image;
+        //            link.download = 'screenshot.png';
+        //        }
+        //    });
+    $('#download').click(function () {
+        //var ficha = document.getElementById("");
+        //var ventimp = window.open(' ', '_blank');
+        //ventimp.document.write(ficha.innerHTML);
+        //ventimp.document.close();
+        //var css = ventimp.document.createElement("link");
+        //css.setAttribute("href", "tuhojadeeestilos.css");
+        //css.setAttribute("rel", "stylesheet");
+        //css.setAttribute("type", "text/css");
+        //ventimp.document.head.appendChild(css);
+        var options = {
+            loadCSS: "/Content/estilosimprimir.css",                // path to additional css file - use an array [] for multiple
+
+                };
+        var pdf = new jsPDF();
+      
+     
+      
+        pdf.addHTML($(".clasefactura"), 15, 15, options, function () {
+                    pdf.save('informe.pdf');
+                });
+           
+        });
+    </script>
+
+@*<script>
+    function genPDF() {
+        alert("hola");
+        html2canvas(document.body, {
+            onrendered: function (canvas) {
+
+                var img = canvas.toDataURL("image/png");
+                var doc = new jsPDF();
+                doc.addImage(img, 'JPEG', 20, 20);
+                doc.save('test.pdf');
+            }
+
+        });
+
+    }
+</script>*@

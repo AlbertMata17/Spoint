@@ -252,3 +252,7 @@ th {
 #Descripcion{
     text-transform:uppercase;
 }
+
+#detalle tbody tr{
+    cursor:pointer;
+}
