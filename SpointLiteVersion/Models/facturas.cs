@@ -26,10 +26,10 @@ namespace SpointLiteVersion.Models
         public string cliente { get; set; }
         public string vendedor { get; set; }
         public string producto { get; set; }
-        public string descripcion { get; set; }
         public Nullable<decimal> precio { get; set; }
         public string credito { get; set; }
-        public byte[] Pdf { get; set; }
+        public Nullable<int> idventa { get; set; }
+        public Nullable<decimal> Total { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalleVenta> DetalleVenta { get; set; }

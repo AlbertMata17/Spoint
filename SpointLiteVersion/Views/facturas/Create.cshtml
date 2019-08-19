@@ -21,7 +21,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             @Html.LabelFor(model => model.fecha, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <input type="date" name="fecha" value="" class="form-control" id="fecha" />
+                            <input type="date" name="fecha" value="@DateTime.Now.Date" class="form-control" id="fecha" />
                             @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
 
                         </div>
@@ -85,7 +85,6 @@
                                 }
                             </datalist>
                             @*@Html.DropDownList("producto", (IEnumerable<SelectListItem>)ViewBag.producto, "---Selecciona Un producto---", new { @class = "form-control" })*@
-                            @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
 
                         </div>
                         <div class="form-group col-md-6" style="">
@@ -304,11 +303,15 @@
 </div>
 <!-- /.modal -->
 <button id="finalizar">Guardar</button>
+<a  class="btn btn-success" href="~/facturas/reporteActual" target="_blank">Imprimir Factura</a>
 <script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+<script src="~/Scripts/alertify/alertify.min.js"></script>
+<link href="~/Content/alertify.core.css" rel="stylesheet" />
+<link href="~/Content/alertify.default.css" rel="stylesheet" />
 <script>
     $(document).ready(function () {
         $("#producto").change(function () {
@@ -432,7 +435,7 @@
             fn_dar_eliminar();
 
             sun();
-            limpiar();
+            //limpiar();
         }
 
         sumar();
@@ -628,18 +631,26 @@
             //console.info('hola');
 
             var i = 0;
-            var envio = "{Fecha:'" + $("#id_fecha").val() + "',ModoPago:'" + $("#modoPago").val() + "',IdCliente:'" + $("#codigoCliente").val() + "',IdCabecera:'2',Total:'" + $('#TotalaPagar').val() + "',";
+            var envio = "{fecha:'" + $("#fecha").val() + "',observacion:'" + $("#observacion").val() + "',cliente:'" + $("#cliente").val() + "',vendedor:'" + $("#vendedor").val() + "',producto:'" + $("#producto").val() + "',precio:'" + $("#precio").val() + "',credito:'" + $("#credito").val() + "',IdCabecera:'2',Total:'" + $('#TotalaPagar').val() + "',";
             $("#detalle tbody tr").each(function (index) {
                 if (i == 0) {
                     envio += "ListadoDetalle:[{idproducto:'" + $(this).find('td').eq(0).text() +
                         "',cantidad:'" + $(this).find('td').eq(2).text() +
+                        "',descripcion:'" + $(this).find('td').eq(1).text() +
+                        "',precio:'" + $(this).find('td').eq(3).text() +
+                        "',total:'" + document.getElementById("TotalaPagar").value +
+                        "',totaldescuento:'" + document.getElementById("descuentos").value +
                         "',descuento:'" + $(this).find('td').eq(4).text() +
-                        "',importe:'" + $(this).find('td').eq(5).text() + "'}";
+                        "',importe:'" + $(this).find('td').eq(7).text() + "'}";
                 } else {
                     envio += ",{idproducto:'" + $(this).find('td').eq(0).text() +
                         "',cantidad:'" + $(this).find('td').eq(2).text() +
+                        "',descripcion:'" + $(this).find('td').eq(1).text() +
+                        "',precio:'" + $(this).find('td').eq(3).text() +
+                        "',total:'" + document.getElementById("TotalaPagar").value +
+                        "',totaldescuento:'" + document.getElementById("descuentos").value +
                         "',descuento:'" + $(this).find('td').eq(4).text() +
-                        "',importe:'" + $(this).find('td').eq(5).text() + "'}"
+                        "',importe:'" + $(this).find('td').eq(7).text() + "'}"
                 }
                 i = 1;
             });
@@ -659,11 +670,11 @@
                 contentType: 'application/json;charset=UTF-8',
                 dataType: 'json',
                 success: function (response) {
-                    //alertify.alert(response);
+                    alertify.alert(response);
                     valid = response.valid;
                 },
                 error: function (error) {
-                    //alertify.alert(error);
+                    alertify.alert(error);
 
                 }
             });
@@ -906,16 +917,16 @@
 </script>
 
 <script>
-        //function capt() {
-        //    alert("hola");
-        //    html2canvas(document.body, {
-        //        onrendered(canvas) {
-        //            var link = document.getElementById('download');;
-        //            var image = canvas.toDataURL();
-        //            link.href = image;
-        //            link.download = 'screenshot.png';
-        //        }
-        //    });
+    //function capt() {
+    //    alert("hola");
+    //    html2canvas(document.body, {
+    //        onrendered(canvas) {
+    //            var link = document.getElementById('download');;
+    //            var image = canvas.toDataURL();
+    //            link.href = image;
+    //            link.download = 'screenshot.png';
+    //        }
+    //    });
     $('#download').click(function () {
         //var ficha = document.getElementById("");
         //var ventimp = window.open(' ', '_blank');
@@ -929,31 +940,31 @@
         var options = {
             loadCSS: "/Content/estilosimprimir.css",                // path to additional css file - use an array [] for multiple
 
-                };
+        };
         var pdf = new jsPDF();
-      
-     
-      
+
+
+
         pdf.addHTML($(".clasefactura"), 15, 15, options, function () {
-                    pdf.save('informe.pdf');
-                });
-           
+            pdf.save('informe.pdf');
         });
-    </script>
+
+    });
+</script>
 
 @*<script>
-    function genPDF() {
-        alert("hola");
-        html2canvas(document.body, {
-            onrendered: function (canvas) {
+        function genPDF() {
+            alert("hola");
+            html2canvas(document.body, {
+                onrendered: function (canvas) {
 
-                var img = canvas.toDataURL("image/png");
-                var doc = new jsPDF();
-                doc.addImage(img, 'JPEG', 20, 20);
-                doc.save('test.pdf');
-            }
+                    var img = canvas.toDataURL("image/png");
+                    var doc = new jsPDF();
+                    doc.addImage(img, 'JPEG', 20, 20);
+                    doc.save('test.pdf');
+                }
 
-        });
+            });
 
-    }
-</script>*@
+        }
+    </script>*@

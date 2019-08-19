@@ -36,44 +36,70 @@ namespace SpointLiteVersion.Controllers
                             select new { N.Descripcion });
             return Json(CityList, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult PDf(string importe,List<DetalleVenta> ListadoDetalle)
+        public ActionResult PDf(string fecha,string observacion, string cliente, string vendedor, string producto, string precio, string credito,string Total,List<DetalleVenta> ListadoDetalle)
         {
             string mensaje = "";
-
-            facturas factura = new facturas();
-
-            foreach (var data in ListadoDetalle)
+            if (fecha == "" || observacion == "" || cliente == "" || vendedor == "" || producto == "" || credito == "")
             {
-                string idProducto = data.idproducto.ToString();
-                int cantidad = Convert.ToInt32(data.cantidad.ToString());
-                decimal descuento = Convert.ToDecimal(data.descuento.ToString());
-                decimal subtotal = Convert.ToDecimal(data.importe.ToString());
-                DetalleVenta objDetalleVenta = new DetalleVenta(001,001, Convert.ToInt32(idProducto),"hola", cantidad,200, descuento,"350", subtotal);
-                db.DetalleVenta.Add(objDetalleVenta);
-                db.SaveChanges();
+                if (fecha == "") mensaje = "ERROR EN EL CAMPO FECHA";
+                if (observacion == "") mensaje = "ERROR EN EL CAMPO OBSERVACIÓN";
+                if (cliente == "") mensaje = "ERROR CON EL CLIENTE";
+                if (vendedor == "") mensaje = "ERROR EN EL CAMPO VENDEDOR";
+                if (producto == "") mensaje = "ERROR EN EL CAMPO PRODUCTO";
+                if (credito == "") mensaje = "ERROR EN EL CAMPO CREDITO";
+
 
             }
-            mensaje = "VENTA GUARDADA CON EXITO...";
-            string DirectorioReportesRelativo = "~/RTPFactura/";
-            string urlArchivo = string.Format("{0}.{1}", "Report1", "rdlc");
+            else
+            {
+                if (precio == "") precio = "0.0";
+                if (Total == "") Total = "0.00";
+                int id1 = 0;
+                DetalleVenta detalle = new DetalleVenta();
+            var verificar = (from s in db.DetalleVenta select s.IdDetalle);
+            if (verificar.Count()>0)
+            {
+               id1 = (from s in db.DetalleVenta select s.IdDetalle).Max();
+            }
+            int idventa = id1 + 1;
+                facturas factura = new facturas();
+                factura.cliente = cliente;
+                factura.fecha = Convert.ToDateTime(fecha);
+                factura.observacion = observacion;
+                factura.vendedor = vendedor;
+                factura.producto = producto;
+                factura.precio = Convert.ToDecimal(precio);
+                factura.credito = credito;
+                factura.idventa = idventa;
+                factura.Total = Convert.ToDecimal(Total);
 
-            string FullPathReport = string.Format("{0}{1}",
-                                    this.HttpContext.Server.MapPath(DirectorioReportesRelativo),
-                                     urlArchivo);
+                db.facturas.Add(factura);
+                db.SaveChanges();
+                int id = factura.idfactura;
+              
 
-            ReportViewer Reporte = new ReportViewer();
+                foreach (var data in ListadoDetalle)
+                {
+                    string idProducto = data.idproducto.ToString();
+                    int cantidad = Convert.ToInt32(data.cantidad.ToString());
+                    decimal descuento = Convert.ToDecimal(data.descuento.ToString());
+                    decimal subtotal = Convert.ToDecimal(data.importe.ToString());
+                    decimal total = Convert.ToDecimal(data.total.ToString());
+                    decimal totaldescuento = Convert.ToDecimal(data.totaldescuento.ToString());
+                    string descripcion1 = data.descripcion.ToString();
+                    decimal precio1 = Convert.ToDecimal(data.precio.ToString());
+                    DetalleVenta objDetalleVenta = new DetalleVenta(id, idventa, Convert.ToInt32(idProducto), descripcion1, cantidad, precio1, descuento, "350", subtotal, total, totaldescuento);
+                    Session["idVenta"] = idventa;
 
-            Reporte.Reset();
-            Reporte.LocalReport.ReportPath = FullPathReport;
-            ReportDataSource DataSource = new ReportDataSource("MyDataset", ListadoDetalle);
-            Reporte.LocalReport.DataSources.Add(DataSource);
-            Reporte.LocalReport.Refresh();
-            byte[] file = Reporte.LocalReport.Render("PDF");
+                    db.DetalleVenta.Add(objDetalleVenta);
+                    db.SaveChanges();
 
-            return File(new MemoryStream(file).ToArray(),
-                      System.Net.Mime.MediaTypeNames.Application.Octet,
-                      /*Esto para forzar la descarga del archivo*/
-                      string.Format("{0}{1}", "archivoprueba.", "PDF"));
+                }
+                mensaje = "VENTA GUARDADA CON EXITO...";
+
+            }
+            return Json(mensaje);
+
 
 
         }
@@ -91,7 +117,24 @@ namespace SpointLiteVersion.Controllers
             }
             return View(facturas);
         }
+        public ActionResult reporteActual()
+        {
+            if (Session["idVenta"].ToString() != null)
+            {
+                string idVenta = Session["idVenta"].ToString();
+                return Redirect("~/RTPFactura/WebForm1.aspx?idventa="+ idVenta);
+            }
+            else
+            {
+                return View("PDf");
+            }
+            //return Redirect("~/RTPFactura/WebForm1.aspx?idventa="+001);
+           
+         
+                
+            
 
+        }
         // GET: facturas/Create
         public ActionResult Create()
         {
@@ -138,18 +181,7 @@ namespace SpointLiteVersion.Controllers
 
             facturas factura = new facturas();
 
-            foreach (var data in ListadoDetalle)
-            {
-                string idProducto = data.idproducto.ToString();
-                int cantidad = Convert.ToInt32(data.cantidad.ToString());
-                decimal descuento = Convert.ToDecimal(data.descuento.ToString());
-                decimal subtotal = Convert.ToDecimal(data.importe.ToString());
-                DetalleVenta objDetalleVenta = new DetalleVenta(001, 001, Convert.ToInt32(idProducto), "hola", cantidad, 200, descuento, "350", subtotal);
-                db.DetalleVenta.Add(objDetalleVenta);
-
-                db.SaveChanges();
-
-            }
+           
             mensaje = "VENTA GUARDADA CON EXITO...";
 
             return Json(mensaje);
