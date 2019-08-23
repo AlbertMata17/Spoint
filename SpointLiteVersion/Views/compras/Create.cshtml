@@ -17,105 +17,133 @@
                 {
                     @Html.AntiForgeryToken()
 
-                <div class="form-horizontal">
-                    <center> <h3>compras</h3></center>
+                    <div class="form-horizontal">
+                        <center> <h3>compras</h3></center>
 
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                    <div class="form-row" style="margin-top:30px;">
 
-                        <div class="form-group col-md-2">
-                            @Html.LabelFor(model => model.NoCompra, htmlAttributes: new { @class = "control-label col-md-2" })
-                            @Html.EditorFor(model => model.NoCompra, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.NoCompra, "", new { @class = "text-danger" })
+                        <div class="form-row" style="margin-top:30px;">
+
+
+                            @if (@ViewBag.codigo != null)
+                            {
+
+                                <div class="form-group col-md-2">
+                                    @Html.Label("No. Compra", new { @class = "control-label", @style = "margin-left:1px !important;" })
+
+                                    <input type="text" name="NoCompra" id="NoCompra" class="form-control text-box single-line" value="@ViewBag.codigo" style="margin-right:10px;" readonly />
+
+                                    @Html.ValidationMessageFor(model => model.NoCompra, "", new { @class = "text-danger" })
+
+                                </div>
+
+
+                            }
+                            @if (@ViewBag.codigo == null)
+                            {
+
+                                <div class="form-group col-md-2">
+                                    @Html.Label("No. Compra", new { @class = "control-label" })
+
+                                    @Html.EditorFor(model => model.NoCompra, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+
+                                    @Html.ValidationMessageFor(model => model.NoCompra, "", new { @class = "text-danger" })
+
+                                </div>
+
+
+                            }
+
+                            <div class="form-group col-md-2">
+
+                                @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <input type="date" name="Fecha" id="Fecha"  value="@DateTime.Now.Year-@DateTime.Now.Month.ToString("00")-@DateTime.Now.Day.ToString("00")" class="form-control" />
+                                @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+
+
+                            </div>
+                            <div class="form-group col-md-6">
+
+                                @Html.LabelFor(model => model.Observacion, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                @Html.EditorFor(model => model.Observacion, new { htmlAttributes = new { @class = "form-control",@autocomplete="off" } })
+                                @Html.ValidationMessageFor(model => model.Observacion, "", new { @class = "text-danger" })
+
+
+                            </div>
                         </div>
 
-                        <div class="form-group col-md-2">
 
-                            @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <input type="date" name="Fecha" id="Fecha" value="" class="form-control" />
-                            @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
 
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.Suplidor, htmlAttributes: new { @class = "control-label col-md-2" })
+                                @*@Html.EditorFor(model => model.producto);*@
+                                <input type="text" list="colors" name="Suplidor" id="Suplidor" class="form-control" autocomplete="off"/>
+
+                                <datalist id="colors">
+                                    @foreach (var m in ViewBag.suplidor)
+                                    {
+                                        <option value="@m.Text" data-id="@m.Value" />
+                                    }
+                                </datalist>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-group col-md-4">
+                                <label for="producto" class="control-label col-md-2">Producto</label>
+                                <input type="text" list="colors1" name="producto" id="producto" class="form-control" autocomplete="off" />
+
+                                <datalist id="colors1">
+                                    @foreach (var m in ViewBag.producto)
+                                    {
+                                        <option value="@m.Text" data-id="@m.Value" />
+                                    }
+                                </datalist>
+                                @*@Html.DropDownList("producto", (IEnumerable<SelectListItem>)ViewBag.producto, "---Selecciona Un producto---", new { @class = "form-control" })*@
+                            </div>
+
+                            <div class="form-group col-md-2">
+
+                                <label for="cantidad" class="control-label col-md-2">Cantidad</label>
+
+                                <input type="number" name="Cantidad" value="" id="Cantidad" class="form-control" />                               
+
+
+                            </div>
+                            <div class="form-group col-md-2" style="margin-top:30px;">
+
+                                <input type="button" name="name" class="btn btn-primary" onclick="fn_agregar()" id="frm_usu" value="Agregar" />
+
+
+
+                            </div>
 
                         </div>
-                        <div class="form-group col-md-6">
-
-                            @Html.LabelFor(model => model.Observacion, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                            @Html.EditorFor(model => model.Observacion, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Observacion, "", new { @class = "text-danger" })
 
 
-                        </div>
+                        <select class="" id="descripcionproducto" hidden>
+                            <option value="value">text</option>
+                        </select>
+                        <select class="" id="idproducto" hidden>
+                            <option value="value">text</option>
+                        </select>
+                        <select class="" id="itbisproducto" hidden>
+                            <option value="value">text</option>
+                        </select>
+
+                        <select class="" id="precio1" hidden>
+                            <option value="value">text</option>
+                        </select>
+
+
+
+
                     </div>
-
-
-
-
-                    <div class="form-group">
-                        <div class="col-md-4">
-                            @Html.LabelFor(model => model.Suplidor, htmlAttributes: new { @class = "control-label col-md-1" })
-
-                            @Html.EditorFor(model => model.Suplidor, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Suplidor, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-
-                        <div class="form-group col-md-4">
-                            @Html.LabelFor(model => model.Articulo, htmlAttributes: new { @class = "control-label col-md-2" })
-                            @*@Html.EditorFor(model => model.producto);*@
-                            <input type="text" list="colors" name="producto" id="producto" class="form-control" />
-
-                            <datalist id="colors">
-                                @foreach (var m in ViewBag.producto)
-                                {
-                                    <option value="@m.Text" data-id="@m.Value" />
-                                }
-                            </datalist>
-                            @*@Html.DropDownList("producto", (IEnumerable<SelectListItem>)ViewBag.producto, "---Selecciona Un producto---", new { @class = "form-control" })*@
-                            @Html.ValidationMessageFor(model => model.Articulo, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="form-group col-md-2">
-
-                            @Html.LabelFor(model => model.Cantidad, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                            @Html.EditorFor(model => model.Cantidad, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Cantidad, "", new { @class = "text-danger" })
-
-
-                        </div>
-                        <div class="form-group col-md-2" style="margin-top:30px;">
-
-                            <input type="button" name="name" class="btn btn-primary" onclick="fn_agregar()" id="frm_usu" value="Agregar" />
-                           
-
-
-                        </div>
-
-                    </div>
-
-
-                    <select class="" id="descripcionproducto" hidden >
-                        <option value="value">text</option>
-                    </select>
-                    <select class="" id="idproducto" hidden >
-                        <option value="value">text</option>
-                    </select>
-                    <select class="" id="itbisproducto" hidden>
-                        <option value="value">text</option>
-                    </select>
-
-                    <select class="" id="precio1" hidden>
-                        <option value="value">text</option>
-                    </select>
-
-
-
-
-                </div>
                 }
             </div>
         </div>
@@ -144,17 +172,25 @@
                     <tbody></tbody>
 
                 </table>
+                <div class="form-group col-md-3">
+                    <p class="col-md-2">TOTAL</p>
 
+                    <input style="margin-top:10px; margin-left:0px; font-weight:700; " class="form-control totaldado" type="text" name="descuentodado" id="TotalaPagar" required readonly />
+                </div>
 
             </div>
             <div style="margin-bottom:15px; margin-top:30px;">
-                <center> <input type="submit" name="name" value="Registrar" class="btn btn-success" /> </center>
+                <center> <input type="submit" name="name" value="Registrar" id="finalizar" class="btn btn-success" /> </center>
             </div>
-            </div>
+        </div>
     </div>
 </div>
 
 <script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="~/Scripts/autoNumeric/autoNumeric-min.js"></script>
+<script src="~/Scripts/autoNumeric/autoNumeric.js"></script>
+<link href="~/Content/alertify.core.css" rel="stylesheet" />
+<link href="~/Content/alertify.default.css" rel="stylesheet" />
 <script>
     $(document).ready(function () {
         $("#producto").change(function () {
@@ -189,9 +225,9 @@
     var itbis = 0;
     var descuento1 = 0;
     function fn_agregar() {
-     
-   
-       
+
+
+
 
         cadena = "<tr>"
 
@@ -252,10 +288,91 @@
         $("#TotalaPagar").val(total);
     }
     function limpiar() {
-        $("#fecha").val("");
-        $("#observacion").val("");
-        $("#precio").val("");
+        $("#Cantidad").val("");
+        $("#Observacion").val("");
         $("#producto").val("");
-        $("#cantidad").val("");
+        $("#descripcionproducto").val("");
+        $("#idproducto").val("");
+        $("#itbisproducto").val("");
+        $("#precio1").val("");
     }
+</script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("a[rel='pop-up']").click(function () {
+            var caracteristicas = "height=550,width=1000,scrollTo,resizable=1,scrollbars=1,location=0";
+            nueva = window.open(this.href, 'popup', caracteristicas);
+
+
+            return false;
+        });
+        //botones
+        $("#finalizar").click(function () {
+            //alertify.alert("Boton Iniciado");
+            //console.info('hola');
+
+            var i = 0;
+            var envio = "{fecha:'" + $("#Fecha").val() + "',nocompra:'" + $("#NoCompra").val()  + "',observacion:'" + $("#Observacion").val() + "',suplidor:'" + $("#Suplidor").val() + "',IdCabecera:'2',Total:'" + $('#TotalaPagar').val().replace("$", "").replace(",", "") + "',";
+            $("#detalle tbody tr").each(function (index) {
+                if (i == 0) {
+                    envio += "ListadoDetalle:[{codproducto:'" + $(this).find('td').eq(0).text() +
+                        "',cantidad:'" + $(this).find('td').eq(1).text() +
+                        "',descripcion:'" + $(this).find('td').eq(2).text() +
+                        "',costo:'" + $(this).find('td').eq(3).text().replace("$", "").replace(",", "") +
+                        "',importe:'" + $(this).find('td').eq(4).text().replace("$", "").replace(",", "") + "'}";
+                } else {
+                    envio += ",{codproducto:'" + $(this).find('td').eq(0).text() +
+                        "',cantidad:'" + $(this).find('td').eq(1).text() +
+                        "',descripcion:'" + $(this).find('td').eq(2).text() +
+                        "',costo:'" + $(this).find('td').eq(3).text().replace("$", "").replace(",", "") +
+                        "',importe:'" + $(this).find('td').eq(4).text().replace("$", "").replace(",", "") + "'}"
+                }
+                i = 1;
+            });
+            envio += "]}";
+
+            var json = eval("(" + envio + ')');
+
+            //alertify.alert("INGRESE DATOS");
+            console.info(json);
+
+            $.ajax({
+                url: "PDf",
+                data: JSON.stringify(json),
+                type: "POST",
+                async: false,//this makes the ajax-call blocking
+                contentType: 'application/json;charset=UTF-8',
+                dataType: 'json',
+                success: function (response) {
+                    alertify.alert(response);
+
+                        //Swal.fire({
+                        //    position: 'center',
+                        //    title: response,
+                        //    showConfirmButton: false,
+                        //    timer: 1500
+
+                        //})
+
+                    valid = response.valid;
+                },
+                error: function (error) {
+                    alertify.alert(error);
+                    //Swal.fire({
+                    //    position: 'top-end',
+                    //    type: 'success',
+                    //    title: error,
+                    //    showConfirmButton: false,
+                    //    timer: 1500
+                    //})
+
+                }
+            });
+
+        });
+
+    });
 </script>

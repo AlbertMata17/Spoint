@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -37,6 +38,12 @@ namespace SpointLiteVersion.RTPFactura
             ReportDataSource rds = new ReportDataSource("DataSet1", dt);
             ReportViewer1.LocalReport.DataSources.Add(rds);
             ReportViewer1.LocalReport.ReportPath = "RTPFactura/Report1.rdlc";
+            PageSettings pg = new PageSettings();
+            pg.Margins.Left = 0;
+            pg.Margins.Right = 40;
+            pg.Margins.Top = 50;
+            pg.Margins.Bottom = 40;
+            this.ReportViewer1.SetPageSettings(pg);
 
             //parameters
             ReportParameter[] rptParams = new ReportParameter[]

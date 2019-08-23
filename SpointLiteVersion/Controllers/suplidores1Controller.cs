@@ -10,108 +10,107 @@ using SpointLiteVersion.Models;
 
 namespace SpointLiteVersion.Controllers
 {
-    public class ciudads1Controller : Controller
+    public class suplidores1Controller : Controller
     {
         private spointEntities db = new spointEntities();
 
-        // GET: ciudads1
+        // GET: suplidores1
         public ActionResult Index()
         {
-            return View(db.ciudad.ToList());
+            return View(db.suplidores.ToList());
         }
 
-        // GET: ciudads1/Details/5
+        // GET: suplidores1/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ciudad ciudad = db.ciudad.Find(id);
-            if (ciudad == null)
+            suplidores suplidores = db.suplidores.Find(id);
+            if (suplidores == null)
             {
                 return HttpNotFound();
             }
-            return View(ciudad);
+            return View(suplidores);
         }
 
-        // GET: ciudads1/Create
+        // GET: suplidores1/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: ciudads1/Create
+        // POST: suplidores1/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idciudad,Nombre")] ciudad ciudad)
+        public ActionResult Create([Bind(Include = "idSuplidor,nombre,telefono,direccion,correo,cedula,Foto,Status")] suplidores suplidores)
         {
             if (ModelState.IsValid)
             {
-                ciudad.Nombre = ciudad.Nombre.ToUpper();
-                db.ciudad.Add(ciudad);
+                db.suplidores.Add(suplidores);
                 db.SaveChanges();
+                return RedirectToAction("Index");
             }
 
-            return new ContentResult() { Content = "Recepción satisfactoria" };
+            return View(suplidores);
         }
 
-        // GET: ciudads1/Edit/5
+        // GET: suplidores1/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ciudad ciudad = db.ciudad.Find(id);
-            if (ciudad == null)
+            suplidores suplidores = db.suplidores.Find(id);
+            if (suplidores == null)
             {
                 return HttpNotFound();
             }
-            return View(ciudad);
+            return View(suplidores);
         }
 
-        // POST: ciudads1/Edit/5
+        // POST: suplidores1/Edit/5
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idciudad,Nombre")] ciudad ciudad)
+        public ActionResult Edit([Bind(Include = "idSuplidor,nombre,telefono,direccion,correo,cedula,Foto,Status")] suplidores suplidores)
         {
             if (ModelState.IsValid)
             {
-                ciudad.Nombre = ciudad.Nombre.ToUpper();
-                db.Entry(ciudad).State = EntityState.Modified;
+                db.Entry(suplidores).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(ciudad);
+            return View(suplidores);
         }
 
-        // GET: ciudads1/Delete/5
+        // GET: suplidores1/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ciudad ciudad = db.ciudad.Find(id);
-            if (ciudad == null)
+            suplidores suplidores = db.suplidores.Find(id);
+            if (suplidores == null)
             {
                 return HttpNotFound();
             }
-            return View(ciudad);
+            return View(suplidores);
         }
 
-        // POST: ciudads1/Delete/5
+        // POST: suplidores1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ciudad ciudad = db.ciudad.Find(id);
-            db.ciudad.Remove(ciudad);
+            suplidores suplidores = db.suplidores.Find(id);
+            db.suplidores.Remove(suplidores);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

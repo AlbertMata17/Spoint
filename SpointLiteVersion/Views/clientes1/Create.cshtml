@@ -180,11 +180,10 @@
                 </div>
             </div>
             }
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+            <div class="modal fade modalciudad" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog model" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ciudad</h5>
                             <button type="button" id="cerrar1" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -231,6 +230,8 @@
                     $("#idciudad").empty();
                     $.each(data, function (create, row) {
                         $("#idciudad").append("<option value= '" + row.idciudad + "'>" + row.Nombre + "</option>")
+                        $("#idciudad").val(row.idciudad);
+
                     });
                 });
             })

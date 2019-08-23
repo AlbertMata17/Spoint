@@ -17,7 +17,8 @@ namespace SpointLiteVersion.Controllers
         // GET: suplidores
         public ActionResult Index()
         {
-            return View(db.suplidores.ToList().Where(m=>m.Status=="1"));
+
+            return View(db.suplidores.Where(m=>m.Status=="1").ToList());
         }
 
         // GET: suplidores/Details/5
@@ -90,7 +91,7 @@ namespace SpointLiteVersion.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            else if (suplidores.idSuplidor <= 0)
+            else if (t <= 0)
             {
                 if (ModelState.IsValid)
                 {
@@ -170,7 +171,6 @@ namespace SpointLiteVersion.Controllers
             suplidores suplidores = db.suplidores.Find(id);
             suplidores.Status = "0";
 
-            db.suplidores.Remove(suplidores);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

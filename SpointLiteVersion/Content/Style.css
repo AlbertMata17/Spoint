@@ -10,8 +10,13 @@
     height:40px;
 
 }
-#Observaciones{
-    width:32%;
+.model {
+    width: 25%;
+    height: 25%;
+    margin-top:160px;
+}
+#Observaciones {
+    width: 32%;
 }
 .sub1{
     display:none;

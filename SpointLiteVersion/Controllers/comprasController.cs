@@ -36,10 +36,38 @@ namespace SpointLiteVersion.Controllers
         }
 
         // GET: compras/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.producto = new SelectList(db.productos, "idProducto", "Descripcion");
+            if (id == null)
+            {
+                var m = 1;
+                var l = (from r in db.compras select r.idcompra).Count();
 
+
+                while (m <= l)
+                {
+                    m++;
+                };
+
+                ViewBag.producto = new SelectList(db.productos.Where(re=>re.Status=="1"), "idProducto", "Descripcion");
+                ViewBag.suplidor = new SelectList(db.suplidores.Where(re => re.Status == "1"), "idSuplidor", "nombre");
+
+                var codigo = "COMP000" + m;
+                var o = (from n in db.compras where n.NoCompra == codigo select n).Count();
+                if (o != 0)
+                {
+                    m = m + 1;
+                    ViewBag.codigo = "COMP000" + m;
+                }
+                else
+                {
+                    ViewBag.codigo = codigo;
+                }
+
+                return View();
+            }
+            ViewBag.producto = new SelectList(db.productos.Where(re => re.Status == "1"), "idProducto", "Descripcion");
+            ViewBag.suplidor = new SelectList(db.suplidores.Where(re => re.Status == "1"), "idSuplidor", "nombre");
             return View();
         }
         public JsonResult Getproducto(string idproducto)
@@ -112,6 +140,72 @@ namespace SpointLiteVersion.Controllers
                 return HttpNotFound();
             }
             return View(compras);
+        }
+        public ActionResult PDf(string fecha, string nocompra, string observacion, string suplidor, string Total, List<DetalleCompra> ListadoDetalle)
+        {
+            string mensaje = "";
+            if (fecha == "" || observacion == "" || suplidor == "")
+            {
+                if (fecha == "") mensaje = "ERROR EN EL CAMPO FECHA";
+                if (suplidor == "") mensaje = "ERROR CON EL SUPLIDOR";
+             
+
+
+            }
+            else
+            {
+                if (Total == "") Total = "0.00";
+                int id1 = 0;
+                DetalleCompra detalle = new DetalleCompra();
+                var verificar = (from s in db.DetalleCompra select s.idDetalle);
+                if (verificar.Count() > 0)
+                {
+                    id1 = (from s in db.DetalleCompra select s.idDetalle).Max();
+                }
+                int idventa = id1 + 1;
+                compras compras = new compras();
+                compras.Suplidor = suplidor;
+                compras.Fecha = Convert.ToDateTime(fecha);
+                compras.Observacion = observacion.ToUpper();
+                compras.NoCompra = nocompra;
+                compras.Total = Convert.ToDecimal(Total);
+
+                db.compras.Add(compras);
+                db.SaveChanges();
+                int id = compras.idcompra;
+
+                productos producto = new productos();
+                foreach (var data in ListadoDetalle)
+                {
+                    string idProducto = data.codproducto.ToString();
+                    int cantidad = Convert.ToInt32(data.cantidad.ToString());
+                    if (idProducto != "")
+                    {
+                        var q = (from a in db.productos where a.CodProducto == idProducto select a).First();
+                        q.cantidad += cantidad;
+                        var qs = (from a in db.Inventario where a.CodigoProducto == idProducto select a).First();
+                        qs.cantidad += cantidad;
+                        qs.Tipo = "Compra";
+                        qs.Fecha = Convert.ToDateTime(fecha);
+                        db.SaveChanges();
+                    }
+                    decimal total = Convert.ToDecimal(data.importe.ToString());
+                    string descripcion1 = data.descripcion.ToString();
+                    decimal precio1 = Convert.ToDecimal(data.costo.ToString());
+                    DetalleCompra objDetalleVenta = new DetalleCompra(idProducto, id, cantidad, descripcion1, precio1, total, Convert.ToDateTime(fecha));
+                    Session["idVenta"] = idventa;
+
+                    db.DetalleCompra.Add(objDetalleVenta);
+                    db.SaveChanges();
+
+                }
+                mensaje = "COMPRA GUARDADA CON EXITO...";
+
+            }
+            return Json(mensaje);
+
+
+
         }
 
         // POST: compras/Delete/5

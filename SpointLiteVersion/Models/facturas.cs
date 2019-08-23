@@ -25,7 +25,6 @@ namespace SpointLiteVersion.Models
         public string observacion { get; set; }
         public string cliente { get; set; }
         public string vendedor { get; set; }
-        public string producto { get; set; }
         public Nullable<decimal> precio { get; set; }
         public string credito { get; set; }
         public Nullable<int> idventa { get; set; }

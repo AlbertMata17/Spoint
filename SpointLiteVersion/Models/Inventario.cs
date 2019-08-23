@@ -12,30 +12,23 @@ namespace SpointLiteVersion.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class productos
+    public partial class Inventario
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public productos()
-        {
-            this.Inventario1 = new HashSet<Inventario>();
-        }
-    
-        public int idProducto { get; set; }
-        public string codigobarra { get; set; }
+        public int idInventario { get; set; }
+        public Nullable<int> idProducto { get; set; }
+        public string codigodebarras { get; set; }
         public string Descripcion { get; set; }
-        public Nullable<int> idtipo { get; set; }
+        public string Tipo { get; set; }
         public Nullable<decimal> Precio { get; set; }
         public string itbis { get; set; }
         public Nullable<decimal> costo { get; set; }
         public string nota { get; set; }
-        public string Inventario { get; set; }
-        public string CodProducto { get; set; }
+        public string CodigoProducto { get; set; }
         public string Foto { get; set; }
-        public string Status { get; set; }
+        public string status { get; set; }
         public Nullable<int> cantidad { get; set; }
+        public Nullable<System.DateTime> Fecha { get; set; }
     
-        public virtual tiposproductos tiposproductos { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Inventario> Inventario1 { get; set; }
+        public virtual productos productos { get; set; }
     }
 }

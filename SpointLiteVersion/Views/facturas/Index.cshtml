@@ -33,16 +33,16 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.idfactura)
                                 </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.producto)
-                                </th>
+
                                 <th>
                                     @Html.DisplayNameFor(model => model.fecha)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Total)
                                 </th>
-
+                                <th>
+                                    @Html.DisplayNameFor(model => model.cliente)
+                                </th>
 
 
                                 <th>Acciones</th>
@@ -54,23 +54,23 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.idfactura)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.producto)
-                                </td>
+
                                 <td>
                                     @Html.DisplayFor(modelItem => item.fecha)
                                 </td>
-                                <td>
+                                <td class="total">
                                     @Html.DisplayFor(modelItem => item.Total)
                                 </td>
-
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.cliente)
+                                </td>
 
 
 
 
                                 <td>
                                     <a href="@Url.Action("Edit","productos1",new { id=item.idfactura})"><i class="fas fa-edit eliminar"></i></a> |
-                                    <a href="@Url.Action("Details","productos1",new { id=item.idfactura})"><i class="fas fa-info-circle eliminar "></i></a> |
+                                    <a href="@Url.Action("Details","facturas",new { id=item.idventa})"><i class="fas fa-info-circle eliminar "></i></a> |
                                     <a href="@Url.Action("Delete","productos1",new { id=item.idfactura})"><i class="fas fa-trash-alt eliminar eli"></i></a>
 
 
@@ -85,13 +85,21 @@
     </div>
 </div>
 <script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
-
+<script src="~/Scripts/autoNumeric/autoNumeric-min.js"></script>
+<script src="~/Scripts/autoNumeric/autoNumeric.js"></script>
 <script>
     $(document).ready(function () {
         $('#tabla').DataTable({
             "pagingType": "full_numbers" // "simple" option for 'Previous' and 'Next' buttons only
         });
         $('.dataTables_length').addClass('bs-select');
+    });
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        $("td.total").each(function () { $(this).html(parseFloat($(this).text()).toLocaleString('en-US', { style: 'currency', currency: 'USD' })); });
     });
 </script>
 

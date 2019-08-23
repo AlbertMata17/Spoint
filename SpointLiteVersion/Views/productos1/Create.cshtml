@@ -113,45 +113,51 @@
                             </div>
                         </div>
 
-                        <div class="form-row">
+                                             <div class="form-row">
 
 
-                            <div class="form-group col-md-2">
-                                @Html.Label("Código de barras", new { @class = "control-label", @style = "margin-left:1px !important;" })
-                                @Html.EditorFor(model => model.codigobarra, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingresa Código" } })
-                                @Html.ValidationMessageFor(model => model.codigobarra, "", new { @class = "text-danger" })
+                                                 <div class="form-group col-md-2">
+                                                     @Html.Label("Código de barras", new { @class = "control-label", @style = "margin-left:1px !important;" })
+                                                     @Html.EditorFor(model => model.codigobarra, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingresa Código" } })
+                                                     @Html.ValidationMessageFor(model => model.codigobarra, "", new { @class = "text-danger" })
 
-                            </div>
-
-
-                            <div class="form-group col-md-2">
-
-                                @Html.LabelFor(model => model.costo, htmlAttributes: new { @class = "control-label col-md-1" })
-
-                                @Html.EditorFor(model => model.costo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ej: $99.99" } })
-                                @Html.ValidationMessageFor(model => model.costo, "", new { @class = "text-danger" })
+                                                 </div>
 
 
-                            </div>
-                            <div class="form-group col-md-2" style="margin-right:2%; width:20%;">
-                                @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control",@placeholder="Ej: $99.99" } })
-                                @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
+                                                 <div class="form-group col-md-2">
 
-                            </div>
+                                                     @Html.LabelFor(model => model.costo, htmlAttributes: new { @class = "control-label col-md-1" })
 
-                            <div class="form-group col-md-1" ;">
-                                @Html.LabelFor(model => model.itbis, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                                @Html.DropDownList("itbis", null, htmlAttributes: new { @class = "form-control" })
-
-                                @Html.ValidationMessageFor(model => model.itbis, "", new { @class = "text-danger" })
-                            </div>
-                            <input type="checkbox" id="inventari" name="inventari" class="inventari" value="" style="margin-top:5%" /> <label for="cbox2">Inventario</label>
+                                                     @Html.EditorFor(model => model.costo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ej: $99.99" } })
+                                                     @Html.ValidationMessageFor(model => model.costo, "", new { @class = "text-danger" })
 
 
+                                                 </div>
+                                                 <div class="form-group col-md-2" style="margin-right:2%; width:20%;">
+                                                     @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                     @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ej: $99.99" } })
+                                                     @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
 
-                        </div>
+                                                 </div>
+
+                                                 <div class="form-group col-md-1" ;">
+                                                     @Html.LabelFor(model => model.itbis, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                                     @Html.DropDownList("itbis", null, htmlAttributes: new { @class = "form-control" })
+
+                                                     @Html.ValidationMessageFor(model => model.itbis, "", new { @class = "text-danger" })
+                                                 </div>
+                                                 @if (@ViewBag.invent == "si")
+                                                 {
+                                                     <input type="checkbox" id="inventari" name="inventari" class="inventari" value="" style="margin-top:5%" checked /> <label for="cbox2">Inventario</label>
+
+                                                 } @if (@ViewBag.invent == "no")
+                                                 {
+                                                     <input type="checkbox" id="inventari" name="inventari" class="inventari" value="" style="margin-top:5%" /> <label for="cbox2">Inventario</label>
+
+                                                 }
+
+                                             </div>
 
 
 
@@ -224,12 +230,10 @@
                     </div>
                 }
             </div>
-            <div style="display:none" id="modal-confirmation" title="Delete?">Are you sure you want to delete?</div>
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+            <div class="modal fade modalciudad" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog model" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ciudad</h5>
                             <button type="button" id="cerrar1" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -280,6 +284,7 @@
                     $("#idtipo").empty();
                     $.each(data, function (create, row) {
                         $("#idtipo").append("<option value= '" + row.idtipoproducto + "'>" + row.nombre + "</option>")
+                        $("#idtipo").val(row.idtipoproducto);
                     });
                 });
             })

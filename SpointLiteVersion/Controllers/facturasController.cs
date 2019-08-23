@@ -36,16 +36,15 @@ namespace SpointLiteVersion.Controllers
                             select new { N.Descripcion });
             return Json(CityList, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult PDf(string fecha,string observacion, string cliente, string vendedor, string producto, string precio, string credito,string Total,List<DetalleVenta> ListadoDetalle)
+        public ActionResult PDf(string fecha,string observacion, string cliente, string vendedor, string precio, string credito,string Total,List<DetalleVenta> ListadoDetalle)
         {
             string mensaje = "";
-            if (fecha == "" || observacion == "" || cliente == "" || vendedor == "" || producto == "" || credito == "")
+            if (fecha == "" || observacion == "" || cliente == "" || vendedor == "" || credito == "")
             {
                 if (fecha == "") mensaje = "ERROR EN EL CAMPO FECHA";
                 if (observacion == "") mensaje = "ERROR EN EL CAMPO OBSERVACIÓN";
                 if (cliente == "") mensaje = "ERROR CON EL CLIENTE";
                 if (vendedor == "") mensaje = "ERROR EN EL CAMPO VENDEDOR";
-                if (producto == "") mensaje = "ERROR EN EL CAMPO PRODUCTO";
                 if (credito == "") mensaje = "ERROR EN EL CAMPO CREDITO";
 
 
@@ -67,7 +66,6 @@ namespace SpointLiteVersion.Controllers
                 factura.fecha = Convert.ToDateTime(fecha);
                 factura.observacion = observacion;
                 factura.vendedor = vendedor;
-                factura.producto = producto;
                 factura.precio = Convert.ToDecimal(precio);
                 factura.credito = credito;
                 factura.idventa = idventa;
@@ -80,7 +78,7 @@ namespace SpointLiteVersion.Controllers
 
                 foreach (var data in ListadoDetalle)
                 {
-                    string idProducto = data.idproducto.ToString();
+                    string idProducto = data.Ref.ToString();
                     int cantidad = Convert.ToInt32(data.cantidad.ToString());
                     decimal descuento = Convert.ToDecimal(data.descuento.ToString());
                     decimal subtotal = Convert.ToDecimal(data.importe.ToString());
@@ -88,7 +86,7 @@ namespace SpointLiteVersion.Controllers
                     decimal totaldescuento = Convert.ToDecimal(data.totaldescuento.ToString());
                     string descripcion1 = data.descripcion.ToString();
                     decimal precio1 = Convert.ToDecimal(data.precio.ToString());
-                    DetalleVenta objDetalleVenta = new DetalleVenta(id, idventa, Convert.ToInt32(idProducto), descripcion1, cantidad, precio1, descuento, "350", subtotal, total, totaldescuento);
+                    DetalleVenta objDetalleVenta = new DetalleVenta(id, idventa, idProducto, descripcion1, cantidad, precio1, descuento, "350", subtotal, total, totaldescuento);
                     Session["idVenta"] = idventa;
 
                     db.DetalleVenta.Add(objDetalleVenta);
@@ -110,11 +108,17 @@ namespace SpointLiteVersion.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            if (id != null)
+            {
+                string idVenta = id.ToString();
+                return Redirect("~/RTPFactura/WebForm1.aspx?IdVenta=" + idVenta);
+            }
             facturas facturas = db.facturas.Find(id);
             if (facturas == null)
             {
                 return HttpNotFound();
             }
+          
             return View(facturas);
         }
         public ActionResult reporteActual()
@@ -138,8 +142,8 @@ namespace SpointLiteVersion.Controllers
         // GET: facturas/Create
         public ActionResult Create()
         {
-            ViewBag.cliente = new SelectList(db.clientes, "nombre", "nombre");
-            ViewBag.vendedor = new SelectList(db.vendedores, "nombre", "nombre");
+            ViewBag.cliente = new SelectList(db.clientes.Where(m => m.Status == "1"), "idcliente", "nombre");
+            ViewBag.vendedor = new SelectList(db.vendedores.Where(m => m.Status == "1"), "nombre", "nombre");
             var ListadoDetalle = new List<DetalleVenta>();
             ListadoDetalle.Add(new DetalleVenta());
             ListadoDetalle.Add(new DetalleVenta());
@@ -151,6 +155,14 @@ namespace SpointLiteVersion.Controllers
         {
             db.Configuration.ProxyCreationEnabled = false;
             List<productos> productos = db.productos.Where(m => m.Descripcion == idproducto && m.Status=="1").ToList();
+
+            //ViewBag.FK_Vehiculo = new SelectList(db.Vehiculo.Where(a => a.Clase == Clase && a.Estatus == "Disponible"), "VehiculoId", "Marca");
+            return Json(productos, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Getcliente(int idproducto)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<clientes> productos = db.clientes.Where(m => m.idCliente == idproducto && m.Status == "1").ToList();
 
             //ViewBag.FK_Vehiculo = new SelectList(db.Vehiculo.Where(a => a.Clase == Clase && a.Estatus == "Disponible"), "VehiculoId", "Marca");
             return Json(productos, JsonRequestBehavior.AllowGet);

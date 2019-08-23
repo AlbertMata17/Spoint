@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SpointLiteVersion.Models.compras>
+﻿@model IEnumerable<SpointLiteVersion.Models.DetalleCompra>
 
 @{
     ViewBag.Title = "Index";
@@ -7,8 +7,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-9 modal-content contedor" style="width:90%; margin-left:4%; margin-top:2%;">
-            <h2 style="margin-left:30px; margin-bottom:35px;">Compras</h2>
-
+            <h2 style="margin-left:30px; margin-bottom:35px;">Seguimiento</h2>
+               
             <p>
                 <Button onclick="location.href='@Url.Action("Create","compras")'" class="btn btn-success crear"><i class="fas fa-plus iconocrear"></i></Button>
 
@@ -20,48 +20,39 @@
 
                             <tr>
                                 <th>
-                                    @Html.DisplayName("NO. COMPRA")
-                                </th>
-                                <th>
                                     @Html.DisplayName("FECHA")
                                 </th>
                                 <th>
-                                    @Html.DisplayName("OBSERVACIÓN")
+                                    @Html.DisplayName("DESCRIPCIÓN")
                                 </th>
                                 <th>
-                                    @Html.DisplayName("SUPLIDOR")
+                                    @Html.DisplayName("CANTIDAD")
                                 </th>
                                 <th>
-                                    @Html.DisplayName("TOTAL")
+                                    @Html.DisplayName("COSTO")
                                 </th>
-                              
-                                <th></th>
+
+
                             </tr>
                         </thead>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NoCompra)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Fecha)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Observacion)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Suplidor)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem=>item.Total)
-                                </td>
-                                <td>
-                                    <a hidden href="@Url.Action("Create","compras",new { id=item.idcompra})" class="edit"><i class="fas fa-edit eliminar"></i></a>
-                                    <a href="@Url.Action("Index","compras")" class="facturar" title="Facturar"><i class="fas fa-donate eliminar"></i></a> |
-                                    <a href="@Url.Action("Index","compras")" class="facturar" title="Facturar"><i class="fas fa-hand-point-up eliminar"></i></a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fecha)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.descripcion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.cantidad)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.costo)
+                            </td>
+
+                       
+                        </tr>
                         }
 
                     </table>

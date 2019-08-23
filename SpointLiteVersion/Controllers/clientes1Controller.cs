@@ -97,6 +97,8 @@ namespace SpointLiteVersion.Controllers
                     {
                         clientes.Observaciones = clientes.Observaciones.ToUpper();
                     }
+                    clientes.Status = "1";
+
                     db.Entry(clientes).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -122,6 +124,7 @@ namespace SpointLiteVersion.Controllers
                     {
                         clientes.Observaciones = clientes.Observaciones.ToUpper();
                     }
+                    clientes.Status = "1";
                     db.clientes.Add(clientes);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -186,7 +189,7 @@ namespace SpointLiteVersion.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             clientes clientes = db.clientes.Find(id);
-            db.clientes.Remove(clientes);
+            clientes.Status = "0";
             db.SaveChanges();
             return RedirectToAction("Index");
         }

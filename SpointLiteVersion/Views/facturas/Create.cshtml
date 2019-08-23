@@ -21,7 +21,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             @Html.LabelFor(model => model.fecha, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <input type="date" name="fecha" value="@DateTime.Now.Date" class="form-control" id="fecha" />
+                            <input type="date" name="fecha" value="@DateTime.Now.Year-@DateTime.Now.Month.ToString("00")-@DateTime.Now.Day.ToString("00")" class="form-control" id="fecha" />
                             @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
 
                         </div>
@@ -74,8 +74,8 @@
 
                     <div class="form-row">
                         <div class="form-group col-md-3">
-                            @Html.LabelFor(model => model.producto, htmlAttributes: new { @class = "control-label col-md-2" })
                             @*@Html.EditorFor(model => model.producto);*@
+                            <label for="producto" class="control-label col-md-2">Producto</label>
                             <input type="text" list="colors" name="producto" id="producto" class="form-control" autocomplete="off" />
 
                             <datalist id="colors">
@@ -87,13 +87,21 @@
                             @*@Html.DropDownList("producto", (IEnumerable<SelectListItem>)ViewBag.producto, "---Selecciona Un producto---", new { @class = "form-control" })*@
 
                         </div>
-                        <div class="form-group col-md-6" style="">
+                        <div class="form-group col-md-3" style="">
+
+
+                            @Html.Label("Descripción", new { @class = "control-label col-md-2" })
+                            <input type="text" name="descripci" value="" id="descripci" class="form-control" required />
+
+                        </div>
+                        <div class="form-group col-md-3" style="">
 
 
                             @Html.Label("Precio", new { @class = "control-label col-md-2" })
-                            <input type="number" name="precio" value="" id="precio" class="form-control" readonly />
+                            <input type="number" name="precio" value="" id="precio" class="form-control" />
                             @Html.ValidationMessageFor(model => model.precio, "", new { @class = "text-danger" })
                         </div>
+
                         <div class="form-group col-md-2">
                             @Html.LabelFor(model => model.credito, htmlAttributes: new { @class = "control-label col-md-2" })
 
@@ -104,16 +112,16 @@
                             @Html.ValidationMessageFor(model => model.credito, "", new { @class = "text-danger" })
                         </div>
                         @*<div class="form-group col-md-2">
-                                @Html.LabelFor(model => model.descuento, htmlAttributes: new { @class = "control-label col-md-2" })
-                                @Html.EditorFor(model => model.descuento, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Un descuento general" } })
+                @Html.LabelFor(model => model.descuento, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.descuento, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Un descuento general" } })
 
-                                @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
-                            </div>*@
+                @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+            </div>*@
                     </div>
                     <select class="" id="descripcionproducto" hidden>
                         <option value="value">text</option>
                     </select>
-                    <select class="" id="idproducto" hidden>
+                    <select class="" id="idproducto">
                         <option value="value">text</option>
                     </select>
                     <select class="" id="itbisproducto" hidden>
@@ -123,20 +131,24 @@
                     <select class="" id="precio1" hidden>
                         <option value="value">text</option>
                     </select>
+                    <select class="" id="creditosaprobados">
+                        <option value="value">text</option>
+                    </select>
 
                     @*<select id="idprod">
-                            <option value="value">text</option>
-                        </select>*@
+            <option value="value">text</option>
+        </select>*@
 
 
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Create" class="btn btn-default" />
+                            <input type="submit" value="Agregar" class="btn btn-default" />
+                            <input type="button" value="Agregar Servicio" class="btn btn-default" onclick="fn_agregarservicios()" />
+
                         </div>
                     </div>
                     <div>
-                        @Html.ActionLink("Back to List", "Index")
                     </div>
                 </div>
 
@@ -180,22 +192,22 @@
                 <div class="row" style="margin-top:4%;">
                     <div class="form-group col-md-3">
                         <p class="col-md-2">Subtotal</p>
-                        <input style="margin-top:10px; margin-left:0px; font-weight:700; " class="form-control" type="text" name="descuentodado" id="subtotal" required readonly />
+                        <input style="margin-top:10px; margin-left:0px; font-weight:700; " class="form-control subtotaldado" type="text" name="descuentodado" id="subtotal" required readonly />
                     </div>
                     <div class="form-group col-md-3">
                         <p class="col-md-12">Descuentos por Artículo</p>
 
-                        <input style="margin-top:10px; margin-left:0px; font-weight:700;" class="form-control" type="text" name="descuentodado" id="descuentos" required readonly />
+                        <input style="margin-top:10px; margin-left:0px; font-weight:700;" class="form-control descuentodado" type="text" name="descuentodado" id="descuentos" required readonly />
                     </div>
                     <div class="form-group col-md-3">
                         <p class="col-md-2">ITBIS</p>
 
-                        <input style="margin-top:10px; margin-left:0px; font-weight:700; " class="form-control" type="text" name="descuentodado" id="itbisdado" required readonly />
+                        <input style="margin-top:10px; margin-left:0px; font-weight:700; " class="form-control itbisdado" type="text" name="descuentodado" id="itbisdado" required readonly />
                     </div>
                     <div class="form-group col-md-3">
                         <p class="col-md-2">TOTAL</p>
 
-                        <input style="margin-top:10px; margin-left:0px; font-weight:700; " class="form-control" type="text" name="descuentodado" id="TotalaPagar" required readonly />
+                        <input style="margin-top:10px; margin-left:0px; font-weight:700; " class="form-control totaldado" type="text" name="descuentodado" id="TotalaPagar" required readonly />
                     </div>
                 </div>
                 @*<table class="tab">
@@ -270,7 +282,7 @@
 
 @*modal para cambiar el descuento y la cantidad*@
 
-<button type="button" class="imprimir btn btn-danger" id="imprimir"> <i class="fas fa-print"></i> PRINT</button>
+@*<button type="button" class="imprimir btn btn-danger" id="imprimir"> <i class="fas fa-print"></i> PRINT</button>*@
 
 <div class="modal fade" id="myModal">
     <div class="modal-dialog">
@@ -302,16 +314,24 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-<button id="finalizar">Guardar</button>
-<a  class="btn btn-success" href="~/facturas/reporteActual" target="_blank">Imprimir Factura</a>
+<div class="botones" style="margin-left:50px;">
+    <button id="finalizar" class="btn btn-success">Guardar</button>
+    <a class="imprimir btn btn-danger" href="~/facturas/reporteActual" target="_blank"> <i class="fas fa-print"></i> Imprimir</a>
+    <a href="@Url.Action("Create","facturas")" class="btn btn-info"> Nueva Venta</a>
+</div>
 <script src="~/Content/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
 <script src="~/Scripts/alertify/alertify.min.js"></script>
+<script src="~/Scripts/autoNumeric/autoNumeric-min.js"></script>
+<script src="~/Scripts/autoNumeric/autoNumeric.js"></script>
 <link href="~/Content/alertify.core.css" rel="stylesheet" />
 <link href="~/Content/alertify.default.css" rel="stylesheet" />
+
 <script>
     $(document).ready(function () {
         $("#producto").change(function () {
@@ -328,7 +348,28 @@
                     $("#itbisproducto").append("<option value='" + row.itbis + "'>" + row.itbis + "</option>")
                     //$("#idprod").append("<option value='" + row.itbis + "'>" + row.itbis + "</option>")
                     $("#precio1").append("<option value='" + row.Precio + "'>" + row.Precio + "</option>")
-                    $("#idproducto").append("<option value='" + row.idProducto + "'>" + row.idProducto + "</option>")
+                    $("#idproducto").append("<option value='" + row.CodProducto + "'>" + row.CodProducto + "</option>")
+                    //$("#idproducto").append("<option value='" + row.idProducto + "'>" + row.idProducto + "</option>")
+
+                });
+            });
+        })
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#cliente").change(function () {
+
+            $.post("Getcliente", { idproducto: $("#cliente1 option[value='" + $('#cliente').val() + "']").attr('data-id')}, function (data) {
+
+                $("#creditosaprobados").empty();
+                $.each(data, function (create, row) {
+                    $("#creditosaprobados").append("<option value='" + row.creditoaprobado + "'>" + row.creditoaprobado + "</option>")
+                    //$("#itbisproducto").append("<option value='" + row.itbis + "'>" + row.itbis + "</option>")
+                    ////$("#idprod").append("<option value='" + row.itbis + "'>" + row.itbis + "</option>")
+                    //$("#precio1").append("<option value='" + row.Precio + "'>" + row.Precio + "</option>")
+                    //$("#idproducto").append("<option value='" + row.CodProducto + "'>" + row.CodProducto + "</option>")
+                    //$("#idproducto").append("<option value='" + row.idProducto + "'>" + row.idProducto + "</option>")
 
                 });
             });
@@ -351,6 +392,7 @@
     var descuento = 0;
     var itbis = 0;
     var descuento1 = 0;
+    var precio = 0;
     var custom;
     var encontradoResultado = false;
     var abierto = false;
@@ -397,12 +439,14 @@
             cadena = cadena + "<td class='idprod'>" + $("#idproducto").val() + "</td>";
             cadena = cadena + "<td>" + $("#descripcionproducto").val() + "</td>";
             cadena = cadena + "<td class='nr'>" + cantidadmostrar + "</td>";
-            cadena = cadena + "<td>" + $("#precio1").val() + "</td>";
-            cadena = cadena + "<td>" + descuentomostrar + "</td>";
+            precio = $("#precio1").val();
+            
+            cadena = cadena + "<td>" + parseFloat(precio).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "</td>";
+            cadena = cadena + "<td class='descuentoproducto'>" + descuentomostrar.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "</td>";
             var cantidad_itbis = (parseInt("1") * $("#precio1").val());
 
             itbis = Math.floor(cantidad_itbis * parseInt($("#itbisproducto").val()) / 100);
-            cadena = cadena + "<td class='itb'>" + itbis + "</td>";
+            cadena = cadena + "<td class='itb'>" + itbis.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "</td>";
             cadena = cadena + "<td class='itb3' hidden>" + $("#itbisproducto").val() + "</td>";
 
 
@@ -418,7 +462,7 @@
             subtotal1 = (x * y);
             descuento = des;
 
-            cadena = cadena + "<td>" + subtotal + "</td>"
+            cadena = cadena + "<td class='importe'>" + subtotal.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "</td>"
             cadena = cadena + "<td class='sub1'>" + subtotal1 + "</td>"
 
             cadena = cadena + "<td class='botoneliminar'><a class ='elimina'  style='margin-left:-20px;'><button class='btn btn-danger' type='button'><span class='fa fa-remove'></span></button></a></td> ";
@@ -433,7 +477,7 @@
 
 
             fn_dar_eliminar();
-
+           
             sun();
             //limpiar();
         }
@@ -442,7 +486,6 @@
     }
 
     function sumar() {
-        alert("Se esta ejecutando");
         //total = total + subtotal;
         //descuento1 = descuento1 + descuento;
         //subtotalpagar = subtotalpagar + subtotal1;
@@ -466,10 +509,10 @@
             var columnas = e.querySelectorAll("td");
 
             // obtenemos los valores de la cantidad y importe
-            var importe = parseFloat(columnas[7].textContent);
-            var subto = parseFloat(columnas[8].textContent);
-            var desc12 = parseFloat(columnas[4].textContent);
-            var totalsumaitbis1 = parseFloat(columnas[5].textContent);
+            var importe = parseFloat(columnas[7].textContent.replace("$", "").replace(",", ""));
+            var subto = parseFloat(columnas[8].textContent.replace("$", "").replace(",", ""));
+            var desc12 = parseFloat(columnas[4].textContent.replace("$", "").replace(",", ""));
+            var totalsumaitbis1 = parseFloat(columnas[5].textContent.replace("$", "").replace(",", ""));
             // mostramos el total por fila
 
             total += importe;
@@ -477,14 +520,12 @@
             desci += desc12;
             totalsumaitbis += totalsumaitbis1;
         });
-        $("#TotalaPagar").val(total);
-        $('#subtotal').val(sub1);
-        $('#descuentos').val(desci);
-        $('#itbisdado').val(totalsumaitbis);
-
+        $("#TotalaPagar").val(total.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+        $('#subtotal').val(sub1.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+        $('#descuentos').val(desci.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+        $('#itbisdado').val(totalsumaitbis.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
     }
     function prueba() {
-
         $("#sab tr").click(function () {
             $(this).addClass('selected').siblings().removeClass('selected');
             var value = $(this).find('td:first').html();
@@ -575,6 +616,260 @@
         sumar();
     }
     function limpiar() {
+
+        $("#fecha").val("");
+        $("#observacion").val("");
+        $("#precio").val("");
+        $("#cliente").val("");
+        $("#producto").val("");
+        $("#cantidad").val("");
+        $("#descuento").val("");
+    }
+</script>
+
+@*Para Agregar Servicios*@
+
+<script>
+    $(document).ready(function () {
+        agregarmas();
+    });
+    var cantidadmostrar = 1;
+    var descuentomostrar = 0;
+    var total = 0;
+    var valor = 0;
+    var subtotal = 0;
+    var subtotal1 = 0;
+    var subtotalpagar = 0;
+    var valor1 = 0;
+    var valor2 = 0;
+    var descuento = 0;
+    var itbis = 0;
+    var descuento1 = 0;
+    var precio = 0;
+    var custom;
+    var encontradoResultado = false;
+    var abierto = false;
+    function fn_agregarservicios() {
+        var combo = document.getElementById("cliente1").value;
+        encontradoResultado = false;
+        var combo1 = document.getElementById("vendedor1").value;
+        //var selected1 = combo1.options[combo1.selectedIndex].text
+        document.getElementById("cliente2").innerText = $("#cliente").val();
+        document.getElementById("vendedor2").innerText = $("#vendedor").val();
+        //obtenemos el valor insertado a buscar
+        buscar = $("#idproducto").prop("value")
+
+        //utilizamos esta variable solo de ayuda y mostrar que se encontro
+
+        //realizamos el recorrido solo por las celdas que contienen el código, que es la primera
+        $("#detalle tr").find('td:eq(0)').each(function () {
+
+            //obtenemos el codigo de la celda
+            codigo = $(this).html();
+
+            //comparamos para ver si el código es igual a la busqueda
+            if (codigo == buscar) {
+
+                //aqui ya que tenemos el td que contiene el codigo utilizaremos parent para obtener el tr.
+                trDelResultado = $(this).parent();
+
+                //ya que tenemos el tr seleccionado ahora podemos navegar a las otras celdas con find
+                $(this).parents("tr").find("td").eq(2).html(parseInt($(this).parents("tr").find("td").eq(2).html()) + 1);
+
+                encontradoResultado = true;
+
+                //mostramos el resultado en el div
+                //alert("La edad es: " + trDelResultado.find("td").eq(2).html())
+
+            }
+        })
+
+        //si no se encontro resultado mostramos que no existe.
+
+        if (encontradoResultado == false) {
+            cadena = "<tr class='selected' id='fila' onclick='seleccionar(this.id)'>"
+
+            cadena = cadena + "<td class='idprod'>" + $("#idproducto").val() + "</td>";
+            cadena = cadena + "<td>" + $("#descripcionproducto").val() + "</td>";
+            cadena = cadena + "<td class='nr'>" + cantidadmostrar + "</td>";
+            precio = $("#precio1").val();
+
+            cadena = cadena + "<td>" + parseFloat(precio).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "</td>";
+            cadena = cadena + "<td class='descuentoproducto'>" + descuentomostrar.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "</td>";
+            var cantidad_itbis = (parseInt("1") * $("#precio1").val());
+
+            itbis = Math.floor(cantidad_itbis * parseInt($("#itbisproducto").val()) / 100);
+            cadena = cadena + "<td class='itb'>" + itbis.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "</td>";
+            cadena = cadena + "<td class='itb3' hidden>" + $("#itbisproducto").val() + "</td>";
+
+
+            var y = 0;
+            var x = 0;
+            var des = 0;
+
+            y = cantidadmostrar;
+            x = $("#precio1").val();
+            des = descuentomostrar;
+
+            subtotal = y * (x - des) + itbis;
+            subtotal1 = (x * y);
+            descuento = des;
+
+            cadena = cadena + "<td class='importe'>" + subtotal.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "</td>"
+            cadena = cadena + "<td class='sub1'>" + subtotal1 + "</td>"
+
+            cadena = cadena + "<td class='botoneliminar'><a class ='elimina'  style='margin-left:-20px;'><button class='btn btn-danger' type='button'><span class='fa fa-remove'></span></button></a></td> ";
+
+            cadena = cadena + "<td class='botoneliminar'><a class ='ver' style='margin-left:-20px;'><button class='btn btn-primary' onclick='seleccionar()' type='button'><span class='fas fa-plus'></span></button></a></td>";
+            cadena = cadena + "<td class='botoeliminar'><a class ='disminuir' style='margin-left:-20px;'><button class='btn btn-primary' onclick='aumenta()' type='button'><span class='fas fa-minus'></span></button></a></td>";
+
+            cadena = cadena + "</tr>";
+            $("#detalle tbody").append(cadena);
+
+
+
+
+            fn_dar_eliminar();
+
+            sun();
+            //limpiar();
+        }
+
+        sumar();
+    }
+
+    function sumar() {
+        //total = total + subtotal;
+        //descuento1 = descuento1 + descuento;
+        //subtotalpagar = subtotalpagar + subtotal1;
+        //console.info(total);
+        //$("#descuentodado").val(descuento1)
+
+        //$("#subtotalpagar").val(subtotalpagar)
+        //$("#TotalaPagar").val(total);
+
+        var filas = document.querySelectorAll("#detalle tbody tr");
+
+        total = 0;
+        var sub1 = 0;
+        var desci = 0;
+        var totalsumaitbis = 0
+
+        // recorremos cada una de las filas
+        filas.forEach(function (e) {
+
+            // obtenemos las columnas de cada fila
+            var columnas = e.querySelectorAll("td");
+
+            // obtenemos los valores de la cantidad y importe
+            var importe = parseFloat(columnas[7].textContent.replace("$", "").replace(",", ""));
+            var subto = parseFloat(columnas[8].textContent.replace("$", "").replace(",", ""));
+            var desc12 = parseFloat(columnas[4].textContent.replace("$", "").replace(",", ""));
+            var totalsumaitbis1 = parseFloat(columnas[5].textContent.replace("$", "").replace(",", ""));
+            // mostramos el total por fila
+
+            total += importe;
+            sub1 += subto;
+            desci += desc12;
+            totalsumaitbis += totalsumaitbis1;
+        });
+        $("#TotalaPagar").val(total.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+        $('#subtotal').val(sub1.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+        $('#descuentos').val(desci.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+        $('#itbisdado').val(totalsumaitbis.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+    }
+    function prueba() {
+        $("#sab tr").click(function () {
+            $(this).addClass('selected').siblings().removeClass('selected');
+            var value = $(this).find('td:first').html();
+        });
+
+
+    }
+    function agregarmas() {
+        var cantidadaumentar = 0;
+        abierto = true;
+        $("a.agrega").click(function () {
+
+
+            cantidadaumentar = $(this).first().parents("tr").find("td").eq(2).text();
+
+            $(this).parents("tr").find("td").eq(2).html(parseInt(cantidadaumentar) + 1);
+            cantidadaumentar = 0;
+
+
+
+
+
+
+            //cantidadaumentar = $(this).first().parents("tr").first().find("td").eq(2).html();
+
+            //    alert(cantidadaumentar);
+            //$(this).parents("tr").find("td").eq(2).html(parseInt(cantidadaumentar) + 1);
+            //cantidadaumentar = 0;
+            //$(this).parents("tr").find("td").eq(2).fadeOut("normal", function () {
+            //    $(this).
+
+            //});
+        });
+        //$("a.agrega").click(function () {
+        //    var valores = "";
+
+        //    // vamos al elemento padre (<tr>) y buscamos todos los elementos <td>
+        //    // que contenga el elemento padre
+        //    var elementosTD = e.srcElement.parentElement.getElementsByTagName("td");
+
+        //    // recorremos cada uno de los elementos del array de elementos <td>
+        //    for (let i = 0; i < elementosTD.length; i++) {
+
+        //        // obtenemos cada uno de los valores y los ponemos en la variable "valores"
+        //        valores += elementosTD[i].innerHTML + "\n";
+        //    }
+
+        //    alert(valores);
+        //    //$(this).parents("tr").find("td").eq(2).fadeOut("normal", function () {
+        //    //    $(this).
+
+        //    //});
+        //});
+
+
+    };
+    //function dismuniruno() {
+    //    $("a.disminuir").click(function () {
+    //        if (parseInt($(this).parents("tr").find("td").eq(2).html()) > 0) {
+
+    //            $(this).parents("tr").find("td").eq(2).html(parseInt($(this).parents("tr").find("td").eq(2).html()) - 1);
+    //            restar();
+    //        }
+    //        //$(this).parents("tr").find("td").eq(2).fadeOut("normal", function () {
+    //        //    $(this).
+
+    //        //});
+    //    });
+
+
+    //};
+
+    function fn_dar_eliminar() {
+        $("a.elimina").click(function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            valor = $(this).parents("tr").find("td").eq(6).html();
+            valor1 = $(this).parents("tr").find("td").eq(7).html();
+            valor2 = $(this).parents("tr").find("td").eq(4).html();
+            console.info(valor);
+            $(this).parents("tr").fadeOut("normal", function () {
+                $(this).remove();
+                restar();
+            });
+        });
+    };
+    function restar() {
+        sumar();
+    }
+    function limpiar() {
+
         $("#fecha").val("");
         $("#observacion").val("");
         $("#precio").val("");
@@ -631,26 +926,26 @@
             //console.info('hola');
 
             var i = 0;
-            var envio = "{fecha:'" + $("#fecha").val() + "',observacion:'" + $("#observacion").val() + "',cliente:'" + $("#cliente").val() + "',vendedor:'" + $("#vendedor").val() + "',producto:'" + $("#producto").val() + "',precio:'" + $("#precio").val() + "',credito:'" + $("#credito").val() + "',IdCabecera:'2',Total:'" + $('#TotalaPagar').val() + "',";
+            var envio = "{fecha:'" + $("#fecha").val() + "',observacion:'" + $("#observacion").val() + "',cliente:'" + $("#cliente").val() + "',vendedor:'" + $("#vendedor").val()  + "',precio:'" + $("#precio").val().replace("$", "").replace(",", "") + "',credito:'" + $("#credito").val() + "',IdCabecera:'2',Total:'" + $('#TotalaPagar').val().replace("$", "").replace(",", "") + "',";
             $("#detalle tbody tr").each(function (index) {
                 if (i == 0) {
-                    envio += "ListadoDetalle:[{idproducto:'" + $(this).find('td').eq(0).text() +
+                    envio += "ListadoDetalle:[{Ref:'" + $(this).find('td').eq(0).text() +
                         "',cantidad:'" + $(this).find('td').eq(2).text() +
                         "',descripcion:'" + $(this).find('td').eq(1).text() +
-                        "',precio:'" + $(this).find('td').eq(3).text() +
-                        "',total:'" + document.getElementById("TotalaPagar").value +
-                        "',totaldescuento:'" + document.getElementById("descuentos").value +
-                        "',descuento:'" + $(this).find('td').eq(4).text() +
-                        "',importe:'" + $(this).find('td').eq(7).text() + "'}";
+                        "',precio:'" + $(this).find('td').eq(3).text().replace("$", "").replace(",", "") +
+                        "',total:'" + document.getElementById("TotalaPagar").value.replace("$", "").replace(",", "") +
+                        "',totaldescuento:'" + document.getElementById("descuentos").value.replace("$", "").replace(",","") +
+                        "',descuento:'" + $(this).find('td').eq(4).text().replace("$", "").replace(",", "") +
+                        "',importe:'" + $(this).find('td').eq(7).text().replace("$", "").replace(",", "") + "'}";
                 } else {
-                    envio += ",{idproducto:'" + $(this).find('td').eq(0).text() +
+                    envio += ",{Ref:'" + $(this).find('td').eq(0).text() +
                         "',cantidad:'" + $(this).find('td').eq(2).text() +
                         "',descripcion:'" + $(this).find('td').eq(1).text() +
-                        "',precio:'" + $(this).find('td').eq(3).text() +
-                        "',total:'" + document.getElementById("TotalaPagar").value +
-                        "',totaldescuento:'" + document.getElementById("descuentos").value +
-                        "',descuento:'" + $(this).find('td').eq(4).text() +
-                        "',importe:'" + $(this).find('td').eq(7).text() + "'}"
+                        "',precio:'" + $(this).find('td').eq(3).text().replace("$", "").replace(",", "") +
+                        "',total:'" + document.getElementById("TotalaPagar").value.replace("$", "").replace(",", "") +
+                        "',totaldescuento:'" + document.getElementById("descuentos").value.replace("$", "").replace(",", "") +
+                        "',descuento:'" + $(this).find('td').eq(4).text().replace("$", "").replace(",", "") +
+                        "',importe:'" + $(this).find('td').eq(7).text().replace("$", "").replace(",", "") + "'}"
                 }
                 i = 1;
             });
@@ -671,10 +966,26 @@
                 dataType: 'json',
                 success: function (response) {
                     alertify.alert(response);
+
+                        //Swal.fire({
+                        //    position: 'center',
+                        //    title: response,
+                        //    showConfirmButton: false,
+                        //    timer: 1500
+
+                        //})
+
                     valid = response.valid;
                 },
                 error: function (error) {
                     alertify.alert(error);
+                    //Swal.fire({
+                    //    position: 'top-end',
+                    //    type: 'success',
+                    //    title: error,
+                    //    showConfirmButton: false,
+                    //    timer: 1500
+                    //})
 
                 }
             });
@@ -750,19 +1061,23 @@
             //$("#descuentodado").val(descuento1)
 
             //$("#subtotalpagar").val(subtotalpagar)
+
             var cant1 = parseInt(id_fila_selected.find("td").eq(2).text());
-            var cant2 = parseInt(id_fila_selected.find("td").eq(3).text());
-            var decuent = parseInt(id_fila_selected.find("td").eq(4).text());
+            var cant2 = parseInt(id_fila_selected.find("td").eq(3).text().replace("$", "").replace(",", ""));
+            var decuent = parseInt(id_fila_selected.find("td").eq(4).text().replace("$", "").replace(",", ""));
             var cantidad_itbis = (cant1 * cant2);
-            var itb1 = Math.floor(cantidad_itbis * parseInt(id_fila_selected.find("td").eq(6).text()) / 100);
+            var itb1 = Math.floor(cantidad_itbis * parseInt(id_fila_selected.find("td").eq(6).text().replace("$", "").replace(",", "")) / 100);
             var total2 = 0;
             //var itb = (cant1 * cant2)+ parseInt($('#idprod').val());
             totalpagar = (cant1 * (cant2 - decuent)) + itb1;
-            id_fila_selected.find("td").eq(7).html(totalpagar);
-            id_fila_selected.find("td").eq(8).html(cant1 * cant2);
-            id_fila_selected.find("td").eq(5).html(itb1);
+         
+            id_fila_selected.find("td").eq(7).html(totalpagar.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+            id_fila_selected.find("td").eq(8).html((cant1 * cant2).toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+            id_fila_selected.find("td").eq(5).html(itb1.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
             var filas = document.querySelectorAll("#detalle tbody tr");
             sumar();
+           
+
             //var total = 0;
 
             //// recorremos cada una de las filas
@@ -789,6 +1104,7 @@
         //    $('#' + id_fila).addClass('seleccionada');
         //}
         //id_fila_selected = id_fila;
+
     }
     var id_fila_selected;
     function aumenta(id_fila) {
@@ -806,18 +1122,19 @@
             id_fila_selected.find("td").eq(2).html(parseInt(id_fila_selected.find("td").eq(2).text()) - 1);
 
             var cant1 = parseInt(id_fila_selected.find("td").eq(2).text());
-            var cant2 = parseInt(id_fila_selected.find("td").eq(3).text());
-            var decuent = parseInt(id_fila_selected.find("td").eq(4).text());
+            var cant2 = parseInt(id_fila_selected.find("td").eq(3).text().replace("$", "").replace(",", ""));
+            var decuent = parseInt(id_fila_selected.find("td").eq(4).text().replace("$", "").replace(",", ""));
             var cantidad_itbis = (cant1 * cant2);
-            var itb1 = Math.floor(cantidad_itbis * parseInt(id_fila_selected.find("td").eq(6).text()) / 100);
+            var itb1 = Math.floor(cantidad_itbis * parseInt(id_fila_selected.find("td").eq(6).text().replace("$", "").replace(",", "")) / 100);
             var total2 = 0;
             //var itb = (cant1 * cant2)+ parseInt($('#idprod').val());
             totalpagar = (cant1 * (cant2 - decuent)) + itb1;
-            id_fila_selected.find("td").eq(7).html(totalpagar);
-            id_fila_selected.find("td").eq(8).html(cant1 * cant2);
-            id_fila_selected.find("td").eq(5).html(itb1);
+            id_fila_selected.find("td").eq(7).html(totalpagar.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+            id_fila_selected.find("td").eq(8).html((cant1 * cant2).toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+            id_fila_selected.find("td").eq(5).html(itb1.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
             var filas = document.querySelectorAll("#detalle tbody tr");
             sumar();
+           
             //var total = 0;
 
             //// recorremos cada una de las filas
@@ -857,19 +1174,30 @@
 </script>
 
 <script>
-    function sun() {
+    var filaselec;
+    function sun(id_fila) {
+    
 
         var prefname; // fname textbox
         var prelname; //lname textbox
-        var filaselec;
+  
+       
         $('table tbody tr td').on('click', function () {
             event.preventDefault();
+            if ($(this).parents("tr").hasClass('seleccionada')) {
+
+                $(this).parents("tr").removeClass('seleccionada');
+            } else {
+                $(this).parents("tr").addClass('seleccionada');
+            }
             prefname = $(this).parents("tr").find("td").eq(2).html();
-            alert(prefname);
             filaselec = $(this).parents("tr");
-            prelname = $(this).parents("tr").find("td").eq(4).html();
+            prelname = $(this).parents("tr").find("td").eq(4).html().replace("$", "").replace(",", "");
+            $("#txtlname").autoNumeric('init', { aSign: "$ ", lZero: 'deny' });
+
             document.getElementById("txtfname").value = prefname;
             document.getElementById("txtlname").value = prelname;
+
             //$("#txtfname").val($(prefname).val());
             //$("#txtlname").val($(prelname).val());
             $("#myModal").modal("show");
@@ -879,37 +1207,39 @@
 
             prefname = $("#txtfname").val();
             filaselec.find("td").eq(2).html($("#txtfname").val());
-            $(prelname).val($("#txtlname").val());
-            filaselec.find("td").eq(4).html($("#txtlname").val());
+            $(prelname).val($("#txtlname").val().replace("$", "").replace(",", ""));
+            filaselec.find("td").eq(4).html($("#txtlname").val().toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
             var cant1 = parseInt(filaselec.find("td").eq(2).text());
-            var cant2 = parseInt(filaselec.find("td").eq(3).text());
-            var decuent = parseInt(filaselec.find("td").eq(4).text());
+            var cant2 = parseInt(filaselec.find("td").eq(3).text().replace("$", "").replace(",", ""));
+            var decuent = parseInt(filaselec.find("td").eq(4).text().replace("$", "").replace(",", ""));
             var cantidad_itbis = (cant1 * cant2);
-            var itb1 = Math.floor(cantidad_itbis * parseInt(filaselec.find("td").eq(6).text()) / 100);
+            var itb1 = Math.floor(cantidad_itbis * parseInt(filaselec.find("td").eq(6).text().replace("$", "").replace(",", "")) / 100);
             var total2 = 0;
             //var itb = (cant1 * cant2)+ parseInt($('#idprod').val());
             totalpagar = (cant1 * (cant2 - decuent)) + itb1;
-            filaselec.find("td").eq(7).html(totalpagar);
-            filaselec.find("td").eq(5).html(itb1);
+            filaselec.find("td").eq(7).html(parseFloat(totalpagar).toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+            filaselec.find("td").eq(5).html(parseFloat(itb1).toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
             var filas = document.querySelectorAll("#detalle tbody tr");
 
             var total = 0;
-
+            var descuentosaplicar1 = 0;
             // recorremos cada una de las filas
             filas.forEach(function (e) {
 
                 // obtenemos las columnas de cada fila
                 var columnas = e.querySelectorAll("td");
-
+                var totalprueba = columnas[7].textContent.replace("$", "").replace(",", "");
+                var descuentosaplicar = columnas[4].textContent.replace("$", "").replace(",", "");
                 // obtenemos los valores de la cantidad y importe
-                var importe = parseFloat(columnas[7].textContent);
-
+                var importe = parseFloat(columnas[7].textContent.replace("$", "").replace("$", ""));
                 // mostramos el total por fila
 
-                total += importe;
+                total += parseFloat(totalprueba);
+                descuentosaplicar1 += parseFloat(descuentosaplicar);
             });
-            $("#TotalaPagar").val(total);
-
+            $("#TotalaPagar").val(total.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+            $("#descuentos").val(descuentosaplicar1.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+           
             $("#myModal").modal("hide");
         })
 
@@ -951,7 +1281,27 @@
 
     });
 </script>
+<script>
 
+
+    function formato() {
+        $("td.descuentoproducto").each(function () { $(this).html(parseFloat($(this).text()).toLocaleString('en-US', { style: 'currency', currency: 'USD' })); });
+        $("td.itb").each(function () { $(this).html(parseFloat($(this).text()).toLocaleString('en-US', { style: 'currency', currency: 'USD' })); });
+        $("td.preciproducto").each(function () { $(this).html(parseFloat($(this).text()).toLocaleString('en-US', { style: 'currency', currency: 'USD' })); });
+        $("td.importe").each(function () { $(this).html(parseFloat($(this).text()).toLocaleString('en-US', { style: 'currency', currency: 'USD' })); });
+
+    }
+
+        //var autoNumericInstance = new AutoNumeric('#tabla td', AutoNumeric.getPredefinedOptions().numericPos.dotDecimalCharCommaSeparator);
+
+
+        //$("#tabla td").autoNumeric('init', { aSign: "$ ", decimalCharacter: ",", lZero: "deny" });
+        //$("#tabla td").numeric(",");
+
+    //$("#itbis").numeric(",");
+
+
+</script>
 @*<script>
         function genPDF() {
             alert("hola");

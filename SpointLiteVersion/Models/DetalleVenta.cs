@@ -17,7 +17,7 @@ namespace SpointLiteVersion.Models
         public int IdDetalle { get; set; }
         public Nullable<int> idfactura { get; set; }
         public Nullable<int> idventa { get; set; }
-        public Nullable<int> idproducto { get; set; }
+        public string Ref { get; set; }
         public string descripcion { get; set; }
         public Nullable<int> cantidad { get; set; }
         public Nullable<decimal> precio { get; set; }
@@ -27,11 +27,11 @@ namespace SpointLiteVersion.Models
         public Nullable<decimal> total { get; set; }
         public Nullable<decimal> totaldescuento { get; set; }
 
-        public DetalleVenta(int? idfactura, int? idventa, int? idproducto, string descripcion, int? cantidad, decimal? precio, decimal? descuento, string itbis, decimal? importe, decimal? total, decimal? totaldescuento)
+        public DetalleVenta(int? idfactura, int? idventa, string @ref, string descripcion, int? cantidad, decimal? precio, decimal? descuento, string itbis, decimal? importe, decimal? total, decimal? totaldescuento)
         {
             this.idfactura = idfactura;
             this.idventa = idventa;
-            this.idproducto = idproducto;
+            Ref = @ref;
             this.descripcion = descripcion;
             this.cantidad = cantidad;
             this.precio = precio;

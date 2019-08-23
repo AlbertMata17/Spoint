@@ -17,7 +17,7 @@ namespace SpointLiteVersion.Controllers
         // GET: vendedores
         public ActionResult Index()
         {
-            return View(db.vendedores.ToList().Where(m=>m.Status=="1"));
+            return View(db.vendedores.Where(m => m.Status == "1").ToList());
         }
 
         // GET: vendedores/Details/5
@@ -73,12 +73,14 @@ namespace SpointLiteVersion.Controllers
                     vendedores.nombre = vendedores.nombre.ToUpper();
                     vendedores.correo = vendedores.correo.ToUpper();
                     vendedores.direccion = vendedores.direccion.ToUpper();
+                    vendedores.Status = "1";
+
                     db.Entry(vendedores).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
             }
-            else if (vendedores.idvendedor <= 0)
+            else if (t <= 0)
             
                 {
                     if (ModelState.IsValid)
@@ -86,7 +88,7 @@ namespace SpointLiteVersion.Controllers
                     vendedores.nombre = vendedores.nombre.ToUpper();
                     vendedores.correo = vendedores.correo.ToUpper();
                     vendedores.direccion = vendedores.direccion.ToUpper();
-                    
+                    vendedores.Status = "1";
                         db.vendedores.Add(vendedores);
                         db.SaveChanges();
                         return RedirectToAction("Index");
@@ -149,7 +151,6 @@ namespace SpointLiteVersion.Controllers
             vendedores vendedores = db.vendedores.Find(id);
             vendedores.Status = "0";
 
-            db.vendedores.Remove(vendedores);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

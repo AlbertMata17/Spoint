@@ -163,6 +163,7 @@
     <Compile Include="Controllers\itbisController.cs" />
     <Compile Include="Controllers\productos1Controller.cs" />
     <Compile Include="Controllers\productosController.cs" />
+    <Compile Include="Controllers\suplidores1Controller.cs" />
     <Compile Include="Controllers\suplidoresController.cs" />
     <Compile Include="Controllers\tiposproductosController.cs" />
     <Compile Include="Controllers\vendedoresController.cs" />
@@ -183,10 +184,16 @@
     <Compile Include="Models\compras.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DetalleCompra.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DetalleVenta.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\facturas.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Inventario.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\itbis.cs">
@@ -208,6 +215,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Modelos.cs" />
+    <Compile Include="Models\modelounidos.cs" />
     <Compile Include="Models\productos.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -7492,6 +7500,14 @@
     <Content Include="Views\compras\Details.cshtml" />
     <Content Include="Views\compras\Edit.cshtml" />
     <Content Include="Views\compras\Index.cshtml" />
+    <Content Include="Views\suplidores1\Create.cshtml" />
+    <Content Include="Views\suplidores1\Delete.cshtml" />
+    <Content Include="Views\suplidores1\Details.cshtml" />
+    <Content Include="Views\suplidores1\Edit.cshtml" />
+    <Content Include="Views\suplidores1\Index.cshtml" />
+    <Content Include="Views\productos1\DatosMostrarInventario.cshtml" />
+    <Content Include="Views\productos1\View.cshtml" />
+    <Content Include="Views\productos1\DatosDetalle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Content\bower_components\fullcalendar\dist\fullcalendar.d.ts" />

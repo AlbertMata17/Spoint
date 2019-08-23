@@ -22,11 +22,26 @@ namespace SpointLiteVersion.Controllers
             var productos = db.productos.Include(p => p.tiposproductos).Where(m=>m.Status=="1");
             return View(productos.ToList());
         }
+        public ActionResult DatosDetalle(string id)
+        {
 
+            return View(db.DetalleCompra.Where(m=>m.codproducto==id).ToList());
+        }
+        public ActionResult DatosMostrarInventario()
+        {
+            return View();
+        }
+        public JsonResult Getprod(int? idproducto)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<Inventario> producto = db.Inventario.Where(m => m.idProducto==idproducto).ToList();
+            ViewBag.deta = producto;
+            //ViewBag.FK_Vehiculo = new SelectList(db.Vehiculo.Where(a => a.Clase == Clase && a.Estatus == "Disponible"), "VehiculoId", "Marca");
+            return Json(producto, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Inventario()
         {
-            var productos = db.productos.Include(p => p.tiposproductos).Where(m => m.Inventario == "si");
-            return View(productos.ToList());
+            return View(db.Inventario.Where(inventario=>inventario.status=="1").ToList());
         }
         public JsonResult Getproducto()
         {
@@ -97,8 +112,10 @@ namespace SpointLiteVersion.Controllers
 
             if (id != null)
             {
-                ViewBag.idtipo = new SelectList(db.tiposproductos, "idtipoproducto", "nombre",productos.idtipo);
-                ViewBag.itbis = new SelectList(db.itbis, "valor", "valor",productos.itbis);
+                ViewBag.idtipo = new SelectList(db.tiposproductos, "idtipoproducto", "nombre", productos.idtipo);
+                ViewBag.itbis = new SelectList(db.itbis, "valor", "valor", productos.itbis);
+                ViewBag.invent = (from s in db.productos where s.idProducto == id select s.Inventario).FirstOrDefault();
+            
                 ViewBag.foto = productos.Foto;
 
                 ViewBag.id = "algo";
@@ -137,8 +154,47 @@ namespace SpointLiteVersion.Controllers
                     {
                         productos.costo = Decimal.Parse("0.00");
                     }
-                    productos.Status = "1";
+                    productos.cantidad = 0;
 
+                    productos.Status = "1";
+                    if (productos.Inventario == "si")
+                    {
+                        if ((from a in db.Inventario where a.idProducto == productos.idProducto select a).FirstOrDefault() != null)
+                        {
+                            var q = (from a in db.Inventario where a.idProducto == productos.idProducto select a).First();
+                            q.idProducto = productos.idProducto;
+                            q.itbis = productos.itbis;
+                            q.nota = productos.nota;
+                            q.Precio = productos.Precio;
+                            q.costo = productos.costo;
+                            q.codigodebarras = productos.codigobarra;
+                            q.Descripcion = productos.Descripcion;
+                            q.CodigoProducto = productos.CodProducto;
+                            q.cantidad = 0;
+                            q.Foto = productos.Foto;
+                            q.status = productos.Status;
+                            db.SaveChanges();
+                        }
+                        else if((from a in db.Inventario where a.idProducto == productos.idProducto select a).FirstOrDefault() == null)
+                        {
+                            if (productos.Inventario == "si")
+                            {
+                                Inventario invent = new Inventario();
+                                invent.idProducto = productos.idProducto;
+                                invent.itbis = productos.itbis;
+                                invent.nota = productos.nota;
+                                invent.Precio = productos.Precio;
+                                invent.costo = productos.costo;
+                                invent.codigodebarras = productos.codigobarra;
+                                invent.Descripcion = productos.Descripcion;
+                                invent.CodigoProducto = productos.CodProducto;
+                                invent.Foto = productos.Foto;
+                                invent.status = productos.Status;
+                                invent.cantidad = 0;
+                                db.Inventario.Add(invent);
+                            }
+                        }
+                    }
                     db.Entry(productos).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -166,6 +222,23 @@ namespace SpointLiteVersion.Controllers
                         productos.costo = Decimal.Parse("0.00");
                     }
                     productos.Status = "1";
+                    productos.cantidad = 0;
+                    if (productos.Inventario == "si")
+                    {
+                        Inventario invent = new Inventario();
+                        invent.idProducto = productos.idProducto;
+                        invent.itbis = productos.itbis;
+                        invent.nota = productos.nota;
+                        invent.Precio = productos.Precio;
+                        invent.costo = productos.costo;
+                        invent.codigodebarras = productos.codigobarra;
+                        invent.Descripcion = productos.Descripcion;
+                        invent.CodigoProducto = productos.CodProducto;
+                        invent.Foto = productos.Foto;
+                        invent.status = productos.Status;
+                        invent.cantidad = productos.cantidad;
+                        db.Inventario.Add(invent);
+                    }
                     db.productos.Add(productos);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -230,6 +303,8 @@ namespace SpointLiteVersion.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             productos productos = db.productos.Find(id);
+            Inventario inventario = (from s in db.Inventario where s.idProducto==id select s).First();
+            inventario.status = "0";
             productos.Status ="0";
             db.SaveChanges();
             return RedirectToAction("Index");
