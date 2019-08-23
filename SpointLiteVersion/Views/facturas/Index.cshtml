@@ -44,38 +44,43 @@
                                     @Html.DisplayNameFor(model => model.cliente)
                                 </th>
 
-
+                                <th>
+                                    @Html.DisplayName("ESTADO")
+                                </th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.idfactura)
-                                </td>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.idfactura)
+                            </td>
 
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.fecha)
-                                </td>
-                                <td class="total">
-                                    @Html.DisplayFor(modelItem => item.Total)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.cliente)
-                                </td>
-
-
-
-
-                                <td>
-                                    <a href="@Url.Action("Edit","productos1",new { id=item.idfactura})"><i class="fas fa-edit eliminar"></i></a> |
-                                    <a href="@Url.Action("Details","facturas",new { id=item.idventa})"><i class="fas fa-info-circle eliminar "></i></a> |
-                                    <a href="@Url.Action("Delete","productos1",new { id=item.idfactura})"><i class="fas fa-trash-alt eliminar eli"></i></a>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.fecha)
+                            </td>
+                            <td class="total">
+                                @Html.DisplayFor(modelItem => item.Total)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.cliente)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
 
 
-                                </td>
-                            </tr>
+
+
+                            <td>
+                                <a href="@Url.Action("Edit","productos1",new { id=item.idfactura})"><i class="fas fa-edit eliminar"></i></a> |
+                                <a href="@Url.Action("Details","facturas",new { id=item.idventa})"><i class="fas fa-info-circle eliminar "></i></a> |
+                                <a href="@Url.Action("Delete","productos1",new { id=item.idfactura})"><i class="fas fa-trash-alt eliminar eli"></i></a>
+
+
+                            </td>
+                        </tr>
                         }
 
                     </table>
@@ -90,7 +95,27 @@
 <script>
     $(document).ready(function () {
         $('#tabla').DataTable({
-            "pagingType": "full_numbers" // "simple" option for 'Previous' and 'Next' buttons only
+            "pagingType": "full_numbers", // "simple" option for 'Previous' and 'Next' buttons only
+            "language": {
+                "decimal": "",
+                "emptyTable": "NO HAY INFORMACION",
+                "info": "MOSTRANDO _START_ A _END_ de _TOTAL_ ENTRADAS",
+                "infoEmpty": "MOSTRANDO 0 to 0 of 0 ENTRADAS",
+                "infoFiltered": "(FILTRADO DE _MAX_ TOTAL ENTRADAS)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "MOSTRAR _MENU_ ENTRADAS",
+                "loadingRecords": "CARGANDO...",
+                "processing": "PROCESANDO...",
+                "search": "BUSCAR:",
+                "zeroRecords": "SIN RESULTADOS ENCONTRADOS",
+                "paginate": {
+                    "first": "PRIMERO",
+                    "last": "ULTIMO",
+                    "next": "SIGUIENTE",
+                    "previous": "ANTERIOR"
+                }
+            }
         });
         $('.dataTables_length').addClass('bs-select');
     });

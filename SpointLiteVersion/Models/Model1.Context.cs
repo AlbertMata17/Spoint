@@ -29,13 +29,15 @@ namespace SpointLiteVersion.Models
         public virtual DbSet<tiposproductos> tiposproductos { get; set; }
         public virtual DbSet<vendedores> vendedores { get; set; }
         public virtual DbSet<itbis> itbis { get; set; }
-        public virtual DbSet<clientes> clientes { get; set; }
-        public virtual DbSet<suplidores> suplidores { get; set; }
-        public virtual DbSet<facturas> facturas { get; set; }
         public virtual DbSet<productos> productos { get; set; }
-        public virtual DbSet<compras> compras { get; set; }
         public virtual DbSet<Inventario> Inventario { get; set; }
         public virtual DbSet<DetalleCompra> DetalleCompra { get; set; }
         public virtual DbSet<DetalleVenta> DetalleVenta { get; set; }
+        public virtual DbSet<compras> compras { get; set; }
+        public virtual DbSet<facturas> facturas { get; set; }
+        public virtual DbSet<clientes> clientes { get; set; }
+        public virtual DbSet<NCF> NCF { get; set; }
+        public virtual DbSet<suplidores> suplidores { get; set; }
+        public virtual DbSet<TipoSuplidor> TipoSuplidor { get; set; }
     }
 }

@@ -166,6 +166,7 @@
     <Compile Include="Controllers\suplidores1Controller.cs" />
     <Compile Include="Controllers\suplidoresController.cs" />
     <Compile Include="Controllers\tiposproductosController.cs" />
+    <Compile Include="Controllers\TipoSuplidorsController.cs" />
     <Compile Include="Controllers\vendedoresController.cs" />
     <Compile Include="DataSet\DataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -216,6 +217,9 @@
     </Compile>
     <Compile Include="Models\Modelos.cs" />
     <Compile Include="Models\modelounidos.cs" />
+    <Compile Include="Models\NCF.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\productos.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -223,6 +227,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tiposproductos.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TipoSuplidor.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\vendedores.cs">
@@ -7508,6 +7515,11 @@
     <Content Include="Views\productos1\DatosMostrarInventario.cshtml" />
     <Content Include="Views\productos1\View.cshtml" />
     <Content Include="Views\productos1\DatosDetalle.cshtml" />
+    <Content Include="Views\TipoSuplidors\Create.cshtml" />
+    <Content Include="Views\TipoSuplidors\Delete.cshtml" />
+    <Content Include="Views\TipoSuplidors\Details.cshtml" />
+    <Content Include="Views\TipoSuplidors\Edit.cshtml" />
+    <Content Include="Views\TipoSuplidors\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Content\bower_components\fullcalendar\dist\fullcalendar.d.ts" />

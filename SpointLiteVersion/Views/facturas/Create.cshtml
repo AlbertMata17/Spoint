@@ -131,10 +131,12 @@
                     <select class="" id="precio1" hidden>
                         <option value="value">text</option>
                     </select>
-                    <select class="" id="creditosaprobados">
+                    <select class="" id="creditosaprobados" hidden>
                         <option value="value">text</option>
                     </select>
-
+                    <select class="" id="idcliente">
+                        <option value="value">text</option>
+                    </select>
                     @*<select id="idprod">
             <option value="value">text</option>
         </select>*@
@@ -335,7 +337,7 @@
 <script>
     $(document).ready(function () {
         $("#producto").change(function () {
-            $.post("Getproducto", { idproducto: $("#producto").val() }, function (data) {
+            $.post("Getproducto", { idproducto: $("#colors option[value='" + $('#producto').val() + "']").attr('data-id') }, function (data) {
 
 
                 $("#descripcionproducto").empty();
@@ -361,10 +363,13 @@
         $("#cliente").change(function () {
 
             $.post("Getcliente", { idproducto: $("#cliente1 option[value='" + $('#cliente').val() + "']").attr('data-id')}, function (data) {
+                $("#idcliente").empty();
 
                 $("#creditosaprobados").empty();
                 $.each(data, function (create, row) {
                     $("#creditosaprobados").append("<option value='" + row.creditoaprobado + "'>" + row.creditoaprobado + "</option>")
+                    $("#idcliente").append("<option value='" + row.idCliente + "'>" + row.idCliente + "</option>")
+
                     //$("#itbisproducto").append("<option value='" + row.itbis + "'>" + row.itbis + "</option>")
                     ////$("#idprod").append("<option value='" + row.itbis + "'>" + row.itbis + "</option>")
                     //$("#precio1").append("<option value='" + row.Precio + "'>" + row.Precio + "</option>")
@@ -689,16 +694,16 @@
         if (encontradoResultado == false) {
             cadena = "<tr class='selected' id='fila' onclick='seleccionar(this.id)'>"
 
-            cadena = cadena + "<td class='idprod'>" + $("#idproducto").val() + "</td>";
-            cadena = cadena + "<td>" + $("#descripcionproducto").val() + "</td>";
+            cadena = cadena + "<td class='idprod'>" + "SERVICIO" + "</td>";
+            cadena = cadena + "<td>" + $("#descripci").val() + "</td>";
             cadena = cadena + "<td class='nr'>" + cantidadmostrar + "</td>";
-            precio = $("#precio1").val();
+            precio = $("#precio").val();
 
             cadena = cadena + "<td>" + parseFloat(precio).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "</td>";
             cadena = cadena + "<td class='descuentoproducto'>" + descuentomostrar.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "</td>";
-            var cantidad_itbis = (parseInt("1") * $("#precio1").val());
+            //var cantidad_itbis = (parseInt("1") * $("#precio").val());
 
-            itbis = Math.floor(cantidad_itbis * parseInt($("#itbisproducto").val()) / 100);
+            itbis = 0;
             cadena = cadena + "<td class='itb'>" + itbis.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "</td>";
             cadena = cadena + "<td class='itb3' hidden>" + $("#itbisproducto").val() + "</td>";
 
@@ -708,7 +713,7 @@
             var des = 0;
 
             y = cantidadmostrar;
-            x = $("#precio1").val();
+            x = $("#precio").val();
             des = descuentomostrar;
 
             subtotal = y * (x - des) + itbis;
@@ -926,22 +931,25 @@
             //console.info('hola');
 
             var i = 0;
-            var envio = "{fecha:'" + $("#fecha").val() + "',observacion:'" + $("#observacion").val() + "',cliente:'" + $("#cliente").val() + "',vendedor:'" + $("#vendedor").val()  + "',precio:'" + $("#precio").val().replace("$", "").replace(",", "") + "',credito:'" + $("#credito").val() + "',IdCabecera:'2',Total:'" + $('#TotalaPagar').val().replace("$", "").replace(",", "") + "',";
+            var envio = "{fecha:'" + $("#fecha").val() + "',creditos:'" + $("#creditosaprobados").val() + "',observacion:'" + $("#observacion").val() + "',idcliente:'" + $("#cliente1 option[value='" + $('#cliente').val() + "']").attr('data-id')+ "',cliente:'" + $("#cliente").val() + "',vendedor:'" + $("#vendedor").val()  + "',precio:'" + $("#precio").val().replace("$", "").replace(",", "") + "',credito:'" + $("#credito").val() + "',IdCabecera:'2',Total:'" + $('#TotalaPagar').val().replace("$", "").replace(",", "") + "',";
             $("#detalle tbody tr").each(function (index) {
                 if (i == 0) {
                     envio += "ListadoDetalle:[{Ref:'" + $(this).find('td').eq(0).text() +
                         "',cantidad:'" + $(this).find('td').eq(2).text() +
                         "',descripcion:'" + $(this).find('td').eq(1).text() +
                         "',precio:'" + $(this).find('td').eq(3).text().replace("$", "").replace(",", "") +
+                        "',itbis:'" + $(this).find('td').eq(5).text().replace("$", "").replace(",", "") +
                         "',total:'" + document.getElementById("TotalaPagar").value.replace("$", "").replace(",", "") +
                         "',totaldescuento:'" + document.getElementById("descuentos").value.replace("$", "").replace(",","") +
                         "',descuento:'" + $(this).find('td').eq(4).text().replace("$", "").replace(",", "") +
                         "',importe:'" + $(this).find('td').eq(7).text().replace("$", "").replace(",", "") + "'}";
+
                 } else {
                     envio += ",{Ref:'" + $(this).find('td').eq(0).text() +
                         "',cantidad:'" + $(this).find('td').eq(2).text() +
                         "',descripcion:'" + $(this).find('td').eq(1).text() +
                         "',precio:'" + $(this).find('td').eq(3).text().replace("$", "").replace(",", "") +
+                        "',itbis:'" + $(this).find('td').eq(5).text().replace("$", "").replace(",", "") +
                         "',total:'" + document.getElementById("TotalaPagar").value.replace("$", "").replace(",", "") +
                         "',totaldescuento:'" + document.getElementById("descuentos").value.replace("$", "").replace(",", "") +
                         "',descuento:'" + $(this).find('td').eq(4).text().replace("$", "").replace(",", "") +

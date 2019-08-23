@@ -12,28 +12,18 @@ namespace SpointLiteVersion.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class facturas
+    public partial class TipoSuplidor
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public facturas()
+        public TipoSuplidor()
         {
-            this.DetalleVenta = new HashSet<DetalleVenta>();
+            this.suplidores = new HashSet<suplidores>();
         }
     
-        public int idfactura { get; set; }
-        public Nullable<System.DateTime> fecha { get; set; }
-        public string observacion { get; set; }
-        public string cliente { get; set; }
-        public string vendedor { get; set; }
-        public Nullable<decimal> precio { get; set; }
-        public string credito { get; set; }
-        public Nullable<int> idventa { get; set; }
-        public Nullable<decimal> Total { get; set; }
-        public string Status { get; set; }
-        public Nullable<int> idcliente { get; set; }
+        public int idTipoSuplidor { get; set; }
+        public string Nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetalleVenta> DetalleVenta { get; set; }
-        public virtual clientes clientes { get; set; }
+        public virtual ICollection<suplidores> suplidores { get; set; }
     }
 }

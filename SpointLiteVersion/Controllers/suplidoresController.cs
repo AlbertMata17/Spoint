@@ -41,7 +41,10 @@ namespace SpointLiteVersion.Controllers
         {
             if (id == null)
             {
+                ViewBag.idtipo = new SelectList(db.TipoSuplidor, "idTipoSuplidor", "Nombre");
+
                 return View();
+
 
             }
             suplidores suplidores = db.suplidores.Find(id);
@@ -58,6 +61,14 @@ namespace SpointLiteVersion.Controllers
             }
 
             return View();
+        }
+        public JsonResult Getsuplidor()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<TipoSuplidor> producto = db.TipoSuplidor.ToList();
+
+            //ViewBag.FK_Vehiculo = new SelectList(db.Vehiculo.Where(a => a.Clase == Clase && a.Estatus == "Disponible"), "VehiculoId", "Marca");
+            return Json(producto, JsonRequestBehavior.AllowGet);
         }
 
         // POST: suplidores/Create

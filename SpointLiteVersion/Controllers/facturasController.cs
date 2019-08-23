@@ -36,9 +36,11 @@ namespace SpointLiteVersion.Controllers
                             select new { N.Descripcion });
             return Json(CityList, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult PDf(string fecha,string observacion, string cliente, string vendedor, string precio, string credito,string Total,List<DetalleVenta> ListadoDetalle)
+        public ActionResult PDf(string fecha,string creditos,string observacion, string cliente,string idcliente, string vendedor, string precio, string credito,string Total,List<DetalleVenta> ListadoDetalle)
         {
             string mensaje = "";
+            string creditos1 = creditos;
+            Decimal creditosdisponibles=0;
             if (fecha == "" || observacion == "" || cliente == "" || vendedor == "" || credito == "")
             {
                 if (fecha == "") mensaje = "ERROR EN EL CAMPO FECHA";
@@ -48,6 +50,76 @@ namespace SpointLiteVersion.Controllers
                 if (credito == "") mensaje = "ERROR EN EL CAMPO CREDITO";
 
 
+            } else if (credito == "si") {
+                var idclien = Convert.ToInt32(idcliente);
+                System.Console.WriteLine(""+ idclien);
+                var dato1 = (from datos in db.facturas where datos.idcliente == idclien && datos.Status=="PENDIENTE" select datos).FirstOrDefault();
+                if (dato1 != null)
+                {
+                  
+                     creditosdisponibles = Convert.ToDecimal(creditos1)-Convert.ToDecimal(dato1.Total);
+                    if (creditosdisponibles > 0 && creditosdisponibles < Convert.ToDecimal(Total) || creditosdisponibles < 0)
+                    {
+                        mensaje = "La Factura Excede El límite de Crédito del Cliente el cual cuenta actualmente con " + "$" + creditosdisponibles.ToString("00");
+
+                    }
+                }
+                
+
+                else if (Convert.ToDecimal(creditos) > 0 && Convert.ToDecimal(creditos1) < Convert.ToDecimal(Total))
+                {
+                    mensaje = "La Factura Excede El límite de Crédito del Cliente el cual cuenta con " + "$" + creditos + " Aprobado";
+                }
+                else
+                {
+                    if (precio == "") precio = "0.0";
+                    if (Total == "") Total = "0.00";
+                    int id1 = 0;
+                    DetalleVenta detalle = new DetalleVenta();
+                    var verificar = (from s in db.DetalleVenta select s.IdDetalle);
+                    if (verificar.Count() > 0)
+                    {
+                        id1 = (from s in db.DetalleVenta select s.IdDetalle).Max();
+                    }
+                    int idventa = id1 + 1;
+                    facturas factura = new facturas();
+                    factura.cliente = cliente;
+                    factura.fecha = Convert.ToDateTime(fecha);
+                    factura.observacion = observacion;
+                    factura.vendedor = vendedor;
+                    factura.precio = Convert.ToDecimal(precio);
+                    factura.credito = credito;
+                    factura.idventa = idventa;
+                    factura.Total = Convert.ToDecimal(Total);
+                    factura.Status ="PENDIENTE";
+                    factura.idcliente =Convert.ToInt32(idcliente);
+
+                    db.facturas.Add(factura);
+                    db.SaveChanges();
+                    int id = factura.idfactura;
+
+
+                    foreach (var data in ListadoDetalle)
+                    {
+                        string idProducto = data.Ref.ToString();
+                        int cantidad = Convert.ToInt32(data.cantidad.ToString());
+                        decimal descuento = Convert.ToDecimal(data.descuento.ToString());
+                        decimal subtotal = Convert.ToDecimal(data.importe.ToString());
+                        decimal total = Convert.ToDecimal(data.total.ToString());
+                        decimal totaldescuento = Convert.ToDecimal(data.totaldescuento.ToString());
+                        string descripcion1 = data.descripcion.ToString();
+                        decimal precio1 = Convert.ToDecimal(data.precio.ToString());
+                        string itbis = data.itbis.ToString();
+                        DetalleVenta objDetalleVenta = new DetalleVenta(id, idventa, idProducto, descripcion1, cantidad, precio1, descuento, itbis, subtotal, total, totaldescuento);
+                        Session["idVenta"] = idventa;
+
+                        db.DetalleVenta.Add(objDetalleVenta);
+                        db.SaveChanges();
+
+                    }
+                    mensaje = "VENTA GUARDADA CON EXITO...";
+
+                }
             }
             else
             {
@@ -55,12 +127,12 @@ namespace SpointLiteVersion.Controllers
                 if (Total == "") Total = "0.00";
                 int id1 = 0;
                 DetalleVenta detalle = new DetalleVenta();
-            var verificar = (from s in db.DetalleVenta select s.IdDetalle);
-            if (verificar.Count()>0)
-            {
-               id1 = (from s in db.DetalleVenta select s.IdDetalle).Max();
-            }
-            int idventa = id1 + 1;
+                var verificar = (from s in db.DetalleVenta select s.IdDetalle);
+                if (verificar.Count() > 0)
+                {
+                    id1 = (from s in db.DetalleVenta select s.IdDetalle).Max();
+                }
+                int idventa = id1 + 1;
                 facturas factura = new facturas();
                 factura.cliente = cliente;
                 factura.fecha = Convert.ToDateTime(fecha);
@@ -70,11 +142,13 @@ namespace SpointLiteVersion.Controllers
                 factura.credito = credito;
                 factura.idventa = idventa;
                 factura.Total = Convert.ToDecimal(Total);
+                factura.Status ="PAGADA";
+                factura.idcliente = Convert.ToInt32(idcliente);
 
                 db.facturas.Add(factura);
                 db.SaveChanges();
                 int id = factura.idfactura;
-              
+
 
                 foreach (var data in ListadoDetalle)
                 {
@@ -86,7 +160,8 @@ namespace SpointLiteVersion.Controllers
                     decimal totaldescuento = Convert.ToDecimal(data.totaldescuento.ToString());
                     string descripcion1 = data.descripcion.ToString();
                     decimal precio1 = Convert.ToDecimal(data.precio.ToString());
-                    DetalleVenta objDetalleVenta = new DetalleVenta(id, idventa, idProducto, descripcion1, cantidad, precio1, descuento, "350", subtotal, total, totaldescuento);
+                    string itbis = data.itbis.ToString();
+                    DetalleVenta objDetalleVenta = new DetalleVenta(id, idventa, idProducto, descripcion1, cantidad, precio1, descuento, itbis, subtotal, total, totaldescuento);
                     Session["idVenta"] = idventa;
 
                     db.DetalleVenta.Add(objDetalleVenta);
@@ -151,10 +226,10 @@ namespace SpointLiteVersion.Controllers
             ViewBag.producto = new SelectList(db.productos.Where(m => m.Status == "1"), "idProducto", "Descripcion");
             return View();
         }
-        public JsonResult Getproducto(string idproducto)
+        public JsonResult Getproducto(int idproducto)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            List<productos> productos = db.productos.Where(m => m.Descripcion == idproducto && m.Status=="1").ToList();
+            List<productos> productos = db.productos.Where(m => m.idProducto == idproducto && m.Status=="1").ToList();
 
             //ViewBag.FK_Vehiculo = new SelectList(db.Vehiculo.Where(a => a.Clase == Clase && a.Estatus == "Disponible"), "VehiculoId", "Marca");
             return Json(productos, JsonRequestBehavior.AllowGet);

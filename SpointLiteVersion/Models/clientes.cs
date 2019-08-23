@@ -14,6 +14,12 @@ namespace SpointLiteVersion.Models
     
     public partial class clientes
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public clientes()
+        {
+            this.facturas = new HashSet<facturas>();
+        }
+    
         public int idCliente { get; set; }
         public string nombre { get; set; }
         public string telefono { get; set; }
@@ -24,12 +30,14 @@ namespace SpointLiteVersion.Models
         public string direccion { get; set; }
         public string email { get; set; }
         public Nullable<System.DateTime> fechanacimiento { get; set; }
-        public Nullable<int> NCF { get; set; }
+        public string NCF { get; set; }
         public string Observaciones { get; set; }
         public Nullable<int> LimiteTiempo { get; set; }
         public string Foto { get; set; }
         public string Status { get; set; }
     
         public virtual ciudad ciudad { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<facturas> facturas { get; set; }
     }
 }
