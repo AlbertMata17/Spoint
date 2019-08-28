@@ -16,5 +16,10 @@ namespace SpointLiteVersion.Models
     {
         public int idNCF { get; set; }
         public string Tipo { get; set; }
+        public string Estatus { get; set; }
+        public string NoNCF { get; set; }
+        public string nombreEmpresa { get; set; }
+        public string rnc { get; set; }
+        public string direccionEmpresa { get; set; }
     }
 }

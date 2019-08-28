@@ -261,3 +261,8 @@ th {
 #detalle tbody tr{
     cursor:pointer;
 }
+
+.modal1 {
+    margin-top: -60px;
+    width: 136%;
+}

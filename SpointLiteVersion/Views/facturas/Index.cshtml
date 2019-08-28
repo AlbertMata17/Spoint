@@ -13,7 +13,7 @@
         <div class="col-md-9 modal-content contedor" style="width:90%; margin-left:4%; margin-top:2%;">
             <h2 style="margin-left:30px; margin-bottom:35px;">Facturas</h2>
             <p>
-                <Button onclick="location.href='@Url.Action("Create","facturas")'" class="btn btn-success crear"><i class="fas fa-plus iconocrear"></i><span class="nuevo">Nuevo</span></Button>
+                <Button onclick="location.href='@Url.Action("Create","facturas")'" class="btn btn-success crear"><i class="fas fa-plus iconocrear"></i></Button>
 
             </p>
             <div class="form-row divbuscar">
@@ -22,7 +22,7 @@
 
 
                 </div>
-
+                    
             </div>
             <div class="row">
                 <div class="modal-content" style="width:88%; margin-left:4%; margin-top:2%;">
@@ -31,17 +31,17 @@
 
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.idfactura)
+                                @Html.DisplayName("ID")
                                 </th>
 
                                 <th>
-                                    @Html.DisplayNameFor(model => model.fecha)
+                                    @Html.DisplayName("FECHA")
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Total)
+                                    @Html.DisplayName("TOTAL")
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.cliente)
+                                    @Html.DisplayName("CLIENTE")
                                 </th>
 
                                 <th>

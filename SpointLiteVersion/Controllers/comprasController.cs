@@ -144,10 +144,19 @@ namespace SpointLiteVersion.Controllers
         public ActionResult PDf(string fecha, string nocompra, string observacion, string suplidor, string Total, List<DetalleCompra> ListadoDetalle)
         {
             string mensaje = "";
-            if (fecha == "" || observacion == "" || suplidor == "")
+            var comprobar = new Inventario() ;
+            foreach (var data in ListadoDetalle)
+            {
+                string idProducto = data.codproducto.ToString();
+                comprobar = (from a in db.Inventario where a.CodigoProducto == idProducto select a).FirstOrDefault();
+
+            }
+
+            if (fecha == ""  || suplidor == "" || comprobar==null)
             {
                 if (fecha == "") mensaje = "ERROR EN EL CAMPO FECHA";
                 if (suplidor == "") mensaje = "ERROR CON EL SUPLIDOR";
+                if (comprobar == null) mensaje = "ERROR Al menos uno de los productos no se encuentra en tu inventario";
              
 
 
@@ -181,23 +190,34 @@ namespace SpointLiteVersion.Controllers
                     int cantidad = Convert.ToInt32(data.cantidad.ToString());
                     if (idProducto != "")
                     {
-                        var q = (from a in db.productos where a.CodProducto == idProducto select a).First();
-                        q.cantidad += cantidad;
-                        var qs = (from a in db.Inventario where a.CodigoProducto == idProducto select a).First();
-                        qs.cantidad += cantidad;
-                        qs.Tipo = "Compra";
-                        qs.Fecha = Convert.ToDateTime(fecha);
-                        db.SaveChanges();
+                        var q = (from a in db.productos where a.CodProducto == idProducto select a).FirstOrDefault();
+                        q.cantidad = q.cantidad + cantidad;
+                        var qs = (from a in db.Inventario where a.CodigoProducto == idProducto select a).FirstOrDefault();
+                        if (qs == null)
+                        {
+                            mensaje = "Almenos uno de los productos agregados no estan en tu inventario por favor agregalos antes de hacer la compra...";
+
+                        }
+                        else
+                        {
+                            qs.cantidad = qs.cantidad + cantidad;
+
+                            qs.Tipo = "COMPRA";
+                            qs.Fecha = Convert.ToDateTime(fecha);
+
+                            db.SaveChanges();
+
+
+                            decimal total = Convert.ToDecimal(data.importe.ToString());
+                            string descripcion1 = data.descripcion.ToString();
+                            decimal precio1 = Convert.ToDecimal(data.costo.ToString());
+                            DetalleCompra objDetalleVenta = new DetalleCompra(idProducto, id, cantidad, descripcion1, precio1, total, Convert.ToDateTime(fecha), "COMPRA");
+                            Session["idVenta"] = idventa;
+
+                            db.DetalleCompra.Add(objDetalleVenta);
+                            db.SaveChanges();
+                        }
                     }
-                    decimal total = Convert.ToDecimal(data.importe.ToString());
-                    string descripcion1 = data.descripcion.ToString();
-                    decimal precio1 = Convert.ToDecimal(data.costo.ToString());
-                    DetalleCompra objDetalleVenta = new DetalleCompra(idProducto, id, cantidad, descripcion1, precio1, total, Convert.ToDateTime(fecha));
-                    Session["idVenta"] = idventa;
-
-                    db.DetalleCompra.Add(objDetalleVenta);
-                    db.SaveChanges();
-
                 }
                 mensaje = "COMPRA GUARDADA CON EXITO...";
 

@@ -161,6 +161,7 @@
     <Compile Include="Controllers\facturasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\itbisController.cs" />
+    <Compile Include="Controllers\NCFsController.cs" />
     <Compile Include="Controllers\productos1Controller.cs" />
     <Compile Include="Controllers\productosController.cs" />
     <Compile Include="Controllers\suplidores1Controller.cs" />
@@ -168,6 +169,9 @@
     <Compile Include="Controllers\tiposproductosController.cs" />
     <Compile Include="Controllers\TipoSuplidorsController.cs" />
     <Compile Include="Controllers\vendedoresController.cs" />
+    <Compile Include="DataSet\DataSet1.cs">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DataSet\DataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -7520,6 +7524,11 @@
     <Content Include="Views\TipoSuplidors\Details.cshtml" />
     <Content Include="Views\TipoSuplidors\Edit.cshtml" />
     <Content Include="Views\TipoSuplidors\Index.cshtml" />
+    <Content Include="Views\NCFs\Create.cshtml" />
+    <Content Include="Views\NCFs\Delete.cshtml" />
+    <Content Include="Views\NCFs\Details.cshtml" />
+    <Content Include="Views\NCFs\Edit.cshtml" />
+    <Content Include="Views\NCFs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Content\bower_components\fullcalendar\dist\fullcalendar.d.ts" />

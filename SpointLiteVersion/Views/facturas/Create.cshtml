@@ -87,11 +87,15 @@
                             @*@Html.DropDownList("producto", (IEnumerable<SelectListItem>)ViewBag.producto, "---Selecciona Un producto---", new { @class = "form-control" })*@
 
                         </div>
+                        <div class="col-md-1 boton" style="margin-top:30px;">
+                            <a href="#" class="btn btn-primary Datoscomprobante " data-toggle="modal" data-target="#exampleModal"><span class="">NCF</span></a>
+
+                        </div>
                         <div class="form-group col-md-3" style="">
 
 
                             @Html.Label("Descripción", new { @class = "control-label col-md-2" })
-                            <input type="text" name="descripci" value="" id="descripci" class="form-control" required />
+                            <input type="text" name="descripci" value="" id="descripci" class="form-control" />
 
                         </div>
                         <div class="form-group col-md-3" style="">
@@ -112,16 +116,16 @@
                             @Html.ValidationMessageFor(model => model.credito, "", new { @class = "text-danger" })
                         </div>
                         @*<div class="form-group col-md-2">
-                @Html.LabelFor(model => model.descuento, htmlAttributes: new { @class = "control-label col-md-2" })
-                @Html.EditorFor(model => model.descuento, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Un descuento general" } })
+            @Html.LabelFor(model => model.descuento, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.descuento, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Un descuento general" } })
 
-                @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
-            </div>*@
+            @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+        </div>*@
                     </div>
                     <select class="" id="descripcionproducto" hidden>
                         <option value="value">text</option>
                     </select>
-                    <select class="" id="idproducto">
+                    <select class="" id="idproducto" hidden>
                         <option value="value">text</option>
                     </select>
                     <select class="" id="itbisproducto" hidden>
@@ -134,12 +138,12 @@
                     <select class="" id="creditosaprobados" hidden>
                         <option value="value">text</option>
                     </select>
-                    <select class="" id="idcliente">
+                    <select class="" id="idcliente" hidden>
                         <option value="value">text</option>
                     </select>
                     @*<select id="idprod">
-            <option value="value">text</option>
-        </select>*@
+                            <option value="value">text</option>
+                        </select>*@
 
 
 
@@ -158,7 +162,29 @@
         </div>
     </div>
 </div>
+<div class="modal fade modalciudad" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog model" role="document">
+        <div class="modal-content modal1">
+            <div class="modal-header">
+                <button type="button" id="cerrar1" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
 
+
+                <div class="comprobante">
+
+
+                </div>
+
+            </div>
+            @*<div class="modal-footer">
+                    <button class="mybtn" id="mybtn">Cerrar</button>
+                </div>*@
+        </div>
+    </div>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-md-9 modal-content contedor" style="width:88%; margin-left:4%; margin-top:2%;">
@@ -179,7 +205,7 @@
                     <thead style="font-size:15px;">
 
                         <tr>
-                            <th class="idprod" style="width:1%;">Id</th>
+                            <th class="idprod" style="width:1%;">Ref</th>
                             <th style="width:30%;">descripcion</th>
                             <th>Cantidad</th>
                             <th>Precio</th>
@@ -362,7 +388,7 @@
     $(document).ready(function () {
         $("#cliente").change(function () {
 
-            $.post("Getcliente", { idproducto: $("#cliente1 option[value='" + $('#cliente').val() + "']").attr('data-id')}, function (data) {
+            $.post("Getcliente", { idproducto: $("#cliente1 option[value='" + $('#cliente').val() + "']").attr('data-id') }, function (data) {
                 $("#idcliente").empty();
 
                 $("#creditosaprobados").empty();
@@ -445,7 +471,7 @@
             cadena = cadena + "<td>" + $("#descripcionproducto").val() + "</td>";
             cadena = cadena + "<td class='nr'>" + cantidadmostrar + "</td>";
             precio = $("#precio1").val();
-            
+
             cadena = cadena + "<td>" + parseFloat(precio).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "</td>";
             cadena = cadena + "<td class='descuentoproducto'>" + descuentomostrar.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "</td>";
             var cantidad_itbis = (parseInt("1") * $("#precio1").val());
@@ -482,9 +508,9 @@
 
 
             fn_dar_eliminar();
-           
+
             sun();
-            //limpiar();
+            limpiar();
         }
 
         sumar();
@@ -622,13 +648,14 @@
     }
     function limpiar() {
 
-        $("#fecha").val("");
-        $("#observacion").val("");
         $("#precio").val("");
-        $("#cliente").val("");
         $("#producto").val("");
         $("#cantidad").val("");
         $("#descuento").val("");
+        $("#descripcionproducto").val("");
+        $("#idproducto").val("");
+        $("#itbisproducto").val("");
+        $("#precio1").val("");
     }
 </script>
 
@@ -662,7 +689,7 @@
         document.getElementById("cliente2").innerText = $("#cliente").val();
         document.getElementById("vendedor2").innerText = $("#vendedor").val();
         //obtenemos el valor insertado a buscar
-        buscar = $("#idproducto").prop("value")
+        buscar = $("#descripci").prop("value")
 
         //utilizamos esta variable solo de ayuda y mostrar que se encontro
 
@@ -737,7 +764,7 @@
             fn_dar_eliminar();
 
             sun();
-            //limpiar();
+            limpiar();
         }
 
         sumar();
@@ -875,13 +902,14 @@
     }
     function limpiar() {
 
-        $("#fecha").val("");
-        $("#observacion").val("");
         $("#precio").val("");
-        $("#cliente").val("");
         $("#producto").val("");
         $("#cantidad").val("");
         $("#descuento").val("");
+        $("#descripcionproducto").val("");
+        $("#idproducto").val("");
+        $("#itbisproducto").val("");
+        $("#precio1").val("");
     }
 </script>
 <script>
@@ -917,6 +945,8 @@
 <script>
 
     $(document).ready(function () {
+        var myTable = document.getElementById("detalle");
+        myTable.oldHTML = myTable.innerHTML;
 
         $("a[rel='pop-up']").click(function () {
             var caracteristicas = "height=550,width=1000,scrollTo,resizable=1,scrollbars=1,location=0";
@@ -984,6 +1014,21 @@
                         //})
 
                     valid = response.valid;
+                    if (response == "VENTA GUARDADA CON EXITO...") {
+                        limpiar();
+                        if ($("#cliente").val() != "" || $("#vendedor").val() != "") {
+                            $("#Suplidor").val("");
+                            myTable.innerHTML = myTable.oldHTML;
+                            $("#TotalaPagar").val(0);
+                            $("#itbisdado").val(0);
+                            $("#descuentos").val(0);
+                            $("#subtotal").val(0);
+
+                            total = 0;
+                            valor = 0;
+                        }
+                    }
+
                 },
                 error: function (error) {
                     alertify.alert(error);
@@ -1069,6 +1114,9 @@
             //$("#descuentodado").val(descuento1)
 
             //$("#subtotalpagar").val(subtotalpagar)
+            if (id_fila_selected.find("td").eq(0).text() == "SERVICIO") {
+                id_fila_selected.find("td").eq(6).html(0);
+            }
 
             var cant1 = parseInt(id_fila_selected.find("td").eq(2).text());
             var cant2 = parseInt(id_fila_selected.find("td").eq(3).text().replace("$", "").replace(",", ""));
@@ -1078,13 +1126,13 @@
             var total2 = 0;
             //var itb = (cant1 * cant2)+ parseInt($('#idprod').val());
             totalpagar = (cant1 * (cant2 - decuent)) + itb1;
-         
+
             id_fila_selected.find("td").eq(7).html(totalpagar.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
             id_fila_selected.find("td").eq(8).html((cant1 * cant2).toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
             id_fila_selected.find("td").eq(5).html(itb1.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
             var filas = document.querySelectorAll("#detalle tbody tr");
             sumar();
-           
+
 
             //var total = 0;
 
@@ -1142,7 +1190,7 @@
             id_fila_selected.find("td").eq(5).html(itb1.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
             var filas = document.querySelectorAll("#detalle tbody tr");
             sumar();
-           
+
             //var total = 0;
 
             //// recorremos cada una de las filas
@@ -1184,12 +1232,12 @@
 <script>
     var filaselec;
     function sun(id_fila) {
-    
+
 
         var prefname; // fname textbox
         var prelname; //lname textbox
-  
-       
+
+
         $('table tbody tr td').on('click', function () {
             event.preventDefault();
             if ($(this).parents("tr").hasClass('seleccionada')) {
@@ -1217,14 +1265,20 @@
             filaselec.find("td").eq(2).html($("#txtfname").val());
             $(prelname).val($("#txtlname").val().replace("$", "").replace(",", ""));
             filaselec.find("td").eq(4).html($("#txtlname").val().toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+            if (filaselec.find("td").eq(0).text() == "SERVICIO") {
+                filaselec.find("td").eq(6).html(0);
+            }
             var cant1 = parseInt(filaselec.find("td").eq(2).text());
             var cant2 = parseInt(filaselec.find("td").eq(3).text().replace("$", "").replace(",", ""));
             var decuent = parseInt(filaselec.find("td").eq(4).text().replace("$", "").replace(",", ""));
             var cantidad_itbis = (cant1 * cant2);
             var itb1 = Math.floor(cantidad_itbis * parseInt(filaselec.find("td").eq(6).text().replace("$", "").replace(",", "")) / 100);
             var total2 = 0;
+
+
             //var itb = (cant1 * cant2)+ parseInt($('#idprod').val());
             totalpagar = (cant1 * (cant2 - decuent)) + itb1;
+
             filaselec.find("td").eq(7).html(parseFloat(totalpagar).toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
             filaselec.find("td").eq(5).html(parseFloat(itb1).toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
             var filas = document.querySelectorAll("#detalle tbody tr");
@@ -1247,7 +1301,7 @@
             });
             $("#TotalaPagar").val(total.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
             $("#descuentos").val(descuentosaplicar1.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
-           
+
             $("#myModal").modal("hide");
         })
 
@@ -1309,6 +1363,15 @@
     //$("#itbis").numeric(",");
 
 
+</script>
+<script>
+    $(document).ready(function () {
+        $
+
+        $(".Datoscomprobante").click(function () {
+            $(".comprobante").load("/NCFs/Create")
+        });
+    });
 </script>
 @*<script>
         function genPDF() {

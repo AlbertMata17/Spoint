@@ -36,91 +36,108 @@ namespace SpointLiteVersion.Controllers
                             select new { N.Descripcion });
             return Json(CityList, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult PDf(string fecha,string creditos,string observacion, string cliente,string idcliente, string vendedor, string precio, string credito,string Total,List<DetalleVenta> ListadoDetalle)
+        public ActionResult PDf(string fecha, string creditos, string observacion, string cliente, string idcliente, string vendedor, string precio, string credito, string Total, List<DetalleVenta> ListadoDetalle)
         {
             string mensaje = "";
             string creditos1 = creditos;
-            Decimal creditosdisponibles=0;
-            if (fecha == "" || observacion == "" || cliente == "" || vendedor == "" || credito == "")
+            Decimal creditosdisponibles = 0;
+            if (fecha == "" || observacion == "" || cliente == "" || vendedor == "")
             {
                 if (fecha == "") mensaje = "ERROR EN EL CAMPO FECHA";
                 if (observacion == "") mensaje = "ERROR EN EL CAMPO OBSERVACIÓN";
                 if (cliente == "") mensaje = "ERROR CON EL CLIENTE";
                 if (vendedor == "") mensaje = "ERROR EN EL CAMPO VENDEDOR";
-                if (credito == "") mensaje = "ERROR EN EL CAMPO CREDITO";
 
 
             } else if (credito == "si") {
                 var idclien = Convert.ToInt32(idcliente);
-                System.Console.WriteLine(""+ idclien);
-                var dato1 = (from datos in db.facturas where datos.idcliente == idclien && datos.Status=="PENDIENTE" select datos).FirstOrDefault();
+                System.Console.WriteLine("" + idclien);
+                var dato1 = (from datos in db.facturas where datos.idcliente == idclien && datos.Status == "PENDIENTE" select datos).FirstOrDefault();
                 if (dato1 != null)
                 {
-                  
-                     creditosdisponibles = Convert.ToDecimal(creditos1)-Convert.ToDecimal(dato1.Total);
+
+                    creditosdisponibles = Convert.ToDecimal(creditos1) - Convert.ToDecimal(dato1.Total);
                     if (creditosdisponibles > 0 && creditosdisponibles < Convert.ToDecimal(Total) || creditosdisponibles < 0)
                     {
                         mensaje = "La Factura Excede El límite de Crédito del Cliente el cual cuenta actualmente con " + "$" + creditosdisponibles.ToString("00");
 
                     }
                 }
+            
                 
 
-                else if (Convert.ToDecimal(creditos) > 0 && Convert.ToDecimal(creditos1) < Convert.ToDecimal(Total))
-                {
-                    mensaje = "La Factura Excede El límite de Crédito del Cliente el cual cuenta con " + "$" + creditos + " Aprobado";
-                }
-                else
-                {
-                    if (precio == "") precio = "0.0";
-                    if (Total == "") Total = "0.00";
-                    int id1 = 0;
-                    DetalleVenta detalle = new DetalleVenta();
-                    var verificar = (from s in db.DetalleVenta select s.IdDetalle);
-                    if (verificar.Count() > 0)
+                else if (Convert.ToDecimal(creditos1) > 0 && Convert.ToDecimal(creditos1) < Convert.ToDecimal(Total))
                     {
-                        id1 = (from s in db.DetalleVenta select s.IdDetalle).Max();
+                        mensaje = "La Factura Excede El límite de Crédito del Cliente el cual cuenta con " + "$" + creditos + " Aprobado";
                     }
-                    int idventa = id1 + 1;
-                    facturas factura = new facturas();
-                    factura.cliente = cliente;
-                    factura.fecha = Convert.ToDateTime(fecha);
-                    factura.observacion = observacion;
-                    factura.vendedor = vendedor;
-                    factura.precio = Convert.ToDecimal(precio);
-                    factura.credito = credito;
-                    factura.idventa = idventa;
-                    factura.Total = Convert.ToDecimal(Total);
-                    factura.Status ="PENDIENTE";
-                    factura.idcliente =Convert.ToInt32(idcliente);
-
-                    db.facturas.Add(factura);
-                    db.SaveChanges();
-                    int id = factura.idfactura;
-
-
-                    foreach (var data in ListadoDetalle)
+                    else if (Convert.ToDecimal(creditos1) > 0 && Convert.ToDecimal(creditos1) >= Convert.ToDecimal(Total))
                     {
-                        string idProducto = data.Ref.ToString();
-                        int cantidad = Convert.ToInt32(data.cantidad.ToString());
-                        decimal descuento = Convert.ToDecimal(data.descuento.ToString());
-                        decimal subtotal = Convert.ToDecimal(data.importe.ToString());
-                        decimal total = Convert.ToDecimal(data.total.ToString());
-                        decimal totaldescuento = Convert.ToDecimal(data.totaldescuento.ToString());
-                        string descripcion1 = data.descripcion.ToString();
-                        decimal precio1 = Convert.ToDecimal(data.precio.ToString());
-                        string itbis = data.itbis.ToString();
-                        DetalleVenta objDetalleVenta = new DetalleVenta(id, idventa, idProducto, descripcion1, cantidad, precio1, descuento, itbis, subtotal, total, totaldescuento);
-                        Session["idVenta"] = idventa;
+                        if (precio == "") precio = "0.0";
+                        if (Total == "") Total = "0.00";
+                        int id1 = 0;
+                        DetalleVenta detalle = new DetalleVenta();
+                        var verificar = (from s in db.DetalleVenta select s.IdDetalle);
+                        if (verificar.Count() > 0)
+                        {
+                            id1 = (from s in db.DetalleVenta select s.IdDetalle).Max();
+                        }
+                        int idventa = id1 + 1;
+                        facturas factura = new facturas();
+                        factura.cliente = cliente;
+                        factura.fecha = Convert.ToDateTime(fecha);
+                        factura.observacion = observacion;
+                        factura.vendedor = vendedor;
+                        factura.precio = Convert.ToDecimal(precio);
+                        factura.credito = credito;
+                        factura.idventa = idventa;
+                        factura.Total = Convert.ToDecimal(Total);
+                        factura.Status = "PENDIENTE";
+                        factura.idcliente = Convert.ToInt32(idcliente);
 
-                        db.DetalleVenta.Add(objDetalleVenta);
+                        db.facturas.Add(factura);
                         db.SaveChanges();
+                        int id = factura.idfactura;
+                        productos producto = new productos();
+
+
+                        foreach (var data in ListadoDetalle)
+                        {
+                            string idProducto = data.Ref.ToString();
+                            int cantidad = Convert.ToInt32(data.cantidad.ToString());
+                            if (idProducto != "")
+                            {
+                                var q = (from a in db.productos where a.CodProducto == idProducto select a).FirstOrDefault();
+                                q.cantidad = q.cantidad - cantidad;
+                                var qs = (from a in db.Inventario where a.CodigoProducto == idProducto select a).FirstOrDefault();
+                                qs.cantidad = qs.cantidad - cantidad;
+                                qs.Tipo = "VENTA";
+                                qs.Fecha = Convert.ToDateTime(fecha);
+                                db.SaveChanges();
+                            }
+                            decimal descuento = Convert.ToDecimal(data.descuento.ToString());
+                            decimal subtotal = Convert.ToDecimal(data.importe.ToString());
+                            decimal total = Convert.ToDecimal(data.total.ToString());
+                            decimal totaldescuento = Convert.ToDecimal(data.totaldescuento.ToString());
+                            string descripcion1 = data.descripcion.ToString();
+                            decimal precio1 = Convert.ToDecimal(data.precio.ToString());
+                            string itbis = data.itbis.ToString();
+                            DetalleVenta objDetalleVenta = new DetalleVenta(id, idventa, idProducto, descripcion1, cantidad, precio1, descuento, itbis, subtotal, total, totaldescuento);
+                            DetalleCompra objDetalle = new DetalleCompra(idProducto, id, cantidad, descripcion1, precio1, total, Convert.ToDateTime(fecha), "VENTA");
+
+                            Session["idVenta"] = idventa;
+                            db.DetalleCompra.Add(objDetalle);
+                            db.SaveChanges();
+                            db.DetalleVenta.Add(objDetalleVenta);
+                            db.SaveChanges();
+
+
+                        }
+                        mensaje = "VENTA GUARDADA CON EXITO...";
 
                     }
-                    mensaje = "VENTA GUARDADA CON EXITO...";
-
                 }
-            }
+            
+        
             else
             {
                 if (precio == "") precio = "0.0";
@@ -142,7 +159,7 @@ namespace SpointLiteVersion.Controllers
                 factura.credito = credito;
                 factura.idventa = idventa;
                 factura.Total = Convert.ToDecimal(Total);
-                factura.Status ="PAGADA";
+                factura.Status = "PAGADA";
                 factura.idcliente = Convert.ToInt32(idcliente);
 
                 db.facturas.Add(factura);
@@ -154,6 +171,16 @@ namespace SpointLiteVersion.Controllers
                 {
                     string idProducto = data.Ref.ToString();
                     int cantidad = Convert.ToInt32(data.cantidad.ToString());
+                    if (idProducto != "")
+                    {
+                        var q = (from a in db.productos where a.CodProducto == idProducto select a).FirstOrDefault();
+                        q.cantidad = q.cantidad - cantidad;
+                        var qs = (from a in db.Inventario where a.CodigoProducto == idProducto select a).FirstOrDefault();
+                        qs.cantidad = qs.cantidad - cantidad;
+                        qs.Tipo = "VENTA";
+                        qs.Fecha = Convert.ToDateTime(fecha);
+                        db.SaveChanges();
+                    }
                     decimal descuento = Convert.ToDecimal(data.descuento.ToString());
                     decimal subtotal = Convert.ToDecimal(data.importe.ToString());
                     decimal total = Convert.ToDecimal(data.total.ToString());
@@ -163,12 +190,17 @@ namespace SpointLiteVersion.Controllers
                     string itbis = data.itbis.ToString();
                     DetalleVenta objDetalleVenta = new DetalleVenta(id, idventa, idProducto, descripcion1, cantidad, precio1, descuento, itbis, subtotal, total, totaldescuento);
                     Session["idVenta"] = idventa;
+                    DetalleCompra objDetalle = new DetalleCompra(idProducto, id, cantidad, descripcion1, precio1, total, Convert.ToDateTime(fecha), "VENTA");
 
+                    db.DetalleCompra.Add(objDetalle);
+                    db.SaveChanges();
                     db.DetalleVenta.Add(objDetalleVenta);
                     db.SaveChanges();
 
+
                 }
                 mensaje = "VENTA GUARDADA CON EXITO...";
+
 
             }
             return Json(mensaje);

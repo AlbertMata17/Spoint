@@ -134,6 +134,7 @@ namespace SpointLiteVersion.Controllers
         {
 
             var t = (from s in db.productos where s.idProducto==productos.idProducto select s.idProducto).Count();
+
             if (t != 0)
             {
                 if (ModelState.IsValid)
@@ -154,8 +155,16 @@ namespace SpointLiteVersion.Controllers
                     {
                         productos.costo = Decimal.Parse("0.00");
                     }
-                    productos.cantidad = 0;
-
+                    if ((from t1 in db.productos where t1.idProducto == productos.idProducto select t1.cantidad).FirstOrDefault()<=0)
+                    {
+                        productos.cantidad = 0;
+                    }
+                    else
+                    {
+                        productos.cantidad = (from t1 in db.productos where t1.idProducto == productos.idProducto select t1.cantidad).FirstOrDefault();
+                    }
+                  
+                    
                     productos.Status = "1";
                     if (productos.Inventario == "si")
                     {
@@ -170,7 +179,15 @@ namespace SpointLiteVersion.Controllers
                             q.codigodebarras = productos.codigobarra;
                             q.Descripcion = productos.Descripcion;
                             q.CodigoProducto = productos.CodProducto;
-                            q.cantidad = 0;
+                            if (q.cantidad <=0)
+                            {
+                                q.cantidad = 0;
+                            }
+                            else
+                            {
+                                q.cantidad = (from t1 in db.productos where t1.idProducto == productos.idProducto select t1.cantidad).FirstOrDefault();
+                            }
+                           
                             q.Foto = productos.Foto;
                             q.status = productos.Status;
                             db.SaveChanges();
@@ -190,7 +207,15 @@ namespace SpointLiteVersion.Controllers
                                 invent.CodigoProducto = productos.CodProducto;
                                 invent.Foto = productos.Foto;
                                 invent.status = productos.Status;
-                                invent.cantidad = 0;
+                                if (invent.cantidad <= 0)
+                                {
+                                    invent.cantidad = 0;
+                                }
+                                else
+                                {
+                                    invent.cantidad = (from t1 in db.productos where t1.idProducto == productos.idProducto select t1.cantidad).FirstOrDefault();
+                                }
+                               
                                 db.Inventario.Add(invent);
                             }
                         }
@@ -303,8 +328,11 @@ namespace SpointLiteVersion.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             productos productos = db.productos.Find(id);
-            Inventario inventario = (from s in db.Inventario where s.idProducto==id select s).First();
-            inventario.status = "0";
+            var inventario = (from s in db.Inventario where s.idProducto==id select s).FirstOrDefault();
+            if (inventario != null)
+            {
+                inventario.status = "0";
+            }
             productos.Status ="0";
             db.SaveChanges();
             return RedirectToAction("Index");

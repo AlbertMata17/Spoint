@@ -260,7 +260,7 @@
 <script>
     $(function () {
         $("#crear").on("click", function (event) {
-            var value = $("#Precio").val();
+            var value = $("#creditoaprobado").val();
             if (value.indexOf(',') != -1) {
                 $("#creditoaprobado").val(value.replace(/,/g, ''));
             }
@@ -276,7 +276,7 @@
 
     $(function () {
         $("#crear").on("click", function (event) {
-            var value = $("#Precio").val();
+            var value = $("#creditoaprobado").val();
             if (value.indexOf(',') != -1) {
                 $("#creditoaprobado").val(value.replace(/,/g, ''));
             }

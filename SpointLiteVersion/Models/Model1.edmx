@@ -55,6 +55,7 @@
           <Property Name="costo" Type="money" />
           <Property Name="importe" Type="money" />
           <Property Name="fecha" Type="date" />
+          <Property Name="Tipo" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="DetalleVenta">
           <Key>
@@ -121,6 +122,8 @@
           </Key>
           <Property Name="idNCF" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Tipo" Type="varchar(max)" />
+          <Property Name="Estatus" Type="varchar" MaxLength="30" />
+          <Property Name="NoNCF" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="productos">
           <Key>
@@ -184,18 +187,6 @@
           <Property Name="Foto" Type="varchar(max)" />
           <Property Name="Status" Type="nchar" MaxLength="10" />
         </EntityType>
-        <Association Name="FK__DetalleCo__idcom__29221CFB">
-          <End Role="compras" Type="Self.compras" Multiplicity="0..1" />
-          <End Role="DetalleCompra" Type="Self.DetalleCompra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="compras">
-              <PropertyRef Name="idcompra" />
-            </Principal>
-            <Dependent Role="DetalleCompra">
-              <PropertyRef Name="idcompra" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__DetalleVe__idfac__05D8E0BE">
           <End Role="facturas" Type="Self.facturas" Multiplicity="0..1" />
           <End Role="DetalleVenta" Type="Self.DetalleVenta" Multiplicity="*" />
@@ -244,6 +235,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_compra">
+          <End Role="compras" Type="Self.compras" Multiplicity="1" />
+          <End Role="compras1" Type="Self.compras" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="compras">
+              <PropertyRef Name="idcompra" />
+            </Principal>
+            <Dependent Role="compras1">
+              <PropertyRef Name="idcompra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_tipo_suplidor">
           <End Role="TipoSuplidor" Type="Self.TipoSuplidor" Multiplicity="0..1" />
           <End Role="suplidores" Type="Self.suplidores" Multiplicity="*" />
@@ -283,10 +286,6 @@
           <EntitySet Name="tiposproductos" EntityType="Self.tiposproductos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoSuplidor" EntityType="Self.TipoSuplidor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vendedores" EntityType="Self.vendedores" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__DetalleCo__idcom__29221CFB" Association="Self.FK__DetalleCo__idcom__29221CFB">
-            <End Role="compras" EntitySet="compras" />
-            <End Role="DetalleCompra" EntitySet="DetalleCompra" />
-          </AssociationSet>
           <AssociationSet Name="FK__DetalleVe__idfac__05D8E0BE" Association="Self.FK__DetalleVe__idfac__05D8E0BE">
             <End Role="facturas" EntitySet="facturas" />
             <End Role="DetalleVenta" EntitySet="DetalleVenta" />
@@ -302,6 +301,10 @@
           <AssociationSet Name="fk_cliente" Association="Self.fk_cliente">
             <End Role="clientes" EntitySet="clientes" />
             <End Role="facturas" EntitySet="facturas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_compra" Association="Self.fk_compra">
+            <End Role="compras" EntitySet="compras" />
+            <End Role="compras1" EntitySet="compras" />
           </AssociationSet>
           <AssociationSet Name="fk_tipo_suplidor" Association="Self.fk_tipo_suplidor">
             <End Role="TipoSuplidor" EntitySet="TipoSuplidor" />
@@ -339,20 +342,14 @@
             <End Role="productos" EntitySet="productos" />
             <End Role="Inventario" EntitySet="Inventario" />
           </AssociationSet>
-          <EntitySet Name="DetalleCompra" EntityType="spointModel.DetalleCompra" />
           <EntitySet Name="DetalleVenta" EntityType="spointModel.DetalleVenta" />
           <EntitySet Name="compras" EntityType="spointModel.compras" />
-          <AssociationSet Name="FK__DetalleCo__idcom__29221CFB" Association="spointModel.FK__DetalleCo__idcom__29221CFB">
-            <End Role="compras" EntitySet="compras" />
-            <End Role="DetalleCompra" EntitySet="DetalleCompra" />
-          </AssociationSet>
           <EntitySet Name="facturas" EntityType="spointModel.facturas" />
           <AssociationSet Name="FK__DetalleVe__idfac__05D8E0BE" Association="spointModel.FK__DetalleVe__idfac__05D8E0BE">
             <End Role="facturas" EntitySet="facturas" />
             <End Role="DetalleVenta" EntitySet="DetalleVenta" />
           </AssociationSet>
           <EntitySet Name="clientes" EntityType="spointModel.clientes" />
-          <EntitySet Name="NCF" EntityType="spointModel.NCF" />
           <AssociationSet Name="fk_ciudad" Association="spointModel.fk_ciudad">
             <End Role="ciudad" EntitySet="ciudad" />
             <End Role="clientes" EntitySet="clientes" />
@@ -367,6 +364,12 @@
             <End Role="TipoSuplidor" EntitySet="TipoSuplidor" />
             <End Role="suplidores" EntitySet="suplidores" />
           </AssociationSet>
+          <EntitySet Name="DetalleCompra" EntityType="spointModel.DetalleCompra" />
+          <AssociationSet Name="fk_compra" Association="spointModel.fk_compra">
+            <End Role="compras" EntitySet="compras" />
+            <End Role="compras1" EntitySet="compras" />
+          </AssociationSet>
+          <EntitySet Name="NCF" EntityType="spointModel.NCF" />
         </EntityContainer>
         <EntityType Name="tiposproductos">
           <Key>
@@ -461,20 +464,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="DetalleCompra">
-          <Key>
-            <PropertyRef Name="idDetalle" />
-          </Key>
-          <Property Name="idDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="codproducto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="idcompra" Type="Int32" />
-          <Property Name="cantidad" Type="Int32" />
-          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="costo" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="importe" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="fecha" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="compras" Relationship="spointModel.FK__DetalleCo__idcom__29221CFB" FromRole="DetalleCompra" ToRole="compras" />
-        </EntityType>
         <EntityType Name="DetalleVenta">
           <Key>
             <PropertyRef Name="IdDetalle" />
@@ -503,20 +492,9 @@
           <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Suplidor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="DetalleCompra" Relationship="spointModel.FK__DetalleCo__idcom__29221CFB" FromRole="compras" ToRole="DetalleCompra" />
+          <NavigationProperty Name="compras1" Relationship="spointModel.fk_compra" FromRole="compras" ToRole="compras1" />
+          <NavigationProperty Name="compras2" Relationship="spointModel.fk_compra" FromRole="compras1" ToRole="compras" />
         </EntityType>
-        <Association Name="FK__DetalleCo__idcom__29221CFB">
-          <End Type="spointModel.compras" Role="compras" Multiplicity="0..1" />
-          <End Type="spointModel.DetalleCompra" Role="DetalleCompra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="compras">
-              <PropertyRef Name="idcompra" />
-            </Principal>
-            <Dependent Role="DetalleCompra">
-              <PropertyRef Name="idcompra" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="facturas">
           <Key>
             <PropertyRef Name="idfactura" />
@@ -568,13 +546,6 @@
           <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="ciudad" Relationship="spointModel.fk_ciudad" FromRole="clientes" ToRole="ciudad" />
           <NavigationProperty Name="facturas" Relationship="spointModel.fk_cliente" FromRole="clientes" ToRole="facturas" />
-        </EntityType>
-        <EntityType Name="NCF">
-          <Key>
-            <PropertyRef Name="idNCF" />
-          </Key>
-          <Property Name="idNCF" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Tipo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="fk_ciudad">
           <End Type="spointModel.ciudad" Role="ciudad" Multiplicity="0..1" />
@@ -637,6 +608,41 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DetalleCompra">
+          <Key>
+            <PropertyRef Name="idDetalle" />
+          </Key>
+          <Property Name="idDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codproducto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="idcompra" Type="Int32" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="costo" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="importe" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+          <Property Name="Tipo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="fk_compra">
+          <End Type="spointModel.compras" Role="compras" Multiplicity="1" />
+          <End Type="spointModel.compras" Role="compras1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="compras">
+              <PropertyRef Name="idcompra" />
+            </Principal>
+            <Dependent Role="compras1">
+              <PropertyRef Name="idcompra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="NCF">
+          <Key>
+            <PropertyRef Name="idNCF" />
+          </Key>
+          <Property Name="idNCF" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tipo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Estatus" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="NoNCF" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -721,20 +727,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DetalleCompra">
-            <EntityTypeMapping TypeName="spointModel.DetalleCompra">
-              <MappingFragment StoreEntitySet="DetalleCompra">
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="importe" ColumnName="importe" />
-                <ScalarProperty Name="costo" ColumnName="costo" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="idcompra" ColumnName="idcompra" />
-                <ScalarProperty Name="codproducto" ColumnName="codproducto" />
-                <ScalarProperty Name="idDetalle" ColumnName="idDetalle" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DetalleVenta">
             <EntityTypeMapping TypeName="spointModel.DetalleVenta">
               <MappingFragment StoreEntitySet="DetalleVenta">
@@ -803,14 +795,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="NCF">
-            <EntityTypeMapping TypeName="spointModel.NCF">
-              <MappingFragment StoreEntitySet="NCF">
-                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
-                <ScalarProperty Name="idNCF" ColumnName="idNCF" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="suplidores">
             <EntityTypeMapping TypeName="spointModel.suplidores">
               <MappingFragment StoreEntitySet="suplidores">
@@ -833,6 +817,31 @@
               <MappingFragment StoreEntitySet="TipoSuplidor">
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="idTipoSuplidor" ColumnName="idTipoSuplidor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleCompra">
+            <EntityTypeMapping TypeName="spointModel.DetalleCompra">
+              <MappingFragment StoreEntitySet="DetalleCompra">
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="importe" ColumnName="importe" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="idcompra" ColumnName="idcompra" />
+                <ScalarProperty Name="codproducto" ColumnName="codproducto" />
+                <ScalarProperty Name="idDetalle" ColumnName="idDetalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NCF">
+            <EntityTypeMapping TypeName="spointModel.NCF">
+              <MappingFragment StoreEntitySet="NCF">
+                <ScalarProperty Name="NoNCF" ColumnName="NoNCF" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="idNCF" ColumnName="idNCF" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

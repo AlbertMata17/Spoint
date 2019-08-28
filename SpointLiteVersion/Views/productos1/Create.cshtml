@@ -151,7 +151,7 @@
                                                  {
                                                      <input type="checkbox" id="inventari" name="inventari" class="inventari" value="" style="margin-top:5%" checked /> <label for="cbox2">Inventario</label>
 
-                                                 } @if (@ViewBag.invent == "no")
+                                                 } @if (@ViewBag.invent == "no" || @ViewBag.invent=="" || @ViewBag.invent==null)
                                                  {
                                                      <input type="checkbox" id="inventari" name="inventari" class="inventari" value="" style="margin-top:5%" /> <label for="cbox2">Inventario</label>
 

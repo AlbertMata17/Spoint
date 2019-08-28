@@ -1,0 +1,80 @@
+﻿@model SpointLiteVersion.Models.NCF
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Agregar NCF</title>
+</head>
+<body>
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+        
+    <div class="form-horizontal">
+        <h4 style="margin-top:-20px !important; margin-left:30px;">Agregar NCF</h4>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-12" style="margin-left:-20px;">
+                @Html.LabelFor(model => model.Tipo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <select name="Tipo" id="Tipo" class="form-control">
+                    <option value="FACTURAS DE CONSUMO">FACTURAS DE CONSUMO</option>
+                    <option value="COMPROBANTES GUBERNAMENTAL">COMPROBANTES GUBERNAMENTAL</option>
+                    <option value="FACTURAS DE CRÉDITO FISCAL">FACTURAS DE CRÉDITO FISCAL</option>
+                    <option value="REGÍMENES ESPECIALES">REGÍMENES ESPECIALES</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-12" style="margin-left:-20px;">
+                <label class="control-label col-md-2">NCF</label>
+                @Html.EditorFor(model => model.NoNCF, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NoNCF, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12" style="margin-left:-20px;">
+                @Html.LabelFor(model => model.rnc, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                @Html.EditorFor(model => model.rnc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.rnc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-12" style="margin-left:-20px;">
+                <label class="control-label col-md-12" style="text-align:left;">Nombre Empresa</label>
+                @Html.EditorFor(model => model.nombreEmpresa, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.nombreEmpresa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-12" style="margin-left:-20px;">
+                <label class="control-label col-md-12" style="text-align:left;">Dirección</label>
+
+                @Html.EditorFor(model => model.direccionEmpresa, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.direccionEmpresa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+     
+    </div>
+    }
+
+</body>
+</html>

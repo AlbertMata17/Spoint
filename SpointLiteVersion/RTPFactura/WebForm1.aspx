@@ -18,7 +18,7 @@
                     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
             <rsweb:ReportViewer ID="ReportViewer1" runat="server"  ont-Names="Arial" Font-Size="10pt" Height="724px" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="100%">
-                 <LocalReport ReportPath="RTPFactura/Report1.rdlc">
+                 <LocalReport ReportPath="RTPFactura/Report2.rdlc">
 
             </LocalReport>
             </rsweb:ReportViewer>

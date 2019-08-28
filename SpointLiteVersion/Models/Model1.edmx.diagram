@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6e20c42e85cb4f96870cd0a6db25e409" Name="Diagram1" ZoomLevel="86">
+      <Diagram DiagramId="6e20c42e85cb4f96870cd0a6db25e409" Name="Diagram1" ZoomLevel="92">
         <EntityTypeShape EntityType="spointModel.ciudad" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="spointModel.tiposproductos" Width="1.5" PointX="5.375" PointY="1.625" />
         <EntityTypeShape EntityType="spointModel.vendedores" Width="1.5" PointX="3.375" PointY="5.75" />
@@ -13,19 +13,19 @@
         <AssociationConnector Association="spointModel.fk_tipoproducto" />
         <EntityTypeShape EntityType="spointModel.Inventario" Width="1.5" PointX="9.875" PointY="16.875" />
         <AssociationConnector Association="spointModel.FK__Inventari__idPro__2DE6D218" />
-        <EntityTypeShape EntityType="spointModel.DetalleCompra" Width="1.5" PointX="9.625" PointY="6.75" />
         <EntityTypeShape EntityType="spointModel.DetalleVenta" Width="1.5" PointX="7.875" PointY="12.25" />
         <EntityTypeShape EntityType="spointModel.compras" Width="1.5" PointX="7.375" PointY="7" />
-        <AssociationConnector Association="spointModel.FK__DetalleCo__idcom__29221CFB" />
         <EntityTypeShape EntityType="spointModel.facturas" Width="1.5" PointX="5.25" PointY="10.375" />
         <AssociationConnector Association="spointModel.FK__DetalleVe__idfac__05D8E0BE" />
         <EntityTypeShape EntityType="spointModel.clientes" Width="1.5" PointX="3" PointY="0.75" />
-        <EntityTypeShape EntityType="spointModel.NCF" Width="1.5" PointX="7.375" PointY="1.75" />
         <AssociationConnector Association="spointModel.fk_ciudad" />
         <AssociationConnector Association="spointModel.fk_cliente" />
         <EntityTypeShape EntityType="spointModel.suplidores" Width="1.5" PointX="11.625" PointY="1" />
         <EntityTypeShape EntityType="spointModel.TipoSuplidor" Width="1.5" PointX="9.375" PointY="1.875" />
         <AssociationConnector Association="spointModel.fk_tipo_suplidor" />
+        <EntityTypeShape EntityType="spointModel.DetalleCompra" Width="1.5" PointX="0.75" PointY="9.75" />
+        <AssociationConnector Association="spointModel.fk_compra" />
+        <EntityTypeShape EntityType="spointModel.NCF" Width="1.5" PointX="0.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

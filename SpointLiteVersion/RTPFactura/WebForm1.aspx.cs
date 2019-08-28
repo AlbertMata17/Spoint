@@ -18,7 +18,7 @@ namespace SpointLiteVersion.RTPFactura
         SqlDataAdapter adapter;
         SqlParameter param;
         string idVenta;
-
+        string nombreempresa;
         protected void Page_Load(object sender, EventArgs e)
         {
             con = new SqlConnection("Data Source=DESKTOP-MF01SN4\\SQLANALYSIS;Initial Catalog=spoint;Integrated Security=True");
@@ -37,7 +37,7 @@ namespace SpointLiteVersion.RTPFactura
             DataTable dt = cargar(idVenta);
             ReportDataSource rds = new ReportDataSource("DataSet1", dt);
             ReportViewer1.LocalReport.DataSources.Add(rds);
-            ReportViewer1.LocalReport.ReportPath = "RTPFactura/Report1.rdlc";
+            ReportViewer1.LocalReport.ReportPath = "RTPFactura/Report2.rdlc";
             PageSettings pg = new PageSettings();
             pg.Margins.Left = 0;
             pg.Margins.Right = 40;

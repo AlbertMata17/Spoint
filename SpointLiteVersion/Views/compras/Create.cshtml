@@ -286,6 +286,7 @@
         $("#descuentodado").val(descuento1);
 
         $("#TotalaPagar").val(total);
+        total = 0;
     }
     function limpiar() {
         $("#Cantidad").val("");
@@ -301,7 +302,8 @@
 <script>
 
     $(document).ready(function () {
-
+        var myTable = document.getElementById("detalle");
+        myTable.oldHTML = myTable.innerHTML;
         $("a[rel='pop-up']").click(function () {
             var caracteristicas = "height=550,width=1000,scrollTo,resizable=1,scrollbars=1,location=0";
             nueva = window.open(this.href, 'popup', caracteristicas);
@@ -358,6 +360,14 @@
                         //})
 
                     valid = response.valid;
+                    limpiar();
+                    if ($("#Suplidor").val() != "") {
+                        $("#Suplidor").val("");
+                        myTable.innerHTML = myTable.oldHTML;
+                        $("#TotalaPagar").val(0);
+                        total = 0;
+                        valor = 0;
+                    }                   
                 },
                 error: function (error) {
                     alertify.alert(error);

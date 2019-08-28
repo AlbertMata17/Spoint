@@ -14,12 +14,6 @@ namespace SpointLiteVersion.Models
     
     public partial class compras
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public compras()
-        {
-            this.DetalleCompra = new HashSet<DetalleCompra>();
-        }
-    
         public int idcompra { get; set; }
         public string NoCompra { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
@@ -27,7 +21,7 @@ namespace SpointLiteVersion.Models
         public string Suplidor { get; set; }
         public Nullable<decimal> Total { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetalleCompra> DetalleCompra { get; set; }
+        public virtual compras compras1 { get; set; }
+        public virtual compras compras2 { get; set; }
     }
 }
