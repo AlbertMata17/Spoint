@@ -12,6 +12,8 @@ namespace SpointLiteVersion.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class spointEntities : DbContext
     {
@@ -39,7 +41,25 @@ namespace SpointLiteVersion.Models
         public virtual DbSet<TipoSuplidor> TipoSuplidor { get; set; }
         public virtual DbSet<DetalleCompra> DetalleCompra { get; set; }
         public virtual DbSet<NCF> NCF { get; set; }
-        public virtual DbSet<cotizacion> cotizacion { get; set; }
         public virtual DbSet<DetalleCotizacion> DetalleCotizacion { get; set; }
+        public virtual DbSet<cotizacion> cotizacion { get; set; }
+    
+        public virtual ObjectResult<sp_reporte_cotizacion_back_Result> sp_reporte_cotizacion_back(Nullable<decimal> idVenta)
+        {
+            var idVentaParameter = idVenta.HasValue ?
+                new ObjectParameter("idVenta", idVenta) :
+                new ObjectParameter("idVenta", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_reporte_cotizacion_back_Result>("sp_reporte_cotizacion_back", idVentaParameter);
+        }
+    
+        public virtual ObjectResult<sp_reporte_venta_back_Result> sp_reporte_venta_back(Nullable<decimal> idVenta)
+        {
+            var idVentaParameter = idVenta.HasValue ?
+                new ObjectParameter("idVenta", idVenta) :
+                new ObjectParameter("idVenta", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_reporte_venta_back_Result>("sp_reporte_venta_back", idVentaParameter);
+        }
     }
 }

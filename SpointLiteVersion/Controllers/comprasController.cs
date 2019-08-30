@@ -228,6 +228,8 @@ namespace SpointLiteVersion.Controllers
 
         }
 
+
+
         // POST: compras/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

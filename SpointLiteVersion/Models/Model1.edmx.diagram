@@ -26,8 +26,8 @@
         <EntityTypeShape EntityType="spointModel.DetalleCompra" Width="1.5" PointX="0.75" PointY="9.75" />
         <AssociationConnector Association="spointModel.fk_compra" />
         <EntityTypeShape EntityType="spointModel.NCF" Width="1.5" PointX="0.75" PointY="6.75" />
-        <EntityTypeShape EntityType="spointModel.cotizacion" Width="1.5" PointX="9.375" PointY="6" />
-        <EntityTypeShape EntityType="spointModel.DetalleCotizacion" Width="1.5" PointX="11.625" PointY="6" />
+        <EntityTypeShape EntityType="spointModel.DetalleCotizacion" Width="1.5" PointX="11.625" PointY="21.75" />
+        <EntityTypeShape EntityType="spointModel.cotizacion" Width="1.5" PointX="9.375" PointY="21.75" />
         <AssociationConnector Association="spointModel.FK__DetalleCo__idcot__51300E55" />
       </Diagram>
     </edmx:Diagrams>

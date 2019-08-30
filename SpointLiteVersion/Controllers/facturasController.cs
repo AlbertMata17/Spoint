@@ -22,6 +22,10 @@ namespace SpointLiteVersion.Controllers
         {
             return View(db.facturas.ToList());
         }
+        public ActionResult CotizacionesIndex()
+        {
+            return View(db.cotizacion.ToList());
+        }
         public ActionResult VistaPdf(string idProducto)
         {
             ViewBag.cantidad = idProducto;
@@ -70,7 +74,7 @@ namespace SpointLiteVersion.Controllers
                     {
                         mensaje = "La Factura Excede El límite de Crédito del Cliente el cual cuenta con " + "$" + creditos + " Aprobado";
                     }
-                    else if (Convert.ToDecimal(creditos1) > 0 && Convert.ToDecimal(creditos1) >= Convert.ToDecimal(Total))
+                    else if (Convert.ToDecimal(creditos1) > 0 || Convert.ToDecimal(creditos1) >= Convert.ToDecimal(Total))
                     {
                         if (precio == "") precio = "0.0";
                         if (Total == "") Total = "0.00";
@@ -126,7 +130,6 @@ namespace SpointLiteVersion.Controllers
 
                             Session["idVenta"] = idventa;
                             db.DetalleCompra.Add(objDetalle);
-                            db.SaveChanges();
                             db.DetalleVenta.Add(objDetalleVenta);
                             db.SaveChanges();
 
@@ -208,6 +211,164 @@ namespace SpointLiteVersion.Controllers
 
 
         }
+
+
+        //metodo para realizar las cotizaciones
+
+        public ActionResult Cotizar(string fecha, string creditos, string observacion, string itbisdado,string cliente, string idcliente, string vendedor, string precio, string credito, string Total, List<DetalleCotizacion> ListadoDetalle)
+        {
+            string mensaje = "";
+            string creditos1 = creditos;
+            Decimal creditosdisponibles = 0;
+            if (fecha == "" || observacion == "" || cliente == "" || vendedor == "")
+            {
+                if (fecha == "") mensaje = "ERROR EN EL CAMPO FECHA";
+                if (observacion == "") mensaje = "ERROR EN EL CAMPO OBSERVACIÓN";
+                if (cliente == "") mensaje = "ERROR CON EL CLIENTE";
+                if (vendedor == "") mensaje = "ERROR EN EL CAMPO VENDEDOR";
+
+
+            }
+            else if (credito == "si")
+            {
+                var idclien = Convert.ToInt32(idcliente);
+                System.Console.WriteLine("" + idclien);
+                var dato1 = (from datos in db.facturas where datos.idcliente == idclien && datos.Status == "PENDIENTE" select datos).FirstOrDefault();
+                if (dato1 != null)
+                {
+
+                    creditosdisponibles = Convert.ToDecimal(creditos1) - Convert.ToDecimal(dato1.Total);
+                    if (creditosdisponibles > 0 && creditosdisponibles < Convert.ToDecimal(Total) || creditosdisponibles < 0)
+                    {
+                        mensaje = "La Factura Excede El límite de Crédito del Cliente el cual cuenta actualmente con " + "$" + creditosdisponibles.ToString("00");
+
+                    }
+                }
+
+
+
+                else if (Convert.ToDecimal(creditos1) > 0 && Convert.ToDecimal(creditos1) < Convert.ToDecimal(Total))
+                {
+                    mensaje = "La Factura Excede El límite de Crédito del Cliente el cual cuenta con " + "$" + creditos + " Aprobado";
+                }
+                else if (Convert.ToDecimal(creditos1) > 0 && Convert.ToDecimal(creditos1) >= Convert.ToDecimal(Total))
+                {
+                    if (precio == "") precio = "0.0";
+                    if (Total == "") Total = "0.00";
+                    int id1 = 0;
+                    DetalleCotizacion detalle = new DetalleCotizacion();
+                    var verificar = (from s in db.DetalleCotizacion select s.idDetalle);
+                    if (verificar.Count() > 0)
+                    {
+                        id1 = (from s in db.DetalleCotizacion select s.idDetalle).Max();
+                    }
+                    int idventa = id1 + 1;
+                    cotizacion factura = new cotizacion();
+                    factura.cliente = cliente;
+                    factura.fecha = Convert.ToDateTime(fecha);
+                    factura.observacion = observacion;
+                    factura.vendedor = vendedor;
+                    factura.precio = Convert.ToDecimal(precio);
+                    factura.credito = credito;
+                    factura.idventa = idventa;
+                    factura.Total = Convert.ToDecimal(Total);
+                    factura.Status = "PENDIENTE";
+                    factura.idcliente = Convert.ToInt32(idcliente);
+                    factura.totalitbis = Convert.ToDecimal(itbisdado);
+
+                    db.cotizacion.Add(factura);
+                    db.SaveChanges();
+                    int id = factura.idcotizacion;
+                    productos producto = new productos();
+
+
+                    foreach (var data in ListadoDetalle)
+                    {
+                        string idProducto = data.Ref.ToString();
+                        int cantidad = Convert.ToInt32(data.cantidad.ToString());
+                  
+                        decimal descuento = Convert.ToDecimal(data.descuento.ToString());
+                        decimal subtotal = Convert.ToDecimal(data.importe.ToString());
+                        decimal total = Convert.ToDecimal(data.total.ToString());
+                        decimal totaldescuento = Convert.ToDecimal(data.totaldescuento.ToString());
+                        string descripcion1 = data.descripcion.ToString();
+                        decimal precio1 = Convert.ToDecimal(data.precio.ToString());
+                        string itbis = data.itbis.ToString();
+                        DetalleCotizacion objDetalleVenta = new DetalleCotizacion(id, idProducto, descripcion1, cantidad, precio1, descuento, itbis, subtotal, total, totaldescuento,idventa);
+
+                        Session["idVenta"] = idventa;
+                        db.DetalleCotizacion.Add(objDetalleVenta);
+                        db.SaveChanges();
+
+
+                    }
+                    mensaje = "VENTA COTIZADA CON EXITO...";
+
+                }
+            }
+
+
+            else
+            {
+                if (precio == "") precio = "0.0";
+                if (Total == "") Total = "0.00";
+                int id1 = 0;
+                DetalleCotizacion detalle = new DetalleCotizacion();
+                var verificar = (from s in db.DetalleCotizacion select s.idDetalle);
+                if (verificar.Count() > 0)
+                {
+                    id1 = (from s in db.DetalleCotizacion select s.idDetalle).Max();
+                }
+                int idventa = id1 + 1;
+                cotizacion factura = new cotizacion();
+                factura.cliente = cliente;
+                factura.fecha = Convert.ToDateTime(fecha);
+                factura.observacion = observacion;
+                factura.vendedor = vendedor;
+                factura.precio = Convert.ToDecimal(precio);
+                factura.credito = credito;
+                factura.idventa = idventa;
+                factura.Total = Convert.ToDecimal(Total);
+                factura.Status = "PAGADA";
+                factura.idcliente = Convert.ToInt32(idcliente);
+
+                db.cotizacion.Add(factura);
+                db.SaveChanges();
+                int id = factura.idcotizacion;
+
+
+                foreach (var data in ListadoDetalle)
+                {
+                    string idProducto = data.Ref.ToString();
+                    int cantidad = Convert.ToInt32(data.cantidad.ToString());
+                   
+                    decimal descuento = Convert.ToDecimal(data.descuento.ToString());
+                    decimal subtotal = Convert.ToDecimal(data.importe.ToString());
+                    decimal total = Convert.ToDecimal(data.total.ToString());
+                    decimal totaldescuento = Convert.ToDecimal(data.totaldescuento.ToString());
+                    string descripcion1 = data.descripcion.ToString();
+                    decimal precio1 = Convert.ToDecimal(data.precio.ToString());
+                    string itbis = data.itbis.ToString();
+                    DetalleCotizacion objDetalleVenta = new DetalleCotizacion(id, idProducto, descripcion1, cantidad, precio1, descuento, itbis, subtotal, total, totaldescuento,idventa);
+                    Session["idVenta"] = idventa;
+
+                    db.DetalleCotizacion.Add(objDetalleVenta);
+                    db.SaveChanges();
+
+
+                }
+                
+                mensaje = "COTIZACION REALIZADA CON EXITO...";
+
+
+
+            }
+            return Json(mensaje);
+
+
+
+        }
+
         // GET: facturas/Details/5
         public ActionResult Details(int? id)
         {
@@ -244,6 +405,24 @@ namespace SpointLiteVersion.Controllers
          
                 
             
+
+        }
+        public ActionResult cotizacionActual()
+        {
+            if (Session["idVenta"].ToString() != null)
+            {
+                string idVenta = Session["idVenta"].ToString();
+                return Redirect("~/RTPFactura/cotizar.aspx?idventa=" + idVenta);
+            }
+            else
+            {
+                return View("PDf");
+            }
+            //return Redirect("~/RTPFactura/WebForm1.aspx?idventa="+001);
+
+
+
+
 
         }
         // GET: facturas/Create

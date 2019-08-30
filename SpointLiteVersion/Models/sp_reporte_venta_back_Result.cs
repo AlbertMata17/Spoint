@@ -10,30 +10,31 @@
 namespace SpointLiteVersion.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class cotizacion
+    public partial class sp_reporte_venta_back_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public cotizacion()
-        {
-            this.DetalleCotizacion = new HashSet<DetalleCotizacion>();
-        }
-    
-        public int idcotizacion { get; set; }
+        public int IdDetalle { get; set; }
+        public Nullable<int> idfactura { get; set; }
+        public Nullable<int> idventa { get; set; }
+        public string Ref { get; set; }
+        public string descripcion { get; set; }
+        public Nullable<int> cantidad { get; set; }
+        public Nullable<decimal> precio { get; set; }
+        public Nullable<decimal> descuento { get; set; }
+        public string itbis { get; set; }
+        public Nullable<decimal> importe { get; set; }
+        public Nullable<decimal> total { get; set; }
+        public Nullable<decimal> totaldescuento { get; set; }
+        public int idfactura1 { get; set; }
         public Nullable<System.DateTime> fecha { get; set; }
         public string observacion { get; set; }
         public string cliente { get; set; }
         public string vendedor { get; set; }
-        public Nullable<decimal> precio { get; set; }
+        public Nullable<decimal> precio1 { get; set; }
         public string credito { get; set; }
-        public Nullable<int> idventa { get; set; }
-        public Nullable<decimal> Total { get; set; }
+        public Nullable<int> idventa1 { get; set; }
+        public Nullable<decimal> Total1 { get; set; }
         public string Status { get; set; }
         public Nullable<int> idcliente { get; set; }
-        public Nullable<decimal> totalitbis { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetalleCotizacion> DetalleCotizacion { get; set; }
     }
 }

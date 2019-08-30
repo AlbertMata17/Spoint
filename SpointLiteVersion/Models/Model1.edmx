@@ -57,6 +57,8 @@
           <Property Name="idventa" Type="int" />
           <Property Name="Total" Type="money" />
           <Property Name="Status" Type="varchar" MaxLength="30" />
+          <Property Name="idcliente" Type="int" />
+          <Property Name="totalitbis" Type="money" />
         </EntityType>
         <EntityType Name="DetalleCompra">
           <Key>
@@ -85,7 +87,9 @@
           <Property Name="descuento" Type="money" />
           <Property Name="itbis" Type="varchar(max)" />
           <Property Name="importe" Type="money" />
+          <Property Name="total" Type="money" />
           <Property Name="totaldescuento" Type="money" />
+          <Property Name="idventa" Type="int" />
         </EntityType>
         <EntityType Name="DetalleVenta">
           <Key>
@@ -313,6 +317,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_reporte_cotizacion_back" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idVenta" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="sp_reporte_venta_back" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idVenta" Type="numeric" Mode="In" />
+        </Function>
         <EntityContainer Name="spointModelStoreContainer">
           <EntitySet Name="ciudad" EntityType="Self.ciudad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="clientes" EntityType="Self.clientes" Schema="dbo" store:Type="Tables" />
@@ -418,12 +428,18 @@
             <End Role="compras1" EntitySet="compras" />
           </AssociationSet>
           <EntitySet Name="NCF" EntityType="spointModel.NCF" />
-          <EntitySet Name="cotizacion" EntityType="spointModel.cotizacion" />
           <EntitySet Name="DetalleCotizacion" EntityType="spointModel.DetalleCotizacion" />
+          <EntitySet Name="cotizacion" EntityType="spointModel.cotizacion" />
           <AssociationSet Name="FK__DetalleCo__idcot__51300E55" Association="spointModel.FK__DetalleCo__idcot__51300E55">
             <End Role="cotizacion" EntitySet="cotizacion" />
             <End Role="DetalleCotizacion" EntitySet="DetalleCotizacion" />
           </AssociationSet>
+          <FunctionImport Name="sp_reporte_cotizacion_back" ReturnType="Collection(spointModel.sp_reporte_cotizacion_back_Result)">
+            <Parameter Name="idVenta" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="sp_reporte_venta_back" ReturnType="Collection(spointModel.sp_reporte_venta_back_Result)">
+            <Parameter Name="idVenta" Mode="In" Type="Decimal" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="tiposproductos">
           <Key>
@@ -697,6 +713,24 @@
           <Property Name="Estatus" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="NoNCF" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="DetalleCotizacion">
+          <Key>
+            <PropertyRef Name="idDetalle" />
+          </Key>
+          <Property Name="idDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idcotizacion" Type="Int32" />
+          <Property Name="Ref" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="precio" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="descuento" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="itbis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="importe" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="total" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="totaldescuento" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="idventa" Type="Int32" />
+          <NavigationProperty Name="cotizacion" Relationship="spointModel.FK__DetalleCo__idcot__51300E55" FromRole="DetalleCotizacion" ToRole="cotizacion" />
+        </EntityType>
         <EntityType Name="cotizacion">
           <Key>
             <PropertyRef Name="idcotizacion" />
@@ -711,23 +745,9 @@
           <Property Name="idventa" Type="Int32" />
           <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="idcliente" Type="Int32" />
+          <Property Name="totalitbis" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="DetalleCotizacion" Relationship="spointModel.FK__DetalleCo__idcot__51300E55" FromRole="cotizacion" ToRole="DetalleCotizacion" />
-        </EntityType>
-        <EntityType Name="DetalleCotizacion">
-          <Key>
-            <PropertyRef Name="idDetalle" />
-          </Key>
-          <Property Name="idDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idcotizacion" Type="Int32" />
-          <Property Name="Ref" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="cantidad" Type="Int32" />
-          <Property Name="precio" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="descuento" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="itbis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="importe" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="totaldescuento" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="cotizacion" Relationship="spointModel.FK__DetalleCo__idcot__51300E55" FromRole="DetalleCotizacion" ToRole="cotizacion" />
         </EntityType>
         <Association Name="FK__DetalleCo__idcot__51300E55">
           <End Type="spointModel.cotizacion" Role="cotizacion" Multiplicity="0..1" />
@@ -741,6 +761,57 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="sp_reporte_cotizacion_back_Result">
+          <Property Type="Int32" Name="idDetalle" Nullable="false" />
+          <Property Type="Int32" Name="idcotizacion" Nullable="true" />
+          <Property Type="String" Name="Ref" Nullable="true" />
+          <Property Type="String" Name="descripcion" Nullable="true" />
+          <Property Type="Int32" Name="cantidad" Nullable="true" />
+          <Property Type="Decimal" Name="precio" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="descuento" Nullable="true" Precision="19" />
+          <Property Type="String" Name="itbis" Nullable="true" />
+          <Property Type="Decimal" Name="importe" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="total" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="totaldescuento" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="idventa" Nullable="true" />
+          <Property Type="Int32" Name="idcotizacion1" Nullable="false" />
+          <Property Type="DateTime" Name="fecha" Nullable="true" />
+          <Property Type="String" Name="observacion" Nullable="true" />
+          <Property Type="String" Name="cliente" Nullable="true" />
+          <Property Type="String" Name="vendedor" Nullable="true" />
+          <Property Type="Decimal" Name="precio1" Nullable="true" Precision="19" />
+          <Property Type="String" Name="credito" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="idventa1" Nullable="true" />
+          <Property Type="Decimal" Name="Total1" Nullable="true" Precision="19" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="idcliente" Nullable="true" />
+          <Property Type="Decimal" Name="totalitbis" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_reporte_venta_back_Result">
+          <Property Type="Int32" Name="IdDetalle" Nullable="false" />
+          <Property Type="Int32" Name="idfactura" Nullable="true" />
+          <Property Type="Int32" Name="idventa" Nullable="true" />
+          <Property Type="String" Name="Ref" Nullable="true" />
+          <Property Type="String" Name="descripcion" Nullable="true" />
+          <Property Type="Int32" Name="cantidad" Nullable="true" />
+          <Property Type="Decimal" Name="precio" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="descuento" Nullable="true" Precision="19" />
+          <Property Type="String" Name="itbis" Nullable="true" />
+          <Property Type="Decimal" Name="importe" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="total" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="totaldescuento" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="idfactura1" Nullable="false" />
+          <Property Type="DateTime" Name="fecha" Nullable="true" />
+          <Property Type="String" Name="observacion" Nullable="true" />
+          <Property Type="String" Name="cliente" Nullable="true" />
+          <Property Type="String" Name="vendedor" Nullable="true" />
+          <Property Type="Decimal" Name="precio1" Nullable="true" Precision="19" />
+          <Property Type="String" Name="credito" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="idventa1" Nullable="true" />
+          <Property Type="Decimal" Name="Total1" Nullable="true" Precision="19" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="idcliente" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -943,9 +1014,29 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DetalleCotizacion">
+            <EntityTypeMapping TypeName="spointModel.DetalleCotizacion">
+              <MappingFragment StoreEntitySet="DetalleCotizacion">
+                <ScalarProperty Name="idventa" ColumnName="idventa" />
+                <ScalarProperty Name="totaldescuento" ColumnName="totaldescuento" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="importe" ColumnName="importe" />
+                <ScalarProperty Name="itbis" ColumnName="itbis" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="Ref" ColumnName="Ref" />
+                <ScalarProperty Name="idcotizacion" ColumnName="idcotizacion" />
+                <ScalarProperty Name="idDetalle" ColumnName="idDetalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="cotizacion">
             <EntityTypeMapping TypeName="spointModel.cotizacion">
               <MappingFragment StoreEntitySet="cotizacion">
+                <ScalarProperty Name="totalitbis" ColumnName="totalitbis" />
+                <ScalarProperty Name="idcliente" ColumnName="idcliente" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="idventa" ColumnName="idventa" />
@@ -959,22 +1050,65 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DetalleCotizacion">
-            <EntityTypeMapping TypeName="spointModel.DetalleCotizacion">
-              <MappingFragment StoreEntitySet="DetalleCotizacion">
-                <ScalarProperty Name="totaldescuento" ColumnName="totaldescuento" />
-                <ScalarProperty Name="importe" ColumnName="importe" />
-                <ScalarProperty Name="itbis" ColumnName="itbis" />
-                <ScalarProperty Name="descuento" ColumnName="descuento" />
-                <ScalarProperty Name="precio" ColumnName="precio" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="Ref" ColumnName="Ref" />
-                <ScalarProperty Name="idcotizacion" ColumnName="idcotizacion" />
+          <FunctionImportMapping FunctionImportName="sp_reporte_cotizacion_back" FunctionName="spointModel.Store.sp_reporte_cotizacion_back">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="spointModel.sp_reporte_cotizacion_back_Result">
                 <ScalarProperty Name="idDetalle" ColumnName="idDetalle" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+                <ScalarProperty Name="idcotizacion" ColumnName="idcotizacion" />
+                <ScalarProperty Name="Ref" ColumnName="Ref" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="itbis" ColumnName="itbis" />
+                <ScalarProperty Name="importe" ColumnName="importe" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="totaldescuento" ColumnName="totaldescuento" />
+                <ScalarProperty Name="idventa" ColumnName="idventa" />
+                <ScalarProperty Name="idcotizacion1" ColumnName="idcotizacion1" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="cliente" ColumnName="cliente" />
+                <ScalarProperty Name="vendedor" ColumnName="vendedor" />
+                <ScalarProperty Name="precio1" ColumnName="precio1" />
+                <ScalarProperty Name="credito" ColumnName="credito" />
+                <ScalarProperty Name="idventa1" ColumnName="idventa1" />
+                <ScalarProperty Name="Total1" ColumnName="Total1" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="idcliente" ColumnName="idcliente" />
+                <ScalarProperty Name="totalitbis" ColumnName="totalitbis" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_reporte_venta_back" FunctionName="spointModel.Store.sp_reporte_venta_back">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="spointModel.sp_reporte_venta_back_Result">
+                <ScalarProperty Name="IdDetalle" ColumnName="IdDetalle" />
+                <ScalarProperty Name="idfactura" ColumnName="idfactura" />
+                <ScalarProperty Name="idventa" ColumnName="idventa" />
+                <ScalarProperty Name="Ref" ColumnName="Ref" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="itbis" ColumnName="itbis" />
+                <ScalarProperty Name="importe" ColumnName="importe" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="totaldescuento" ColumnName="totaldescuento" />
+                <ScalarProperty Name="idfactura1" ColumnName="idfactura1" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="cliente" ColumnName="cliente" />
+                <ScalarProperty Name="vendedor" ColumnName="vendedor" />
+                <ScalarProperty Name="precio1" ColumnName="precio1" />
+                <ScalarProperty Name="credito" ColumnName="credito" />
+                <ScalarProperty Name="idventa1" ColumnName="idventa1" />
+                <ScalarProperty Name="Total1" ColumnName="Total1" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="idcliente" ColumnName="idcliente" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

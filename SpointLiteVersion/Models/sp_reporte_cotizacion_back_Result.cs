@@ -10,9 +10,8 @@
 namespace SpointLiteVersion.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class DetalleCotizacion
+    public partial class sp_reporte_cotizacion_back_Result
     {
         public int idDetalle { get; set; }
         public Nullable<int> idcotizacion { get; set; }
@@ -26,26 +25,17 @@ namespace SpointLiteVersion.Models
         public Nullable<decimal> total { get; set; }
         public Nullable<decimal> totaldescuento { get; set; }
         public Nullable<int> idventa { get; set; }
-
-        public DetalleCotizacion(int? idcotizacion, string @ref, string descripcion, int? cantidad, decimal? precio, decimal? descuento, string itbis, decimal? importe, decimal? total, decimal? totaldescuento, int? idventa)
-        {
-            this.idcotizacion = idcotizacion;
-            Ref = @ref;
-            this.descripcion = descripcion;
-            this.cantidad = cantidad;
-            this.precio = precio;
-            this.descuento = descuento;
-            this.itbis = itbis;
-            this.importe = importe;
-            this.total = total;
-            this.totaldescuento = totaldescuento;
-            this.idventa = idventa;
-        }
-
-        public DetalleCotizacion()
-        {
-        }
-
-        public virtual cotizacion cotizacion { get; set; }
+        public int idcotizacion1 { get; set; }
+        public Nullable<System.DateTime> fecha { get; set; }
+        public string observacion { get; set; }
+        public string cliente { get; set; }
+        public string vendedor { get; set; }
+        public Nullable<decimal> precio1 { get; set; }
+        public string credito { get; set; }
+        public Nullable<int> idventa1 { get; set; }
+        public Nullable<decimal> Total1 { get; set; }
+        public string Status { get; set; }
+        public Nullable<int> idcliente { get; set; }
+        public Nullable<decimal> totalitbis { get; set; }
     }
 }
