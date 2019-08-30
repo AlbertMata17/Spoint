@@ -368,7 +368,25 @@ namespace SpointLiteVersion.Controllers
 
 
         }
+        public ActionResult Detailscotizacion(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (id != null)
+            {
+                string idVenta = id.ToString();
+                return Redirect("~/RTPFactura/cotizar.aspx?IdVenta=" + idVenta);
+            }
+            facturas facturas = db.facturas.Find(id);
+            if (facturas == null)
+            {
+                return HttpNotFound();
+            }
 
+            return View(facturas);
+        }
         // GET: facturas/Details/5
         public ActionResult Details(int? id)
         {
