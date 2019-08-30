@@ -8,7 +8,7 @@
 
     <div class="row">
         <div class="col-md-7 modal-content contedor" style="width:88%; margin-left:4%; margin-top:2%;">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("Create", "clientes1", FormMethod.Post, new { id = "myForm" }))
             {
                 @Html.AntiForgeryToken()
 
@@ -299,20 +299,11 @@
 </script>
 <script>
 
-    $(document).ready(function () {
+    $(document).keyup(function (tecla) {
+        if (tecla.keyCode == 27) {
+            $("#myForm").submit();
 
-        $('form').keypress(function (e) {
-            if (e == 13) {
-                return false;
-            }
-        });
-
-        $('input').keypress(function (e) {
-            if (e.which == 13) {
-                return false;
-            }
-        });
-
+        }
     });
 
 </script>

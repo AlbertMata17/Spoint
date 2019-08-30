@@ -22,7 +22,6 @@ namespace SpointLiteVersion.Models
         public Nullable<decimal> costo { get; set; }
         public Nullable<decimal> importe { get; set; }
         public Nullable<System.DateTime> fecha { get; set; }
-        public string Tipo { get; set; }
 
         public DetalleCompra(string codproducto, int? idcompra, int? cantidad, string descripcion, decimal? costo, decimal? importe, DateTime? fecha, string tipo)
         {
@@ -39,5 +38,7 @@ namespace SpointLiteVersion.Models
         public DetalleCompra()
         {
         }
+
+        public string Tipo { get; set; }
     }
 }

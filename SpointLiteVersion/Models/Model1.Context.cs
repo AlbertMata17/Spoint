@@ -39,5 +39,7 @@ namespace SpointLiteVersion.Models
         public virtual DbSet<TipoSuplidor> TipoSuplidor { get; set; }
         public virtual DbSet<DetalleCompra> DetalleCompra { get; set; }
         public virtual DbSet<NCF> NCF { get; set; }
+        public virtual DbSet<cotizacion> cotizacion { get; set; }
+        public virtual DbSet<DetalleCotizacion> DetalleCotizacion { get; set; }
     }
 }

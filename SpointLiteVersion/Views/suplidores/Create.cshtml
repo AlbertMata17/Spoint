@@ -9,7 +9,7 @@
 
     <div class="row">
         <div class="col-md-7 modal-content contedor" style="width:88%; margin-left:4%; margin-top:2%;">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("Create", "suplidores", FormMethod.Post, new { id = "myForm" }))
             {
                 @Html.AntiForgeryToken()
 
@@ -83,7 +83,7 @@
                         <div class="form-group col-md-2 form1">
 
                             @Html.Label("Tipo", new { @class = "control-label col-md-2" })
-                            @Html.DropDownList("idtipo", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("TipoSuplidor", null, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.TipoSuplidor, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-md-1 boton">
@@ -210,4 +210,11 @@
             $(".comprobante").load("/TipoSuplidors/Create")
         });
     });
+</script>
+<script>
+    $(document).keyup(function (tecla) {
+        if (tecla.keyCode == 27) {
+            $("#myForm").submit();
+        }
+        });
 </script>

@@ -41,7 +41,7 @@ namespace SpointLiteVersion.Controllers
         {
             if (id == null)
             {
-                ViewBag.idtipo = new SelectList(db.TipoSuplidor, "idTipoSuplidor", "Nombre");
+                ViewBag.TipoSuplidor = new SelectList(db.TipoSuplidor, "idTipoSuplidor", "Nombre");
 
                 return View();
 
@@ -54,6 +54,8 @@ namespace SpointLiteVersion.Controllers
             }
             if (id != null)
             {
+                ViewBag.TipoSuplidor = new SelectList(db.TipoSuplidor, "idTipoSuplidor", "Nombre", suplidores.TipoSuplidor);
+
                 ViewBag.id = "algo";
                 ViewBag.foto = suplidores.Foto;
 
@@ -76,7 +78,7 @@ namespace SpointLiteVersion.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idSuplidor,nombre,telefono,direccion,correo,cedula,Foto")] suplidores suplidores)
+        public ActionResult Create([Bind(Include = "idSuplidor,nombre,telefono,direccion,correo,cedula,Foto,TipoSuplidor,limitetiempo,Personafisica")] suplidores suplidores)
         {
             var t = (from s in db.suplidores where s.idSuplidor == suplidores.idSuplidor select s.idSuplidor).Count();
             if (t != 0)
@@ -94,6 +96,10 @@ namespace SpointLiteVersion.Controllers
                     if (suplidores.correo != null)
                     {
                         suplidores.correo = suplidores.correo.ToUpper();
+                    }
+                    if (suplidores.Personafisica != null)
+                    {
+                        suplidores.Personafisica = suplidores.Personafisica.ToUpper();
                     }
                     suplidores.Status = "1";
 
@@ -117,6 +123,10 @@ namespace SpointLiteVersion.Controllers
                     if (suplidores.correo != null)
                     {
                         suplidores.correo = suplidores.correo.ToUpper();
+                    }
+                    if (suplidores.Personafisica != null)
+                    {
+                        suplidores.Personafisica = suplidores.Personafisica.ToUpper();
                     }
                     suplidores.Status = "1";
 

@@ -10,7 +10,7 @@
         <div class="col-md-7 modal-content contedor" style="width:88%; margin-left:4%; margin-top:2%;">
 
             <div class="formulario">
-                @using (Html.BeginForm())
+                @using (Html.BeginForm("Create","productos1", FormMethod.Post, new { id = "myForm" }))
                 {
                     @Html.AntiForgeryToken()
 
@@ -310,24 +310,46 @@
 </script>
 <script>
 
-    $(document).ready(function () {
+        $(document).keyup(function (tecla) {
+            if (tecla.keyCode == 27) {
+                var value = $("#Precio").val();
+                if (value.indexOf(',') != -1) {
+                    $("#Precio").val(value.replace(/,/g, ''));
+                }
+                if (value.indexOf('$') != -1) {
+                    $("#Precio").val(value.replace(/\$/g, ""));
+                }
 
-        $('form').keypress(function (e) {
-            if (e == 13) {
-                return false;
+                var value = $("#costo").val();
+                if (value.indexOf(',') != -1) {
+                    $("#costo").val(value.replace(/,/g, ''));
+                }
+                if (value.indexOf('$') != -1) {
+                    $("#costo").val(value.replace(/\$/g, ""));
+                }
+                var value = $("#Precio").val();
+                if (value.indexOf(',') != -1) {
+                    $("#Precio").val(value.replace(/,/g, ''));
+                }
+                if (value.indexOf('$') != -1) {
+                    $("#Precio").val(value.replace(/\$/g, ""));
+                }
+
+                var value = $("#costo").val();
+                if (value.indexOf(',') != -1) {
+                    $("#costo").val(value.replace(/,/g, ''));
+                }
+                if (value.indexOf('$') != -1) {
+                    $("#costo").val(value.replace(/\$/g, ""));
+                }
+                $("#myForm").submit();
+
+
             }
         });
-
-        $('input').keypress(function (e) {
-            if (e.which == 13) {
-                return false;
-            }
-        });
-
-    });
-
+   
 </script>
-<script>
+@*<script>
 
 
 
@@ -341,7 +363,7 @@
 
 
 
-</script>
+</script>*@
 
 <script>
 
