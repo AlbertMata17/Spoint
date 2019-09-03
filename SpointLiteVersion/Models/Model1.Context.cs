@@ -28,21 +28,25 @@ namespace SpointLiteVersion.Models
         }
     
         public virtual DbSet<ciudad> ciudad { get; set; }
-        public virtual DbSet<tiposproductos> tiposproductos { get; set; }
-        public virtual DbSet<vendedores> vendedores { get; set; }
-        public virtual DbSet<itbis> itbis { get; set; }
-        public virtual DbSet<productos> productos { get; set; }
-        public virtual DbSet<Inventario> Inventario { get; set; }
-        public virtual DbSet<DetalleVenta> DetalleVenta { get; set; }
-        public virtual DbSet<compras> compras { get; set; }
-        public virtual DbSet<facturas> facturas { get; set; }
         public virtual DbSet<clientes> clientes { get; set; }
-        public virtual DbSet<suplidores> suplidores { get; set; }
-        public virtual DbSet<TipoSuplidor> TipoSuplidor { get; set; }
-        public virtual DbSet<DetalleCompra> DetalleCompra { get; set; }
-        public virtual DbSet<NCF> NCF { get; set; }
-        public virtual DbSet<DetalleCotizacion> DetalleCotizacion { get; set; }
+        public virtual DbSet<compras> compras { get; set; }
         public virtual DbSet<cotizacion> cotizacion { get; set; }
+        public virtual DbSet<facturas> facturas { get; set; }
+        public virtual DbSet<Inventario> Inventario { get; set; }
+        public virtual DbSet<itbis> itbis { get; set; }
+        public virtual DbSet<NCF> NCF { get; set; }
+        public virtual DbSet<prefactura> prefactura { get; set; }
+        public virtual DbSet<productos> productos { get; set; }
+        public virtual DbSet<suplidores> suplidores { get; set; }
+        public virtual DbSet<tiposproductos> tiposproductos { get; set; }
+        public virtual DbSet<TipoSuplidor> TipoSuplidor { get; set; }
+        public virtual DbSet<vendedores> vendedores { get; set; }
+        public virtual DbSet<DetalleCompra> DetalleCompra { get; set; }
+        public virtual DbSet<DetalleCotizacion> DetalleCotizacion { get; set; }
+        public virtual DbSet<DetallePrefactura> DetallePrefactura { get; set; }
+        public virtual DbSet<DetalleVenta> DetalleVenta { get; set; }
+        public virtual DbSet<Empresa> Empresa { get; set; }
+        public virtual DbSet<Login> Login { get; set; }
     
         public virtual ObjectResult<sp_reporte_cotizacion_back_Result> sp_reporte_cotizacion_back(Nullable<decimal> idVenta)
         {
@@ -60,6 +64,24 @@ namespace SpointLiteVersion.Models
                 new ObjectParameter("idVenta", typeof(decimal));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_reporte_venta_back_Result>("sp_reporte_venta_back", idVentaParameter);
+        }
+    
+        public virtual int prefacturacalc(Nullable<decimal> idVenta)
+        {
+            var idVentaParameter = idVenta.HasValue ?
+                new ObjectParameter("idVenta", idVenta) :
+                new ObjectParameter("idVenta", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("prefacturacalc", idVentaParameter);
+        }
+    
+        public virtual ObjectResult<sp_reporte_prefactura_back_Result> sp_reporte_prefactura_back(Nullable<decimal> idVenta)
+        {
+            var idVentaParameter = idVenta.HasValue ?
+                new ObjectParameter("idVenta", idVenta) :
+                new ObjectParameter("idVenta", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_reporte_prefactura_back_Result>("sp_reporte_prefactura_back", idVentaParameter);
         }
     }
 }

@@ -78,7 +78,7 @@
 
                         </div>
                         <div class="form-group col-md-3">
-                            @Html.Label("Teléfono #2", htmlAttributes: new { @class = "control-label col-md-6" })
+                            @Html.Label("Teléfono #2", htmlAttributes: new { @class = "control-label col-md-12",@style="text-align:left;" })
 
                             @Html.EditorFor(model => model.telefono2, new { htmlAttributes = new { @class = "form-control", @placeholder = "(999) 999-9999" } })
                             @Html.ValidationMessageFor(model => model.telefono2, "", new { @class = "text-danger" })
@@ -122,21 +122,21 @@
 
                         </div>
 
-
-
-
                         <div class="form-group col-md-4" style="width:26%;">
-                            @Html.Label("Email", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.Label("Limite de Tiempo", htmlAttributes: new { @class = "control-label col-md-12",@style="text-align:left;" })
 
-                            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.LimiteTiempo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LimiteTiempo, "", new { @class = "text-danger" })
 
                         </div>
 
 
+                      
+
+
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-3">
                             @Html.LabelFor(model => model.NCF, htmlAttributes: new { @class = "control-label col-md-2" })
 
                             <select name="NCF" id="NCF" class="form-control">
@@ -150,11 +150,11 @@
 
 
 
-                        <div class="form-group col-md-5">
-                            @Html.Label("Limite de Tiempo", htmlAttributes: new { @class = "control-label col-md-5" })
+                        <div class="form-group col-md-7" >
+                            @Html.Label("Email", htmlAttributes: new { @class = "control-label col-md-2" })
 
-                            @Html.EditorFor(model => model.LimiteTiempo, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.LimiteTiempo, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
 
                         </div>
                     </div>
@@ -301,6 +301,22 @@
 
     $(document).keyup(function (tecla) {
         if (tecla.keyCode == 27) {
+            var value = $("#creditoaprobado").val();
+            if (value.indexOf(',') != -1) {
+                $("#creditoaprobado").val(value.replace(/,/g, ''));
+            }
+            if (value.indexOf('$') != -1) {
+                $("#creditoaprobado").val(value.replace(/\$/g, ""));
+            }
+
+            var value = $("#creditoaprobado").val();
+            if (value.indexOf(',') != -1) {
+                $("#creditoaprobado").val(value.replace(/,/g, ''));
+            }
+            if (value.indexOf('$') != -1) {
+                $("#creditoaprobado").val(value.replace(/\$/g, ""));
+            }
+
             $("#myForm").submit();
 
         }
@@ -318,7 +334,7 @@
 
     });
 
-
+    //todo estos metodos para leer las imagenes y convertirla a formato base64 de manera que se puedan subir como un string a la base de datos sql.
 
 </script>
 <script>

@@ -266,3 +266,14 @@ th {
     margin-top: -60px;
     width: 136%;
 }
+.isDisabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.isDisabled {
+    color: currentColor;
+    display: inline-block; /* For IE11/ MS Edge bug */
+    pointer-events: none;
+    text-decoration: none;
+}

@@ -17,12 +17,24 @@ namespace SpointLiteVersion.Controllers
         // GET: itbis
         public ActionResult Index()
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             return View(db.itbis.ToList());
         }
 
         // GET: itbis/Details/5
         public ActionResult Details(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,6 +50,12 @@ namespace SpointLiteVersion.Controllers
         // GET: itbis/Create
         public ActionResult Create()
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             return View();
         }
 
@@ -50,6 +68,10 @@ namespace SpointLiteVersion.Controllers
         {
             if (ModelState.IsValid)
             {
+                var usuarioid = Session["userid"].ToString();
+                var empresaid = Session["empresaid"].ToString();
+                itbis.usuarioid = Convert.ToInt32(usuarioid);
+                itbis.empresaid = Convert.ToInt32(empresaid);
                 db.itbis.Add(itbis);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -61,6 +83,12 @@ namespace SpointLiteVersion.Controllers
         // GET: itbis/Edit/5
         public ActionResult Edit(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

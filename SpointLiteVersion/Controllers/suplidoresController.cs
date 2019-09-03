@@ -18,12 +18,27 @@ namespace SpointLiteVersion.Controllers
         public ActionResult Index()
         {
 
-            return View(db.suplidores.Where(m=>m.Status=="1").ToList());
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+            return View(db.suplidores.Where(m=>m.Status=="1" && m.empresaid==empresaid1).ToList());
         }
 
         // GET: suplidores/Details/5
         public ActionResult Details(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +54,12 @@ namespace SpointLiteVersion.Controllers
         // GET: suplidores/Create
         public ActionResult Create(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 ViewBag.TipoSuplidor = new SelectList(db.TipoSuplidor, "idTipoSuplidor", "Nombre");
@@ -102,7 +123,10 @@ namespace SpointLiteVersion.Controllers
                         suplidores.Personafisica = suplidores.Personafisica.ToUpper();
                     }
                     suplidores.Status = "1";
-
+                    var usuarioid = Session["userid"].ToString();
+                    var empresaid = Session["empresaid"].ToString();
+                    suplidores.usuarioid = Convert.ToInt32(usuarioid);
+                    suplidores.empresaid = Convert.ToInt32(empresaid);
                     db.Entry(suplidores).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -129,7 +153,10 @@ namespace SpointLiteVersion.Controllers
                         suplidores.Personafisica = suplidores.Personafisica.ToUpper();
                     }
                     suplidores.Status = "1";
-
+                    var usuarioid = Session["userid"].ToString();
+                    var empresaid = Session["empresaid"].ToString();
+                    suplidores.usuarioid = Convert.ToInt32(usuarioid);
+                    suplidores.empresaid = Convert.ToInt32(empresaid);
                     db.suplidores.Add(suplidores);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -141,6 +168,12 @@ namespace SpointLiteVersion.Controllers
         // GET: suplidores/Edit/5
         public ActionResult Edit(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -172,6 +205,12 @@ namespace SpointLiteVersion.Controllers
         // GET: suplidores/Delete/5
         public ActionResult Delete(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

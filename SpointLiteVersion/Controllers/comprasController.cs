@@ -17,12 +17,27 @@ namespace SpointLiteVersion.Controllers
         // GET: compras
         public ActionResult Index()
         {
-            return View(db.compras.ToList());
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+            return View(db.compras.Where(m=>m.empresaid==empresaid1).ToList());
         }
 
         // GET: compras/Details/5
         public ActionResult Details(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,6 +53,15 @@ namespace SpointLiteVersion.Controllers
         // GET: compras/Create
         public ActionResult Create(int? id)
         {
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 var m = 1;
@@ -49,8 +73,8 @@ namespace SpointLiteVersion.Controllers
                     m++;
                 };
 
-                ViewBag.producto = new SelectList(db.productos.Where(re=>re.Status=="1"), "idProducto", "Descripcion");
-                ViewBag.suplidor = new SelectList(db.suplidores.Where(re => re.Status == "1"), "idSuplidor", "nombre");
+                ViewBag.producto = new SelectList(db.productos.Where(re=>re.Status=="1" && re.empresaid==empresaid1), "idProducto", "Descripcion");
+                ViewBag.suplidor = new SelectList(db.suplidores.Where(re => re.Status == "1" && re.empresaid==empresaid1), "idSuplidor", "nombre");
 
                 var codigo = "COMP000" + m;
                 var o = (from n in db.compras where n.NoCompra == codigo select n).Count();
@@ -65,9 +89,9 @@ namespace SpointLiteVersion.Controllers
                 }
 
                 return View();
-            }
-            ViewBag.producto = new SelectList(db.productos.Where(re => re.Status == "1"), "idProducto", "Descripcion");
-            ViewBag.suplidor = new SelectList(db.suplidores.Where(re => re.Status == "1"), "idSuplidor", "nombre");
+            } 
+            ViewBag.producto = new SelectList(db.productos.Where(re => re.Status == "1" && re.empresaid==empresaid1), "idProducto", "Descripcion");
+            ViewBag.suplidor = new SelectList(db.suplidores.Where(re => re.Status == "1" && re.empresaid==empresaid1), "idSuplidor", "nombre");
             return View();
         }
         public JsonResult Getproducto(string idproducto)
@@ -99,6 +123,12 @@ namespace SpointLiteVersion.Controllers
         // GET: compras/Edit/5
         public ActionResult Edit(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -130,6 +160,12 @@ namespace SpointLiteVersion.Controllers
         // GET: compras/Delete/5
         public ActionResult Delete(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -143,6 +179,10 @@ namespace SpointLiteVersion.Controllers
         }
         public ActionResult PDf(string fecha, string nocompra, string observacion, string suplidor, string Total, List<DetalleCompra> ListadoDetalle)
         {
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+           var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
             string mensaje = "";
             var comprobar = new Inventario() ;
             foreach (var data in ListadoDetalle)
@@ -178,7 +218,8 @@ namespace SpointLiteVersion.Controllers
                 compras.Observacion = observacion.ToUpper();
                 compras.NoCompra = nocompra;
                 compras.Total = Convert.ToDecimal(Total);
-
+                compras.empresaid = empresaid1;
+                compras.usuarioid = usuarioid1;
                 db.compras.Add(compras);
                 db.SaveChanges();
                 int id = compras.idcompra;
@@ -211,7 +252,7 @@ namespace SpointLiteVersion.Controllers
                             decimal total = Convert.ToDecimal(data.importe.ToString());
                             string descripcion1 = data.descripcion.ToString();
                             decimal precio1 = Convert.ToDecimal(data.costo.ToString());
-                            DetalleCompra objDetalleVenta = new DetalleCompra(idProducto, id, cantidad, descripcion1, precio1, total, Convert.ToDateTime(fecha), "COMPRA");
+                            DetalleCompra objDetalleVenta = new DetalleCompra(idProducto, id, cantidad, descripcion1, precio1, total, Convert.ToDateTime(fecha), "COMPRA",empresaid1,usuarioid1,1);
                             Session["idVenta"] = idventa;
 
                             db.DetalleCompra.Add(objDetalleVenta);

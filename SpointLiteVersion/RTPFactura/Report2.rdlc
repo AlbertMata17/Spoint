@@ -834,7 +834,7 @@
         <Top>1.61941in</Top>
         <Left>0.56042in</Left>
         <Height>0.19792in</Height>
-        <Width>1in</Width>
+        <Width>2.73958in</Width>
         <ZIndex>9</ZIndex>
         <Style>
           <Border>
@@ -883,7 +883,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>DualSoft:</Value>
+                <Value>=First(Fields!Nombre.Value, "DataSet1")</Value>
                 <Style>
                   <FontSize>8pt</FontSize>
                   <FontWeight>Bold</FontWeight>
@@ -891,15 +891,15 @@
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Left</TextAlign>
+              <TextAlign>Center</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox23</rd:DefaultName>
-        <Top>0.6576in</Top>
-        <Left>2.96226in</Left>
-        <Height>0.19792in</Height>
-        <Width>0.78611in</Width>
+        <Top>0.48399in</Top>
+        <Left>1.52416in</Left>
+        <Height>0.17014in</Height>
+        <Width>3.49058in</Width>
         <ZIndex>11</ZIndex>
         <Style>
           <Border>
@@ -908,7 +908,7 @@
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
+          <PaddingBottom>0.5pt</PaddingBottom>
         </Style>
       </Textbox>
       <Textbox Name="Textbox34">
@@ -987,7 +987,75 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Moca, República Dominicana</Value>
+                <Value>=First(Fields!direccion.Value, "DataSet1")</Value>
+                <Style>
+                  <FontSize>8pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox23</rd:DefaultName>
+        <Top>0.66802in</Top>
+        <Left>1.51027in</Left>
+        <Height>0.17014in</Height>
+        <Width>3.49058in</Width>
+        <ZIndex>14</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingBottom>0.5pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox37">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Tel.:</Value>
+                <Style>
+                  <FontSize>8pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox23</rd:DefaultName>
+        <Top>0.86594in</Top>
+        <Left>2.05291in</Left>
+        <Height>0.19792in</Height>
+        <Width>0.35903in</Width>
+        <ZIndex>15</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox38">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!telefono.Value, "DataSet1")</Value>
                 <Style>
                   <FontSize>8pt</FontSize>
                   <FontWeight>Bold</FontWeight>
@@ -1000,18 +1068,83 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox23</rd:DefaultName>
-        <Top>0.89719in</Top>
-        <Left>2.42583in</Left>
+        <Top>0.86594in</Top>
+        <Left>2.41194in</Left>
         <Height>0.19792in</Height>
-        <Width>1.76497in</Width>
-        <ZIndex>14</ZIndex>
+        <Width>0.7643in</Width>
+        <ZIndex>16</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox39">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!RNC.Value, "DataSet1")</Value>
+                <Style>
+                  <FontSize>8pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox23</rd:DefaultName>
+        <Top>0.86594in</Top>
+        <Left>3.58865in</Left>
+        <Height>0.19792in</Height>
+        <Width>1.4122in</Width>
+        <ZIndex>17</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox40">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>RNC :</Value>
+                <Style>
+                  <FontSize>8pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox23</rd:DefaultName>
+        <Top>0.86594in</Top>
+        <Left>3.16235in</Left>
+        <Height>0.19792in</Height>
+        <Width>0.39852in</Width>
+        <ZIndex>18</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
@@ -1141,7 +1274,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=First(Fields!itbis.Value, "DataSet1")</Value>
+                  <Value>=First(Fields!totalitbis.Value, "DataSet1")</Value>
                   <Style>
                     <FontSize>8pt</FontSize>
                     <Format>#,0.00;(#,0.00)</Format>
@@ -1174,7 +1307,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=First(Fields!totaldescuento.Value, "DataSet1")</Value>
+                  <Value>=First(Fields!Total1.Value, "DataSet1")</Value>
                   <Style>
                     <FontSize>8pt</FontSize>
                     <Format>#,0.00;(#,0.00)</Format>
@@ -1366,9 +1499,9 @@
           <DataField>idventa</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="idproducto">
-          <DataField>idproducto</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+        <Field Name="Ref">
+          <DataField>Ref</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="descripcion">
           <DataField>descripcion</DataField>
@@ -1402,6 +1535,14 @@
           <DataField>totaldescuento</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="empresaid">
+          <DataField>empresaid</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="usuarioid">
+          <DataField>usuarioid</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
         <Field Name="idfactura1">
           <DataField>idfactura1</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -1422,10 +1563,6 @@
           <DataField>vendedor</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="producto">
-          <DataField>producto</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="precio1">
           <DataField>precio1</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
@@ -1441,6 +1578,54 @@
         <Field Name="Total1">
           <DataField>Total1</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="idcliente">
+          <DataField>idcliente</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="totalitbis">
+          <DataField>totalitbis</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="empresaid1">
+          <DataField>empresaid1</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="usuarioid1">
+          <DataField>usuarioid1</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="IdEmpresa">
+          <DataField>IdEmpresa</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RNC">
+          <DataField>RNC</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="telefono">
+          <DataField>telefono</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="direccion">
+          <DataField>direccion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoEmpresa">
+          <DataField>TipoEmpresa</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="usuarioid2">
+          <DataField>usuarioid2</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>

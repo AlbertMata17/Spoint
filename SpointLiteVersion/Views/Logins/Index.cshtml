@@ -1,0 +1,45 @@
+﻿@model IEnumerable<RentCar.Models.Login>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { @class = "btn btn-primary" })
+</p>
+<table class="table table-striped">
+    <tr class="thead-dark">
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Privilegio)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Privilegio)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.LoginId }, new { @class = "btn btn-success" }) 
+            @Html.ActionLink("Details", "Details", new { id=item.LoginId }, new { @class = "btn btn-primary" }) 
+            @Html.ActionLink("Delete", "Delete", new { id=item.LoginId }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

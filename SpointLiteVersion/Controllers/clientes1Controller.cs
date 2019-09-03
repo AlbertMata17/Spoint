@@ -17,13 +17,29 @@ namespace SpointLiteVersion.Controllers
         // GET: clientes1
         public ActionResult Index()
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+
             var clientes = db.clientes.Include(c => c.ciudad);
-            return View(clientes.ToList());
+            return View(clientes.Where(m=>m.Status=="1" && m.empresaid==empresaid1).ToList());
         }
 
         // GET: clientes1/Details/5
         public ActionResult Details(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -46,9 +62,19 @@ namespace SpointLiteVersion.Controllers
         // GET: clientes1/Create
         public ActionResult Create(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
             if (id == null)
             {
-                ViewBag.idciudad = new SelectList(db.ciudad, "idciudad", "Nombre");
+
+                ViewBag.idciudad = new SelectList(db.ciudad.Where(m=>m.empresaid==empresaid1), "idciudad", "Nombre");
                 return View();
 
             }
@@ -60,7 +86,7 @@ namespace SpointLiteVersion.Controllers
 
             if (id != null)
             {
-                ViewBag.idciudad = new SelectList(db.ciudad, "idciudad", "Nombre", clientes.idciudad);
+                ViewBag.idciudad = new SelectList(db.ciudad.Where(m=>m.empresaid==empresaid1), "idciudad", "Nombre", clientes.idciudad);
                 ViewBag.id = "algo";
                 ViewBag.foto = clientes.Foto;
 
@@ -98,7 +124,10 @@ namespace SpointLiteVersion.Controllers
                         clientes.Observaciones = clientes.Observaciones.ToUpper();
                     }
                     clientes.Status = "1";
-
+                    var usuarioid = Session["userid"].ToString();
+                    var empresaid = Session["empresaid"].ToString();
+                    clientes.usuarioid = Convert.ToInt32(usuarioid);
+                    clientes.empresaid = Convert.ToInt32(empresaid);
                     db.Entry(clientes).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -125,6 +154,10 @@ namespace SpointLiteVersion.Controllers
                         clientes.Observaciones = clientes.Observaciones.ToUpper();
                     }
                     clientes.Status = "1";
+                    var usuarioid = Session["userid"].ToString();
+                    var empresaid = Session["empresaid"].ToString();
+                    clientes.usuarioid = Convert.ToInt32(usuarioid);
+                    clientes.empresaid = Convert.ToInt32(empresaid);
                     db.clientes.Add(clientes);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -158,6 +191,12 @@ namespace SpointLiteVersion.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "idCliente,nombre,telefono,telefono2,idciudad,creditoaprobado,cedula,direccion,email,fechanacimiento,NCF,Observaciones,LimiteTiempo")] clientes clientes)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(clientes).State = EntityState.Modified;
@@ -171,6 +210,12 @@ namespace SpointLiteVersion.Controllers
         // GET: clientes1/Delete/5
         public ActionResult Delete(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

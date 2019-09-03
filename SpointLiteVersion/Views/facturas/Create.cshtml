@@ -347,6 +347,7 @@
     <a class="imprimir btn btn-danger" href="~/facturas/reporteActual" target="_blank"> <i class="fas fa-print"></i> Imprimir</a>
     <a href="@Url.Action("Create","facturas")" class="btn btn-info"> Nueva Venta</a>
     <button id="cotizar" class="btn btn-success">Cotizar</button>
+    <button id="prefactura" class="btn btn-success">Prefactura</button>
 
     @*<a class="imprimir btn btn-danger" href="#" id="cotizar" target="_blank"> <i class="fas fa-print"></i> Cotizar</a>*@
 
@@ -1051,6 +1052,114 @@
 
     });
 </script>
+@*prefacturas*@
+
+<script>
+
+    $(document).ready(function () {
+        var myTable = document.getElementById("detalle");
+        myTable.oldHTML = myTable.innerHTML;
+
+        $("a[rel='pop-up']").click(function () {
+            var caracteristicas = "height=550,width=1000,scrollTo,resizable=1,scrollbars=1,location=0";
+            nueva = window.open(this.href, 'popup', caracteristicas);
+
+
+            return false;
+        });
+        //botones
+        $("#prefactura").click(function () {
+            //alertify.alert("Boton Iniciado");
+            //console.info('hola');
+
+            var i = 0;
+            var envio = "{fecha:'" + $("#fecha").val() + "',creditos:'" + $("#creditosaprobados").val() + "',observacion:'" + $("#observacion").val() + "',itbisdado:'" + $("#itbisdado").val().replace("$", "").replace(",", "") +"',idcliente:'" + $("#cliente1 option[value='" + $('#cliente').val() + "']").attr('data-id')+ "',cliente:'" + $("#cliente").val() + "',vendedor:'" + $("#vendedor").val()  + "',precio:'" + $("#precio").val().replace("$", "").replace(",", "") + "',credito:'" + $("#credito").val() + "',IdCabecera:'2',Total:'" + $('#TotalaPagar').val().replace("$", "").replace(",", "") + "',";
+            $("#detalle tbody tr").each(function (index) {
+                if (i == 0) {
+                    envio += "ListadoDetalle:[{Ref:'" + $(this).find('td').eq(0).text() +
+                        "',cantidad:'" + $(this).find('td').eq(2).text() +
+                        "',descripcion:'" + $(this).find('td').eq(1).text() +
+                        "',precio:'" + $(this).find('td').eq(3).text().replace("$", "").replace(",", "") +
+                        "',itbis:'" + $(this).find('td').eq(5).text().replace("$", "").replace(",", "") +
+                        "',total:'" + document.getElementById("TotalaPagar").value.replace("$", "").replace(",", "") +
+                        "',totaldescuento:'" + document.getElementById("descuentos").value.replace("$", "").replace(",","") +
+                        "',descuento:'" + $(this).find('td').eq(4).text().replace("$", "").replace(",", "") +
+                        "',importe:'" + $(this).find('td').eq(7).text().replace("$", "").replace(",", "") + "'}";
+
+                } else {
+                    envio += ",{Ref:'" + $(this).find('td').eq(0).text() +
+                        "',cantidad:'" + $(this).find('td').eq(2).text() +
+                        "',descripcion:'" + $(this).find('td').eq(1).text() +
+                        "',precio:'" + $(this).find('td').eq(3).text().replace("$", "").replace(",", "") +
+                        "',itbis:'" + $(this).find('td').eq(5).text().replace("$", "").replace(",", "") +
+                        "',total:'" + document.getElementById("TotalaPagar").value.replace("$", "").replace(",", "") +
+                        "',totaldescuento:'" + document.getElementById("descuentos").value.replace("$", "").replace(",", "") +
+                        "',descuento:'" + $(this).find('td').eq(4).text().replace("$", "").replace(",", "") +
+                        "',importe:'" + $(this).find('td').eq(7).text().replace("$", "").replace(",", "") + "'}"
+                }
+                i = 1;
+            });
+            envio += "]}";
+
+            var json = eval("(" + envio + ')');
+
+            //alertify.alert("INGRESE DATOS");
+            console.info(json);
+        var miUrl = '@Url.Action("prefactura", "facturas")'
+
+            $.ajax({
+                url: miUrl,
+                data: JSON.stringify(json),
+                type: "POST",
+                async: false,//this makes the ajax-call blocking
+                contentType: 'application/json;charset=UTF-8',
+                dataType: 'json',
+                success: function (response) {
+                    alertify.alert(response);
+
+                        //Swal.fire({
+                        //    position: 'center',
+                        //    title: response,
+                        //    showConfirmButton: false,
+                        //    timer: 1500
+
+                        //})
+
+                    valid = response.valid;
+                    if (response == "PREFACTURA GUARDADA CON EXITO...") {
+                        limpiar();
+                        if ($("#cliente").val() != "" || $("#vendedor").val() != "") {
+                            $("#Suplidor").val("");
+                            myTable.innerHTML = myTable.oldHTML;
+                            $("#TotalaPagar").val(0);
+                            $("#itbisdado").val(0);
+                            $("#descuentos").val(0);
+                            $("#subtotal").val(0);
+
+                            total = 0;
+                            valor = 0;
+                        }
+                    }
+
+                },
+                error: function (error) {
+                    alertify.alert(error);
+                    //Swal.fire({
+                    //    position: 'top-end',
+                    //    type: 'success',
+                    //    title: error,
+                    //    showConfirmButton: false,
+                    //    timer: 1500
+                    //})
+
+                }
+            });
+
+        });
+
+    });
+</script>
+@*finalizar prefacturas*@
 
 @*para realizar las cotizaciones de aqui en adelante*@
 @*hola*@

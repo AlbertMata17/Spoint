@@ -28,7 +28,11 @@ namespace SpointLiteVersion.Models
         public string status { get; set; }
         public Nullable<int> cantidad { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
+        public Nullable<int> empresaid { get; set; }
+        public Nullable<int> usuarioid { get; set; }
     
         public virtual productos productos { get; set; }
+        public virtual Empresa Empresa { get; set; }
+        public virtual Login Login { get; set; }
     }
 }

@@ -33,9 +33,13 @@ namespace SpointLiteVersion.Models
         public string Foto { get; set; }
         public string Status { get; set; }
         public Nullable<int> cantidad { get; set; }
+        public Nullable<int> empresaid { get; set; }
+        public Nullable<int> usuarioid { get; set; }
     
-        public virtual tiposproductos tiposproductos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Inventario> Inventario1 { get; set; }
+        public virtual tiposproductos tiposproductos { get; set; }
+        public virtual Empresa Empresa { get; set; }
+        public virtual Login Login { get; set; }
     }
 }

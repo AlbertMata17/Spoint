@@ -25,7 +25,11 @@ namespace SpointLiteVersion.Models
         public Nullable<int> TipoSuplidor { get; set; }
         public Nullable<int> LimiteTiempo { get; set; }
         public string Personafisica { get; set; }
+        public Nullable<int> empresaid { get; set; }
+        public Nullable<int> usuarioid { get; set; }
     
         public virtual TipoSuplidor TipoSuplidor1 { get; set; }
+        public virtual Empresa Empresa { get; set; }
+        public virtual Login Login { get; set; }
     }
 }

@@ -19,16 +19,40 @@ namespace SpointLiteVersion.Controllers
         // GET: productos1
         public ActionResult Index()
         {
-            var productos = db.productos.Include(p => p.tiposproductos).Where(m=>m.Status=="1");
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+          var usuarioid1 = Convert.ToInt32(usuarioid);
+           var empresaid1 = Convert.ToInt32(empresaid);
+            var productos = db.productos.Include(p => p.tiposproductos).Where(m=>m.Status=="1" && m.empresaid==empresaid1 && m.usuarioid==usuarioid1 );
             return View(productos.ToList());
         }
         public ActionResult DatosDetalle(string id)
         {
 
-            return View(db.DetalleCompra.Where(m=>m.codproducto==id).ToList());
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+
+            return View(db.DetalleCompra.Where(m=>m.codproducto==id && m.estatus==1 && m.empresaid==empresaid1).ToList());
         }
         public ActionResult DatosMostrarInventario()
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             return View();
         }
         public JsonResult Getprod(int? idproducto)
@@ -41,7 +65,16 @@ namespace SpointLiteVersion.Controllers
         }
         public ActionResult Inventario()
         {
-            return View(db.Inventario.Where(inventario=>inventario.status=="1").ToList());
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+            return View(db.Inventario.Where(inventario=>inventario.status=="1" && inventario.empresaid==empresaid1).ToList());
         }
         public JsonResult Getproducto()
         {
@@ -63,6 +96,12 @@ namespace SpointLiteVersion.Controllers
         // GET: productos1/Details/5
         public ActionResult Details(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -78,6 +117,16 @@ namespace SpointLiteVersion.Controllers
         // GET: productos1/Create
         public ActionResult Create(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+
             if (id == null)
             {
                 var m = 1;
@@ -89,7 +138,7 @@ namespace SpointLiteVersion.Controllers
                     };
                 
                 
-                ViewBag.idtipo = new SelectList(db.tiposproductos, "idtipoproducto", "nombre");
+                ViewBag.idtipo = new SelectList(db.tiposproductos.Where(datos=>datos.empresaid==empresaid1), "idtipoproducto", "nombre");
                 ViewBag.itbis = new SelectList(db.itbis, "valor", "valor");
                 var codigo= "PROD000" + m;
                 var o = (from n in db.productos where n.CodProducto == codigo select n).Count();
@@ -112,7 +161,7 @@ namespace SpointLiteVersion.Controllers
 
             if (id != null)
             {
-                ViewBag.idtipo = new SelectList(db.tiposproductos, "idtipoproducto", "nombre", productos.idtipo);
+                ViewBag.idtipo = new SelectList(db.tiposproductos.Where(datos=>datos.empresaid==empresaid1), "idtipoproducto", "nombre", productos.idtipo);
                 ViewBag.itbis = new SelectList(db.itbis, "valor", "valor", productos.itbis);
                 ViewBag.invent = (from s in db.productos where s.idProducto == id select s.Inventario).FirstOrDefault();
             
@@ -132,7 +181,11 @@ namespace SpointLiteVersion.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "idProducto,codigobarra,Descripcion,idtipo,Precio,itbis,costo,nota,Inventario,CodProducto,Foto")] productos productos)
         {
-
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+  
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
             var t = (from s in db.productos where s.idProducto==productos.idProducto select s.idProducto).Count();
 
             if (t != 0)
@@ -166,6 +219,10 @@ namespace SpointLiteVersion.Controllers
                   
                     
                     productos.Status = "1";
+                   
+                    productos.usuarioid = Convert.ToInt32(usuarioid);
+                    productos.empresaid = Convert.ToInt32(empresaid);
+                   
                     if (productos.Inventario == "si")
                     {
                         if ((from a in db.Inventario where a.idProducto == productos.idProducto select a).FirstOrDefault() != null)
@@ -190,7 +247,9 @@ namespace SpointLiteVersion.Controllers
                            
                             q.Foto = productos.Foto;
                             q.status = productos.Status;
-                            db.SaveChanges();
+                            q.empresaid = empresaid1;
+                            q.usuarioid = usuarioid1;
+
                         }
                         else if((from a in db.Inventario where a.idProducto == productos.idProducto select a).FirstOrDefault() == null)
                         {
@@ -207,6 +266,8 @@ namespace SpointLiteVersion.Controllers
                                 invent.CodigoProducto = productos.CodProducto;
                                 invent.Foto = productos.Foto;
                                 invent.status = productos.Status;
+                                invent.empresaid = empresaid1;
+                                invent.usuarioid = usuarioid1;
                                 if (invent.cantidad <= 0)
                                 {
                                     invent.cantidad = 0;
@@ -248,6 +309,9 @@ namespace SpointLiteVersion.Controllers
                     }
                     productos.Status = "1";
                     productos.cantidad = 0;
+                   
+                    productos.usuarioid = Convert.ToInt32(usuarioid);
+                    productos.empresaid = Convert.ToInt32(empresaid);
                     if (productos.Inventario == "si")
                     {
                         Inventario invent = new Inventario();
@@ -262,6 +326,10 @@ namespace SpointLiteVersion.Controllers
                         invent.Foto = productos.Foto;
                         invent.status = productos.Status;
                         invent.cantidad = productos.cantidad;
+                        productos.usuarioid = productos.usuarioid;
+                        productos.empresaid = productos.empresaid;
+                        invent.empresaid = empresaid1;
+                        invent.usuarioid = usuarioid1;
                         db.Inventario.Add(invent);
                     }
                     db.productos.Add(productos);
@@ -277,6 +345,12 @@ namespace SpointLiteVersion.Controllers
         // GET: productos1/Edit/5
         public ActionResult Edit(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -310,6 +384,12 @@ namespace SpointLiteVersion.Controllers
         // GET: productos1/Delete/5
         public ActionResult Delete(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

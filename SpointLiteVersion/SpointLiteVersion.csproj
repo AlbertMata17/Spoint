@@ -161,6 +161,7 @@
     <Compile Include="Controllers\facturasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\itbisController.cs" />
+    <Compile Include="Controllers\LoginsController.cs" />
     <Compile Include="Controllers\NCFsController.cs" />
     <Compile Include="Controllers\productos1Controller.cs" />
     <Compile Include="Controllers\productosController.cs" />
@@ -181,6 +182,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet\DataSet3.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet3.xsd</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -203,7 +209,13 @@
     <Compile Include="Models\DetalleCotizacion.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DetallePrefactura.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DetalleVenta.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Empresa.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\facturas.cs">
@@ -213,6 +225,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\itbis.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Login.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model1.Context.cs">
@@ -235,10 +250,16 @@
     <Compile Include="Models\NCF.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\prefactura.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\productos.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_reporte_cotizacion_back_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_reporte_prefactura_back_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_reporte_venta_back_Result.cs">
@@ -263,6 +284,13 @@
     </Compile>
     <Compile Include="RTPFactura\cotizar.aspx.designer.cs">
       <DependentUpon>cotizar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RTPFactura\prefactura.aspx.cs">
+      <DependentUpon>prefactura.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RTPFactura\prefactura.aspx.designer.cs">
+      <DependentUpon>prefactura.aspx</DependentUpon>
     </Compile>
     <Compile Include="RTPFactura\WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
@@ -6606,6 +6634,51 @@
     <Content Include="Content\dist\js\pages\dashboard.js" />
     <Content Include="Content\dist\js\pages\dashboard2.js" />
     <Content Include="Content\estilosimprimir.css" />
+    <Content Include="Content\Login\css\main.css" />
+    <Content Include="Content\Login\css\util.css" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\css\font-awesome.css" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="Content\Login\fonts\Linearicons-Free-v1.0.0\icon-font.min.css" />
+    <Content Include="Content\Login\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.svg" />
+    <Content Include="Content\Login\images\bg-01.jpg" />
+    <Content Include="Content\Login\images\icons\favicon.ico" />
+    <Content Include="Content\Login\images\icons\map-marker.png" />
+    <Content Include="Content\Login\images\logo2.png" />
+    <Content Include="Content\Login\images\spoint.png" />
+    <Content Include="Content\Login\js\main.js" />
+    <Content Include="Content\Login\js\map-custom.js" />
+    <Content Include="Content\Login\vendor\animate\animate.css" />
+    <Content Include="Content\Login\vendor\animsition\css\animsition.css" />
+    <Content Include="Content\Login\vendor\animsition\css\animsition.min.css" />
+    <Content Include="Content\Login\vendor\animsition\js\animsition.js" />
+    <Content Include="Content\Login\vendor\animsition\js\animsition.min.js" />
+    <Content Include="Content\Login\vendor\bootstrap\css\bootstrap-grid.css" />
+    <Content Include="Content\Login\vendor\bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="Content\Login\vendor\bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="Content\Login\vendor\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="Content\Login\vendor\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\Login\vendor\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\Login\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\Login\vendor\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\Login\vendor\bootstrap\js\popper.js" />
+    <Content Include="Content\Login\vendor\bootstrap\js\popper.min.js" />
+    <Content Include="Content\Login\vendor\bootstrap\js\tooltip.js" />
+    <Content Include="Content\Login\vendor\countdowntime\countdowntime.js" />
+    <Content Include="Content\Login\vendor\css-hamburgers\hamburgers.css" />
+    <Content Include="Content\Login\vendor\css-hamburgers\hamburgers.min.css" />
+    <Content Include="Content\Login\vendor\daterangepicker\daterangepicker.css" />
+    <Content Include="Content\Login\vendor\daterangepicker\daterangepicker.js" />
+    <Content Include="Content\Login\vendor\daterangepicker\moment.js" />
+    <Content Include="Content\Login\vendor\daterangepicker\moment.min.js" />
+    <Content Include="Content\Login\vendor\jquery\jquery-3.2.1.min.js" />
+    <Content Include="Content\Login\vendor\perfect-scrollbar\perfect-scrollbar.css" />
+    <Content Include="Content\Login\vendor\perfect-scrollbar\perfect-scrollbar.min.js" />
+    <Content Include="Content\Login\vendor\select2\select2.css" />
+    <Content Include="Content\Login\vendor\select2\select2.js" />
+    <Content Include="Content\Login\vendor\select2\select2.min.css" />
+    <Content Include="Content\Login\vendor\select2\select2.min.js" />
     <Content Include="Content\NumeralFormatter.js" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\plugins\bootstrap-slider\bootstrap-slider.js" />
@@ -7386,6 +7459,7 @@
     <Content Include="Rotativa\wkhtmltoimage.exe" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="RTPFactura\cotizar.aspx" />
+    <Content Include="RTPFactura\prefactura.aspx" />
     <Content Include="RTPFactura\WebForm1.aspx" />
     <Content Include="Scripts\alertify\alertify.js" />
     <Content Include="Scripts\alertify\alertify.min.js" />
@@ -7462,6 +7536,67 @@
     <Content Include="DataSet\DataSet1.xsc">
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Content>
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\fonts\FontAwesome.otf" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\less\animated.less" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\less\core.less" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\less\fixed-width.less" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\less\font-awesome.less" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\less\icons.less" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\less\larger.less" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\less\list.less" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\less\mixins.less" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\less\path.less" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\less\screen-reader.less" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\less\stacked.less" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\less\variables.less" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\scss\_animated.scss" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\scss\_core.scss" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\scss\_icons.scss" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\scss\_larger.scss" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\scss\_list.scss" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\scss\_path.scss" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
+    <Content Include="Content\Login\fonts\font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="Content\Login\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.eot" />
+    <Content Include="Content\Login\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.ttf" />
+    <Content Include="Content\Login\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.woff" />
+    <Content Include="Content\Login\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.woff2" />
+    <Content Include="Content\Login\fonts\poppins\Poppins-Black.ttf" />
+    <Content Include="Content\Login\fonts\poppins\Poppins-BlackItalic.ttf" />
+    <Content Include="Content\Login\fonts\poppins\Poppins-Bold.ttf" />
+    <Content Include="Content\Login\fonts\poppins\Poppins-BoldItalic.ttf" />
+    <Content Include="Content\Login\fonts\poppins\Poppins-ExtraBold.ttf" />
+    <Content Include="Content\Login\fonts\poppins\Poppins-ExtraBoldItalic.ttf" />
+    <Content Include="Content\Login\fonts\poppins\Poppins-ExtraLight.ttf" />
+    <Content Include="Content\Login\fonts\poppins\Poppins-ExtraLightItalic.ttf" />
+    <Content Include="Content\Login\fonts\poppins\Poppins-Italic.ttf" />
+    <Content Include="Content\Login\fonts\poppins\Poppins-Light.ttf" />
+    <Content Include="Content\Login\fonts\poppins\Poppins-LightItalic.ttf" />
+    <Content Include="Content\Login\fonts\poppins\Poppins-Medium.ttf" />
+    <Content Include="Content\Login\fonts\poppins\Poppins-MediumItalic.ttf" />
+    <Content Include="Content\Login\fonts\poppins\Poppins-Regular.ttf" />
+    <Content Include="Content\Login\fonts\poppins\Poppins-SemiBold.ttf" />
+    <Content Include="Content\Login\fonts\poppins\Poppins-SemiBoldItalic.ttf" />
+    <Content Include="Content\Login\fonts\poppins\Poppins-Thin.ttf" />
+    <Content Include="Content\Login\fonts\poppins\Poppins-ThinItalic.ttf" />
+    <Content Include="Content\Login\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="Content\Login\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="Content\Login\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="Content\Login\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\Login\vendor\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Content\Login\vendor\bootstrap\css\bootstrap.min.css.map" />
     <None Include="DataSet\DataSet1.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -7480,6 +7615,17 @@
     </None>
     <Content Include="DataSet\DataSet2.xss">
       <DependentUpon>DataSet2.xsd</DependentUpon>
+    </Content>
+    <Content Include="DataSet\DataSet3.xsc">
+      <DependentUpon>DataSet3.xsd</DependentUpon>
+    </Content>
+    <None Include="DataSet\DataSet3.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet3.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="DataSet\DataSet3.xss">
+      <DependentUpon>DataSet3.xsd</DependentUpon>
     </Content>
     <None Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -7566,6 +7712,13 @@
     <Content Include="Views\NCFs\Edit.cshtml" />
     <Content Include="Views\NCFs\Index.cshtml" />
     <Content Include="Views\facturas\CotizacionesIndex.cshtml" />
+    <Content Include="Views\facturas\PrefacturaIndex.cshtml" />
+    <Content Include="Views\Logins\Create.cshtml" />
+    <Content Include="Views\Logins\Delete.cshtml" />
+    <Content Include="Views\Logins\Details.cshtml" />
+    <Content Include="Views\Logins\Edit.cshtml" />
+    <Content Include="Views\Logins\Index.cshtml" />
+    <Content Include="Views\Logins\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Content\bower_components\fullcalendar\dist\fullcalendar.d.ts" />
@@ -7576,6 +7729,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="RTPFactura\prefactura.rdlc" />
     <EmbeddedResource Include="RTPFactura\Report1.rdlc" />
     <EmbeddedResource Include="RTPFactura\Report2.rdlc" />
     <EmbeddedResource Include="RTPFactura\Report3.rdlc" />

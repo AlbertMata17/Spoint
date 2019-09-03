@@ -22,8 +22,12 @@ namespace SpointLiteVersion.Models
     
         public int idciudad { get; set; }
         public string Nombre { get; set; }
+        public Nullable<int> empresaid { get; set; }
+        public Nullable<int> usuarioid { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<clientes> clientes { get; set; }
+        public virtual Empresa Empresa { get; set; }
+        public virtual Login Login { get; set; }
     }
 }

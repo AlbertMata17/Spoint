@@ -17,12 +17,24 @@ namespace SpointLiteVersion.Controllers
         // GET: vendedores
         public ActionResult Index()
         {
-            return View(db.vendedores.Where(m => m.Status == "1").ToList());
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+            return View(db.vendedores.Where(m => m.Status == "1" && m.empresaid==empresaid1).ToList());
         }
 
         // GET: vendedores/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,6 +50,10 @@ namespace SpointLiteVersion.Controllers
         // GET: vendedores/Create
         public ActionResult Create(int? id)
         {
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
             if (id == null)
             {
                 return View();
@@ -74,7 +90,10 @@ namespace SpointLiteVersion.Controllers
                     vendedores.correo = vendedores.correo.ToUpper();
                     vendedores.direccion = vendedores.direccion.ToUpper();
                     vendedores.Status = "1";
-
+                    var usuarioid = Session["userid"].ToString();
+                    var empresaid = Session["empresaid"].ToString();
+                    vendedores.usuarioid = Convert.ToInt32(usuarioid);
+                    vendedores.empresaid = Convert.ToInt32(empresaid);
                     db.Entry(vendedores).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -89,7 +108,11 @@ namespace SpointLiteVersion.Controllers
                     vendedores.correo = vendedores.correo.ToUpper();
                     vendedores.direccion = vendedores.direccion.ToUpper();
                     vendedores.Status = "1";
-                        db.vendedores.Add(vendedores);
+                    var usuarioid = Session["userid"].ToString();
+                    var empresaid = Session["empresaid"].ToString();
+                    vendedores.usuarioid = Convert.ToInt32(usuarioid);
+                    vendedores.empresaid = Convert.ToInt32(empresaid);
+                    db.vendedores.Add(vendedores);
                         db.SaveChanges();
                         return RedirectToAction("Index");
                     }
@@ -100,6 +123,10 @@ namespace SpointLiteVersion.Controllers
         // GET: vendedores/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -119,6 +146,7 @@ namespace SpointLiteVersion.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "idvendedor,nombre,direccion,telefono,cedula,cumpleaños,correo")] vendedores vendedores)
         {
+
             if (ModelState.IsValid)
             {
                 db.Entry(vendedores).State = EntityState.Modified;
@@ -131,6 +159,10 @@ namespace SpointLiteVersion.Controllers
         // GET: vendedores/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

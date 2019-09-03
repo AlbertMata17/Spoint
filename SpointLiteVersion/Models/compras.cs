@@ -20,8 +20,12 @@ namespace SpointLiteVersion.Models
         public string Observacion { get; set; }
         public string Suplidor { get; set; }
         public Nullable<decimal> Total { get; set; }
+        public Nullable<int> empresaid { get; set; }
+        public Nullable<int> usuarioid { get; set; }
     
         public virtual compras compras1 { get; set; }
         public virtual compras compras2 { get; set; }
+        public virtual Empresa Empresa { get; set; }
+        public virtual Login Login { get; set; }
     }
 }

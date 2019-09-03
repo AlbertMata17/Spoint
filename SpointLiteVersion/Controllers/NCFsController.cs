@@ -17,12 +17,24 @@ namespace SpointLiteVersion.Controllers
         // GET: NCFs
         public ActionResult Index()
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             return View(db.NCF.ToList());
         }
 
         // GET: NCFs/Details/5
         public ActionResult Details(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,6 +50,12 @@ namespace SpointLiteVersion.Controllers
         // GET: NCFs/Create
         public ActionResult Create()
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             return View();
         }
 
@@ -50,6 +68,10 @@ namespace SpointLiteVersion.Controllers
         {
             if (ModelState.IsValid)
             {
+                var usuarioid = Session["userid"].ToString();
+                var empresaid = Session["empresaid"].ToString();
+                nCF.usuarioid = Convert.ToInt32(usuarioid);
+                nCF.empresaid = Convert.ToInt32(empresaid);
                 db.NCF.Add(nCF);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -61,6 +83,12 @@ namespace SpointLiteVersion.Controllers
         // GET: NCFs/Edit/5
         public ActionResult Edit(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -92,6 +120,12 @@ namespace SpointLiteVersion.Controllers
         // GET: NCFs/Delete/5
         public ActionResult Delete(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

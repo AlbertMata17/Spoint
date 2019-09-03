@@ -11,18 +11,37 @@ namespace SpointLiteVersion.Controllers
         // GET: Home
         public ActionResult Index()
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+            ViewBag.nombre = @Session["nombre"];
+
             return View();
         }
 
         // GET: Home/Details/5
         public ActionResult Details(int id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             return View();
         }
 
         // GET: Home/Create
         public ActionResult Create()
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             return View();
         }
 

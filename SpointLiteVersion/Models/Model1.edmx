@@ -11,6 +11,8 @@
           </Key>
           <Property Name="idciudad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="30" />
+          <Property Name="empresaid" Type="int" />
+          <Property Name="usuarioid" Type="int" />
         </EntityType>
         <EntityType Name="clientes">
           <Key>
@@ -31,6 +33,8 @@
           <Property Name="LimiteTiempo" Type="int" />
           <Property Name="Foto" Type="varchar(max)" />
           <Property Name="Status" Type="nchar" MaxLength="10" />
+          <Property Name="empresaid" Type="int" />
+          <Property Name="usuarioid" Type="int" />
         </EntityType>
         <EntityType Name="compras">
           <Key>
@@ -42,6 +46,8 @@
           <Property Name="Observacion" Type="varchar(max)" />
           <Property Name="Suplidor" Type="varchar(max)" />
           <Property Name="Total" Type="money" />
+          <Property Name="empresaid" Type="int" />
+          <Property Name="usuarioid" Type="int" />
         </EntityType>
         <EntityType Name="cotizacion">
           <Key>
@@ -59,6 +65,8 @@
           <Property Name="Status" Type="varchar" MaxLength="30" />
           <Property Name="idcliente" Type="int" />
           <Property Name="totalitbis" Type="money" />
+          <Property Name="empresaid" Type="int" />
+          <Property Name="usuarioid" Type="int" />
         </EntityType>
         <EntityType Name="DetalleCompra">
           <Key>
@@ -73,6 +81,9 @@
           <Property Name="importe" Type="money" />
           <Property Name="fecha" Type="date" />
           <Property Name="Tipo" Type="varchar(max)" />
+          <Property Name="empresaid" Type="int" />
+          <Property Name="usuarioid" Type="int" />
+          <Property Name="estatus" Type="int" />
         </EntityType>
         <EntityType Name="DetalleCotizacion">
           <Key>
@@ -90,6 +101,30 @@
           <Property Name="total" Type="money" />
           <Property Name="totaldescuento" Type="money" />
           <Property Name="idventa" Type="int" />
+          <Property Name="empresaid" Type="int" />
+          <Property Name="usuarioid" Type="int" />
+          <Property Name="estatus" Type="int" />
+        </EntityType>
+        <EntityType Name="DetallePrefactura">
+          <Key>
+            <PropertyRef Name="IdDetalle" />
+          </Key>
+          <Property Name="IdDetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idprefactura" Type="int" />
+          <Property Name="idventa" Type="int" />
+          <Property Name="Ref" Type="varchar(max)" />
+          <Property Name="descripcion" Type="varchar(max)" />
+          <Property Name="cantidad" Type="int" />
+          <Property Name="precio" Type="money" />
+          <Property Name="descuento" Type="money" />
+          <Property Name="itbis" Type="varchar(max)" />
+          <Property Name="importe" Type="money" />
+          <Property Name="total" Type="money" />
+          <Property Name="totaldescuento" Type="money" />
+          <Property Name="idfactura" Type="int" />
+          <Property Name="empresaid" Type="int" />
+          <Property Name="usuarioid" Type="int" />
+          <Property Name="estatus" Type="int" />
         </EntityType>
         <EntityType Name="DetalleVenta">
           <Key>
@@ -107,6 +142,20 @@
           <Property Name="importe" Type="money" />
           <Property Name="total" Type="money" />
           <Property Name="totaldescuento" Type="money" />
+          <Property Name="empresaid" Type="int" />
+          <Property Name="usuarioid" Type="int" />
+          <Property Name="estatus" Type="int" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="IdEmpresa" />
+          </Key>
+          <Property Name="IdEmpresa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar(max)" />
+          <Property Name="RNC" Type="varchar(max)" />
+          <Property Name="telefono" Type="varchar(max)" />
+          <Property Name="direccion" Type="varchar(max)" />
+          <Property Name="TipoEmpresa" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="facturas">
           <Key>
@@ -123,6 +172,9 @@
           <Property Name="Total" Type="money" />
           <Property Name="Status" Type="varchar" MaxLength="30" />
           <Property Name="idcliente" Type="int" />
+          <Property Name="totalitbis" Type="money" />
+          <Property Name="empresaid" Type="int" />
+          <Property Name="usuarioid" Type="int" />
         </EntityType>
         <EntityType Name="Inventario">
           <Key>
@@ -142,6 +194,8 @@
           <Property Name="status" Type="nchar" MaxLength="10" />
           <Property Name="cantidad" Type="int" />
           <Property Name="Fecha" Type="date" />
+          <Property Name="empresaid" Type="int" />
+          <Property Name="usuarioid" Type="int" />
         </EntityType>
         <EntityType Name="itbis">
           <Key>
@@ -149,6 +203,20 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="valor" Type="varchar(max)" />
+          <Property Name="empresaid" Type="int" />
+          <Property Name="usuarioid" Type="int" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar(max)" />
+          <Property Name="Password" Type="varchar(max)" />
+          <Property Name="Privilegio" Type="varchar(max)" />
+          <Property Name="Nombre" Type="varchar(max)" />
+          <Property Name="Apellido" Type="varchar(max)" />
+          <Property Name="empresaid" Type="int" />
         </EntityType>
         <EntityType Name="NCF">
           <Key>
@@ -158,6 +226,27 @@
           <Property Name="Tipo" Type="varchar(max)" />
           <Property Name="Estatus" Type="varchar" MaxLength="30" />
           <Property Name="NoNCF" Type="varchar(max)" />
+          <Property Name="empresaid" Type="int" />
+          <Property Name="usuarioid" Type="int" />
+        </EntityType>
+        <EntityType Name="prefactura">
+          <Key>
+            <PropertyRef Name="idprefactura" />
+          </Key>
+          <Property Name="idprefactura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="date" />
+          <Property Name="observacion" Type="varchar(max)" />
+          <Property Name="cliente" Type="varchar(max)" />
+          <Property Name="vendedor" Type="varchar(max)" />
+          <Property Name="precio" Type="money" />
+          <Property Name="credito" Type="varchar" MaxLength="10" />
+          <Property Name="idventa" Type="int" />
+          <Property Name="Total" Type="money" />
+          <Property Name="Status" Type="varchar" MaxLength="30" />
+          <Property Name="idcliente" Type="int" />
+          <Property Name="totalitbis" Type="money" />
+          <Property Name="empresaid" Type="int" />
+          <Property Name="usuarioid" Type="int" />
         </EntityType>
         <EntityType Name="productos">
           <Key>
@@ -176,6 +265,8 @@
           <Property Name="Foto" Type="varchar(max)" />
           <Property Name="Status" Type="nchar" MaxLength="10" />
           <Property Name="cantidad" Type="int" />
+          <Property Name="empresaid" Type="int" />
+          <Property Name="usuarioid" Type="int" />
         </EntityType>
         <EntityType Name="suplidores">
           <Key>
@@ -192,6 +283,8 @@
           <Property Name="TipoSuplidor" Type="int" />
           <Property Name="LimiteTiempo" Type="int" />
           <Property Name="Personafisica" Type="varchar(max)" />
+          <Property Name="empresaid" Type="int" />
+          <Property Name="usuarioid" Type="int" />
         </EntityType>
         <EntityType Name="tiposproductos">
           <Key>
@@ -199,6 +292,8 @@
           </Key>
           <Property Name="idtipoproducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar(max)" />
+          <Property Name="empresaid" Type="int" />
+          <Property Name="usuarioid" Type="int" />
         </EntityType>
         <EntityType Name="TipoSuplidor">
           <Key>
@@ -206,6 +301,8 @@
           </Key>
           <Property Name="idTipoSuplidor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar(max)" />
+          <Property Name="empresaid" Type="int" />
+          <Property Name="usuarioid" Type="int" />
         </EntityType>
         <EntityType Name="vendedores">
           <Key>
@@ -220,6 +317,8 @@
           <Property Name="correo" Type="varchar(max)" />
           <Property Name="Foto" Type="varchar(max)" />
           <Property Name="Status" Type="nchar" MaxLength="10" />
+          <Property Name="empresaid" Type="int" />
+          <Property Name="usuarioid" Type="int" />
         </EntityType>
         <Association Name="FK__DetalleCo__idcot__51300E55">
           <End Role="cotizacion" Type="Self.cotizacion" Multiplicity="0..1" />
@@ -230,6 +329,18 @@
             </Principal>
             <Dependent Role="DetalleCotizacion">
               <PropertyRef Name="idcotizacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetallePr__idfac__59C55456">
+          <End Role="prefactura" Type="Self.prefactura" Multiplicity="0..1" />
+          <End Role="DetallePrefactura" Type="Self.DetallePrefactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prefactura">
+              <PropertyRef Name="idprefactura" />
+            </Principal>
+            <Dependent Role="DetallePrefactura">
+              <PropertyRef Name="idprefactura" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -293,6 +404,90 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_su1322">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="tiposproductos" Type="Self.tiposproductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="tiposproductos">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_su132232">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="TipoSuplidor" Type="Self.TipoSuplidor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="TipoSuplidor">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_su132432">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="vendedores" Type="Self.vendedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="vendedores">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_su2">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="compras" Type="Self.compras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="compras">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_sua1222322">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_sua122322">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="prefactura" Type="Self.prefactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="prefactura">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_sua1322">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="suplidores" Type="Self.suplidores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="suplidores">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_tipo_suplidor">
           <End Role="TipoSuplidor" Type="Self.TipoSuplidor" Multiplicity="0..1" />
           <End Role="suplidores" Type="Self.suplidores" Multiplicity="*" />
@@ -317,7 +512,373 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_usua122322">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="NCF" Type="Self.NCF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="NCF">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuar1">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="DetalleCompra" Type="Self.DetalleCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="DetalleCompra">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuar12">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="DetalleCotizacion" Type="Self.DetalleCotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="DetalleCotizacion">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuar122">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="DetallePrefactura" Type="Self.DetallePrefactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="DetallePrefactura">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuar1223">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="DetalleVenta" Type="Self.DetalleVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="DetalleVenta">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuar12232">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="facturas" Type="Self.facturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="facturas">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuar122322">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="Inventario" Type="Self.Inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="Inventario">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuar2122322">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="itbis" Type="Self.itbis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="itbis">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario_empresa">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="Login" Type="Self.Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="Login">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario_empresa1">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="ciudad" Type="Self.ciudad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="ciudad">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario1">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="ciudad" Type="Self.ciudad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="ciudad">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario12">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario123">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1" />
+          <End Role="cotizacion" Type="Self.cotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="cotizacion">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid1">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="compras" Type="Self.compras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="compras">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid12">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="cotizacion" Type="Self.cotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="cotizacion">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid123">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="DetalleCompra" Type="Self.DetalleCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="DetalleCompra">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid1234">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="DetalleCotizacion" Type="Self.DetalleCotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="DetalleCotizacion">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid12345">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="DetallePrefactura" Type="Self.DetallePrefactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="DetallePrefactura">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid123456">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="DetalleVenta" Type="Self.DetalleVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="DetalleVenta">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid1234567">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="facturas" Type="Self.facturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="facturas">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid12345678">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="Inventario" Type="Self.Inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="Inventario">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid123456789">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="itbis" Type="Self.itbis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="itbis">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid12345789">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="NCF" Type="Self.NCF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="NCF">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid1245789">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="prefactura" Type="Self.prefactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="prefactura">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid24389">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="tiposproductos" Type="Self.tiposproductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="tiposproductos">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid2439">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="TipoSuplidor" Type="Self.TipoSuplidor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="TipoSuplidor">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid245789">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid24589">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="suplidores" Type="Self.suplidores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="suplidores">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid29">
+          <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+          <End Role="vendedores" Type="Self.vendedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="vendedores">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="prefacturacalc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idVenta" Type="numeric" Mode="In" />
+        </Function>
         <Function Name="sp_reporte_cotizacion_back" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idVenta" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="sp_reporte_prefactura_back" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idVenta" Type="numeric" Mode="In" />
         </Function>
         <Function Name="sp_reporte_venta_back" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -330,11 +891,15 @@
           <EntitySet Name="cotizacion" EntityType="Self.cotizacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetalleCompra" EntityType="Self.DetalleCompra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetalleCotizacion" EntityType="Self.DetalleCotizacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetallePrefactura" EntityType="Self.DetallePrefactura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetalleVenta" EntityType="Self.DetalleVenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="facturas" EntityType="Self.facturas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Inventario" EntityType="Self.Inventario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="itbis" EntityType="Self.itbis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NCF" EntityType="Self.NCF" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="prefactura" EntityType="Self.prefactura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="productos" EntityType="Self.productos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="suplidores" EntityType="Self.suplidores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tiposproductos" EntityType="Self.tiposproductos" Schema="dbo" store:Type="Tables" />
@@ -343,6 +908,10 @@
           <AssociationSet Name="FK__DetalleCo__idcot__51300E55" Association="Self.FK__DetalleCo__idcot__51300E55">
             <End Role="cotizacion" EntitySet="cotizacion" />
             <End Role="DetalleCotizacion" EntitySet="DetalleCotizacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetallePr__idfac__59C55456" Association="Self.FK__DetallePr__idfac__59C55456">
+            <End Role="prefactura" EntitySet="prefactura" />
+            <End Role="DetallePrefactura" EntitySet="DetallePrefactura" />
           </AssociationSet>
           <AssociationSet Name="FK__DetalleVe__idfac__05D8E0BE" Association="Self.FK__DetalleVe__idfac__05D8E0BE">
             <End Role="facturas" EntitySet="facturas" />
@@ -364,6 +933,34 @@
             <End Role="compras" EntitySet="compras" />
             <End Role="compras1" EntitySet="compras" />
           </AssociationSet>
+          <AssociationSet Name="fk_su1322" Association="Self.fk_su1322">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="tiposproductos" EntitySet="tiposproductos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_su132232" Association="Self.fk_su132232">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="TipoSuplidor" EntitySet="TipoSuplidor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_su132432" Association="Self.fk_su132432">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="vendedores" EntitySet="vendedores" />
+          </AssociationSet>
+          <AssociationSet Name="fk_su2" Association="Self.fk_su2">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="compras" EntitySet="compras" />
+          </AssociationSet>
+          <AssociationSet Name="fk_sua1222322" Association="Self.fk_sua1222322">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_sua122322" Association="Self.fk_sua122322">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="prefactura" EntitySet="prefactura" />
+          </AssociationSet>
+          <AssociationSet Name="fk_sua1322" Association="Self.fk_sua1322">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="suplidores" EntitySet="suplidores" />
+          </AssociationSet>
           <AssociationSet Name="fk_tipo_suplidor" Association="Self.fk_tipo_suplidor">
             <End Role="TipoSuplidor" EntitySet="TipoSuplidor" />
             <End Role="suplidores" EntitySet="suplidores" />
@@ -372,42 +969,158 @@
             <End Role="tiposproductos" EntitySet="tiposproductos" />
             <End Role="productos" EntitySet="productos" />
           </AssociationSet>
+          <AssociationSet Name="fk_usua122322" Association="Self.fk_usua122322">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="NCF" EntitySet="NCF" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuar1" Association="Self.fk_usuar1">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="DetalleCompra" EntitySet="DetalleCompra" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuar12" Association="Self.fk_usuar12">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="DetalleCotizacion" EntitySet="DetalleCotizacion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuar122" Association="Self.fk_usuar122">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="DetallePrefactura" EntitySet="DetallePrefactura" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuar1223" Association="Self.fk_usuar1223">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="DetalleVenta" EntitySet="DetalleVenta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuar12232" Association="Self.fk_usuar12232">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="facturas" EntitySet="facturas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuar122322" Association="Self.fk_usuar122322">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Inventario" EntitySet="Inventario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuar2122322" Association="Self.fk_usuar2122322">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="itbis" EntitySet="itbis" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario_empresa" Association="Self.fk_usuario_empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Login" EntitySet="Login" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario_empresa1" Association="Self.fk_usuario_empresa1">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="ciudad" EntitySet="ciudad" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario1" Association="Self.fk_usuario1">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="ciudad" EntitySet="ciudad" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario12" Association="Self.fk_usuario12">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario123" Association="Self.fk_usuario123">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="cotizacion" EntitySet="cotizacion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid" Association="Self.fk_usuarioid">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid1" Association="Self.fk_usuarioid1">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="compras" EntitySet="compras" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid12" Association="Self.fk_usuarioid12">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="cotizacion" EntitySet="cotizacion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid123" Association="Self.fk_usuarioid123">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="DetalleCompra" EntitySet="DetalleCompra" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid1234" Association="Self.fk_usuarioid1234">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="DetalleCotizacion" EntitySet="DetalleCotizacion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid12345" Association="Self.fk_usuarioid12345">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="DetallePrefactura" EntitySet="DetallePrefactura" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid123456" Association="Self.fk_usuarioid123456">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="DetalleVenta" EntitySet="DetalleVenta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid1234567" Association="Self.fk_usuarioid1234567">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="facturas" EntitySet="facturas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid12345678" Association="Self.fk_usuarioid12345678">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="Inventario" EntitySet="Inventario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid123456789" Association="Self.fk_usuarioid123456789">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="itbis" EntitySet="itbis" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid12345789" Association="Self.fk_usuarioid12345789">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="NCF" EntitySet="NCF" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid1245789" Association="Self.fk_usuarioid1245789">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="prefactura" EntitySet="prefactura" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid24389" Association="Self.fk_usuarioid24389">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="tiposproductos" EntitySet="tiposproductos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid2439" Association="Self.fk_usuarioid2439">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="TipoSuplidor" EntitySet="TipoSuplidor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid245789" Association="Self.fk_usuarioid245789">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid24589" Association="Self.fk_usuarioid24589">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="suplidores" EntitySet="suplidores" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid29" Association="Self.fk_usuarioid29">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="vendedores" EntitySet="vendedores" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="spointModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="ciudad">
-          <Key>
-            <PropertyRef Name="idciudad" />
-          </Key>
-          <Property Name="idciudad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="clientes" Relationship="spointModel.fk_ciudad" FromRole="ciudad" ToRole="clientes" />
-        </EntityType>
         <EntityContainer Name="spointEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ciudad" EntityType="Self.ciudad" />
-          <EntitySet Name="tiposproductos" EntityType="spointModel.tiposproductos" />
-          <EntitySet Name="vendedores" EntityType="spointModel.vendedores" />
-          <EntitySet Name="itbis" EntityType="spointModel.itbis" />
-          <EntitySet Name="productos" EntityType="spointModel.productos" />
-          <AssociationSet Name="fk_tipoproducto" Association="spointModel.fk_tipoproducto">
-            <End Role="tiposproductos" EntitySet="tiposproductos" />
-            <End Role="productos" EntitySet="productos" />
-          </AssociationSet>
-          <EntitySet Name="Inventario" EntityType="spointModel.Inventario" />
-          <AssociationSet Name="FK__Inventari__idPro__2DE6D218" Association="spointModel.FK__Inventari__idPro__2DE6D218">
-            <End Role="productos" EntitySet="productos" />
-            <End Role="Inventario" EntitySet="Inventario" />
-          </AssociationSet>
-          <EntitySet Name="DetalleVenta" EntityType="spointModel.DetalleVenta" />
-          <EntitySet Name="compras" EntityType="spointModel.compras" />
-          <EntitySet Name="facturas" EntityType="spointModel.facturas" />
-          <AssociationSet Name="FK__DetalleVe__idfac__05D8E0BE" Association="spointModel.FK__DetalleVe__idfac__05D8E0BE">
-            <End Role="facturas" EntitySet="facturas" />
-            <End Role="DetalleVenta" EntitySet="DetalleVenta" />
-          </AssociationSet>
+          <FunctionImport Name="sp_reporte_cotizacion_back" ReturnType="Collection(spointModel.sp_reporte_cotizacion_back_Result)">
+          <Parameter Name="idVenta" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="sp_reporte_venta_back" ReturnType="Collection(spointModel.sp_reporte_venta_back_Result)">
+          <Parameter Name="idVenta" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="prefacturacalc">
+          <Parameter Name="idVenta" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="sp_reporte_prefactura_back" ReturnType="Collection(spointModel.sp_reporte_prefactura_back_Result)">
+          <Parameter Name="idVenta" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <EntitySet Name="ciudad" EntityType="spointModel.ciudad" />
           <EntitySet Name="clientes" EntityType="spointModel.clientes" />
+          <EntitySet Name="compras" EntityType="spointModel.compras" />
+          <EntitySet Name="cotizacion" EntityType="spointModel.cotizacion" />
+          <EntitySet Name="facturas" EntityType="spointModel.facturas" />
+          <EntitySet Name="Inventario" EntityType="spointModel.Inventario" />
+          <EntitySet Name="itbis" EntityType="spointModel.itbis" />
+          <EntitySet Name="NCF" EntityType="spointModel.NCF" />
+          <EntitySet Name="prefactura" EntityType="spointModel.prefactura" />
+          <EntitySet Name="productos" EntityType="spointModel.productos" />
+          <EntitySet Name="suplidores" EntityType="spointModel.suplidores" />
+          <EntitySet Name="tiposproductos" EntityType="spointModel.tiposproductos" />
+          <EntitySet Name="TipoSuplidor" EntityType="spointModel.TipoSuplidor" />
+          <EntitySet Name="vendedores" EntityType="spointModel.vendedores" />
           <AssociationSet Name="fk_ciudad" Association="spointModel.fk_ciudad">
             <End Role="ciudad" EntitySet="ciudad" />
             <End Role="clientes" EntitySet="clientes" />
@@ -416,351 +1129,189 @@
             <End Role="clientes" EntitySet="clientes" />
             <End Role="facturas" EntitySet="facturas" />
           </AssociationSet>
-          <EntitySet Name="suplidores" EntityType="spointModel.suplidores" />
-          <EntitySet Name="TipoSuplidor" EntityType="spointModel.TipoSuplidor" />
+          <AssociationSet Name="fk_compra" Association="spointModel.fk_compra">
+            <End Role="compras" EntitySet="compras" />
+            <End Role="compras1" EntitySet="compras" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inventari__idPro__2DE6D218" Association="spointModel.FK__Inventari__idPro__2DE6D218">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="Inventario" EntitySet="Inventario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tipoproducto" Association="spointModel.fk_tipoproducto">
+            <End Role="tiposproductos" EntitySet="tiposproductos" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
           <AssociationSet Name="fk_tipo_suplidor" Association="spointModel.fk_tipo_suplidor">
             <End Role="TipoSuplidor" EntitySet="TipoSuplidor" />
             <End Role="suplidores" EntitySet="suplidores" />
           </AssociationSet>
           <EntitySet Name="DetalleCompra" EntityType="spointModel.DetalleCompra" />
-          <AssociationSet Name="fk_compra" Association="spointModel.fk_compra">
-            <End Role="compras" EntitySet="compras" />
-            <End Role="compras1" EntitySet="compras" />
-          </AssociationSet>
-          <EntitySet Name="NCF" EntityType="spointModel.NCF" />
           <EntitySet Name="DetalleCotizacion" EntityType="spointModel.DetalleCotizacion" />
-          <EntitySet Name="cotizacion" EntityType="spointModel.cotizacion" />
+          <EntitySet Name="DetallePrefactura" EntityType="spointModel.DetallePrefactura" />
+          <EntitySet Name="DetalleVenta" EntityType="spointModel.DetalleVenta" />
           <AssociationSet Name="FK__DetalleCo__idcot__51300E55" Association="spointModel.FK__DetalleCo__idcot__51300E55">
             <End Role="cotizacion" EntitySet="cotizacion" />
             <End Role="DetalleCotizacion" EntitySet="DetalleCotizacion" />
           </AssociationSet>
-          <FunctionImport Name="sp_reporte_cotizacion_back" ReturnType="Collection(spointModel.sp_reporte_cotizacion_back_Result)">
-            <Parameter Name="idVenta" Mode="In" Type="Decimal" />
-          </FunctionImport>
-          <FunctionImport Name="sp_reporte_venta_back" ReturnType="Collection(spointModel.sp_reporte_venta_back_Result)">
-            <Parameter Name="idVenta" Mode="In" Type="Decimal" />
-          </FunctionImport>
+          <AssociationSet Name="FK__DetallePr__idfac__59C55456" Association="spointModel.FK__DetallePr__idfac__59C55456">
+            <End Role="prefactura" EntitySet="prefactura" />
+            <End Role="DetallePrefactura" EntitySet="DetallePrefactura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleVe__idfac__05D8E0BE" Association="spointModel.FK__DetalleVe__idfac__05D8E0BE">
+            <End Role="facturas" EntitySet="facturas" />
+            <End Role="DetalleVenta" EntitySet="DetalleVenta" />
+          </AssociationSet>
+          <EntitySet Name="Empresa" EntityType="spointModel.Empresa" />
+          <EntitySet Name="Login" EntityType="spointModel.Login" />
+          <AssociationSet Name="fk_usuario_empresa1" Association="spointModel.fk_usuario_empresa1">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="ciudad" EntitySet="ciudad" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario1" Association="spointModel.fk_usuario1">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="ciudad" EntitySet="ciudad" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario12" Association="spointModel.fk_usuario12">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid" Association="spointModel.fk_usuarioid">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_su2" Association="spointModel.fk_su2">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="compras" EntitySet="compras" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid1" Association="spointModel.fk_usuarioid1">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="compras" EntitySet="compras" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario123" Association="spointModel.fk_usuario123">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="cotizacion" EntitySet="cotizacion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid12" Association="spointModel.fk_usuarioid12">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="cotizacion" EntitySet="cotizacion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuar1" Association="spointModel.fk_usuar1">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="DetalleCompra" EntitySet="DetalleCompra" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid123" Association="spointModel.fk_usuarioid123">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="DetalleCompra" EntitySet="DetalleCompra" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuar12" Association="spointModel.fk_usuar12">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="DetalleCotizacion" EntitySet="DetalleCotizacion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid1234" Association="spointModel.fk_usuarioid1234">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="DetalleCotizacion" EntitySet="DetalleCotizacion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuar122" Association="spointModel.fk_usuar122">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="DetallePrefactura" EntitySet="DetallePrefactura" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid12345" Association="spointModel.fk_usuarioid12345">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="DetallePrefactura" EntitySet="DetallePrefactura" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuar1223" Association="spointModel.fk_usuar1223">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="DetalleVenta" EntitySet="DetalleVenta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid123456" Association="spointModel.fk_usuarioid123456">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="DetalleVenta" EntitySet="DetalleVenta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_su1322" Association="spointModel.fk_su1322">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="tiposproductos" EntitySet="tiposproductos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_su132232" Association="spointModel.fk_su132232">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="TipoSuplidor" EntitySet="TipoSuplidor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_su132432" Association="spointModel.fk_su132432">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="vendedores" EntitySet="vendedores" />
+          </AssociationSet>
+          <AssociationSet Name="fk_sua1222322" Association="spointModel.fk_sua1222322">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_sua122322" Association="spointModel.fk_sua122322">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="prefactura" EntitySet="prefactura" />
+          </AssociationSet>
+          <AssociationSet Name="fk_sua1322" Association="spointModel.fk_sua1322">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="suplidores" EntitySet="suplidores" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usua122322" Association="spointModel.fk_usua122322">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="NCF" EntitySet="NCF" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuar12232" Association="spointModel.fk_usuar12232">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="facturas" EntitySet="facturas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuar122322" Association="spointModel.fk_usuar122322">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Inventario" EntitySet="Inventario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuar2122322" Association="spointModel.fk_usuar2122322">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="itbis" EntitySet="itbis" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario_empresa" Association="spointModel.fk_usuario_empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Login" EntitySet="Login" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid1234567" Association="spointModel.fk_usuarioid1234567">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="facturas" EntitySet="facturas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid12345678" Association="spointModel.fk_usuarioid12345678">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="Inventario" EntitySet="Inventario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid123456789" Association="spointModel.fk_usuarioid123456789">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="itbis" EntitySet="itbis" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid12345789" Association="spointModel.fk_usuarioid12345789">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="NCF" EntitySet="NCF" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid1245789" Association="spointModel.fk_usuarioid1245789">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="prefactura" EntitySet="prefactura" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid24389" Association="spointModel.fk_usuarioid24389">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="tiposproductos" EntitySet="tiposproductos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid2439" Association="spointModel.fk_usuarioid2439">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="TipoSuplidor" EntitySet="TipoSuplidor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid245789" Association="spointModel.fk_usuarioid245789">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid24589" Association="spointModel.fk_usuarioid24589">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="suplidores" EntitySet="suplidores" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarioid29" Association="spointModel.fk_usuarioid29">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="vendedores" EntitySet="vendedores" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="tiposproductos">
-          <Key>
-            <PropertyRef Name="idtipoproducto" />
-          </Key>
-          <Property Name="idtipoproducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="productos" Relationship="spointModel.fk_tipoproducto" FromRole="tiposproductos" ToRole="productos" />
-        </EntityType>
-        <EntityType Name="vendedores">
-          <Key>
-            <PropertyRef Name="idvendedor" />
-          </Key>
-          <Property Name="idvendedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="telefono" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="cedula" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="cumpleaños" Type="DateTime" Precision="0" />
-          <Property Name="correo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-        </EntityType>
-        <EntityType Name="itbis">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="valor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="productos">
-          <Key>
-            <PropertyRef Name="idProducto" />
-          </Key>
-          <Property Name="idProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="codigobarra" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="idtipo" Type="Int32" />
-          <Property Name="Precio" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="itbis" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="costo" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="nota" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Inventario" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="CodProducto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="cantidad" Type="Int32" />
-          <NavigationProperty Name="tiposproductos" Relationship="spointModel.fk_tipoproducto" FromRole="productos" ToRole="tiposproductos" />
-          <NavigationProperty Name="Inventario1" Relationship="spointModel.FK__Inventari__idPro__2DE6D218" FromRole="productos" ToRole="Inventario" />
-        </EntityType>
-        <Association Name="fk_tipoproducto">
-          <End Type="spointModel.tiposproductos" Role="tiposproductos" Multiplicity="0..1" />
-          <End Type="spointModel.productos" Role="productos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tiposproductos">
-              <PropertyRef Name="idtipoproducto" />
-            </Principal>
-            <Dependent Role="productos">
-              <PropertyRef Name="idtipo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Inventario">
-          <Key>
-            <PropertyRef Name="idInventario" />
-          </Key>
-          <Property Name="idInventario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idProducto" Type="Int32" />
-          <Property Name="codigodebarras" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Tipo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Precio" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="itbis" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="costo" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="nota" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CodigoProducto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="cantidad" Type="Int32" />
-          <Property Name="Fecha" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="productos" Relationship="spointModel.FK__Inventari__idPro__2DE6D218" FromRole="Inventario" ToRole="productos" />
-        </EntityType>
-        <Association Name="FK__Inventari__idPro__2DE6D218">
-          <End Type="spointModel.productos" Role="productos" Multiplicity="0..1" />
-          <End Type="spointModel.Inventario" Role="Inventario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="productos">
-              <PropertyRef Name="idProducto" />
-            </Principal>
-            <Dependent Role="Inventario">
-              <PropertyRef Name="idProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="DetalleVenta">
-          <Key>
-            <PropertyRef Name="IdDetalle" />
-          </Key>
-          <Property Name="IdDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idfactura" Type="Int32" />
-          <Property Name="idventa" Type="Int32" />
-          <Property Name="Ref" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="cantidad" Type="Int32" />
-          <Property Name="precio" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="descuento" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="itbis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="importe" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="total" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="totaldescuento" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="facturas" Relationship="spointModel.FK__DetalleVe__idfac__05D8E0BE" FromRole="DetalleVenta" ToRole="facturas" />
-        </EntityType>
-        <EntityType Name="compras">
-          <Key>
-            <PropertyRef Name="idcompra" />
-          </Key>
-          <Property Name="idcompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NoCompra" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Fecha" Type="DateTime" Precision="0" />
-          <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Suplidor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="compras1" Relationship="spointModel.fk_compra" FromRole="compras" ToRole="compras1" />
-          <NavigationProperty Name="compras2" Relationship="spointModel.fk_compra" FromRole="compras1" ToRole="compras" />
-        </EntityType>
-        <EntityType Name="facturas">
-          <Key>
-            <PropertyRef Name="idfactura" />
-          </Key>
-          <Property Name="idfactura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fecha" Type="DateTime" Precision="0" />
-          <Property Name="observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="cliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="vendedor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="precio" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="credito" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idventa" Type="Int32" />
-          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="idcliente" Type="Int32" />
-          <NavigationProperty Name="DetalleVenta" Relationship="spointModel.FK__DetalleVe__idfac__05D8E0BE" FromRole="facturas" ToRole="DetalleVenta" />
-          <NavigationProperty Name="clientes" Relationship="spointModel.fk_cliente" FromRole="facturas" ToRole="clientes" />
-        </EntityType>
-        <Association Name="FK__DetalleVe__idfac__05D8E0BE">
-          <End Type="spointModel.facturas" Role="facturas" Multiplicity="0..1" />
-          <End Type="spointModel.DetalleVenta" Role="DetalleVenta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="facturas">
-              <PropertyRef Name="idfactura" />
-            </Principal>
-            <Dependent Role="DetalleVenta">
-              <PropertyRef Name="idfactura" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="clientes">
-          <Key>
-            <PropertyRef Name="idCliente" />
-          </Key>
-          <Property Name="idCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="telefono" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="telefono2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="idciudad" Type="Int32" />
-          <Property Name="creditoaprobado" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="fechanacimiento" Type="DateTime" Precision="0" />
-          <Property Name="NCF" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="LimiteTiempo" Type="Int32" />
-          <Property Name="Foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="ciudad" Relationship="spointModel.fk_ciudad" FromRole="clientes" ToRole="ciudad" />
-          <NavigationProperty Name="facturas" Relationship="spointModel.fk_cliente" FromRole="clientes" ToRole="facturas" />
-        </EntityType>
-        <Association Name="fk_ciudad">
-          <End Type="spointModel.ciudad" Role="ciudad" Multiplicity="0..1" />
-          <End Type="spointModel.clientes" Role="clientes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ciudad">
-              <PropertyRef Name="idciudad" />
-            </Principal>
-            <Dependent Role="clientes">
-              <PropertyRef Name="idciudad" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_cliente">
-          <End Type="spointModel.clientes" Role="clientes" Multiplicity="0..1" />
-          <End Type="spointModel.facturas" Role="facturas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="clientes">
-              <PropertyRef Name="idCliente" />
-            </Principal>
-            <Dependent Role="facturas">
-              <PropertyRef Name="idcliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="suplidores">
-          <Key>
-            <PropertyRef Name="idSuplidor" />
-          </Key>
-          <Property Name="idSuplidor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="telefono" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="direccion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="correo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="TipoSuplidor" Type="Int32" />
-          <Property Name="LimiteTiempo" Type="Int32" />
-          <Property Name="Personafisica" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TipoSuplidor1" Relationship="spointModel.fk_tipo_suplidor" FromRole="suplidores" ToRole="TipoSuplidor" />
-        </EntityType>
-        <EntityType Name="TipoSuplidor">
-          <Key>
-            <PropertyRef Name="idTipoSuplidor" />
-          </Key>
-          <Property Name="idTipoSuplidor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="suplidores" Relationship="spointModel.fk_tipo_suplidor" FromRole="TipoSuplidor" ToRole="suplidores" />
-        </EntityType>
-        <Association Name="fk_tipo_suplidor">
-          <End Type="spointModel.TipoSuplidor" Role="TipoSuplidor" Multiplicity="0..1" />
-          <End Type="spointModel.suplidores" Role="suplidores" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoSuplidor">
-              <PropertyRef Name="idTipoSuplidor" />
-            </Principal>
-            <Dependent Role="suplidores">
-              <PropertyRef Name="TipoSuplidor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="DetalleCompra">
-          <Key>
-            <PropertyRef Name="idDetalle" />
-          </Key>
-          <Property Name="idDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="codproducto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="idcompra" Type="Int32" />
-          <Property Name="cantidad" Type="Int32" />
-          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="costo" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="importe" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="fecha" Type="DateTime" Precision="0" />
-          <Property Name="Tipo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <Association Name="fk_compra">
-          <End Type="spointModel.compras" Role="compras" Multiplicity="1" />
-          <End Type="spointModel.compras" Role="compras1" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="compras">
-              <PropertyRef Name="idcompra" />
-            </Principal>
-            <Dependent Role="compras1">
-              <PropertyRef Name="idcompra" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="NCF">
-          <Key>
-            <PropertyRef Name="idNCF" />
-          </Key>
-          <Property Name="idNCF" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Tipo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Estatus" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="NoNCF" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="DetalleCotizacion">
-          <Key>
-            <PropertyRef Name="idDetalle" />
-          </Key>
-          <Property Name="idDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idcotizacion" Type="Int32" />
-          <Property Name="Ref" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="cantidad" Type="Int32" />
-          <Property Name="precio" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="descuento" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="itbis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="importe" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="total" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="totaldescuento" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="idventa" Type="Int32" />
-          <NavigationProperty Name="cotizacion" Relationship="spointModel.FK__DetalleCo__idcot__51300E55" FromRole="DetalleCotizacion" ToRole="cotizacion" />
-        </EntityType>
-        <EntityType Name="cotizacion">
-          <Key>
-            <PropertyRef Name="idcotizacion" />
-          </Key>
-          <Property Name="idcotizacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fecha" Type="DateTime" Precision="0" />
-          <Property Name="observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="cliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="vendedor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="precio" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="credito" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idventa" Type="Int32" />
-          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="idcliente" Type="Int32" />
-          <Property Name="totalitbis" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="DetalleCotizacion" Relationship="spointModel.FK__DetalleCo__idcot__51300E55" FromRole="cotizacion" ToRole="DetalleCotizacion" />
-        </EntityType>
-        <Association Name="FK__DetalleCo__idcot__51300E55">
-          <End Type="spointModel.cotizacion" Role="cotizacion" Multiplicity="0..1" />
-          <End Type="spointModel.DetalleCotizacion" Role="DetalleCotizacion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="cotizacion">
-              <PropertyRef Name="idcotizacion" />
-            </Principal>
-            <Dependent Role="DetalleCotizacion">
-              <PropertyRef Name="idcotizacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="sp_reporte_cotizacion_back_Result">
           <Property Type="Int32" Name="idDetalle" Nullable="false" />
           <Property Type="Int32" Name="idcotizacion" Nullable="true" />
@@ -812,244 +1363,998 @@
           <Property Type="String" Name="Status" Nullable="true" MaxLength="30" />
           <Property Type="Int32" Name="idcliente" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="sp_reporte_prefactura_back_Result">
+          <Property Type="Int32" Name="IdDetalle" Nullable="false" />
+          <Property Type="Int32" Name="idprefactura" Nullable="true" />
+          <Property Type="Int32" Name="idventa" Nullable="true" />
+          <Property Type="String" Name="Ref" Nullable="true" />
+          <Property Type="String" Name="descripcion" Nullable="true" />
+          <Property Type="Int32" Name="cantidad" Nullable="true" />
+          <Property Type="Decimal" Name="precio" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="descuento" Nullable="true" Precision="19" />
+          <Property Type="String" Name="itbis" Nullable="true" />
+          <Property Type="Decimal" Name="importe" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="total" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="totaldescuento" Nullable="true" Precision="19" />
+          <Property Type="Int32" Name="idfactura" Nullable="true" />
+          <Property Type="Int32" Name="idprefactura1" Nullable="false" />
+          <Property Type="DateTime" Name="fecha" Nullable="true" />
+          <Property Type="String" Name="observacion" Nullable="true" />
+          <Property Type="String" Name="cliente" Nullable="true" />
+          <Property Type="String" Name="vendedor" Nullable="true" />
+          <Property Type="Decimal" Name="precio1" Nullable="true" Precision="19" />
+          <Property Type="String" Name="credito" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="idventa1" Nullable="true" />
+          <Property Type="Decimal" Name="Total1" Nullable="true" Precision="19" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="idcliente" Nullable="true" />
+          <Property Type="Decimal" Name="totalitbis" Nullable="true" Precision="19" />
+        </ComplexType>
+        <EntityType Name="ciudad">
+          <Key>
+            <PropertyRef Name="idciudad" />
+          </Key>
+          <Property Name="idciudad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="empresaid" Type="Int32" />
+          <Property Name="usuarioid" Type="Int32" />
+          <NavigationProperty Name="clientes" Relationship="spointModel.fk_ciudad" FromRole="ciudad" ToRole="clientes" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_usuario_empresa1" FromRole="ciudad" ToRole="Empresa" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuario1" FromRole="ciudad" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="idCliente" />
+          </Key>
+          <Property Name="idCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="telefono2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="idciudad" Type="Int32" />
+          <Property Name="creditoaprobado" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="fechanacimiento" Type="DateTime" Precision="0" />
+          <Property Name="NCF" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LimiteTiempo" Type="Int32" />
+          <Property Name="Foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="empresaid" Type="Int32" />
+          <Property Name="usuarioid" Type="Int32" />
+          <NavigationProperty Name="ciudad" Relationship="spointModel.fk_ciudad" FromRole="clientes" ToRole="ciudad" />
+          <NavigationProperty Name="facturas" Relationship="spointModel.fk_cliente" FromRole="clientes" ToRole="facturas" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_usuario12" FromRole="clientes" ToRole="Empresa" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuarioid" FromRole="clientes" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="compras">
+          <Key>
+            <PropertyRef Name="idcompra" />
+          </Key>
+          <Property Name="idcompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NoCompra" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Suplidor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="empresaid" Type="Int32" />
+          <Property Name="usuarioid" Type="Int32" />
+          <NavigationProperty Name="compras1" Relationship="spointModel.fk_compra" FromRole="compras" ToRole="compras1" />
+          <NavigationProperty Name="compras2" Relationship="spointModel.fk_compra" FromRole="compras1" ToRole="compras" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_su2" FromRole="compras" ToRole="Empresa" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuarioid1" FromRole="compras" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="cotizacion">
+          <Key>
+            <PropertyRef Name="idcotizacion" />
+          </Key>
+          <Property Name="idcotizacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+          <Property Name="observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="vendedor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="credito" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idventa" Type="Int32" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="idcliente" Type="Int32" />
+          <Property Name="totalitbis" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="empresaid" Type="Int32" />
+          <Property Name="usuarioid" Type="Int32" />
+          <NavigationProperty Name="DetalleCotizacion" Relationship="spointModel.FK__DetalleCo__idcot__51300E55" FromRole="cotizacion" ToRole="DetalleCotizacion" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_usuario123" FromRole="cotizacion" ToRole="Empresa" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuarioid12" FromRole="cotizacion" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="facturas">
+          <Key>
+            <PropertyRef Name="idfactura" />
+          </Key>
+          <Property Name="idfactura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+          <Property Name="observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="vendedor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="credito" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idventa" Type="Int32" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="idcliente" Type="Int32" />
+          <Property Name="totalitbis" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="empresaid" Type="Int32" />
+          <Property Name="usuarioid" Type="Int32" />
+          <NavigationProperty Name="clientes" Relationship="spointModel.fk_cliente" FromRole="facturas" ToRole="clientes" />
+          <NavigationProperty Name="DetalleVenta" Relationship="spointModel.FK__DetalleVe__idfac__05D8E0BE" FromRole="facturas" ToRole="DetalleVenta" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_usuar12232" FromRole="facturas" ToRole="Empresa" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuarioid1234567" FromRole="facturas" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="Inventario">
+          <Key>
+            <PropertyRef Name="idInventario" />
+          </Key>
+          <Property Name="idInventario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idProducto" Type="Int32" />
+          <Property Name="codigodebarras" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Tipo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Precio" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="itbis" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="costo" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="nota" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoProducto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="Fecha" Type="DateTime" Precision="0" />
+          <Property Name="empresaid" Type="Int32" />
+          <Property Name="usuarioid" Type="Int32" />
+          <NavigationProperty Name="productos" Relationship="spointModel.FK__Inventari__idPro__2DE6D218" FromRole="Inventario" ToRole="productos" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_usuar122322" FromRole="Inventario" ToRole="Empresa" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuarioid12345678" FromRole="Inventario" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="itbis">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="valor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="empresaid" Type="Int32" />
+          <Property Name="usuarioid" Type="Int32" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_usuar2122322" FromRole="itbis" ToRole="Empresa" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuarioid123456789" FromRole="itbis" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="NCF">
+          <Key>
+            <PropertyRef Name="idNCF" />
+          </Key>
+          <Property Name="idNCF" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tipo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Estatus" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="NoNCF" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="empresaid" Type="Int32" />
+          <Property Name="usuarioid" Type="Int32" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_usua122322" FromRole="NCF" ToRole="Empresa" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuarioid12345789" FromRole="NCF" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="prefactura">
+          <Key>
+            <PropertyRef Name="idprefactura" />
+          </Key>
+          <Property Name="idprefactura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+          <Property Name="observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="vendedor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="credito" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idventa" Type="Int32" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="idcliente" Type="Int32" />
+          <Property Name="totalitbis" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="empresaid" Type="Int32" />
+          <Property Name="usuarioid" Type="Int32" />
+          <NavigationProperty Name="DetallePrefactura" Relationship="spointModel.FK__DetallePr__idfac__59C55456" FromRole="prefactura" ToRole="DetallePrefactura" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_sua122322" FromRole="prefactura" ToRole="Empresa" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuarioid1245789" FromRole="prefactura" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="productos">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigobarra" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="idtipo" Type="Int32" />
+          <Property Name="Precio" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="itbis" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="costo" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="nota" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Inventario" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="CodProducto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="empresaid" Type="Int32" />
+          <Property Name="usuarioid" Type="Int32" />
+          <NavigationProperty Name="Inventario1" Relationship="spointModel.FK__Inventari__idPro__2DE6D218" FromRole="productos" ToRole="Inventario" />
+          <NavigationProperty Name="tiposproductos" Relationship="spointModel.fk_tipoproducto" FromRole="productos" ToRole="tiposproductos" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_sua1222322" FromRole="productos" ToRole="Empresa" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuarioid245789" FromRole="productos" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="suplidores">
+          <Key>
+            <PropertyRef Name="idSuplidor" />
+          </Key>
+          <Property Name="idSuplidor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="correo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="TipoSuplidor" Type="Int32" />
+          <Property Name="LimiteTiempo" Type="Int32" />
+          <Property Name="Personafisica" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="empresaid" Type="Int32" />
+          <Property Name="usuarioid" Type="Int32" />
+          <NavigationProperty Name="TipoSuplidor1" Relationship="spointModel.fk_tipo_suplidor" FromRole="suplidores" ToRole="TipoSuplidor" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_sua1322" FromRole="suplidores" ToRole="Empresa" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuarioid24589" FromRole="suplidores" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="tiposproductos">
+          <Key>
+            <PropertyRef Name="idtipoproducto" />
+          </Key>
+          <Property Name="idtipoproducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="empresaid" Type="Int32" />
+          <Property Name="usuarioid" Type="Int32" />
+          <NavigationProperty Name="productos" Relationship="spointModel.fk_tipoproducto" FromRole="tiposproductos" ToRole="productos" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_su1322" FromRole="tiposproductos" ToRole="Empresa" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuarioid24389" FromRole="tiposproductos" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="TipoSuplidor">
+          <Key>
+            <PropertyRef Name="idTipoSuplidor" />
+          </Key>
+          <Property Name="idTipoSuplidor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="empresaid" Type="Int32" />
+          <Property Name="usuarioid" Type="Int32" />
+          <NavigationProperty Name="suplidores" Relationship="spointModel.fk_tipo_suplidor" FromRole="TipoSuplidor" ToRole="suplidores" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_su132232" FromRole="TipoSuplidor" ToRole="Empresa" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuarioid2439" FromRole="TipoSuplidor" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="vendedores">
+          <Key>
+            <PropertyRef Name="idvendedor" />
+          </Key>
+          <Property Name="idvendedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cedula" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cumpleaños" Type="DateTime" Precision="0" />
+          <Property Name="correo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="empresaid" Type="Int32" />
+          <Property Name="usuarioid" Type="Int32" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_su132432" FromRole="vendedores" ToRole="Empresa" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuarioid29" FromRole="vendedores" ToRole="Login" />
+        </EntityType>
+        <Association Name="fk_ciudad">
+          <End Type="spointModel.ciudad" Role="ciudad" Multiplicity="0..1" />
+          <End Type="spointModel.clientes" Role="clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ciudad">
+              <PropertyRef Name="idciudad" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="idciudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cliente">
+          <End Type="spointModel.clientes" Role="clientes" Multiplicity="0..1" />
+          <End Type="spointModel.facturas" Role="facturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clientes">
+              <PropertyRef Name="idCliente" />
+            </Principal>
+            <Dependent Role="facturas">
+              <PropertyRef Name="idcliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_compra">
+          <End Type="spointModel.compras" Role="compras" Multiplicity="1" />
+          <End Type="spointModel.compras" Role="compras1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="compras">
+              <PropertyRef Name="idcompra" />
+            </Principal>
+            <Dependent Role="compras1">
+              <PropertyRef Name="idcompra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inventari__idPro__2DE6D218">
+          <End Type="spointModel.productos" Role="productos" Multiplicity="0..1" />
+          <End Type="spointModel.Inventario" Role="Inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="Inventario">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tipoproducto">
+          <End Type="spointModel.tiposproductos" Role="tiposproductos" Multiplicity="0..1" />
+          <End Type="spointModel.productos" Role="productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiposproductos">
+              <PropertyRef Name="idtipoproducto" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="idtipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tipo_suplidor">
+          <End Type="spointModel.TipoSuplidor" Role="TipoSuplidor" Multiplicity="0..1" />
+          <End Type="spointModel.suplidores" Role="suplidores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoSuplidor">
+              <PropertyRef Name="idTipoSuplidor" />
+            </Principal>
+            <Dependent Role="suplidores">
+              <PropertyRef Name="TipoSuplidor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DetalleCompra">
+          <Key>
+            <PropertyRef Name="idDetalle" />
+          </Key>
+          <Property Name="idDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codproducto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="idcompra" Type="Int32" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="costo" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="importe" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+          <Property Name="Tipo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="empresaid" Type="Int32" />
+          <Property Name="usuarioid" Type="Int32" />
+          <Property Name="estatus" Type="Int32" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_usuar1" FromRole="DetalleCompra" ToRole="Empresa" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuarioid123" FromRole="DetalleCompra" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="DetalleCotizacion">
+          <Key>
+            <PropertyRef Name="idDetalle" />
+          </Key>
+          <Property Name="idDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idcotizacion" Type="Int32" />
+          <Property Name="Ref" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="precio" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="descuento" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="itbis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="importe" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="total" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="totaldescuento" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="idventa" Type="Int32" />
+          <Property Name="empresaid" Type="Int32" />
+          <Property Name="usuarioid" Type="Int32" />
+          <Property Name="estatus" Type="Int32" />
+          <NavigationProperty Name="cotizacion" Relationship="spointModel.FK__DetalleCo__idcot__51300E55" FromRole="DetalleCotizacion" ToRole="cotizacion" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_usuar12" FromRole="DetalleCotizacion" ToRole="Empresa" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuarioid1234" FromRole="DetalleCotizacion" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="DetallePrefactura">
+          <Key>
+            <PropertyRef Name="IdDetalle" />
+          </Key>
+          <Property Name="IdDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idprefactura" Type="Int32" />
+          <Property Name="idventa" Type="Int32" />
+          <Property Name="Ref" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="precio" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="descuento" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="itbis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="importe" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="total" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="totaldescuento" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="idfactura" Type="Int32" />
+          <Property Name="empresaid" Type="Int32" />
+          <Property Name="usuarioid" Type="Int32" />
+          <Property Name="estatus" Type="Int32" />
+          <NavigationProperty Name="prefactura" Relationship="spointModel.FK__DetallePr__idfac__59C55456" FromRole="DetallePrefactura" ToRole="prefactura" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_usuar122" FromRole="DetallePrefactura" ToRole="Empresa" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuarioid12345" FromRole="DetallePrefactura" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="DetalleVenta">
+          <Key>
+            <PropertyRef Name="IdDetalle" />
+          </Key>
+          <Property Name="IdDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idfactura" Type="Int32" />
+          <Property Name="idventa" Type="Int32" />
+          <Property Name="Ref" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="precio" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="descuento" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="itbis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="importe" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="total" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="totaldescuento" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="empresaid" Type="Int32" />
+          <Property Name="usuarioid" Type="Int32" />
+          <Property Name="estatus" Type="Int32" />
+          <NavigationProperty Name="facturas" Relationship="spointModel.FK__DetalleVe__idfac__05D8E0BE" FromRole="DetalleVenta" ToRole="facturas" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_usuar1223" FromRole="DetalleVenta" ToRole="Empresa" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuarioid123456" FromRole="DetalleVenta" ToRole="Login" />
+        </EntityType>
+        <Association Name="FK__DetalleCo__idcot__51300E55">
+          <End Type="spointModel.cotizacion" Role="cotizacion" Multiplicity="0..1" />
+          <End Type="spointModel.DetalleCotizacion" Role="DetalleCotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cotizacion">
+              <PropertyRef Name="idcotizacion" />
+            </Principal>
+            <Dependent Role="DetalleCotizacion">
+              <PropertyRef Name="idcotizacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetallePr__idfac__59C55456">
+          <End Type="spointModel.prefactura" Role="prefactura" Multiplicity="0..1" />
+          <End Type="spointModel.DetallePrefactura" Role="DetallePrefactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="prefactura">
+              <PropertyRef Name="idprefactura" />
+            </Principal>
+            <Dependent Role="DetallePrefactura">
+              <PropertyRef Name="idprefactura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleVe__idfac__05D8E0BE">
+          <End Type="spointModel.facturas" Role="facturas" Multiplicity="0..1" />
+          <End Type="spointModel.DetalleVenta" Role="DetalleVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="facturas">
+              <PropertyRef Name="idfactura" />
+            </Principal>
+            <Dependent Role="DetalleVenta">
+              <PropertyRef Name="idfactura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="IdEmpresa" />
+          </Key>
+          <Property Name="IdEmpresa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RNC" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TipoEmpresa" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ciudad" Relationship="spointModel.fk_usuario_empresa1" FromRole="Empresa" ToRole="ciudad" />
+          <NavigationProperty Name="clientes" Relationship="spointModel.fk_usuario12" FromRole="Empresa" ToRole="clientes" />
+          <NavigationProperty Name="compras" Relationship="spointModel.fk_su2" FromRole="Empresa" ToRole="compras" />
+          <NavigationProperty Name="cotizacion" Relationship="spointModel.fk_usuario123" FromRole="Empresa" ToRole="cotizacion" />
+          <NavigationProperty Name="DetalleCompra" Relationship="spointModel.fk_usuar1" FromRole="Empresa" ToRole="DetalleCompra" />
+          <NavigationProperty Name="DetalleCotizacion" Relationship="spointModel.fk_usuar12" FromRole="Empresa" ToRole="DetalleCotizacion" />
+          <NavigationProperty Name="DetallePrefactura" Relationship="spointModel.fk_usuar122" FromRole="Empresa" ToRole="DetallePrefactura" />
+          <NavigationProperty Name="DetalleVenta" Relationship="spointModel.fk_usuar1223" FromRole="Empresa" ToRole="DetalleVenta" />
+          <NavigationProperty Name="tiposproductos" Relationship="spointModel.fk_su1322" FromRole="Empresa" ToRole="tiposproductos" />
+          <NavigationProperty Name="TipoSuplidor" Relationship="spointModel.fk_su132232" FromRole="Empresa" ToRole="TipoSuplidor" />
+          <NavigationProperty Name="vendedores" Relationship="spointModel.fk_su132432" FromRole="Empresa" ToRole="vendedores" />
+          <NavigationProperty Name="productos" Relationship="spointModel.fk_sua1222322" FromRole="Empresa" ToRole="productos" />
+          <NavigationProperty Name="prefactura" Relationship="spointModel.fk_sua122322" FromRole="Empresa" ToRole="prefactura" />
+          <NavigationProperty Name="suplidores" Relationship="spointModel.fk_sua1322" FromRole="Empresa" ToRole="suplidores" />
+          <NavigationProperty Name="NCF" Relationship="spointModel.fk_usua122322" FromRole="Empresa" ToRole="NCF" />
+          <NavigationProperty Name="facturas" Relationship="spointModel.fk_usuar12232" FromRole="Empresa" ToRole="facturas" />
+          <NavigationProperty Name="Inventario" Relationship="spointModel.fk_usuar122322" FromRole="Empresa" ToRole="Inventario" />
+          <NavigationProperty Name="itbis" Relationship="spointModel.fk_usuar2122322" FromRole="Empresa" ToRole="itbis" />
+          <NavigationProperty Name="Login" Relationship="spointModel.fk_usuario_empresa" FromRole="Empresa" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="LoginId" />
+          </Key>
+          <Property Name="LoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Privilegio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="empresaid" Type="Int32" />
+          <NavigationProperty Name="ciudad" Relationship="spointModel.fk_usuario1" FromRole="Login" ToRole="ciudad" />
+          <NavigationProperty Name="clientes" Relationship="spointModel.fk_usuarioid" FromRole="Login" ToRole="clientes" />
+          <NavigationProperty Name="compras" Relationship="spointModel.fk_usuarioid1" FromRole="Login" ToRole="compras" />
+          <NavigationProperty Name="cotizacion" Relationship="spointModel.fk_usuarioid12" FromRole="Login" ToRole="cotizacion" />
+          <NavigationProperty Name="DetalleCompra" Relationship="spointModel.fk_usuarioid123" FromRole="Login" ToRole="DetalleCompra" />
+          <NavigationProperty Name="DetalleCotizacion" Relationship="spointModel.fk_usuarioid1234" FromRole="Login" ToRole="DetalleCotizacion" />
+          <NavigationProperty Name="DetallePrefactura" Relationship="spointModel.fk_usuarioid12345" FromRole="Login" ToRole="DetallePrefactura" />
+          <NavigationProperty Name="DetalleVenta" Relationship="spointModel.fk_usuarioid123456" FromRole="Login" ToRole="DetalleVenta" />
+          <NavigationProperty Name="Empresa" Relationship="spointModel.fk_usuario_empresa" FromRole="Login" ToRole="Empresa" />
+          <NavigationProperty Name="facturas" Relationship="spointModel.fk_usuarioid1234567" FromRole="Login" ToRole="facturas" />
+          <NavigationProperty Name="Inventario" Relationship="spointModel.fk_usuarioid12345678" FromRole="Login" ToRole="Inventario" />
+          <NavigationProperty Name="itbis" Relationship="spointModel.fk_usuarioid123456789" FromRole="Login" ToRole="itbis" />
+          <NavigationProperty Name="NCF" Relationship="spointModel.fk_usuarioid12345789" FromRole="Login" ToRole="NCF" />
+          <NavigationProperty Name="prefactura" Relationship="spointModel.fk_usuarioid1245789" FromRole="Login" ToRole="prefactura" />
+          <NavigationProperty Name="tiposproductos" Relationship="spointModel.fk_usuarioid24389" FromRole="Login" ToRole="tiposproductos" />
+          <NavigationProperty Name="TipoSuplidor" Relationship="spointModel.fk_usuarioid2439" FromRole="Login" ToRole="TipoSuplidor" />
+          <NavigationProperty Name="productos" Relationship="spointModel.fk_usuarioid245789" FromRole="Login" ToRole="productos" />
+          <NavigationProperty Name="suplidores" Relationship="spointModel.fk_usuarioid24589" FromRole="Login" ToRole="suplidores" />
+          <NavigationProperty Name="vendedores" Relationship="spointModel.fk_usuarioid29" FromRole="Login" ToRole="vendedores" />
+        </EntityType>
+        <Association Name="fk_usuario_empresa1">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.ciudad" Role="ciudad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="ciudad">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario1">
+          <End Type="spointModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="spointModel.ciudad" Role="ciudad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="ciudad">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario12">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.clientes" Role="clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid">
+          <End Type="spointModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="spointModel.clientes" Role="clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_su2">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.compras" Role="compras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="compras">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid1">
+          <End Type="spointModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="spointModel.compras" Role="compras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="compras">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario123">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.cotizacion" Role="cotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="cotizacion">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid12">
+          <End Type="spointModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="spointModel.cotizacion" Role="cotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="cotizacion">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuar1">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.DetalleCompra" Role="DetalleCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="DetalleCompra">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid123">
+          <End Type="spointModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="spointModel.DetalleCompra" Role="DetalleCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="DetalleCompra">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuar12">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.DetalleCotizacion" Role="DetalleCotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="DetalleCotizacion">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid1234">
+          <End Type="spointModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="spointModel.DetalleCotizacion" Role="DetalleCotizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="DetalleCotizacion">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuar122">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.DetallePrefactura" Role="DetallePrefactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="DetallePrefactura">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid12345">
+          <End Type="spointModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="spointModel.DetallePrefactura" Role="DetallePrefactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="DetallePrefactura">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuar1223">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.DetalleVenta" Role="DetalleVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="DetalleVenta">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid123456">
+          <End Type="spointModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="spointModel.DetalleVenta" Role="DetalleVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="DetalleVenta">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_su1322">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.tiposproductos" Role="tiposproductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="tiposproductos">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_su132232">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.TipoSuplidor" Role="TipoSuplidor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="TipoSuplidor">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_su132432">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.vendedores" Role="vendedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="vendedores">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_sua1222322">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.productos" Role="productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_sua122322">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.prefactura" Role="prefactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="prefactura">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_sua1322">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.suplidores" Role="suplidores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="suplidores">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usua122322">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.NCF" Role="NCF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="NCF">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuar12232">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.facturas" Role="facturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="facturas">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuar122322">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.Inventario" Role="Inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="Inventario">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuar2122322">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.itbis" Role="itbis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="itbis">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario_empresa">
+          <End Type="spointModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="spointModel.Login" Role="Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="Login">
+              <PropertyRef Name="empresaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid1234567">
+          <End Type="spointModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="spointModel.facturas" Role="facturas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="facturas">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid12345678">
+          <End Type="spointModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="spointModel.Inventario" Role="Inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="Inventario">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid123456789">
+          <End Type="spointModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="spointModel.itbis" Role="itbis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="itbis">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid12345789">
+          <End Type="spointModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="spointModel.NCF" Role="NCF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="NCF">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid1245789">
+          <End Type="spointModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="spointModel.prefactura" Role="prefactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="prefactura">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid24389">
+          <End Type="spointModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="spointModel.tiposproductos" Role="tiposproductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="tiposproductos">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid2439">
+          <End Type="spointModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="spointModel.TipoSuplidor" Role="TipoSuplidor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="TipoSuplidor">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid245789">
+          <End Type="spointModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="spointModel.productos" Role="productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid24589">
+          <End Type="spointModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="spointModel.suplidores" Role="suplidores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="suplidores">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarioid29">
+          <End Type="spointModel.Login" Role="Login" Multiplicity="0..1" />
+          <End Type="spointModel.vendedores" Role="vendedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="LoginId" />
+            </Principal>
+            <Dependent Role="vendedores">
+              <PropertyRef Name="usuarioid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="spointModelStoreContainer" CdmEntityContainer="spointEntities">
-          <EntitySetMapping Name="ciudad">
-            <EntityTypeMapping TypeName="spointModel.ciudad">
-              <MappingFragment StoreEntitySet="ciudad">
-                <ScalarProperty Name="idciudad" ColumnName="idciudad" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tiposproductos">
-            <EntityTypeMapping TypeName="spointModel.tiposproductos">
-              <MappingFragment StoreEntitySet="tiposproductos">
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="idtipoproducto" ColumnName="idtipoproducto" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vendedores">
-            <EntityTypeMapping TypeName="spointModel.vendedores">
-              <MappingFragment StoreEntitySet="vendedores">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Foto" ColumnName="Foto" />
-                <ScalarProperty Name="correo" ColumnName="correo" />
-                <ScalarProperty Name="cumpleaños" ColumnName="cumpleaños" />
-                <ScalarProperty Name="cedula" ColumnName="cedula" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="direccion" ColumnName="direccion" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="idvendedor" ColumnName="idvendedor" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="itbis">
-            <EntityTypeMapping TypeName="spointModel.itbis">
-              <MappingFragment StoreEntitySet="itbis">
-                <ScalarProperty Name="valor" ColumnName="valor" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="productos">
-            <EntityTypeMapping TypeName="spointModel.productos">
-              <MappingFragment StoreEntitySet="productos">
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Foto" ColumnName="Foto" />
-                <ScalarProperty Name="CodProducto" ColumnName="CodProducto" />
-                <ScalarProperty Name="Inventario" ColumnName="Inventario" />
-                <ScalarProperty Name="nota" ColumnName="nota" />
-                <ScalarProperty Name="costo" ColumnName="costo" />
-                <ScalarProperty Name="itbis" ColumnName="itbis" />
-                <ScalarProperty Name="Precio" ColumnName="Precio" />
-                <ScalarProperty Name="idtipo" ColumnName="idtipo" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="codigobarra" ColumnName="codigobarra" />
-                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Inventario">
-            <EntityTypeMapping TypeName="spointModel.Inventario">
-              <MappingFragment StoreEntitySet="Inventario">
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="Foto" ColumnName="Foto" />
-                <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
-                <ScalarProperty Name="nota" ColumnName="nota" />
-                <ScalarProperty Name="costo" ColumnName="costo" />
-                <ScalarProperty Name="itbis" ColumnName="itbis" />
-                <ScalarProperty Name="Precio" ColumnName="Precio" />
-                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="codigodebarras" ColumnName="codigodebarras" />
-                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
-                <ScalarProperty Name="idInventario" ColumnName="idInventario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DetalleVenta">
-            <EntityTypeMapping TypeName="spointModel.DetalleVenta">
-              <MappingFragment StoreEntitySet="DetalleVenta">
-                <ScalarProperty Name="totaldescuento" ColumnName="totaldescuento" />
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="importe" ColumnName="importe" />
-                <ScalarProperty Name="itbis" ColumnName="itbis" />
-                <ScalarProperty Name="descuento" ColumnName="descuento" />
-                <ScalarProperty Name="precio" ColumnName="precio" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="Ref" ColumnName="Ref" />
-                <ScalarProperty Name="idventa" ColumnName="idventa" />
-                <ScalarProperty Name="idfactura" ColumnName="idfactura" />
-                <ScalarProperty Name="IdDetalle" ColumnName="IdDetalle" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="compras">
-            <EntityTypeMapping TypeName="spointModel.compras">
-              <MappingFragment StoreEntitySet="compras">
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="Suplidor" ColumnName="Suplidor" />
-                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="NoCompra" ColumnName="NoCompra" />
-                <ScalarProperty Name="idcompra" ColumnName="idcompra" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="facturas">
-            <EntityTypeMapping TypeName="spointModel.facturas">
-              <MappingFragment StoreEntitySet="facturas">
-                <ScalarProperty Name="idcliente" ColumnName="idcliente" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="idventa" ColumnName="idventa" />
-                <ScalarProperty Name="credito" ColumnName="credito" />
-                <ScalarProperty Name="precio" ColumnName="precio" />
-                <ScalarProperty Name="vendedor" ColumnName="vendedor" />
-                <ScalarProperty Name="cliente" ColumnName="cliente" />
-                <ScalarProperty Name="observacion" ColumnName="observacion" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="idfactura" ColumnName="idfactura" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="clientes">
-            <EntityTypeMapping TypeName="spointModel.clientes">
-              <MappingFragment StoreEntitySet="clientes">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Foto" ColumnName="Foto" />
-                <ScalarProperty Name="LimiteTiempo" ColumnName="LimiteTiempo" />
-                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
-                <ScalarProperty Name="NCF" ColumnName="NCF" />
-                <ScalarProperty Name="fechanacimiento" ColumnName="fechanacimiento" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="direccion" ColumnName="direccion" />
-                <ScalarProperty Name="cedula" ColumnName="cedula" />
-                <ScalarProperty Name="creditoaprobado" ColumnName="creditoaprobado" />
-                <ScalarProperty Name="idciudad" ColumnName="idciudad" />
-                <ScalarProperty Name="telefono2" ColumnName="telefono2" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="suplidores">
-            <EntityTypeMapping TypeName="spointModel.suplidores">
-              <MappingFragment StoreEntitySet="suplidores">
-                <ScalarProperty Name="Personafisica" ColumnName="Personafisica" />
-                <ScalarProperty Name="LimiteTiempo" ColumnName="LimiteTiempo" />
-                <ScalarProperty Name="TipoSuplidor" ColumnName="TipoSuplidor" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Foto" ColumnName="Foto" />
-                <ScalarProperty Name="cedula" ColumnName="cedula" />
-                <ScalarProperty Name="correo" ColumnName="correo" />
-                <ScalarProperty Name="direccion" ColumnName="direccion" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="idSuplidor" ColumnName="idSuplidor" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TipoSuplidor">
-            <EntityTypeMapping TypeName="spointModel.TipoSuplidor">
-              <MappingFragment StoreEntitySet="TipoSuplidor">
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="idTipoSuplidor" ColumnName="idTipoSuplidor" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DetalleCompra">
-            <EntityTypeMapping TypeName="spointModel.DetalleCompra">
-              <MappingFragment StoreEntitySet="DetalleCompra">
-                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="importe" ColumnName="importe" />
-                <ScalarProperty Name="costo" ColumnName="costo" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="idcompra" ColumnName="idcompra" />
-                <ScalarProperty Name="codproducto" ColumnName="codproducto" />
-                <ScalarProperty Name="idDetalle" ColumnName="idDetalle" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NCF">
-            <EntityTypeMapping TypeName="spointModel.NCF">
-              <MappingFragment StoreEntitySet="NCF">
-                <ScalarProperty Name="NoNCF" ColumnName="NoNCF" />
-                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
-                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
-                <ScalarProperty Name="idNCF" ColumnName="idNCF" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DetalleCotizacion">
-            <EntityTypeMapping TypeName="spointModel.DetalleCotizacion">
-              <MappingFragment StoreEntitySet="DetalleCotizacion">
-                <ScalarProperty Name="idventa" ColumnName="idventa" />
-                <ScalarProperty Name="totaldescuento" ColumnName="totaldescuento" />
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="importe" ColumnName="importe" />
-                <ScalarProperty Name="itbis" ColumnName="itbis" />
-                <ScalarProperty Name="descuento" ColumnName="descuento" />
-                <ScalarProperty Name="precio" ColumnName="precio" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="Ref" ColumnName="Ref" />
-                <ScalarProperty Name="idcotizacion" ColumnName="idcotizacion" />
-                <ScalarProperty Name="idDetalle" ColumnName="idDetalle" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="cotizacion">
-            <EntityTypeMapping TypeName="spointModel.cotizacion">
-              <MappingFragment StoreEntitySet="cotizacion">
-                <ScalarProperty Name="totalitbis" ColumnName="totalitbis" />
-                <ScalarProperty Name="idcliente" ColumnName="idcliente" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="idventa" ColumnName="idventa" />
-                <ScalarProperty Name="credito" ColumnName="credito" />
-                <ScalarProperty Name="precio" ColumnName="precio" />
-                <ScalarProperty Name="vendedor" ColumnName="vendedor" />
-                <ScalarProperty Name="cliente" ColumnName="cliente" />
-                <ScalarProperty Name="observacion" ColumnName="observacion" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="idcotizacion" ColumnName="idcotizacion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_reporte_cotizacion_back" FunctionName="spointModel.Store.sp_reporte_cotizacion_back">
             <ResultMapping>
               <ComplexTypeMapping TypeName="spointModel.sp_reporte_cotizacion_back_Result">
@@ -1109,6 +2414,373 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="prefacturacalc" FunctionName="spointModel.Store.prefacturacalc" />
+          <FunctionImportMapping FunctionImportName="sp_reporte_prefactura_back" FunctionName="spointModel.Store.sp_reporte_prefactura_back">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="spointModel.sp_reporte_prefactura_back_Result">
+                <ScalarProperty Name="IdDetalle" ColumnName="IdDetalle" />
+                <ScalarProperty Name="idprefactura" ColumnName="idprefactura" />
+                <ScalarProperty Name="idventa" ColumnName="idventa" />
+                <ScalarProperty Name="Ref" ColumnName="Ref" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="itbis" ColumnName="itbis" />
+                <ScalarProperty Name="importe" ColumnName="importe" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="totaldescuento" ColumnName="totaldescuento" />
+                <ScalarProperty Name="idfactura" ColumnName="idfactura" />
+                <ScalarProperty Name="idprefactura1" ColumnName="idprefactura1" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="cliente" ColumnName="cliente" />
+                <ScalarProperty Name="vendedor" ColumnName="vendedor" />
+                <ScalarProperty Name="precio1" ColumnName="precio1" />
+                <ScalarProperty Name="credito" ColumnName="credito" />
+                <ScalarProperty Name="idventa1" ColumnName="idventa1" />
+                <ScalarProperty Name="Total1" ColumnName="Total1" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="idcliente" ColumnName="idcliente" />
+                <ScalarProperty Name="totalitbis" ColumnName="totalitbis" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="ciudad">
+            <EntityTypeMapping TypeName="spointModel.ciudad">
+              <MappingFragment StoreEntitySet="ciudad">
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="idciudad" ColumnName="idciudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clientes">
+            <EntityTypeMapping TypeName="spointModel.clientes">
+              <MappingFragment StoreEntitySet="clientes">
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="LimiteTiempo" ColumnName="LimiteTiempo" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="NCF" ColumnName="NCF" />
+                <ScalarProperty Name="fechanacimiento" ColumnName="fechanacimiento" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="creditoaprobado" ColumnName="creditoaprobado" />
+                <ScalarProperty Name="idciudad" ColumnName="idciudad" />
+                <ScalarProperty Name="telefono2" ColumnName="telefono2" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="compras">
+            <EntityTypeMapping TypeName="spointModel.compras">
+              <MappingFragment StoreEntitySet="compras">
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Suplidor" ColumnName="Suplidor" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="NoCompra" ColumnName="NoCompra" />
+                <ScalarProperty Name="idcompra" ColumnName="idcompra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cotizacion">
+            <EntityTypeMapping TypeName="spointModel.cotizacion">
+              <MappingFragment StoreEntitySet="cotizacion">
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="totalitbis" ColumnName="totalitbis" />
+                <ScalarProperty Name="idcliente" ColumnName="idcliente" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="idventa" ColumnName="idventa" />
+                <ScalarProperty Name="credito" ColumnName="credito" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="vendedor" ColumnName="vendedor" />
+                <ScalarProperty Name="cliente" ColumnName="cliente" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="idcotizacion" ColumnName="idcotizacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="facturas">
+            <EntityTypeMapping TypeName="spointModel.facturas">
+              <MappingFragment StoreEntitySet="facturas">
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="totalitbis" ColumnName="totalitbis" />
+                <ScalarProperty Name="idcliente" ColumnName="idcliente" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="idventa" ColumnName="idventa" />
+                <ScalarProperty Name="credito" ColumnName="credito" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="vendedor" ColumnName="vendedor" />
+                <ScalarProperty Name="cliente" ColumnName="cliente" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="idfactura" ColumnName="idfactura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inventario">
+            <EntityTypeMapping TypeName="spointModel.Inventario">
+              <MappingFragment StoreEntitySet="Inventario">
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
+                <ScalarProperty Name="nota" ColumnName="nota" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+                <ScalarProperty Name="itbis" ColumnName="itbis" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="codigodebarras" ColumnName="codigodebarras" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="idInventario" ColumnName="idInventario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="itbis">
+            <EntityTypeMapping TypeName="spointModel.itbis">
+              <MappingFragment StoreEntitySet="itbis">
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NCF">
+            <EntityTypeMapping TypeName="spointModel.NCF">
+              <MappingFragment StoreEntitySet="NCF">
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="NoNCF" ColumnName="NoNCF" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="idNCF" ColumnName="idNCF" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="prefactura">
+            <EntityTypeMapping TypeName="spointModel.prefactura">
+              <MappingFragment StoreEntitySet="prefactura">
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="totalitbis" ColumnName="totalitbis" />
+                <ScalarProperty Name="idcliente" ColumnName="idcliente" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="idventa" ColumnName="idventa" />
+                <ScalarProperty Name="credito" ColumnName="credito" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="vendedor" ColumnName="vendedor" />
+                <ScalarProperty Name="cliente" ColumnName="cliente" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="idprefactura" ColumnName="idprefactura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos">
+            <EntityTypeMapping TypeName="spointModel.productos">
+              <MappingFragment StoreEntitySet="productos">
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="CodProducto" ColumnName="CodProducto" />
+                <ScalarProperty Name="Inventario" ColumnName="Inventario" />
+                <ScalarProperty Name="nota" ColumnName="nota" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+                <ScalarProperty Name="itbis" ColumnName="itbis" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="idtipo" ColumnName="idtipo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="codigobarra" ColumnName="codigobarra" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="suplidores">
+            <EntityTypeMapping TypeName="spointModel.suplidores">
+              <MappingFragment StoreEntitySet="suplidores">
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="Personafisica" ColumnName="Personafisica" />
+                <ScalarProperty Name="LimiteTiempo" ColumnName="LimiteTiempo" />
+                <ScalarProperty Name="TipoSuplidor" ColumnName="TipoSuplidor" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idSuplidor" ColumnName="idSuplidor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tiposproductos">
+            <EntityTypeMapping TypeName="spointModel.tiposproductos">
+              <MappingFragment StoreEntitySet="tiposproductos">
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idtipoproducto" ColumnName="idtipoproducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoSuplidor">
+            <EntityTypeMapping TypeName="spointModel.TipoSuplidor">
+              <MappingFragment StoreEntitySet="TipoSuplidor">
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="idTipoSuplidor" ColumnName="idTipoSuplidor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vendedores">
+            <EntityTypeMapping TypeName="spointModel.vendedores">
+              <MappingFragment StoreEntitySet="vendedores">
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="cumpleaños" ColumnName="cumpleaños" />
+                <ScalarProperty Name="cedula" ColumnName="cedula" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idvendedor" ColumnName="idvendedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleCompra">
+            <EntityTypeMapping TypeName="spointModel.DetalleCompra">
+              <MappingFragment StoreEntitySet="DetalleCompra">
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="importe" ColumnName="importe" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="idcompra" ColumnName="idcompra" />
+                <ScalarProperty Name="codproducto" ColumnName="codproducto" />
+                <ScalarProperty Name="idDetalle" ColumnName="idDetalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleCotizacion">
+            <EntityTypeMapping TypeName="spointModel.DetalleCotizacion">
+              <MappingFragment StoreEntitySet="DetalleCotizacion">
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="idventa" ColumnName="idventa" />
+                <ScalarProperty Name="totaldescuento" ColumnName="totaldescuento" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="importe" ColumnName="importe" />
+                <ScalarProperty Name="itbis" ColumnName="itbis" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="Ref" ColumnName="Ref" />
+                <ScalarProperty Name="idcotizacion" ColumnName="idcotizacion" />
+                <ScalarProperty Name="idDetalle" ColumnName="idDetalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetallePrefactura">
+            <EntityTypeMapping TypeName="spointModel.DetallePrefactura">
+              <MappingFragment StoreEntitySet="DetallePrefactura">
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="idfactura" ColumnName="idfactura" />
+                <ScalarProperty Name="totaldescuento" ColumnName="totaldescuento" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="importe" ColumnName="importe" />
+                <ScalarProperty Name="itbis" ColumnName="itbis" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="Ref" ColumnName="Ref" />
+                <ScalarProperty Name="idventa" ColumnName="idventa" />
+                <ScalarProperty Name="idprefactura" ColumnName="idprefactura" />
+                <ScalarProperty Name="IdDetalle" ColumnName="IdDetalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleVenta">
+            <EntityTypeMapping TypeName="spointModel.DetalleVenta">
+              <MappingFragment StoreEntitySet="DetalleVenta">
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="usuarioid" ColumnName="usuarioid" />
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="totaldescuento" ColumnName="totaldescuento" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="importe" ColumnName="importe" />
+                <ScalarProperty Name="itbis" ColumnName="itbis" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="Ref" ColumnName="Ref" />
+                <ScalarProperty Name="idventa" ColumnName="idventa" />
+                <ScalarProperty Name="idfactura" ColumnName="idfactura" />
+                <ScalarProperty Name="IdDetalle" ColumnName="IdDetalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empresa">
+            <EntityTypeMapping TypeName="spointModel.Empresa">
+              <MappingFragment StoreEntitySet="Empresa">
+                <ScalarProperty Name="TipoEmpresa" ColumnName="TipoEmpresa" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="RNC" ColumnName="RNC" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Login">
+            <EntityTypeMapping TypeName="spointModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="empresaid" ColumnName="empresaid" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Privilegio" ColumnName="Privilegio" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -26,8 +26,11 @@ namespace SpointLiteVersion.Models
         public Nullable<decimal> importe { get; set; }
         public Nullable<decimal> total { get; set; }
         public Nullable<decimal> totaldescuento { get; set; }
+        public Nullable<int> empresaid { get; set; }
+        public Nullable<int> usuarioid { get; set; }
+        public Nullable<int> estatus { get; set; }
 
-        public DetalleVenta(int? idfactura, int? idventa, string @ref, string descripcion, int? cantidad, decimal? precio, decimal? descuento, string itbis, decimal? importe, decimal? total, decimal? totaldescuento)
+        public DetalleVenta(int? idfactura, int? idventa, string @ref, string descripcion, int? cantidad, decimal? precio, decimal? descuento, string itbis, decimal? importe, decimal? total, decimal? totaldescuento, int? empresaid, int? usuarioid, int? estatus)
         {
             this.idfactura = idfactura;
             this.idventa = idventa;
@@ -40,6 +43,9 @@ namespace SpointLiteVersion.Models
             this.importe = importe;
             this.total = total;
             this.totaldescuento = totaldescuento;
+            this.empresaid = empresaid;
+            this.usuarioid = usuarioid;
+            this.estatus = estatus;
         }
 
         public DetalleVenta()
@@ -47,5 +53,7 @@ namespace SpointLiteVersion.Models
         }
 
         public virtual facturas facturas { get; set; }
+        public virtual Empresa Empresa { get; set; }
+        public virtual Login Login { get; set; }
     }
 }

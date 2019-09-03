@@ -22,8 +22,12 @@ namespace SpointLiteVersion.Models
         public Nullable<decimal> costo { get; set; }
         public Nullable<decimal> importe { get; set; }
         public Nullable<System.DateTime> fecha { get; set; }
+        public string Tipo { get; set; }
+        public Nullable<int> empresaid { get; set; }
+        public Nullable<int> usuarioid { get; set; }
+        public Nullable<int> estatus { get; set; }
 
-        public DetalleCompra(string codproducto, int? idcompra, int? cantidad, string descripcion, decimal? costo, decimal? importe, DateTime? fecha, string tipo)
+        public DetalleCompra(string codproducto, int? idcompra, int? cantidad, string descripcion, decimal? costo, decimal? importe, DateTime? fecha, string tipo, int? empresaid, int? usuarioid, int? estatus)
         {
             this.codproducto = codproducto;
             this.idcompra = idcompra;
@@ -33,12 +37,16 @@ namespace SpointLiteVersion.Models
             this.importe = importe;
             this.fecha = fecha;
             Tipo = tipo;
+            this.empresaid = empresaid;
+            this.usuarioid = usuarioid;
+            this.estatus = estatus;
         }
 
         public DetalleCompra()
         {
         }
 
-        public string Tipo { get; set; }
+        public virtual Empresa Empresa { get; set; }
+        public virtual Login Login { get; set; }
     }
 }

@@ -55,9 +55,18 @@
 
 
                                 <td>
-                                    <a href="@Url.Action("Edit","productos1",new { id=item.idcotizacion})"><i class="fas fa-edit eliminar"></i></a> |
+                                    @switch (item.Status)
+                                    {
+                                        case "PAGADA":
+                                            <a href="@Url.Action("CobrarCotizacion","facturas")" class="facturar isDisabled"><i class="fas fa-donate eliminar"></i></a> 
+
+break;
+case "PENDIENTE":
+                                <a href="@Url.Action("CobrarCotizacion", "facturas",new { id=item.idventa})" target="_blank" class="facturar" title="Cobrar"><i class="fas fa-donate eliminar" disabled="disabled"></i> </a>
+                                                                            break;
+                                                                    }
                                     <a href="@Url.Action("Detailscotizacion","facturas",new { id=item.idventa})" target="_blank"><i class="fas fa-eye eliminar"></i></a> |
-                                    <a href="@Url.Action("Delete","productos1",new { id=item.idcotizacion})"><i class="fas fa-trash-alt eliminar eli"></i></a>
+                                    <a href="@Url.Action("Anularcotizacion","facturas",new { id=item.idventa})"><i class="fas fa-times-circle eliminar eli"></i></a>
 
 
                                 </td>

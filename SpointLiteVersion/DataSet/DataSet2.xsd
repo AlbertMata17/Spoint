@@ -34,6 +34,8 @@
               <Mapping SourceColumn="total" DataSetColumn="total" />
               <Mapping SourceColumn="totaldescuento" DataSetColumn="totaldescuento" />
               <Mapping SourceColumn="idventa" DataSetColumn="idventa" />
+              <Mapping SourceColumn="empresaid" DataSetColumn="empresaid" />
+              <Mapping SourceColumn="usuarioid" DataSetColumn="usuarioid" />
               <Mapping SourceColumn="idcotizacion1" DataSetColumn="idcotizacion1" />
               <Mapping SourceColumn="fecha" DataSetColumn="fecha" />
               <Mapping SourceColumn="observacion" DataSetColumn="observacion" />
@@ -46,6 +48,15 @@
               <Mapping SourceColumn="Status" DataSetColumn="Status" />
               <Mapping SourceColumn="idcliente" DataSetColumn="idcliente" />
               <Mapping SourceColumn="totalitbis" DataSetColumn="totalitbis" />
+              <Mapping SourceColumn="empresaid1" DataSetColumn="empresaid1" />
+              <Mapping SourceColumn="usuarioid1" DataSetColumn="usuarioid1" />
+              <Mapping SourceColumn="IdEmpresa" DataSetColumn="IdEmpresa" />
+              <Mapping SourceColumn="Nombre" DataSetColumn="Nombre" />
+              <Mapping SourceColumn="RNC" DataSetColumn="RNC" />
+              <Mapping SourceColumn="telefono" DataSetColumn="telefono" />
+              <Mapping SourceColumn="direccion" DataSetColumn="direccion" />
+              <Mapping SourceColumn="TipoEmpresa" DataSetColumn="TipoEmpresa" />
+              <Mapping SourceColumn="usuarioid2" DataSetColumn="usuarioid2" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -90,6 +101,8 @@
               <xs:element name="total" msprop:Generator_ColumnVarNameInTable="columntotal" msprop:Generator_ColumnPropNameInRow="total" msprop:Generator_ColumnPropNameInTable="totalColumn" msprop:Generator_UserColumnName="total" type="xs:decimal" minOccurs="0" />
               <xs:element name="totaldescuento" msprop:Generator_ColumnVarNameInTable="columntotaldescuento" msprop:Generator_ColumnPropNameInRow="totaldescuento" msprop:Generator_ColumnPropNameInTable="totaldescuentoColumn" msprop:Generator_UserColumnName="totaldescuento" type="xs:decimal" minOccurs="0" />
               <xs:element name="idventa" msprop:Generator_ColumnVarNameInTable="columnidventa" msprop:Generator_ColumnPropNameInRow="idventa" msprop:Generator_ColumnPropNameInTable="idventaColumn" msprop:Generator_UserColumnName="idventa" type="xs:int" minOccurs="0" />
+              <xs:element name="empresaid" msprop:Generator_ColumnVarNameInTable="columnempresaid" msprop:Generator_ColumnPropNameInRow="empresaid" msprop:Generator_ColumnPropNameInTable="empresaidColumn" msprop:Generator_UserColumnName="empresaid" type="xs:int" minOccurs="0" />
+              <xs:element name="usuarioid" msprop:Generator_ColumnVarNameInTable="columnusuarioid" msprop:Generator_ColumnPropNameInRow="usuarioid" msprop:Generator_ColumnPropNameInTable="usuarioidColumn" msprop:Generator_UserColumnName="usuarioid" type="xs:int" minOccurs="0" />
               <xs:element name="idcotizacion1" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnidcotizacion1" msprop:Generator_ColumnPropNameInRow="idcotizacion1" msprop:Generator_ColumnPropNameInTable="idcotizacion1Column" msprop:Generator_UserColumnName="idcotizacion1" type="xs:int" />
               <xs:element name="fecha" msprop:Generator_ColumnVarNameInTable="columnfecha" msprop:Generator_ColumnPropNameInRow="fecha" msprop:Generator_ColumnPropNameInTable="fechaColumn" msprop:Generator_UserColumnName="fecha" type="xs:dateTime" minOccurs="0" />
               <xs:element name="observacion" msprop:Generator_ColumnVarNameInTable="columnobservacion" msprop:Generator_ColumnPropNameInRow="observacion" msprop:Generator_ColumnPropNameInTable="observacionColumn" msprop:Generator_UserColumnName="observacion" minOccurs="0">
@@ -132,6 +145,45 @@
               </xs:element>
               <xs:element name="idcliente" msprop:Generator_ColumnVarNameInTable="columnidcliente" msprop:Generator_ColumnPropNameInRow="idcliente" msprop:Generator_ColumnPropNameInTable="idclienteColumn" msprop:Generator_UserColumnName="idcliente" type="xs:int" minOccurs="0" />
               <xs:element name="totalitbis" msprop:Generator_ColumnVarNameInTable="columntotalitbis" msprop:Generator_ColumnPropNameInRow="totalitbis" msprop:Generator_ColumnPropNameInTable="totalitbisColumn" msprop:Generator_UserColumnName="totalitbis" type="xs:decimal" minOccurs="0" />
+              <xs:element name="empresaid1" msprop:Generator_ColumnVarNameInTable="columnempresaid1" msprop:Generator_ColumnPropNameInRow="empresaid1" msprop:Generator_ColumnPropNameInTable="empresaid1Column" msprop:Generator_UserColumnName="empresaid1" type="xs:int" minOccurs="0" />
+              <xs:element name="usuarioid1" msprop:Generator_ColumnVarNameInTable="columnusuarioid1" msprop:Generator_ColumnPropNameInRow="usuarioid1" msprop:Generator_ColumnPropNameInTable="usuarioid1Column" msprop:Generator_UserColumnName="usuarioid1" type="xs:int" minOccurs="0" />
+              <xs:element name="IdEmpresa" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnIdEmpresa" msprop:Generator_ColumnPropNameInRow="IdEmpresa" msprop:Generator_ColumnPropNameInTable="IdEmpresaColumn" msprop:Generator_UserColumnName="IdEmpresa" type="xs:int" />
+              <xs:element name="Nombre" msprop:Generator_ColumnVarNameInTable="columnNombre" msprop:Generator_ColumnPropNameInRow="Nombre" msprop:Generator_ColumnPropNameInTable="NombreColumn" msprop:Generator_UserColumnName="Nombre" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RNC" msprop:Generator_ColumnVarNameInTable="columnRNC" msprop:Generator_ColumnPropNameInRow="RNC" msprop:Generator_ColumnPropNameInTable="RNCColumn" msprop:Generator_UserColumnName="RNC" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="telefono" msprop:Generator_ColumnVarNameInTable="columntelefono" msprop:Generator_ColumnPropNameInRow="telefono" msprop:Generator_ColumnPropNameInTable="telefonoColumn" msprop:Generator_UserColumnName="telefono" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="direccion" msprop:Generator_ColumnVarNameInTable="columndireccion" msprop:Generator_ColumnPropNameInRow="direccion" msprop:Generator_ColumnPropNameInTable="direccionColumn" msprop:Generator_UserColumnName="direccion" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TipoEmpresa" msprop:Generator_ColumnVarNameInTable="columnTipoEmpresa" msprop:Generator_ColumnPropNameInRow="TipoEmpresa" msprop:Generator_ColumnPropNameInTable="TipoEmpresaColumn" msprop:Generator_UserColumnName="TipoEmpresa" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="usuarioid2" msprop:Generator_ColumnVarNameInTable="columnusuarioid2" msprop:Generator_ColumnPropNameInRow="usuarioid2" msprop:Generator_ColumnPropNameInTable="usuarioid2Column" msprop:Generator_UserColumnName="usuarioid2" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -141,6 +193,7 @@
       <xs:selector xpath=".//mstns:sp_reporte_cotizacion_back" />
       <xs:field xpath="mstns:idDetalle" />
       <xs:field xpath="mstns:idcotizacion1" />
+      <xs:field xpath="mstns:IdEmpresa" />
     </xs:unique>
   </xs:element>
 </xs:schema>

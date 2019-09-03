@@ -16,5 +16,10 @@ namespace SpointLiteVersion.Models
     {
         public int id { get; set; }
         public string valor { get; set; }
+        public Nullable<int> empresaid { get; set; }
+        public Nullable<int> usuarioid { get; set; }
+    
+        public virtual Empresa Empresa { get; set; }
+        public virtual Login Login { get; set; }
     }
 }

@@ -50,6 +50,10 @@ namespace SpointLiteVersion.Controllers
         {
             if (ModelState.IsValid)
             {
+                var usuarioid = Session["userid"].ToString();
+                var empresaid = Session["empresaid"].ToString();
+                tiposproductos.usuarioid = Convert.ToInt32(usuarioid);
+                tiposproductos.empresaid = Convert.ToInt32(empresaid);
                 db.tiposproductos.Add(tiposproductos);
                 db.SaveChanges();
             }

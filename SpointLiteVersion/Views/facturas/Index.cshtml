@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SpointLiteVersion.Models.facturas>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Facturas";
 }
 
 
@@ -66,7 +66,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.cliente)
                             </td>
-                            <td>
+                            <td id="status">
                                 @Html.DisplayFor(modelItem => item.Status)
                             </td>
 
@@ -74,9 +74,19 @@
 
 
                             <td>
-                                <a href="@Url.Action("Edit","productos1",new { id=item.idfactura})"><i class="fas fa-edit eliminar"></i></a> |
-                                <a href="@Url.Action("Details","facturas",new { id=item.idventa})"><i class="fas fa-info-circle eliminar "></i></a> |
-                                <a href="@Url.Action("Delete","productos1",new { id=item.idfactura})"><i class="fas fa-trash-alt eliminar eli"></i></a>
+                                @switch (item.Status)
+                                {
+                                    case "PAGADA":
+                                        <a href="@Url.Action("Index", "clientes1")" class="facturar isDisabled" title="Cobrar" disabled="disabled"><i class="fas fa-donate eliminar"></i> </a>
+                                        break;
+                                    case "PENDIENTE":
+                                        <a href="@Url.Action("Cobrarfactura", "facturas",new { id=item.idventa})" target="_blank" class="facturar" title="Cobrar"><i class="fas fa-donate eliminar" disabled="disabled"></i> </a>
+                                        break;
+                                }
+
+
+                                | <a href="@Url.Action("Details","facturas",new { id=item.idventa})" target="_blank"><i class="fas fa-eye eliminar"></i></a> |
+                                <a href="@Url.Action("Anularfactura","facturas",new { id=item.idfactura})"><i class="fas fa-times-circle eliminar eli"></i></a>
 
 
                             </td>
@@ -95,9 +105,9 @@
 <script>
     $(document).ready(function () {
         $('#tabla').DataTable({
-            "pagingType": "full_numbers", // "simple" option for 'Previous' and 'Next' buttons only
+                                        "pagingType": "full_numbers", // "simple" option for 'Previous' and 'Next' buttons only
             "language": {
-                "decimal": "",
+                                            "decimal": "",
                 "emptyTable": "NO HAY INFORMACION",
                 "info": "MOSTRANDO _START_ A _END_ de _TOTAL_ ENTRADAS",
                 "infoEmpty": "MOSTRANDO 0 to 0 of 0 ENTRADAS",
@@ -110,13 +120,13 @@
                 "search": "BUSCAR:",
                 "zeroRecords": "SIN RESULTADOS ENCONTRADOS",
                 "paginate": {
-                    "first": "PRIMERO",
+                                                "first": "PRIMERO",
                     "last": "ULTIMO",
                     "next": "SIGUIENTE",
                     "previous": "ANTERIOR"
                 }
-            }
-        });
+                                        }
+                                    });
         $('.dataTables_length').addClass('bs-select');
     });
 </script>

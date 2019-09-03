@@ -26,8 +26,11 @@ namespace SpointLiteVersion.Models
         public Nullable<decimal> total { get; set; }
         public Nullable<decimal> totaldescuento { get; set; }
         public Nullable<int> idventa { get; set; }
+        public Nullable<int> empresaid { get; set; }
+        public Nullable<int> usuarioid { get; set; }
+        public Nullable<int> estatus { get; set; }
 
-        public DetalleCotizacion(int? idcotizacion, string @ref, string descripcion, int? cantidad, decimal? precio, decimal? descuento, string itbis, decimal? importe, decimal? total, decimal? totaldescuento, int? idventa)
+        public DetalleCotizacion(int? idcotizacion, string @ref, string descripcion, int? cantidad, decimal? precio, decimal? descuento, string itbis, decimal? importe, decimal? total, decimal? totaldescuento, int? idventa, int? empresaid, int? usuarioid, int? estatus)
         {
             this.idcotizacion = idcotizacion;
             Ref = @ref;
@@ -40,6 +43,9 @@ namespace SpointLiteVersion.Models
             this.total = total;
             this.totaldescuento = totaldescuento;
             this.idventa = idventa;
+            this.empresaid = empresaid;
+            this.usuarioid = usuarioid;
+            this.estatus = estatus;
         }
 
         public DetalleCotizacion()
@@ -47,5 +53,7 @@ namespace SpointLiteVersion.Models
         }
 
         public virtual cotizacion cotizacion { get; set; }
+        public virtual Empresa Empresa { get; set; }
+        public virtual Login Login { get; set; }
     }
 }

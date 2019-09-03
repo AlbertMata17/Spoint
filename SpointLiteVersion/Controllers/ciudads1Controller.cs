@@ -38,6 +38,12 @@ namespace SpointLiteVersion.Controllers
         // GET: ciudads1/Create
         public ActionResult Create()
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             return View();
         }
 
@@ -50,6 +56,10 @@ namespace SpointLiteVersion.Controllers
         {
             if (ModelState.IsValid)
             {
+                var usuarioid = Session["userid"].ToString();
+                var empresaid = Session["empresaid"].ToString();
+                ciudad.usuarioid = Convert.ToInt32(usuarioid);
+                ciudad.empresaid = Convert.ToInt32(empresaid);
                 ciudad.Nombre = ciudad.Nombre.ToUpper();
                 db.ciudad.Add(ciudad);
                 db.SaveChanges();
@@ -61,6 +71,12 @@ namespace SpointLiteVersion.Controllers
         // GET: ciudads1/Edit/5
         public ActionResult Edit(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -80,6 +96,12 @@ namespace SpointLiteVersion.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "idciudad,Nombre")] ciudad ciudad)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (ModelState.IsValid)
             {
                 ciudad.Nombre = ciudad.Nombre.ToUpper();
@@ -93,6 +115,12 @@ namespace SpointLiteVersion.Controllers
         // GET: ciudads1/Delete/5
         public ActionResult Delete(int? id)
         {
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
