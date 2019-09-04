@@ -39,9 +39,9 @@ namespace SpointLiteVersion.Models
         public Nullable<int> usuarioid { get; set; }
     
         public virtual ciudad ciudad { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<facturas> facturas { get; set; }
         public virtual Empresa Empresa { get; set; }
         public virtual Login Login { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<facturas> facturas { get; set; }
     }
 }

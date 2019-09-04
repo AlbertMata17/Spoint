@@ -34,6 +34,9 @@ namespace SpointLiteVersion.Models
         public Nullable<decimal> totalitbis { get; set; }
         public Nullable<int> empresaid { get; set; }
         public Nullable<int> usuarioid { get; set; }
+        public Nullable<decimal> subtotal { get; set; }
+        public string NCF { get; set; }
+        public string Descripcionncf { get; set; }
     
         public virtual clientes clientes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

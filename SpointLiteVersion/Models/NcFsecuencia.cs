@@ -12,17 +12,19 @@ namespace SpointLiteVersion.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class NCF
+    public partial class NcFsecuencia
     {
-        public int idNCF { get; set; }
-        public string NombreComp { get; set; }
-        public string Estatus { get; set; }
+        public int idDetalle { get; set; }
+        public Nullable<System.DateTime> fecha { get; set; }
+        public Nullable<System.DateTime> fechavence { get; set; }
+        public string prefijo { get; set; }
+        public Nullable<int> idncf { get; set; }
+        public Nullable<int> desde { get; set; }
+        public Nullable<int> hasta { get; set; }
+        public Nullable<int> usado { get; set; }
+        public Nullable<int> autorizacion { get; set; }
+        public Nullable<int> status { get; set; }
         public Nullable<int> empresaid { get; set; }
         public Nullable<int> usuarioid { get; set; }
-        public string Descripcion { get; set; }
-        public Nullable<int> tipodocumento { get; set; }
-    
-        public virtual Empresa Empresa { get; set; }
-        public virtual Login Login { get; set; }
     }
 }

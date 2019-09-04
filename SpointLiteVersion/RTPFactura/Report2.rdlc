@@ -650,7 +650,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>CONSUMIDOR FINAL B0200075557</Value>
+                <Value>=First(Fields!Descripcionncf.Value, "DataSet1")+" "+ First(Fields!NCF.Value, "DataSet1")</Value>
                 <Style>
                   <FontSize>8pt</FontSize>
                   <FontWeight>Normal</FontWeight>
@@ -666,7 +666,7 @@
         <Top>2.15228in</Top>
         <Left>3.91986in</Left>
         <Height>0.19792in</Height>
-        <Width>2.82076in</Width>
+        <Width>2.80687in</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -684,10 +684,10 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Atendido Por:</Value>
+                <Value>="Atendido Por :" +" "+First(Fields!vendedor.Value, "DataSet1")</Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
+                  <FontSize>9pt</FontSize>
+                  <FontWeight>Normal</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -695,49 +695,16 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox27</rd:DefaultName>
-        <Top>1.93006in</Top>
-        <Left>4.69071in</Left>
-        <Height>0.18056in</Height>
-        <Width>2.13431cm</Width>
+        <Top>1.8745in</Top>
+        <Left>4.96154in</Left>
+        <Height>0.22223in</Height>
+        <Width>4.48357cm</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
           <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox28">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!vendedor.Value, "DataSet1")</Value>
-                <Style>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox27</rd:DefaultName>
-        <Top>1.93006in</Top>
-        <Left>5.54488in</Left>
-        <Height>0.18056in</Height>
-        <Width>1.18185in</Width>
-        <ZIndex>6</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
@@ -750,10 +717,10 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Factura No.:</Value>
+                <Value>=First(Fields!idfactura.Value, "DataSet1")</Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
+                  <FontSize>9pt</FontSize>
+                  <FontWeight>Normal</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -764,14 +731,14 @@
         </Paragraphs>
         <rd:DefaultName>Textbox23</rd:DefaultName>
         <Top>1.39371in</Top>
+        <Left>0.84722in</Left>
         <Height>0.19792in</Height>
-        <Width>0.78611in</Width>
-        <ZIndex>7</ZIndex>
+        <Width>2.1993in</Width>
+        <ZIndex>6</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
@@ -784,10 +751,10 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Cliente.:</Value>
+                <Value>="Cliente. :"+" "+First(Fields!cliente.Value, "DataSet1")</Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
+                  <FontSize>9pt</FontSize>
+                  <FontWeight>Normal</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -800,8 +767,8 @@
         <Top>1.61941in</Top>
         <Left>0.00001in</Left>
         <Height>0.19792in</Height>
-        <Width>0.54653in</Width>
-        <ZIndex>8</ZIndex>
+        <Width>3.04652in</Width>
+        <ZIndex>7</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -810,70 +777,6 @@
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox31">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!cliente.Value, "DataSet1")</Value>
-                <Style>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox31</rd:DefaultName>
-        <Top>1.61941in</Top>
-        <Left>0.56042in</Left>
-        <Height>0.19792in</Height>
-        <Width>2.73958in</Width>
-        <ZIndex>9</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox32">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!idfactura.Value, "DataSet1")</Value>
-                <Style>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox31</rd:DefaultName>
-        <Top>1.39371in</Top>
-        <Left>0.78612in</Left>
-        <Height>0.19792in</Height>
-        <Width>1in</Width>
-        <ZIndex>10</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
         </Style>
       </Textbox>
       <Textbox Name="Textbox33">
@@ -900,7 +803,7 @@
         <Left>1.52416in</Left>
         <Height>0.17014in</Height>
         <Width>3.49058in</Width>
-        <ZIndex>11</ZIndex>
+        <ZIndex>8</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -918,10 +821,10 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Fecha: </Value>
+                <Value>="Fecha :"+" "+First(Fields!fecha.Value, "DataSet1")</Value>
                 <Style>
-                  <FontSize>8pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
+                  <FontSize>9pt</FontSize>
+                  <FontWeight>Normal</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -931,11 +834,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox23</rd:DefaultName>
-        <Top>1.39371in</Top>
-        <Left>4.69071in</Left>
-        <Height>0.18056in</Height>
-        <Width>0.47295in</Width>
-        <ZIndex>12</ZIndex>
+        <Top>1.3694in</Top>
+        <Left>4.96154in</Left>
+        <Height>0.22223in</Height>
+        <Width>1.76519in</Width>
+        <ZIndex>9</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -944,40 +847,6 @@
           <PaddingRight>2pt</PaddingRight>
           <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox35">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!fecha.Value, "DataSet1")</Value>
-                <Style>
-                  <FontSize>8pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <Format>MM/dd/yyyy</Format>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox27</rd:DefaultName>
-        <Top>1.39371in</Top>
-        <Left>5.17754in</Left>
-        <Height>0.18056in</Height>
-        <Width>1.18185in</Width>
-        <ZIndex>13</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
         </Style>
       </Textbox>
       <Textbox Name="Textbox36">
@@ -1004,7 +873,7 @@
         <Left>1.51027in</Left>
         <Height>0.17014in</Height>
         <Width>3.49058in</Width>
-        <ZIndex>14</ZIndex>
+        <ZIndex>10</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1038,7 +907,7 @@
         <Left>2.05291in</Left>
         <Height>0.19792in</Height>
         <Width>0.35903in</Width>
-        <ZIndex>15</ZIndex>
+        <ZIndex>11</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1072,7 +941,7 @@
         <Left>2.41194in</Left>
         <Height>0.19792in</Height>
         <Width>0.7643in</Width>
-        <ZIndex>16</ZIndex>
+        <ZIndex>12</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1105,7 +974,7 @@
         <Left>3.58865in</Left>
         <Height>0.19792in</Height>
         <Width>1.4122in</Width>
-        <ZIndex>17</ZIndex>
+        <ZIndex>13</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1138,13 +1007,46 @@
         <Left>3.16235in</Left>
         <Height>0.19792in</Height>
         <Width>0.39852in</Width>
-        <ZIndex>18</ZIndex>
+        <ZIndex>14</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
           <PaddingLeft>2pt</PaddingLeft>
           <PaddingRight>2pt</PaddingRight>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox31">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Factura No. :</Value>
+                <Style>
+                  <FontSize>9pt</FontSize>
+                  <FontWeight>Normal</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox23</rd:DefaultName>
+        <Top>1.39371in</Top>
+        <Height>0.19792in</Height>
+        <Width>0.80556in</Width>
+        <ZIndex>15</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingTop>2pt</PaddingTop>
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
@@ -1455,6 +1357,39 @@
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
+        <Textbox Name="Textbox6">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=First(Fields!subtotal.Value, "DataSet1")</Value>
+                  <Style>
+                    <FontSize>8pt</FontSize>
+                    <Format>#,0.00;(#,0.00)</Format>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox4</rd:DefaultName>
+          <Top>0.04167in</Top>
+          <Left>5.62893in</Left>
+          <Height>0.19792in</Height>
+          <Width>1.0978in</Width>
+          <ZIndex>10</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+          </Style>
+        </Textbox>
       </ReportItems>
       <Style>
         <Border>
@@ -1543,6 +1478,10 @@
           <DataField>usuarioid</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="estatus">
+          <DataField>estatus</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
         <Field Name="idfactura1">
           <DataField>idfactura1</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -1599,6 +1538,18 @@
           <DataField>usuarioid1</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="subtotal">
+          <DataField>subtotal</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="NCF">
+          <DataField>NCF</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Descripcionncf">
+          <DataField>Descripcionncf</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="IdEmpresa">
           <DataField>IdEmpresa</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -1622,10 +1573,6 @@
         <Field Name="TipoEmpresa">
           <DataField>TipoEmpresa</DataField>
           <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="usuarioid2">
-          <DataField>usuarioid2</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>

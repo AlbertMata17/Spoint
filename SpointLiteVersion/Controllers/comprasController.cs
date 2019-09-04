@@ -53,15 +53,16 @@ namespace SpointLiteVersion.Controllers
         // GET: compras/Create
         public ActionResult Create(int? id)
         {
-            var usuarioid = Session["userid"].ToString();
-            var empresaid = Session["empresaid"].ToString();
-            var usuarioid1 = Convert.ToInt32(usuarioid);
-            var empresaid1 = Convert.ToInt32(empresaid);
             if (Session["Username"] == null)
             {
                 return RedirectToAction("Login", "Logins");
             }
 
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+           
             if (id == null)
             {
                 var m = 1;

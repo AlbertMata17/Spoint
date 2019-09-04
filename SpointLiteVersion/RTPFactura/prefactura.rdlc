@@ -1154,7 +1154,7 @@
   <Width>17.18262cm</Width>
   <Page>
     <PageFooter>
-      <Height>1.11062in</Height>
+      <Height>1.11063in</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -1176,7 +1176,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox1</rd:DefaultName>
-          <Top>0in</Top>
+          <Top>0.00001in</Top>
           <Left>5.19658in</Left>
           <Height>0.19792in</Height>
           <Width>0.4375in</Width>
@@ -1208,7 +1208,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox1</rd:DefaultName>
-          <Top>0.2118in</Top>
+          <Top>0.21181in</Top>
           <Left>5.19658in</Left>
           <Height>0.19792in</Height>
           <Width>0.4375in</Width>
@@ -1241,7 +1241,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox1</rd:DefaultName>
-          <Top>0.42361in</Top>
+          <Top>0.42362in</Top>
           <Left>5.19658in</Left>
           <Height>0.19792in</Height>
           <Width>0.55208in</Width>
@@ -1276,7 +1276,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox4</rd:DefaultName>
-          <Top>0.2118in</Top>
+          <Top>0.21181in</Top>
           <Left>5.64797in</Left>
           <Height>0.19792in</Height>
           <Width>1.0978in</Width>
@@ -1309,7 +1309,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox4</rd:DefaultName>
-          <Top>0.42361in</Top>
+          <Top>0.42362in</Top>
           <Left>5.74866in</Left>
           <Height>0.19792in</Height>
           <Width>0.99711in</Width>
@@ -1322,7 +1322,7 @@
           </Style>
         </Textbox>
         <Line Name="Line4">
-          <Top>0.47916in</Top>
+          <Top>0.47917in</Top>
           <Left>0.01905in</Left>
           <Height>0in</Height>
           <Width>2.05208in</Width>
@@ -1334,7 +1334,7 @@
           </Style>
         </Line>
         <Line Name="Line5">
-          <Top>0.47916in</Top>
+          <Top>0.47917in</Top>
           <Left>2.25498in</Left>
           <Height>0in</Height>
           <Width>2.09129in</Width>
@@ -1363,7 +1363,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox10</rd:DefaultName>
-          <Top>0.49305in</Top>
+          <Top>0.49306in</Top>
           <Left>0.35724in</Left>
           <Height>0.20833in</Height>
           <Width>1.11458in</Width>
@@ -1396,7 +1396,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox10</rd:DefaultName>
-          <Top>0.49305in</Top>
+          <Top>0.49306in</Top>
           <Left>2.82432in</Left>
           <Height>0.20833in</Height>
           <Width>1.11458in</Width>
@@ -1429,7 +1429,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox8</rd:DefaultName>
-          <Top>0.86062in</Top>
+          <Top>0.86063in</Top>
           <Left>2.44487in</Left>
           <Height>0.25in</Height>
           <Width>1.6875in</Width>
@@ -1442,6 +1442,38 @@
             <PaddingRight>2pt</PaddingRight>
             <PaddingTop>2pt</PaddingTop>
             <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox6">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=First(Fields!subtotal.Value, "DataSet3")</Value>
+                  <Style>
+                    <FontSize>8pt</FontSize>
+                    <Format>#,0.00;(#,0.00)</Format>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox4</rd:DefaultName>
+          <Left>5.63408in</Left>
+          <Height>0.19792in</Height>
+          <Width>1.0978in</Width>
+          <ZIndex>10</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
           </Style>
         </Textbox>
       </ReportItems>
@@ -1534,6 +1566,10 @@
           <DataField>usuarioid</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="estatus">
+          <DataField>estatus</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
         <Field Name="idprefactura1">
           <DataField>idprefactura1</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -1590,6 +1626,10 @@
           <DataField>usuarioid1</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="subtotal">
+          <DataField>subtotal</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
         <Field Name="IdEmpresa">
           <DataField>IdEmpresa</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -1613,10 +1653,6 @@
         <Field Name="TipoEmpresa">
           <DataField>TipoEmpresa</DataField>
           <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="usuarioid2">
-          <DataField>usuarioid2</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>

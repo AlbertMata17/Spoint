@@ -12,29 +12,43 @@
     <title>Agregar NCF</title>
 </head>
 <body>
-    @using (Html.BeginForm()) 
+    @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        
+
     <div class="form-horizontal">
         <h4 style="margin-top:-20px !important; margin-left:30px;">Agregar NCF</h4>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            <div class="col-md-12" style="margin-left:-20px;">
-                @Html.LabelFor(model => model.Tipo, htmlAttributes: new { @class = "control-label col-md-2" })
-                <select name="Tipo" id="Tipo" class="form-control">
-                    <option value="FACTURAS DE CONSUMO">FACTURAS DE CONSUMO</option>
-                    <option value="COMPROBANTES GUBERNAMENTAL">COMPROBANTES GUBERNAMENTAL</option>
-                    <option value="FACTURAS DE CRÉDITO FISCAL">FACTURAS DE CRÉDITO FISCAL</option>
-                    <option value="REGÍMENES ESPECIALES">REGÍMENES ESPECIALES</option>
-                </select>
-                @Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "text-danger" })
+            <div class="form-group col-md-12">
+                @*@Html.EditorFor(model => model.producto);*@
+                <label for="producto" class="control-label col-md-12" style="text-align:left;">NCF</label>
+                <input type="text" list="NCFs" name="NCF" id="NCF" class="form-control" autocomplete="off" />
+
+                <datalist id="NCFs">
+                    @foreach (var m in ViewBag.ncf)
+                    {
+                        <option value="@m.Text" data-id="@m.Value" />
+                    }
+                </datalist>
+                @*@Html.DropDownList("producto", (IEnumerable<SelectListItem>)ViewBag.producto, "---Selecciona Un producto---", new { @class = "form-control" })*@
+
             </div>
         </div>
+        <select class="description" id="descripcion" hidden>
+            <option value="value">text</option>
+        </select>
+        <select class="id" id="idncf" name="idncf" hidden>
+            <option value="value">text</option>
+        </select>
+        <select class="descripcionenviar" id="descripcionenviar">
+            <option value="value">text</option>
+        </select>
+       
 
 
 
-        <div class="form-group">
+        @*<div class="form-group">
             <div class="col-md-12" style="margin-left:-20px;">
                 <label class="control-label col-md-2">NCF</label>
                 @Html.EditorFor(model => model.NoNCF, new { htmlAttributes = new { @class = "form-control" } })
@@ -65,16 +79,51 @@
                 @Html.EditorFor(model => model.direccionEmpresa, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.direccionEmpresa, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
 
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" id="btnsubmit" class="btn btn-primary">Save changes</button>
         </div>
-     
+
     </div>
     }
+    <script>
+        $(document).ready(function () {
+            $("#NCF").change(function () {
+                $.post("GetNcf", { idproducto: $("#NCFs option[value='" + $('#NCF').val() + "']").attr('data-id') }, function (data) {
 
+
+                    $("#descripcion").empty();
+                    $("#idncf").empty();
+                    $("#descripcionenviar").empty();
+
+                      $.each(data, function (create, row) {
+                          $("#descripcion").append("<option value='" + row.Descripcion + "'>" + row.Descripcion + "</option>")
+                          $("#idncf").append("<option value='" + row.idNCF + "'>" + row.idNCF + "</option>")
+                          $("#descripcionenviar").append("<option value='" + row.NombreComp + "'>" + row.NombreComp + "</option>")
+
+
+                    });
+                });
+            })
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+
+          
+
+            $("#btnsubmit").click(function () {
+                document.getElementById("pruebancf").value = $("#descripcion").val();
+                document.getElementById("idncfenviar").value = $("#idncf").val();
+                document.getElementById("descripcionncf").value = $("#descripcionenviar").val();
+                $("#exampleModal").modal("hide");
+            });
+        });
+
+
+    </script>
 </body>
 </html>

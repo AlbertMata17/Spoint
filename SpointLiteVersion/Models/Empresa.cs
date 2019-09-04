@@ -20,7 +20,6 @@ namespace SpointLiteVersion.Models
             this.ciudad = new HashSet<ciudad>();
             this.clientes = new HashSet<clientes>();
             this.compras = new HashSet<compras>();
-            this.cotizacion = new HashSet<cotizacion>();
             this.DetalleCompra = new HashSet<DetalleCompra>();
             this.DetalleCotizacion = new HashSet<DetalleCotizacion>();
             this.DetallePrefactura = new HashSet<DetallePrefactura>();
@@ -29,13 +28,14 @@ namespace SpointLiteVersion.Models
             this.TipoSuplidor = new HashSet<TipoSuplidor>();
             this.vendedores = new HashSet<vendedores>();
             this.productos = new HashSet<productos>();
-            this.prefactura = new HashSet<prefactura>();
             this.suplidores = new HashSet<suplidores>();
-            this.NCF = new HashSet<NCF>();
-            this.facturas = new HashSet<facturas>();
             this.Inventario = new HashSet<Inventario>();
             this.itbis = new HashSet<itbis>();
             this.Login = new HashSet<Login>();
+            this.cotizacion = new HashSet<cotizacion>();
+            this.prefactura = new HashSet<prefactura>();
+            this.NCF = new HashSet<NCF>();
+            this.facturas = new HashSet<facturas>();
         }
     
         public int IdEmpresa { get; set; }
@@ -51,8 +51,6 @@ namespace SpointLiteVersion.Models
         public virtual ICollection<clientes> clientes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<compras> compras { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<cotizacion> cotizacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalleCompra> DetalleCompra { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -70,18 +68,20 @@ namespace SpointLiteVersion.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<productos> productos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<prefactura> prefactura { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<suplidores> suplidores { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NCF> NCF { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<facturas> facturas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Inventario> Inventario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<itbis> itbis { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Login> Login { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<cotizacion> cotizacion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<prefactura> prefactura { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NCF> NCF { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<facturas> facturas { get; set; }
     }
 }

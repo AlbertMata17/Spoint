@@ -52,8 +52,8 @@ namespace SpointLiteVersion.Models
         {
         }
 
-        public virtual facturas facturas { get; set; }
         public virtual Empresa Empresa { get; set; }
         public virtual Login Login { get; set; }
+        public virtual facturas facturas { get; set; }
     }
 }

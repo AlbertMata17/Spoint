@@ -47,6 +47,19 @@ namespace SpointLiteVersion.Controllers
             return View(nCF);
         }
 
+
+        public JsonResult GetNcf(int idproducto)
+        {
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+            db.Configuration.ProxyCreationEnabled = false;
+            List<NCF> productos = db.NCF.Where(m => m.idNCF == idproducto && m.Estatus == "1" && m.empresaid == empresaid1).ToList();
+
+            //ViewBag.FK_Vehiculo = new SelectList(db.Vehiculo.Where(a => a.Clase == Clase && a.Estatus == "Disponible"), "VehiculoId", "Marca");
+            return Json(productos, JsonRequestBehavior.AllowGet);
+        }
         // GET: NCFs/Create
         public ActionResult Create()
         {
@@ -55,6 +68,11 @@ namespace SpointLiteVersion.Controllers
             {
                 return RedirectToAction("Login", "Logins");
             }
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+            ViewBag.ncf = new SelectList(db.NCF.Where(m => m.Estatus == "1" && m.empresaid == empresaid1), "idNCF", "NombreComp");
 
             return View();
         }

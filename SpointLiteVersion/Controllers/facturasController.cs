@@ -80,7 +80,7 @@ namespace SpointLiteVersion.Controllers
                             select new { N.Descripcion });
             return Json(CityList, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult PDf(string fecha, string creditos, string observacion, string cliente, string idcliente, string vendedor, string precio, string credito, string Total, List<DetalleVenta> ListadoDetalle)
+        public ActionResult PDf(string fecha, string creditos, string observacion,string descripcionncf,string idncfenviar,string ncf,string itbisdado, string subtotaldado, string cliente, string idcliente, string vendedor, string precio, string credito, string Total, List<DetalleVenta> ListadoDetalle)
         {
             var usuarioid = Session["userid"].ToString();
             var empresaid = Session["empresaid"].ToString();
@@ -171,6 +171,10 @@ namespace SpointLiteVersion.Controllers
                         factura.idcliente = Convert.ToInt32(idcliente);
                         factura.empresaid = empresaid1;
                         factura.usuarioid = usuarioid1;
+                        factura.totalitbis = Convert.ToDecimal(itbisdado);
+                        factura.subtotal = Convert.ToDecimal(subtotaldado);
+
+                        factura.Descripcionncf = descripcionncf;
                         db.facturas.Add(factura);
                         db.SaveChanges();
                         int id = factura.idfactura;
@@ -198,15 +202,41 @@ namespace SpointLiteVersion.Controllers
                             string descripcion1 = data.descripcion.ToString();
                             decimal precio1 = Convert.ToDecimal(data.precio.ToString());
                             string itbis = data.itbis.ToString();
-                            DetalleVenta objDetalleVenta = new DetalleVenta(id, idventa, idProducto, descripcion1, cantidad, precio1, descuento, itbis, subtotal, total, totaldescuento, empresaid1, usuarioid1,1);
-                            DetalleCompra objDetalle = new DetalleCompra(idProducto, id, cantidad, descripcion1, precio1, total, Convert.ToDateTime(fecha), "VENTA", empresaid1, usuarioid1,1);
+                            DetalleVenta objDetalleVenta = new DetalleVenta(id, idventa, idProducto, descripcion1, cantidad, precio1, descuento, itbis, subtotal, total, totaldescuento, empresaid1, usuarioid1, 1);
+                            DetalleCompra objDetalle = new DetalleCompra(idProducto, id, cantidad, descripcion1, precio1, total, Convert.ToDateTime(fecha), "VENTA", empresaid1, usuarioid1, 1);
 
                             Session["idVenta"] = idventa;
                             db.DetalleCompra.Add(objDetalle);
                             db.DetalleVenta.Add(objDetalleVenta);
                             db.SaveChanges();
+                            if (idncfenviar != "" || idncfenviar != null)
+                            {
+                                DetalleNcf secuenciancf = new DetalleNcf();
+                                secuenciancf.idNcf = Convert.ToInt32(idncfenviar);
+                                secuenciancf.iddocumento = id;
+                                secuenciancf.tipodocumento = 1;
+                                var sec = (from i in db.DetalleNcf select i.secuencia).Max();
+                                if (sec >= 0)
+                                {
+                                    secuenciancf.secuencia = sec + 1;
+                                }
+                                else if (sec < 0)
+                                {
+                                    secuenciancf.secuencia = 1;
+                                }
+                                secuenciancf.status = 1;
+                                secuenciancf.empresaid = empresaid1;
+                                secuenciancf.usuarioid = usuarioid1;
+                                var idncfcomp = Convert.ToInt32(idncfenviar);
+                                var idncfsecuencia = (from i in db.NcFsecuencia where i.idncf == idncfcomp select i.idDetalle).FirstOrDefault();
+                                if (idncfsecuencia >= 0)
+                                {
+                                    secuenciancf.idncfsecuencia = idncfsecuencia;
+                                }
+                                db.SaveChanges();
 
-
+                                db.NCFCALCULO(secuenciancf.secuencia, idventa, ncf);
+                            }
                         }
                         mensaje = "VENTA GUARDADA CON EXITO...";
 
@@ -238,6 +268,9 @@ namespace SpointLiteVersion.Controllers
                     factura.Status = "PAGADA";
                     factura.idcliente = Convert.ToInt32(idcliente);
                     factura.empresaid = empresaid1;
+                    factura.totalitbis = Convert.ToDecimal(itbisdado);
+                    factura.subtotal = Convert.ToDecimal(subtotaldado);
+                    factura.Descripcionncf = descripcionncf;
                     factura.usuarioid = usuarioid1;
                     db.facturas.Add(factura);
                     db.SaveChanges();
@@ -274,7 +307,35 @@ namespace SpointLiteVersion.Controllers
                         db.DetalleVenta.Add(objDetalleVenta);
                         db.SaveChanges();
 
-
+                        if (idncfenviar != "" || idncfenviar != null)
+                        {
+                            DetalleNcf secuenciancf = new DetalleNcf();
+                            secuenciancf.idNcf = Convert.ToInt32(idncfenviar);
+                            secuenciancf.iddocumento = id;
+                            secuenciancf.tipodocumento = 1;
+                            var sec = (from i in db.DetalleNcf select i.secuencia).Max();
+                            if (sec >= 0)
+                            {
+                                secuenciancf.secuencia = sec + 1;
+                            }
+                            else if (sec < 0 || sec==null )
+                            {
+                                secuenciancf.secuencia = 1;
+                            }
+                            secuenciancf.status = 1;
+                            secuenciancf.empresaid = empresaid1;
+                            secuenciancf.usuarioid = usuarioid1;
+                            var idncfcomp = Convert.ToInt32(idncfenviar);
+                            var idncfsecuencia = (from i in db.NcFsecuencia where i.idncf == idncfcomp select i.idDetalle).FirstOrDefault();
+                            if (idncfsecuencia >= 0)
+                            {
+                                secuenciancf.idncfsecuencia = idncfsecuencia;
+                            }
+                            db.DetalleNcf.Add(secuenciancf);
+                            db.SaveChanges();
+                            int secuenciavalidada = Convert.ToInt32(secuenciancf.secuencia);
+                            db.NCFCALCULO(secuenciavalidada, idventa, ncf);
+                        }
                     }
                     mensaje = "VENTA GUARDADA CON EXITO...";
 
@@ -288,7 +349,7 @@ namespace SpointLiteVersion.Controllers
         }
 
         //metodo para realizar prefacturas
-        public ActionResult prefactura(string fecha, string creditos, string observacion, string itbisdado,string cliente, string idcliente, string vendedor, string precio, string credito, string Total, List<DetallePrefactura> ListadoDetalle)
+        public ActionResult prefactura(string fecha, string creditos, string observacion, string itbisdado,string subtotaldado,string cliente, string idcliente, string vendedor, string precio, string credito, string Total, List<DetallePrefactura> ListadoDetalle)
         {
             var usuarioid = Session["userid"].ToString();
             var empresaid = Session["empresaid"].ToString();
@@ -361,6 +422,8 @@ namespace SpointLiteVersion.Controllers
                     factura.empresaid = empresaid1;
                     factura.usuarioid = usuarioid1;
                     factura.idcliente = Convert.ToInt32(idcliente);
+                    factura.totalitbis = Convert.ToDecimal(itbisdado);
+                    factura.subtotal = Convert.ToDecimal(subtotaldado);
 
                     db.prefactura.Add(factura);
                     db.SaveChanges();
@@ -427,6 +490,8 @@ namespace SpointLiteVersion.Controllers
                 factura.idcliente = Convert.ToInt32(idcliente);
                 factura.empresaid = empresaid1;
                 factura.usuarioid = usuarioid1;
+                factura.subtotal = Convert.ToDecimal(subtotaldado);
+
                 db.prefactura.Add(factura);
                 db.SaveChanges();
                 int id = factura.idprefactura;
@@ -464,7 +529,7 @@ namespace SpointLiteVersion.Controllers
         //fin de las prefacturas
         //metodo para realizar las cotizaciones
        
-        public ActionResult Cotizar(string fecha, string creditos, string observacion, string itbisdado,string cliente, string idcliente, string vendedor, string precio, string credito, string Total, List<DetalleCotizacion> ListadoDetalle)
+        public ActionResult Cotizar(string fecha, string creditos, string observacion, string itbisdado,string subtotaldado,string cliente, string idcliente, string vendedor, string precio, string credito, string Total, List<DetalleCotizacion> ListadoDetalle)
         {
             var usuarioid = Session["userid"].ToString();
             var empresaid = Session["empresaid"].ToString();
@@ -530,6 +595,8 @@ namespace SpointLiteVersion.Controllers
                     factura.totalitbis = Convert.ToDecimal(itbisdado);
                     factura.empresaid = empresaid1;
                     factura.usuarioid = usuarioid1;
+                    factura.subtotal = Convert.ToDecimal(subtotaldado);
+
                     db.cotizacion.Add(factura);
                     db.SaveChanges();
                     int id = factura.idcotizacion;
@@ -587,6 +654,9 @@ namespace SpointLiteVersion.Controllers
                 factura.idcliente = Convert.ToInt32(idcliente);
                 factura.empresaid = empresaid1;
                 factura.usuarioid = usuarioid1;
+                factura.totalitbis = Convert.ToDecimal(itbisdado);
+                factura.subtotal = Convert.ToDecimal(subtotaldado);
+
                 db.cotizacion.Add(factura);
                 db.SaveChanges();
                 int id = factura.idcotizacion;
@@ -703,14 +773,15 @@ namespace SpointLiteVersion.Controllers
 
         public ActionResult CobrarPrefactura(int? id)
         {
-            var usuarioid = Session["userid"].ToString();
-            var empresaid = Session["empresaid"].ToString();
-            var usuarioid1 = Convert.ToInt32(usuarioid);
-            var empresaid1 = Convert.ToInt32(empresaid);
             if (Session["Username"] == null)
             {
                 return RedirectToAction("Login", "Logins");
             }
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+         
 
             if (id == null)
             {
@@ -762,14 +833,15 @@ namespace SpointLiteVersion.Controllers
 
         public ActionResult Cobrarfactura(int? id)
         {
-            var usuarioid = Session["userid"].ToString();
-            var empresaid = Session["empresaid"].ToString();
-            var usuarioid1 = Convert.ToInt32(usuarioid);
-            var empresaid1 = Convert.ToInt32(empresaid);
             if (Session["Username"] == null)
             {
                 return RedirectToAction("Login", "Logins");
             }
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+          
 
             if (id == null)
             {
@@ -823,15 +895,16 @@ namespace SpointLiteVersion.Controllers
 
         public ActionResult CobrarCotizacion(int? id)
         {
-            var usuarioid = Session["userid"].ToString();
-            var empresaid = Session["empresaid"].ToString();
-            var usuarioid1 = Convert.ToInt32(usuarioid);
-            var empresaid1 = Convert.ToInt32(empresaid);
             if (Session["Username"] == null)
             {
                 return RedirectToAction("Login", "Logins");
             }
 
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+          
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -881,14 +954,15 @@ namespace SpointLiteVersion.Controllers
         }
         public ActionResult Anularfactura(int? id)
         {
-            var usuarioid = Session["userid"].ToString();
-            var empresaid = Session["empresaid"].ToString();
-            var usuarioid1 = Convert.ToInt32(usuarioid);
-            var empresaid1 = Convert.ToInt32(empresaid);
             if (Session["Username"] == null)
             {
                 return RedirectToAction("Login", "Logins");
             }
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+            
 
             if (id == null)
             {
@@ -942,14 +1016,15 @@ namespace SpointLiteVersion.Controllers
 
         public ActionResult Anularcotizacion(int? id)
         {
-            var usuarioid = Session["userid"].ToString();
-            var empresaid = Session["empresaid"].ToString();
-            var usuarioid1 = Convert.ToInt32(usuarioid);
-            var empresaid1 = Convert.ToInt32(empresaid);
             if (Session["Username"] == null)
             {
                 return RedirectToAction("Login", "Logins");
             }
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+           
 
             if (id == null)
             {
@@ -1003,14 +1078,15 @@ namespace SpointLiteVersion.Controllers
         //WLIMINarFACTIRA
         public ActionResult Anularprefactua(int? id)
         {
-            var usuarioid = Session["userid"].ToString();
-            var empresaid = Session["empresaid"].ToString();
-            var usuarioid1 = Convert.ToInt32(usuarioid);
-            var empresaid1 = Convert.ToInt32(empresaid);
             if (Session["Username"] == null)
             {
                 return RedirectToAction("Login", "Logins");
             }
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+            
 
             if (id == null)
             {
@@ -1111,24 +1187,40 @@ namespace SpointLiteVersion.Controllers
         // GET: facturas/Create
         public ActionResult Create()
         {
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
             var usuarioid = Session["userid"].ToString();
             var empresaid = Session["empresaid"].ToString();
             var usuarioid1 = Convert.ToInt32(usuarioid);
             var empresaid1 = Convert.ToInt32(empresaid);
 
-            if (Session["Username"] == null)
-            {
-                return RedirectToAction("Login", "Logins");
-            }
+            
 
             ViewBag.cliente = new SelectList(db.clientes.Where(m => m.Status == "1" && m.empresaid==empresaid1), "idcliente", "nombre");
             ViewBag.vendedor = new SelectList(db.vendedores.Where(m => m.Status == "1" && m.empresaid==empresaid1), "nombre", "nombre");
+            ViewBag.ncf = new SelectList(db.NCF.Where(m => m.Estatus == "1" && m.empresaid == empresaid1), "idNCF", "NombreComp");
+
             var ListadoDetalle = new List<DetalleVenta>();
             ListadoDetalle.Add(new DetalleVenta());
             ListadoDetalle.Add(new DetalleVenta());
            
             ViewBag.producto = new SelectList(db.productos.Where(m => m.Status == "1" && m.empresaid==empresaid1), "idProducto", "Descripcion");
             return View();
+        }
+
+        public JsonResult GetNcf(int idproducto)
+        {
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+            db.Configuration.ProxyCreationEnabled = false;
+            List<NCF> productos = db.NCF.Where(m => m.idNCF == idproducto && m.Estatus == "1" && m.empresaid == empresaid1).ToList();
+
+            //ViewBag.FK_Vehiculo = new SelectList(db.Vehiculo.Where(a => a.Clase == Clase && a.Estatus == "Disponible"), "VehiculoId", "Marca");
+            return Json(productos, JsonRequestBehavior.AllowGet);
         }
         public JsonResult Getproducto(int idproducto)
         {

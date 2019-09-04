@@ -16,7 +16,9 @@
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-
+                    <input type="hidden" name="pruebancf" id="pruebancf" value="" />
+                    <input type="hidden" name="idncfenviar" id="idncfenviar" value="" />
+                    <input type="hidden" name="descripcionncf" id="descripcionncf" value="" />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -966,7 +968,7 @@
             //console.info('hola');
 
             var i = 0;
-            var envio = "{fecha:'" + $("#fecha").val() + "',creditos:'" + $("#creditosaprobados").val() + "',observacion:'" + $("#observacion").val() + "',idcliente:'" + $("#cliente1 option[value='" + $('#cliente').val() + "']").attr('data-id')+ "',cliente:'" + $("#cliente").val() + "',vendedor:'" + $("#vendedor").val()  + "',precio:'" + $("#precio").val().replace("$", "").replace(",", "") + "',credito:'" + $("#credito").val() + "',IdCabecera:'2',Total:'" + $('#TotalaPagar').val().replace("$", "").replace(",", "") + "',";
+            var envio = "{fecha:'" + $("#fecha").val() + "',creditos:'" + $("#creditosaprobados").val() + "',observacion:'" + $("#observacion").val() + "',descripcionncf:'" + $("#descripcionncf").val() + "',idncfenviar:'" + $("#idncfenviar").val() + "',ncf:'" + $("#pruebancf").val() + "',itbisdado:'" + $("#itbisdado").val().replace("$", "").replace(",", "") + "',subtotaldado:'" + $("#subtotal").val().replace("$", "").replace(",", "") + "',idcliente:'" + $("#cliente1 option[value='" + $('#cliente').val() + "']").attr('data-id')+ "',cliente:'" + $("#cliente").val() + "',vendedor:'" + $("#vendedor").val()  + "',precio:'" + $("#precio").val().replace("$", "").replace(",", "") + "',credito:'" + $("#credito").val() + "',IdCabecera:'2',Total:'" + $('#TotalaPagar').val().replace("$", "").replace(",", "") + "',";
             $("#detalle tbody tr").each(function (index) {
                 if (i == 0) {
                     envio += "ListadoDetalle:[{Ref:'" + $(this).find('td').eq(0).text() +
@@ -1073,7 +1075,7 @@
             //console.info('hola');
 
             var i = 0;
-            var envio = "{fecha:'" + $("#fecha").val() + "',creditos:'" + $("#creditosaprobados").val() + "',observacion:'" + $("#observacion").val() + "',itbisdado:'" + $("#itbisdado").val().replace("$", "").replace(",", "") +"',idcliente:'" + $("#cliente1 option[value='" + $('#cliente').val() + "']").attr('data-id')+ "',cliente:'" + $("#cliente").val() + "',vendedor:'" + $("#vendedor").val()  + "',precio:'" + $("#precio").val().replace("$", "").replace(",", "") + "',credito:'" + $("#credito").val() + "',IdCabecera:'2',Total:'" + $('#TotalaPagar').val().replace("$", "").replace(",", "") + "',";
+            var envio = "{fecha:'" + $("#fecha").val() + "',creditos:'" + $("#creditosaprobados").val() + "',observacion:'" + $("#observacion").val() + "',itbisdado:'" + $("#itbisdado").val().replace("$", "").replace(",", "") + "',subtotaldado:'" + $("#subtotal").val().replace("$", "").replace(",", "") +"',idcliente:'" + $("#cliente1 option[value='" + $('#cliente').val() + "']").attr('data-id')+ "',cliente:'" + $("#cliente").val() + "',vendedor:'" + $("#vendedor").val()  + "',precio:'" + $("#precio").val().replace("$", "").replace(",", "") + "',credito:'" + $("#credito").val() + "',IdCabecera:'2',Total:'" + $('#TotalaPagar').val().replace("$", "").replace(",", "") + "',";
             $("#detalle tbody tr").each(function (index) {
                 if (i == 0) {
                     envio += "ListadoDetalle:[{Ref:'" + $(this).find('td').eq(0).text() +
@@ -1182,7 +1184,7 @@
             //console.info('hola');
 
             var i = 0;
-            var envio = "{fecha:'" + $("#fecha").val() + "',creditos:'" + $("#creditosaprobados").val() + "',observacion:'" + $("#observacion").val() + "',itbisdado:'" + $("#itbisdado").val() + "',idcliente:'" + $("#cliente1 option[value='" + $('#cliente').val() + "']").attr('data-id')+ "',cliente:'" + $("#cliente").val() + "',vendedor:'" + $("#vendedor").val()  + "',precio:'" + $("#precio").val().replace("$", "").replace(",", "") + "',credito:'" + $("#credito").val() + "',IdCabecera:'2',Total:'" + $('#TotalaPagar').val().replace("$", "").replace(",", "") + "',";
+            var envio = "{fecha:'" + $("#fecha").val() + "',creditos:'" + $("#creditosaprobados").val() + "',observacion:'" + $("#observacion").val() + "',itbisdado:'" + $("#itbisdado").val().replace("$", "").replace(",", "") + "',subtotaldado:'" + $("#subtotal").val().replace("$", "").replace(",", "") + "',idcliente:'" + $("#cliente1 option[value='" + $('#cliente').val() + "']").attr('data-id')+ "',cliente:'" + $("#cliente").val() + "',vendedor:'" + $("#vendedor").val()  + "',precio:'" + $("#precio").val().replace("$", "").replace(",", "") + "',credito:'" + $("#credito").val() + "',IdCabecera:'2',Total:'" + $('#TotalaPagar').val().replace("$", "").replace(",", "") + "',";
             $("#detalle tbody tr").each(function (index) {
                 if (i == 0) {
                     envio += "ListadoDetalle:[{Ref:'" + $(this).find('td').eq(0).text() +

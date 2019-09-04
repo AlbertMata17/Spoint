@@ -309,6 +309,8 @@ namespace SpointLiteVersion.DataSet {
             
             private global::System.Data.DataColumn columnusuarioid;
             
+            private global::System.Data.DataColumn columnestatus;
+            
             private global::System.Data.DataColumn columnidprefactura1;
             
             private global::System.Data.DataColumn columnfecha;
@@ -337,6 +339,8 @@ namespace SpointLiteVersion.DataSet {
             
             private global::System.Data.DataColumn columnusuarioid1;
             
+            private global::System.Data.DataColumn columnsubtotal;
+            
             private global::System.Data.DataColumn columnIdEmpresa;
             
             private global::System.Data.DataColumn columnNombre;
@@ -348,8 +352,6 @@ namespace SpointLiteVersion.DataSet {
             private global::System.Data.DataColumn columndireccion;
             
             private global::System.Data.DataColumn columnTipoEmpresa;
-            
-            private global::System.Data.DataColumn columnusuarioid2;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
@@ -506,6 +508,14 @@ namespace SpointLiteVersion.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn estatusColumn {
+                get {
+                    return this.columnestatus;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public global::System.Data.DataColumn idprefactura1Column {
                 get {
                     return this.columnidprefactura1;
@@ -618,6 +628,14 @@ namespace SpointLiteVersion.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn subtotalColumn {
+                get {
+                    return this.columnsubtotal;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public global::System.Data.DataColumn IdEmpresaColumn {
                 get {
                     return this.columnIdEmpresa;
@@ -661,14 +679,6 @@ namespace SpointLiteVersion.DataSet {
             public global::System.Data.DataColumn TipoEmpresaColumn {
                 get {
                     return this.columnTipoEmpresa;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn usuarioid2Column {
-                get {
-                    return this.columnusuarioid2;
                 }
             }
             
@@ -724,6 +734,7 @@ namespace SpointLiteVersion.DataSet {
                         int idfactura, 
                         int empresaid, 
                         int usuarioid, 
+                        int estatus, 
                         System.DateTime fecha, 
                         string observacion, 
                         string cliente, 
@@ -737,12 +748,12 @@ namespace SpointLiteVersion.DataSet {
                         decimal totalitbis, 
                         int empresaid1, 
                         int usuarioid1, 
+                        decimal subtotal, 
                         string Nombre, 
                         string RNC, 
                         string telefono, 
                         string direccion, 
-                        string TipoEmpresa, 
-                        int usuarioid2) {
+                        string TipoEmpresa) {
                 sp_reporte_prefactura_backRow rowsp_reporte_prefactura_backRow = ((sp_reporte_prefactura_backRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -760,6 +771,7 @@ namespace SpointLiteVersion.DataSet {
                         idfactura,
                         empresaid,
                         usuarioid,
+                        estatus,
                         null,
                         fecha,
                         observacion,
@@ -774,13 +786,13 @@ namespace SpointLiteVersion.DataSet {
                         totalitbis,
                         empresaid1,
                         usuarioid1,
+                        subtotal,
                         null,
                         Nombre,
                         RNC,
                         telefono,
                         direccion,
-                        TipoEmpresa,
-                        usuarioid2};
+                        TipoEmpresa};
                 rowsp_reporte_prefactura_backRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowsp_reporte_prefactura_backRow);
                 return rowsp_reporte_prefactura_backRow;
@@ -827,6 +839,7 @@ namespace SpointLiteVersion.DataSet {
                 this.columnidfactura = base.Columns["idfactura"];
                 this.columnempresaid = base.Columns["empresaid"];
                 this.columnusuarioid = base.Columns["usuarioid"];
+                this.columnestatus = base.Columns["estatus"];
                 this.columnidprefactura1 = base.Columns["idprefactura1"];
                 this.columnfecha = base.Columns["fecha"];
                 this.columnobservacion = base.Columns["observacion"];
@@ -841,13 +854,13 @@ namespace SpointLiteVersion.DataSet {
                 this.columntotalitbis = base.Columns["totalitbis"];
                 this.columnempresaid1 = base.Columns["empresaid1"];
                 this.columnusuarioid1 = base.Columns["usuarioid1"];
+                this.columnsubtotal = base.Columns["subtotal"];
                 this.columnIdEmpresa = base.Columns["IdEmpresa"];
                 this.columnNombre = base.Columns["Nombre"];
                 this.columnRNC = base.Columns["RNC"];
                 this.columntelefono = base.Columns["telefono"];
                 this.columndireccion = base.Columns["direccion"];
                 this.columnTipoEmpresa = base.Columns["TipoEmpresa"];
-                this.columnusuarioid2 = base.Columns["usuarioid2"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -883,6 +896,8 @@ namespace SpointLiteVersion.DataSet {
                 base.Columns.Add(this.columnempresaid);
                 this.columnusuarioid = new global::System.Data.DataColumn("usuarioid", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnusuarioid);
+                this.columnestatus = new global::System.Data.DataColumn("estatus", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnestatus);
                 this.columnidprefactura1 = new global::System.Data.DataColumn("idprefactura1", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnidprefactura1);
                 this.columnfecha = new global::System.Data.DataColumn("fecha", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
@@ -911,6 +926,8 @@ namespace SpointLiteVersion.DataSet {
                 base.Columns.Add(this.columnempresaid1);
                 this.columnusuarioid1 = new global::System.Data.DataColumn("usuarioid1", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnusuarioid1);
+                this.columnsubtotal = new global::System.Data.DataColumn("subtotal", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnsubtotal);
                 this.columnIdEmpresa = new global::System.Data.DataColumn("IdEmpresa", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIdEmpresa);
                 this.columnNombre = new global::System.Data.DataColumn("Nombre", typeof(string), null, global::System.Data.MappingType.Element);
@@ -923,8 +940,6 @@ namespace SpointLiteVersion.DataSet {
                 base.Columns.Add(this.columndireccion);
                 this.columnTipoEmpresa = new global::System.Data.DataColumn("TipoEmpresa", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTipoEmpresa);
-                this.columnusuarioid2 = new global::System.Data.DataColumn("usuarioid2", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnusuarioid2);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnIdDetalle,
                                 this.columnidprefactura1,
@@ -1347,6 +1362,23 @@ namespace SpointLiteVersion.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int estatus {
+                get {
+                    try {
+                        return ((int)(this[this.tablesp_reporte_prefactura_back.estatusColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'estatus\' de la tabla \'sp_reporte_prefactura_back\' es DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_reporte_prefactura_back.estatusColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public int idprefactura1 {
                 get {
                     return ((int)(this[this.tablesp_reporte_prefactura_back.idprefactura1Column]));
@@ -1579,6 +1611,23 @@ namespace SpointLiteVersion.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal subtotal {
+                get {
+                    try {
+                        return ((decimal)(this[this.tablesp_reporte_prefactura_back.subtotalColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'subtotal\' de la tabla \'sp_reporte_prefactura_back\' es DBN" +
+                                "ull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesp_reporte_prefactura_back.subtotalColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public int IdEmpresa {
                 get {
                     return ((int)(this[this.tablesp_reporte_prefactura_back.IdEmpresaColumn]));
@@ -1669,23 +1718,6 @@ namespace SpointLiteVersion.DataSet {
                 }
                 set {
                     this[this.tablesp_reporte_prefactura_back.TipoEmpresaColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public int usuarioid2 {
-                get {
-                    try {
-                        return ((int)(this[this.tablesp_reporte_prefactura_back.usuarioid2Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'usuarioid2\' de la tabla \'sp_reporte_prefactura_back\' es D" +
-                                "BNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablesp_reporte_prefactura_back.usuarioid2Column] = value;
                 }
             }
             
@@ -1859,6 +1891,18 @@ namespace SpointLiteVersion.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsestatusNull() {
+                return this.IsNull(this.tablesp_reporte_prefactura_back.estatusColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetestatusNull() {
+                this[this.tablesp_reporte_prefactura_back.estatusColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsfechaNull() {
                 return this.IsNull(this.tablesp_reporte_prefactura_back.fechaColumn);
             }
@@ -2015,6 +2059,18 @@ namespace SpointLiteVersion.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IssubtotalNull() {
+                return this.IsNull(this.tablesp_reporte_prefactura_back.subtotalColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetsubtotalNull() {
+                this[this.tablesp_reporte_prefactura_back.subtotalColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsNombreNull() {
                 return this.IsNull(this.tablesp_reporte_prefactura_back.NombreColumn);
             }
@@ -2071,18 +2127,6 @@ namespace SpointLiteVersion.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetTipoEmpresaNull() {
                 this[this.tablesp_reporte_prefactura_back.TipoEmpresaColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool Isusuarioid2Null() {
-                return this.IsNull(this.tablesp_reporte_prefactura_back.usuarioid2Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void Setusuarioid2Null() {
-                this[this.tablesp_reporte_prefactura_back.usuarioid2Column] = global::System.Convert.DBNull;
             }
         }
         
@@ -2260,6 +2304,7 @@ namespace SpointLiteVersion.DataSet.DataSet3TableAdapters {
             tableMapping.ColumnMappings.Add("idfactura", "idfactura");
             tableMapping.ColumnMappings.Add("empresaid", "empresaid");
             tableMapping.ColumnMappings.Add("usuarioid", "usuarioid");
+            tableMapping.ColumnMappings.Add("estatus", "estatus");
             tableMapping.ColumnMappings.Add("idprefactura1", "idprefactura1");
             tableMapping.ColumnMappings.Add("fecha", "fecha");
             tableMapping.ColumnMappings.Add("observacion", "observacion");
@@ -2274,13 +2319,13 @@ namespace SpointLiteVersion.DataSet.DataSet3TableAdapters {
             tableMapping.ColumnMappings.Add("totalitbis", "totalitbis");
             tableMapping.ColumnMappings.Add("empresaid1", "empresaid1");
             tableMapping.ColumnMappings.Add("usuarioid1", "usuarioid1");
+            tableMapping.ColumnMappings.Add("subtotal", "subtotal");
             tableMapping.ColumnMappings.Add("IdEmpresa", "IdEmpresa");
             tableMapping.ColumnMappings.Add("Nombre", "Nombre");
             tableMapping.ColumnMappings.Add("RNC", "RNC");
             tableMapping.ColumnMappings.Add("telefono", "telefono");
             tableMapping.ColumnMappings.Add("direccion", "direccion");
             tableMapping.ColumnMappings.Add("TipoEmpresa", "TipoEmpresa");
-            tableMapping.ColumnMappings.Add("usuarioid2", "usuarioid2");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

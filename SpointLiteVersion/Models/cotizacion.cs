@@ -34,6 +34,7 @@ namespace SpointLiteVersion.Models
         public Nullable<decimal> totalitbis { get; set; }
         public Nullable<int> empresaid { get; set; }
         public Nullable<int> usuarioid { get; set; }
+        public Nullable<decimal> subtotal { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalleCotizacion> DetalleCotizacion { get; set; }
