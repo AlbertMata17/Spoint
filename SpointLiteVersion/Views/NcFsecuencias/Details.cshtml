@@ -1,0 +1,106 @@
+﻿@model SpointLiteVersion.Models.NcFsecuencia
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>NcFsecuencia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechavence)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechavence)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prefijo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prefijo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idncf)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idncf)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.desde)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.desde)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hasta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hasta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.autorizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.autorizacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.empresaid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.empresaid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usuarioid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuarioid)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idDetalle }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

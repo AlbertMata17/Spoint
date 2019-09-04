@@ -1,0 +1,112 @@
+﻿@model SpointLiteVersion.Models.NcFsecuencia
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>NcFsecuencia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechavence)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechavence)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prefijo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prefijo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idncf)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idncf)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.desde)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.desde)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.hasta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.hasta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.autorizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.autorizacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.empresaid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.empresaid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usuarioid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuarioid)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

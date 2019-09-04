@@ -158,11 +158,15 @@
     <Compile Include="Controllers\ciudads1Controller.cs" />
     <Compile Include="Controllers\clientes1Controller.cs" />
     <Compile Include="Controllers\comprasController.cs" />
+    <Compile Include="Controllers\DetalleNcfsController.cs" />
     <Compile Include="Controllers\facturasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\itbisController.cs" />
     <Compile Include="Controllers\LoginsController.cs" />
+    <Compile Include="Controllers\NCFs1Controller.cs" />
     <Compile Include="Controllers\NCFsController.cs" />
+    <Compile Include="Controllers\NcFsecuenciasController.cs" />
+    <Compile Include="Controllers\NcfTipoesController.cs" />
     <Compile Include="Controllers\productos1Controller.cs" />
     <Compile Include="Controllers\productosController.cs" />
     <Compile Include="Controllers\suplidores1Controller.cs" />
@@ -7728,6 +7732,26 @@
     <Content Include="Views\Logins\Edit.cshtml" />
     <Content Include="Views\Logins\Index.cshtml" />
     <Content Include="Views\Logins\Login.cshtml" />
+    <Content Include="Views\NCFs1\Create.cshtml" />
+    <Content Include="Views\NCFs1\Delete.cshtml" />
+    <Content Include="Views\NCFs1\Details.cshtml" />
+    <Content Include="Views\NCFs1\Edit.cshtml" />
+    <Content Include="Views\NCFs1\Index.cshtml" />
+    <Content Include="Views\DetalleNcfs\Create.cshtml" />
+    <Content Include="Views\DetalleNcfs\Delete.cshtml" />
+    <Content Include="Views\DetalleNcfs\Details.cshtml" />
+    <Content Include="Views\DetalleNcfs\Edit.cshtml" />
+    <Content Include="Views\DetalleNcfs\Index.cshtml" />
+    <Content Include="Views\NcFsecuencias\Create.cshtml" />
+    <Content Include="Views\NcFsecuencias\Delete.cshtml" />
+    <Content Include="Views\NcFsecuencias\Details.cshtml" />
+    <Content Include="Views\NcFsecuencias\Edit.cshtml" />
+    <Content Include="Views\NcFsecuencias\Index.cshtml" />
+    <Content Include="Views\NcfTipoes\Create.cshtml" />
+    <Content Include="Views\NcfTipoes\Delete.cshtml" />
+    <Content Include="Views\NcfTipoes\Details.cshtml" />
+    <Content Include="Views\NcfTipoes\Edit.cshtml" />
+    <Content Include="Views\NcfTipoes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Content\bower_components\fullcalendar\dist\fullcalendar.d.ts" />

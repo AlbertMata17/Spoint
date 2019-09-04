@@ -1,0 +1,90 @@
+﻿@model SpointLiteVersion.Models.NcFsecuencia
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-7 modal-content contedor" style="width:78%; margin-left:4%; margin-top:2%;">
+            <h3 style="margin-left:30px; margin-bottom:35px; text-align:center;">Agregar NCF</h3>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal" style="margin-left:98px!important;">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            @Html.Label("Fecha Inicio", new { @class = "control-label col-md-12", @style = "text-align:left;" })
+
+                            @Html.EditorFor(model => model.fecha, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            @Html.Label("Fecha de Vencimiento", new { @class = "control-label col-md-12", @style = "text-align:left;" })
+
+                            @Html.EditorFor(model => model.fechavence, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.fechavence, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            @Html.LabelFor(model => model.prefijo, htmlAttributes: new { @class = "control-label col-md-12", @style = "text-align:left;" })
+
+                            @Html.EditorFor(model => model.prefijo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.prefijo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            @Html.Label("Desde", new { @class = "control-label col-md-12", @style = "text-align:left;" })
+
+                            @Html.EditorFor(model => model.desde, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.desde, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-3">
+
+                            @Html.Label("Hasta", new { @class = "control-label col-md-12", @style = "text-align:left;" })
+
+                            @Html.EditorFor(model => model.hasta, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.hasta, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-md-3">
+                            @Html.Label("Autorización", new { @class = "control-label col-md-12", @style = "text-align:left;" })
+
+                            @Html.EditorFor(model => model.autorizacion, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.autorizacion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="form-group col-md-10">
+
+                        @if (ViewBag.id != null)
+                        {
+
+                            <a class="btn btn-danger btnelimina" href="@Url.Action("Delete","NcFsecuencias",new { id=Model.idDetalle})">Eliminar</a>
+                        }
+
+                    </div>
+                    <div class="form-group col-md-1">
+                        <button type="submit" class="btn btn-info" id="crear"><i class="fas fa-arrow-circle-left"></i></button>
+
+                    </div>
+                </div>
+            }
+        </div>
+        </div>
+    </div>
+           
