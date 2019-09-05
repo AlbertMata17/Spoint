@@ -15,74 +15,89 @@
             {
                 @Html.AntiForgeryToken()
 
-                <div class="form-horizontal" style="margin-left:98px!important;">
+            <div class="form-horizontal" style="margin-left:98px!important;">
+                <div class="col-md-12">
+                    @if (@ViewBag.id != null)
+                    {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.idDetalle)
+                    }
+                </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        @Html.Label("Fecha Inicio", new { @class = "control-label col-md-12", @style = "text-align:left;" })
 
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-row">
-                        <div class="form-group col-md-3">
-                            @Html.Label("Fecha Inicio", new { @class = "control-label col-md-12", @style = "text-align:left;" })
-
-                            @Html.EditorFor(model => model.fecha, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="form-group col-md-3">
-                            @Html.Label("Fecha de Vencimiento", new { @class = "control-label col-md-12", @style = "text-align:left;" })
-
-                            @Html.EditorFor(model => model.fechavence, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.fechavence, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group col-md-3">
-                            @Html.LabelFor(model => model.prefijo, htmlAttributes: new { @class = "control-label col-md-12", @style = "text-align:left;" })
-
-                            @Html.EditorFor(model => model.prefijo, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.prefijo, "", new { @class = "text-danger" })
-                        </div>
+                        <input type="date" name="fecha" id="fecha" value="" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
                     </div>
 
 
+                    <div class="form-group col-md-3">
+                        @Html.Label("Fecha de Vencimiento", new { @class = "control-label col-md-12", @style = "text-align:left;" })
 
-                    <div class="form-row">
-                        <div class="form-group col-md-3">
-                            @Html.Label("Desde", new { @class = "control-label col-md-12", @style = "text-align:left;" })
+                        <input type="date" name="fechavence" id="fechavence" value="" class="form-control" />
 
-                            @Html.EditorFor(model => model.desde, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.desde, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="form-group col-md-3">
-
-                            @Html.Label("Hasta", new { @class = "control-label col-md-12", @style = "text-align:left;" })
-
-                            @Html.EditorFor(model => model.hasta, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.hasta, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group col-md-3">
-                            @Html.Label("Autorización", new { @class = "control-label col-md-12", @style = "text-align:left;" })
-
-                            @Html.EditorFor(model => model.autorizacion, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.autorizacion, "", new { @class = "text-danger" })
-                        </div>
+                        @Html.ValidationMessageFor(model => model.fechavence, "", new { @class = "text-danger" })
                     </div>
+                    <div class="form-group col-md-3">
+                        @Html.LabelFor(model => model.prefijo, htmlAttributes: new { @class = "control-label col-md-12", @style = "text-align:left;" })
 
-
-
-
-
-                    <div class="form-group col-md-10">
-
-                        @if (ViewBag.id != null)
-                        {
-
-                            <a class="btn btn-danger btnelimina" href="@Url.Action("Delete","NcFsecuencias",new { id=Model.idDetalle})">Eliminar</a>
-                        }
-
-                    </div>
-                    <div class="form-group col-md-1">
-                        <button type="submit" class="btn btn-info" id="crear"><i class="fas fa-arrow-circle-left"></i></button>
-
+                        @Html.EditorFor(model => model.prefijo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.prefijo, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        @Html.Label("Desde", new { @class = "control-label col-md-12", @style = "text-align:left;" })
+
+                        @Html.EditorFor(model => model.desde, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.desde, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-md-3">
+
+                        @Html.Label("Hasta", new { @class = "control-label col-md-12", @style = "text-align:left;" })
+
+                        @Html.EditorFor(model => model.hasta, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.hasta, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-md-3">
+                        @Html.Label("Autorización", new { @class = "control-label col-md-12", @style = "text-align:left;" })
+
+                        @Html.EditorFor(model => model.autorizacion, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.autorizacion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-md-5 form1">
+                    @Html.Label("Ncf", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.DropDownList("ncf", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.idncf, "", new { @class = "text-danger" })
+
+
+                </div>
+
+
+
+                <div class="form-group col-md-10">
+
+                    @if (ViewBag.id != null)
+                    {
+
+                        <a class="btn btn-danger btnelimina" href="@Url.Action("Delete","NcFsecuencias",new { id=Model.idDetalle})">Eliminar</a>
+                    }
+
+                </div>
+                <div class="form-group col-md-1">
+                    <button type="submit" class="btn btn-info" id="crear"><i class="fas fa-arrow-circle-left"></i></button>
+
+                </div>
+            </div>
             }
         </div>
         </div>

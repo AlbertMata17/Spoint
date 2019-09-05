@@ -17,7 +17,11 @@ namespace SpointLiteVersion.Controllers
         // GET: NcFsecuencias
         public ActionResult Index()
         {
-            return View(db.NcFsecuencia.ToList());
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+            return View(db.NcFsecuencia.Where(m=>m.status==1 && m.empresaid==empresaid1).ToList());
         }
 
         // GET: NcFsecuencias/Details/5
@@ -36,8 +40,37 @@ namespace SpointLiteVersion.Controllers
         }
 
         // GET: NcFsecuencias/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+
+
+            if (Session["Username"] == null)
+            {
+                return RedirectToAction("Login", "Logins");
+            }
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+            if (id == null)
+            {
+
+                ViewBag.ncf = new SelectList(db.NCF.Where(m => m.empresaid == empresaid1), "idNCF", "NombreComp");
+                return View();
+            }
+            NcFsecuencia cnfsecuencia = db.NcFsecuencia.Find(id);
+            if (cnfsecuencia == null)
+            {
+                return HttpNotFound();
+            }
+            if (id != null)
+            {
+                ViewBag.ncf = new SelectList(db.NCF.Where(m => m.empresaid == empresaid1), "idNCF", "NombreComp",cnfsecuencia.idncf);
+
+                ViewBag.id = "algo";
+
+                return View(cnfsecuencia);
+            }
             return View();
         }
 
@@ -48,12 +81,52 @@ namespace SpointLiteVersion.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "idDetalle,fecha,fechavence,prefijo,idncf,desde,hasta,usado,autorizacion,status,empresaid,usuarioid")] NcFsecuencia ncFsecuencia)
         {
-            if (ModelState.IsValid)
+            var usuarioid12 = Session["userid"].ToString();
+            var empresaid12 = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid12);
+            var empresaid1 = Convert.ToInt32(empresaid12);
+            var t = (from s in db.NcFsecuencia where s.idDetalle == ncFsecuencia.idDetalle select s.idDetalle).Count();
+            if (t != 0)
             {
-                db.NcFsecuencia.Add(ncFsecuencia);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    if (ncFsecuencia.prefijo != null)
+                    {
+                        ncFsecuencia.prefijo = ncFsecuencia.prefijo.ToUpper();
+                    }
+                    ncFsecuencia.status = 1;
+                    var usuarioid = Session["userid"].ToString();
+                    var empresaid = Session["empresaid"].ToString();
+                    ncFsecuencia.usuarioid = Convert.ToInt32(usuarioid);
+                    ncFsecuencia.empresaid = Convert.ToInt32(empresaid);
+                    ncFsecuencia.usado = 0;
+                    db.Entry(ncFsecuencia).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
+            else if (ncFsecuencia.idDetalle <= 0)
+            {
+                if (ModelState.IsValid)
+                {
+                    if (ncFsecuencia.prefijo != null)
+                    {
+                        ncFsecuencia.prefijo = ncFsecuencia.prefijo.ToUpper();
+                    }
+                    ncFsecuencia.status = 1;
+                    var usuarioid = Session["userid"].ToString();
+                    var empresaid = Session["empresaid"].ToString();
+                    ncFsecuencia.usuarioid = Convert.ToInt32(usuarioid);
+                    ncFsecuencia.empresaid = Convert.ToInt32(empresaid);
+                    ncFsecuencia.usado = 0;
+                    db.NcFsecuencia.Add(ncFsecuencia);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+
+
+            ViewBag.ncf = new SelectList(db.NCF.Where(m => m.empresaid == empresaid1), "idNCF", "NombreComp",ncFsecuencia.idncf);
 
             return View(ncFsecuencia);
         }
@@ -109,8 +182,8 @@ namespace SpointLiteVersion.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            NcFsecuencia ncFsecuencia = db.NcFsecuencia.Find(id);
-            db.NcFsecuencia.Remove(ncFsecuencia);
+            NcFsecuencia ncfsecuencia = db.NcFsecuencia.Find(id);
+            ncfsecuencia.status = 0;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

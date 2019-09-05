@@ -115,9 +115,9 @@
         padding-left:20px;
     }
 }
-.contedor{
+/*.contedor{
     margin-top:3% !important;
-}
+}*/
 
 .eliminar {
     font-size: 23px;
@@ -276,4 +276,7 @@ th {
     display: inline-block; /* For IE11/ MS Edge bug */
     pointer-events: none;
     text-decoration: none;
+}
+#telefonocliente, #ciudadcliente{
+    cursor: default;
 }

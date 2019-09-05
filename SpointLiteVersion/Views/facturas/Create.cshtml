@@ -10,156 +10,205 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-md-7 modal-content contedor" style="width:88%; margin-left:4%; margin-top:2%;">
+        <div class="col-md-7 modal-content contedor" style="width:88%; margin-left:4%; margin-top:3%;">
             <center><i class="fas fa-user iconousuario"></i></center>
             <form action="javascript:fn_agregar()" id="frm_usu" method="post">
                 @Html.AntiForgeryToken()
 
-                <div class="form-horizontal">
-                    <input type="hidden" name="pruebancf" id="pruebancf" value="" />
-                    <input type="hidden" name="idncfenviar" id="idncfenviar" value="" />
-                    <input type="hidden" name="descripcionncf" id="descripcionncf" value="" />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            @Html.LabelFor(model => model.fecha, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <input type="date" name="fecha" value="@DateTime.Now.Year-@DateTime.Now.Month.ToString("00")-@DateTime.Now.Day.ToString("00")" class="form-control" id="fecha" />
-                            @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
 
-                        </div>
+                <div class="row">
+                    <div class="col-md-7 modal-content contedor" style="width:88%; margin-left:4%; border:1px solid #a8a3a36e">
+                        <h5>Datos del Cliente</h5>
+                        <div class="form-row" style="padding-left:20px;padding-bottom:20px;padding-right:20px;">
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(model => model.cliente, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <input type="text" list="cliente1" name="cliente" id="cliente" class="form-control" autocomplete="off" />
 
-                        <div class="form-group col-md-5">
+                                <datalist id="cliente1">
+                                    @foreach (var m in ViewBag.cliente)
+                                    {
+                                        <option value="@m.Text" data-id="@m.Value" />
+                                    }
+                                </datalist>
+                                @*@Html.DropDownList("cliente", (IEnumerable<SelectListItem>)ViewBag.clientes, "---Selecciona Un Cliente---", new { @class = "form-control" })*@
 
-                            @Html.LabelFor(model => model.observacion, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                            @Html.EditorFor(model => model.observacion, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Una Observación" } })
-                            @Html.ValidationMessageFor(model => model.observacion, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-3">
-                            @Html.LabelFor(model => model.cliente, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <input type="text" list="cliente1" name="cliente" id="cliente" class="form-control" autocomplete="off" />
-
-                            <datalist id="cliente1">
-                                @foreach (var m in ViewBag.cliente)
-                                {
-                                    <option value="@m.Text" data-id="@m.Value" />
-                                }
-                            </datalist>
-                            @*@Html.DropDownList("cliente", (IEnumerable<SelectListItem>)ViewBag.clientes, "---Selecciona Un Cliente---", new { @class = "form-control" })*@
-
-                            @Html.ValidationMessageFor(model => model.cliente, "", new { @class = "text-danger" })
-
-                        </div>
-
-                        <div class="form-group col-md-3" style="width:24%;">
-
-                            @Html.LabelFor(model => model.vendedor, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                            <input type="text" list="vendedor1" name="vendedor" id="vendedor" class="form-control" autocomplete="off" />
-
-                            <datalist id="vendedor1">
-                                @foreach (var m in ViewBag.vendedor)
-                                {
-                                    <option value="@m.Text" data-id="@m.Value" />
-                                }
-                            </datalist>
-
-                            @*@Html.DropDownList("vendedor", (IEnumerable<SelectListItem>)ViewBag.vendedores, "---Selecciona Un vendedor---", new { @class = "form-control" })*@
-                            @Html.ValidationMessageFor(model => model.vendedor, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.cliente, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                @Html.Label("Teléfono", new { @class = "control-label col-md-12" })
+                                <input type="text" name="name" id="telefonocliente" class="form-control" readonly value="" />
+                              
+                            </div>
+                            <div class="form-group col-md-4">
+                                @Html.Label("Dirección", new { @class = "control-label col-md-12" })
+                                <input type="text" name="name" id="ciudadcliente" class="form-control" readonly value="" />
+                            
+                            </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-7 modal-content contedor" style="width:88%; margin-left:4%; margin-top:3%;margin-bottom:20px; border:1px solid #a8a3a36e">
+                        <h5>Datos del Vendedor</h5>
+
+                        <div class="form-row" style="padding-left:20px;padding-bottom:20px;padding-right:20px;">
+                            <div class="form-group col-md-4">
+
+                                @Html.LabelFor(model => model.vendedor, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                <input type="text" list="vendedor1" name="vendedor" id="vendedor" class="form-control" autocomplete="off" />
+
+                                <datalist id="vendedor1">
+                                    @foreach (var m in ViewBag.vendedor)
+                                    {
+                                        <option value="@m.Text" data-id="@m.Value" />
+                                    }
+                                </datalist>
+
+                                @*@Html.DropDownList("vendedor", (IEnumerable<SelectListItem>)ViewBag.vendedores, "---Selecciona Un vendedor---", new { @class = "form-control" })*@
+                                @Html.ValidationMessageFor(model => model.vendedor, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-md-4">
+                                @Html.Label("Teléfono", new { @class = "control-label col-md-12" })
+                                <input type="text" name="name" id="telefonovendedor" class="form-control" readonly value="" />
 
 
+                            </div>
+                            <div class="form-group col-md-4">
+                                @Html.Label("Dirección", new { @class = "control-label col-md-12" })
+                                <input type="text" name="name" id="ciudadvendedor" class="form-control" readonly value="" />
 
-
-                    <div class="form-row">
-                        <div class="form-group col-md-3">
-                            @*@Html.EditorFor(model => model.producto);*@
-                            <label for="producto" class="control-label col-md-2">Producto</label>
-                            <input type="text" list="colors" name="producto" id="producto" class="form-control" autocomplete="off" />
-
-                            <datalist id="colors">
-                                @foreach (var m in ViewBag.producto)
-                                {
-                                    <option value="@m.Text" data-id="@m.Value" />
-                                }
-                            </datalist>
-                            @*@Html.DropDownList("producto", (IEnumerable<SelectListItem>)ViewBag.producto, "---Selecciona Un producto---", new { @class = "form-control" })*@
-
+                               
+                            </div>
                         </div>
-                        <div class="col-md-1 boton" style="margin-top:30px;">
-                            <a href="#" class="btn btn-primary Datoscomprobante " data-toggle="modal" data-target="#exampleModal"><span class="">NCF</span></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-7 modal-content contedor" style="width:88%; margin-left:4%; border:1px solid #a8a3a36e">
+                        <h5>Datos de la Venta</h5>
 
-                        </div>
-                        <div class="form-group col-md-3" style="">
+                        <div class="form-horizontal" style="margin-left:0px !important;">
+                            <input type="hidden" name="pruebancf" id="pruebancf" value="" />
+                            <input type="hidden" name="idncfenviar" id="idncfenviar" value="" />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    @Html.LabelFor(model => model.fecha, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <input type="date" name="fecha" value="@DateTime.Now.Year-@DateTime.Now.Month.ToString("00")-@DateTime.Now.Day.ToString("00")" class="form-control" id="fecha" />
+                                    @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
+
+                                </div>
+
+                                <div class="form-group col-md-5">
+
+                                    @Html.LabelFor(model => model.observacion, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                    @Html.EditorFor(model => model.observacion, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Una Observación" } })
+                                    @Html.ValidationMessageFor(model => model.observacion, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
 
-                            @Html.Label("Descripción", new { @class = "control-label col-md-2" })
-                            <input type="text" name="descripci" value="" id="descripci" class="form-control" />
-
-                        </div>
-                        <div class="form-group col-md-3" style="">
 
 
-                            @Html.Label("Precio", new { @class = "control-label col-md-2" })
-                            <input type="number" name="precio" value="" id="precio" class="form-control" />
-                            @Html.ValidationMessageFor(model => model.precio, "", new { @class = "text-danger" })
-                        </div>
 
-                        <div class="form-group col-md-2">
-                            @Html.LabelFor(model => model.credito, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    @*@Html.EditorFor(model => model.producto);*@
+                                    <label for="producto" class="control-label col-md-2">Producto</label>
+                                    <input type="text" list="colors" name="producto" id="producto" class="form-control" autocomplete="off" />
 
-                            <select class="form-control" name="credito" id="credito">
-                                <option value="no" selected>No</option>
-                                <option value="si">Si</option>
-                            </select>
-                            @Html.ValidationMessageFor(model => model.credito, "", new { @class = "text-danger" })
-                        </div>
-                        @*<div class="form-group col-md-2">
+                                    <datalist id="colors">
+                                        @foreach (var m in ViewBag.producto)
+                                        {
+                                            <option value="@m.Text" data-id="@m.Value" />
+                                        }
+                                    </datalist>
+                                    @*@Html.DropDownList("producto", (IEnumerable<SelectListItem>)ViewBag.producto, "---Selecciona Un producto---", new { @class = "form-control" })*@
+
+                                </div>
+
+                                <div class="col-md-1 boton" style="margin-top:30px; margin-left:-10px;">
+                                    <a href="#" class="btn btn-primary Datoscomprobante " data-toggle="modal" data-target="#exampleModal"><span class="">NCF</span></a>
+
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label class="control-label col-md-12" style="text-align:left">NCF</label>
+                                    <input type="text" name="descripcionncf" id="descripcionncf" value="" class="form-control" />
+
+                                </div>
+                                <div class="form-group col-md-2">
+                                    @Html.LabelFor(model => model.credito, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                    <select class="form-control" name="credito" id="credito">
+                                        <option value="no" selected>No</option>
+                                        <option value="si">Si</option>
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.credito, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-row col-md-12">
+                                <p>Servicios</p>
+                                <div class="form-group col-md-3" style="">
+
+
+                                    @Html.Label("Descripción", new { @class = "control-label col-md-2" })
+                                    <input type="text" name="descripci" value="" id="descripci" class="form-control" />
+
+                                </div>
+                                <div class="form-group col-md-3" style="">
+
+
+                                    @Html.Label("Precio", new { @class = "control-label col-md-2" })
+                                    <input type="number" name="precio" value="" id="precio" class="form-control" />
+                                    @Html.ValidationMessageFor(model => model.precio, "", new { @class = "text-danger" })
+                                </div>
+
+                              
+                                @*<div class="form-group col-md-2">
             @Html.LabelFor(model => model.descuento, htmlAttributes: new { @class = "control-label col-md-2" })
             @Html.EditorFor(model => model.descuento, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ingrese Un descuento general" } })
 
             @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
         </div>*@
-                    </div>
-                    <select class="" id="descripcionproducto" hidden>
-                        <option value="value">text</option>
-                    </select>
-                    <select class="" id="idproducto" hidden>
-                        <option value="value">text</option>
-                    </select>
-                    <select class="" id="itbisproducto" hidden>
-                        <option value="value">text</option>
-                    </select>
 
-                    <select class="" id="precio1" hidden>
-                        <option value="value">text</option>
-                    </select>
-                    <select class="" id="creditosaprobados" hidden>
-                        <option value="value">text</option>
-                    </select>
-                    <select class="" id="idcliente" hidden>
-                        <option value="value">text</option>
-                    </select>
-                    @*<select id="idprod">
-                            <option value="value">text</option>
-                        </select>*@
+                                <select class="" id="descripcionproducto" hidden>
+                                    <option value="value">text</option>
+                                </select>
+                                <select class="" id="idproducto" hidden>
+                                    <option value="value">text</option>
+                                </select>
+                                <select class="" id="itbisproducto" hidden>
+                                    <option value="value">text</option>
+                                </select>
 
+                                <select class="" id="precio1" hidden>
+                                    <option value="value">text</option>
+                                </select>
+                                <select class="" id="creditosaprobados" hidden>
+                                    <option value="value">text</option>
+                                </select>
+                                <select class="" id="idcliente" hidden>
+                                    <option value="value">text</option>
+                                </select>
+                                @*<select id="idprod">
+            <option value="value">text</option>
+        </select>*@
 
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Agregar" class="btn btn-default" />
+                                    <input type="button" value="Agregar Servicio" class="btn btn-default" onclick="fn_agregarservicios()" />
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Agregar" class="btn btn-default" />
-                            <input type="button" value="Agregar Servicio" class="btn btn-default" onclick="fn_agregarservicios()" />
-
+                                </div>
+                            </div>
+                            <div>
+                            </div>
                         </div>
                     </div>
-                    <div>
                     </div>
-                </div>
-
             </form>
         </div>
     </div>
@@ -397,11 +446,40 @@
 
             $.post("Getcliente", { idproducto: $("#cliente1 option[value='" + $('#cliente').val() + "']").attr('data-id') }, function (data) {
                 $("#idcliente").empty();
+                $("#telefonocliente").empty();
+                $("#ciudadcliente").empty();
 
                 $("#creditosaprobados").empty();
                 $.each(data, function (create, row) {
                     $("#creditosaprobados").append("<option value='" + row.creditoaprobado + "'>" + row.creditoaprobado + "</option>")
+                    document.getElementById("telefonocliente").value = row.telefono;
+                    document.getElementById("ciudadcliente").value = row.direccion;
+
                     $("#idcliente").append("<option value='" + row.idCliente + "'>" + row.idCliente + "</option>")
+
+                    //$("#itbisproducto").append("<option value='" + row.itbis + "'>" + row.itbis + "</option>")
+                    ////$("#idprod").append("<option value='" + row.itbis + "'>" + row.itbis + "</option>")
+                    //$("#precio1").append("<option value='" + row.Precio + "'>" + row.Precio + "</option>")
+                    //$("#idproducto").append("<option value='" + row.CodProducto + "'>" + row.CodProducto + "</option>")
+                    //$("#idproducto").append("<option value='" + row.idProducto + "'>" + row.idProducto + "</option>")
+
+                });
+            });
+        })
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#vendedor").change(function () {
+
+            $.post("Getvendedor", { idproducto: $("#vendedor1 option[value='" + $('#vendedor').val() + "']").attr('data-id') }, function (data) {
+                $("#telefonovendedor").empty();
+                $("#ciudadvendedor").empty();
+
+                $.each(data, function (create, row) {
+                    document.getElementById("telefonovendedor").value = row.telefono;
+                    document.getElementById("ciudadvendedor").value = row.direccion;
+
 
                     //$("#itbisproducto").append("<option value='" + row.itbis + "'>" + row.itbis + "</option>")
                     ////$("#idprod").append("<option value='" + row.itbis + "'>" + row.itbis + "</option>")

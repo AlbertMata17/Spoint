@@ -103,7 +103,7 @@ namespace SpointLiteVersion.Controllers
                         cantidadsuficiente = false;
                     }else if (q.cantidad < cantidad)
                     {
-                        mensaje = "La Cantidad Supera Al Stock tienes actualmente "+q.cantidad+" de productos en tu inventario";
+                        mensaje = "La Cantidad Supera Al Stock tienes actualmente "+q.cantidad+" productos de este tipo en tu inventario";
                         cantidadsuficiente = false;
 
                     }
@@ -115,10 +115,9 @@ namespace SpointLiteVersion.Controllers
             }
             if (cantidadsuficiente == true)
             {
-                if (fecha == "" || observacion == "" || cliente == "" || vendedor == "")
+                if (fecha == ""  || cliente == "" || vendedor == "")
                 {
                     if (fecha == "") mensaje = "ERROR EN EL CAMPO FECHA";
-                    if (observacion == "") mensaje = "ERROR EN EL CAMPO OBSERVACIÓN";
                     if (cliente == "") mensaje = "ERROR CON EL CLIENTE";
                     if (vendedor == "") mensaje = "ERROR EN EL CAMPO VENDEDOR";
 
@@ -1199,7 +1198,7 @@ namespace SpointLiteVersion.Controllers
             
 
             ViewBag.cliente = new SelectList(db.clientes.Where(m => m.Status == "1" && m.empresaid==empresaid1), "idcliente", "nombre");
-            ViewBag.vendedor = new SelectList(db.vendedores.Where(m => m.Status == "1" && m.empresaid==empresaid1), "nombre", "nombre");
+            ViewBag.vendedor = new SelectList(db.vendedores.Where(m => m.Status == "1" && m.empresaid==empresaid1), "idvendedor", "nombre");
             ViewBag.ncf = new SelectList(db.NCF.Where(m => m.Estatus == "1" && m.empresaid == empresaid1), "idNCF", "NombreComp");
 
             var ListadoDetalle = new List<DetalleVenta>();
@@ -1238,6 +1237,14 @@ namespace SpointLiteVersion.Controllers
         {
             db.Configuration.ProxyCreationEnabled = false;
             List<clientes> productos = db.clientes.Where(m => m.idCliente == idproducto && m.Status == "1").ToList();
+
+            //ViewBag.FK_Vehiculo = new SelectList(db.Vehiculo.Where(a => a.Clase == Clase && a.Estatus == "Disponible"), "VehiculoId", "Marca");
+            return Json(productos, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Getvendedor(int idproducto)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            List<vendedores> productos = db.vendedores.Where(m => m.idvendedor == idproducto && m.Status == "1").ToList();
 
             //ViewBag.FK_Vehiculo = new SelectList(db.Vehiculo.Where(a => a.Clase == Clase && a.Estatus == "Disponible"), "VehiculoId", "Marca");
             return Json(productos, JsonRequestBehavior.AllowGet);
