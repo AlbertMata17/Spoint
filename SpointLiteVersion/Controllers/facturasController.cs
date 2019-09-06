@@ -743,7 +743,38 @@ namespace SpointLiteVersion.Controllers
           
             return View(facturas);
         }
-
+        public JsonResult GetNcf(int idproducto)
+        {
+            var usuarioid = Session["userid"].ToString();
+            var empresaid = Session["empresaid"].ToString();
+            var usuarioid1 = Convert.ToInt32(usuarioid);
+            var empresaid1 = Convert.ToInt32(empresaid);
+           
+            
+            //var numeros =Convert.ToInt32(s).ToString("D10");
+            var numero=0;
+           var sec = (from i in db.DetalleNcf select i.secuencia).Max();
+            if (sec >= 0)
+            {
+                numero= Convert.ToInt32(sec) + 1;
+            }
+            else if (sec < 0 || sec == null)
+            {
+               numero = 1;
+            }
+            ViewData["secuencia"] = numero;
+            var datossecuencia= db.NCF.Where(m => m.idNCF == idproducto && m.Estatus == "1" && m.empresaid == empresaid1).FirstOrDefault();
+            NCF factura = new NCF();
+            factura.numerodesecuencia = numero.ToString("D8");
+            factura.Descripcion = datossecuencia.Descripcion;
+            factura.idNCF = datossecuencia.idNCF;
+            factura.NombreComp = datossecuencia.NombreComp;
+            db.Configuration.ProxyCreationEnabled = false;
+            List<NCF> productos = new List<NCF>();
+            productos.Add(factura);
+            //ViewBag.FK_Vehiculo = new SelectList(db.Vehiculo.Where(a => a.Clase == Clase && a.Estatus == "Disponible"), "VehiculoId", "Marca");
+            return Json(productos, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult DetailsPrefactura(int? id)
         {
 
@@ -1209,18 +1240,7 @@ namespace SpointLiteVersion.Controllers
             return View();
         }
 
-        public JsonResult GetNcf(int idproducto)
-        {
-            var usuarioid = Session["userid"].ToString();
-            var empresaid = Session["empresaid"].ToString();
-            var usuarioid1 = Convert.ToInt32(usuarioid);
-            var empresaid1 = Convert.ToInt32(empresaid);
-            db.Configuration.ProxyCreationEnabled = false;
-            List<NCF> productos = db.NCF.Where(m => m.idNCF == idproducto && m.Estatus == "1" && m.empresaid == empresaid1).ToList();
-
-            //ViewBag.FK_Vehiculo = new SelectList(db.Vehiculo.Where(a => a.Clase == Clase && a.Estatus == "Disponible"), "VehiculoId", "Marca");
-            return Json(productos, JsonRequestBehavior.AllowGet);
-        }
+     
         public JsonResult Getproducto(int idproducto)
         {
             var usuarioid = Session["userid"].ToString();

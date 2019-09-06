@@ -21,7 +21,8 @@ namespace SpointLiteVersion.Models
         public Nullable<int> usuarioid { get; set; }
         public string Descripcion { get; set; }
         public Nullable<int> tipodocumento { get; set; }
-    
+        public string numerodesecuencia { get; set; }
+
         public virtual Empresa Empresa { get; set; }
         public virtual Login Login { get; set; }
     }

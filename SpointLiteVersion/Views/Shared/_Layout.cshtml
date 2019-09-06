@@ -166,10 +166,27 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="">
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fas fa-shopping-cart"></i> <span>NCF</span>
+                        </a>
+                        <ul class="treeview-menu">
+
+                            <li class="">
+                                <a class="collapse-item emp" href="@Url.Action("Index","NCFs1")"><i class="fas fa-shopping-cart"></i> <span>NCF</span></a>
+
+                            </li>
+                            <li class="">
+                                <a class="collapse-item emp" href="@Url.Action("Index","NcFsecuencias")"><i class="fas fa-shopping-cart"></i> <span>NCF Secuencias</span></a>
+
+                            </li>
+                            
+                        </ul>
+                    </li>
+                    @*<li class="">
                         <a class="collapse-item emp" href="@Url.Action("Index","facturas")"><i class="fas fa-cogs"></i> <span>Preferencias</span></a>
 
-                    </li>
+                    </li>*@
                 </ul>
 </section>
             <!-- /.sidebar -->
